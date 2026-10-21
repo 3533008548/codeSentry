@@ -1,0 +1,15 @@
+[
+  "core/core/knowledge-repository.ts",
+  "core/desktop/desktop-answer-loop.ts",
+  "core/desktop/question-rewrite.ts",
+  "core/policy/policy-engine.ts",
+  "desktop-answer-loop.ts",
+  "desktop-intent-router.ts",
+  "fetch-api-request.ts",
+  "json-post.ts",
+  "question-rewrite.ts",
+  "src/main.ts",
+  "src/preload.ts",
+  "src/renderer/App.tsx",
+  "src/shared/desktop-api.ts"
+]

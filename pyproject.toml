@@ -1,0 +1,25 @@
+[project]
+name = "codesentry"
+version = "0.1.0"
+description = "本地优先的代码理解与审查 Agent"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+codesentry = "codesentry.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["codesentry*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

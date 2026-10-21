@@ -113,24 +113,44 @@ def render_l1(result: IndexResult) -> str:
 
 
 def _reading_order(
-    result: IndexResult, top: int = 8
+    result: IndexResult, top: int = 10
 ) -> list[tuple[str, str]]:
     """推导推荐阅读顺序。
 
-    规则：从 PageRank 最高的文件开始，沿其依赖向下展开——
-    先读"是什么"，再读"由谁组成"。
+    **不用纯 PageRank 排序**。实测（v0.2 §4.3.3）：PageRank 对入口/编排类
+    文件没有系统性偏好——research_agent 里入口类文件排名中位 70，
+    全部文件中位 60，编排类中位 77。因为 PageRank 衡量"被引用的中心性"，
+    而入口与编排器是"引用别人"的一方。
+
+    **正确做法：从入口出发沿依赖展开**。
+    这也更符合"读懂项目"的需求——先知道从哪进，再看它调了什么。
     """
-    ordered = result.top_files(top)
+    # 1. 起点：应用入口，按出度降序（组装得最全的先读）
+    entries = sorted(
+        result.entrypoints,
+        key=lambda e: (-e.out_degree, e.file),
+    )
+    ordered: list[tuple[str, str]] = []
     seen: set[str] = set()
-    seq: list[tuple[str, str]] = []
-    for f, _ in ordered:
+
+    def role_of(f: str) -> str:
+        r = result.roles.get(f)
+        return r.role if r and r.role != "-" else "core"
+
+    # 2. 入口优先
+    for e in entries:
+        if e.file in seen:
+            continue
+        seen.add(e.file)
+        ordered.append((e.file, f"entry·{role_of(e.file)}"))
+
+    # 3. 再按 PageRank 补齐核心模块
+    for f, _ in result.top_files(top):
         if f in seen:
             continue
         seen.add(f)
-        role = result.roles.get(f)
-        label = role.role if role and role.role != "-" else "core"
-        seq.append((f, label))
-    return seq
+        ordered.append((f, role_of(f)))
+    return ordered
 
 
 def render_l2(result: IndexResult, top: int = 12) -> str:
@@ -156,7 +176,7 @@ def render_l2(result: IndexResult, top: int = 12) -> str:
             f"  {role_label}")
 
     lines.append("")
-    lines.append("推荐阅读顺序:")
+    lines.append("推荐阅读顺序（从入口出发）:")
     for i, (f, label) in enumerate(_reading_order(result), 1):
         lines.append(f"  {i}. {f:<44} [{label}]")
 

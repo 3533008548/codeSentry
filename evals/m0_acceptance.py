@@ -37,29 +37,46 @@ def match_ground_truth(
     """把 ground truth 匹配到实际存在的文件。
 
     文档里可能只写文件名（`App.tsx`）而实际路径是
-    `frontend/src/App.tsx`。按「完整路径优先，basename 兜底」匹配。
+    `frontend/src/App.tsx`。按「完整路径优先，basename 唯一时兜底」匹配。
+
+    **basename 兜底只在唯一时生效**：实测 Knowledge Loop 里
+    `desktop-answer-loop.ts` 在接手指南中出现了两种写法（带路径与不带），
+    若不严格会导致同一文件被计入两次，分母虚高。
 
     Returns:
         (匹配上的文件, 未能匹配的文件)
     """
     matched: list[str] = []
     unmatched: list[str] = []
+    seen: set[str] = set()
     by_base: dict[str, list[str]] = {}
     for f in real_files:
         by_base.setdefault(f.rsplit("/", 1)[-1], []).append(f)
 
     for t in truth:
+        if t in seen:
+            continue
         if t in real_files:
-            matched.append(t)
+            if t not in seen:
+                matched.append(t)
+                seen.add(t)
             continue
         base = t.rsplit("/", 1)[-1]
         cands = by_base.get(base, [])
+        # 兜底匹配前先排除已匹配过的文件，避免同一真实文件被计入两次
+        cands = [c for c in cands if c not in seen]
         if len(cands) == 1:
             matched.append(cands[0])
+            seen.add(cands[0])
         elif len(cands) > 1:
-            # 多个同名：只有当 ground truth 的目录片段能对上才算
-            hit = next((c for c in cands if t.split("/")[-2] in c), None)
-            matched.append(hit) if hit else unmatched.append(t)
+            hit = next(
+                (c for c in cands if t.split("/")[-2:-1] and
+                 t.split("/")[-2] in c), None)
+            if hit:
+                matched.append(hit)
+                seen.add(hit)
+            else:
+                unmatched.append(t)
         else:
             unmatched.append(t)
     return matched, unmatched
@@ -107,6 +124,24 @@ def main() -> int:
     for f in sorted(present, key=lambda x: rank_of.get(x, 10**9)):
         r = rank_of.get(f)
         print(f"      {str(r) if r else '未进榜':>8}. {f}")
+
+    # ---- 1b. 阅读顺序命中（L2 的真实产出质量）----
+    # L2 输出的是「从入口出发的推荐阅读顺序」，不是纯 PageRank 排名。
+    # 入口/编排类文件在 PageRank 里天然排不上去（被引用少），
+    # 但它们恰恰是"读懂项目"最该先读的。所以要单独衡量阅读顺序。
+    from codesentry.output.report import _reading_order
+    order = [f for f, _ in _reading_order(result, top=20)]
+    order_rank = {f: i + 1 for i, f in enumerate(order)}
+    print(f"\n[1b] 阅读顺序命中（L2 实际产出，从入口出发）")
+    for k in (5, 10, 15, 20, 30):
+        hit = sum(1 for f in present if order_rank.get(f, 10**9) <= k)
+        if present:
+            print(f"    Top{k:<3} {hit:>3}/{len(present)}  "
+                  f"({hit / len(present) * 100:.1f}%)")
+    print("\n    阅读顺序前 12:")
+    for i, f in enumerate(order[:12], 1):
+        mark = "✓" if f in present else " "
+        print(f"      {i:>3}. {mark} {f}")
 
     # ---- 2. 入口点 ----
     print(f"\n[2] 入口点")

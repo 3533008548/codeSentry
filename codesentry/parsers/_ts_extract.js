@@ -192,7 +192,7 @@ function extract(absPath, relPath, source) {
   return {
     symbols: symbols,
     calls: calls,
-    imports: Array.from(new Set(imports)),
+    imports: Object.keys(imports),
     import_map: importMap,
     exports: Array.from(new Set(exports)),
     lines: source.split("\n").length - 1,

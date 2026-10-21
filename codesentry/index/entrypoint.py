@@ -137,21 +137,11 @@ def detect(
                 rel, "script", " + ".join(reasons),
                 out_degree.get(rel, 0), in_degree.get(rel, 0)))
 
-    # 高出度是入口的独立信号（PageRank 排不到它们）。
-    # 阈值取「明显高于中位数」而非固定值：固定 8 会在大项目里塞进十几个
-    # 文件，喧宾夺主（实测 research_agent 曾因此把 10 个文件标成应用入口）。
-    if out_degree:
-        sorted_degrees = sorted(out_degree.values())
-        median = sorted_degrees[len(sorted_degrees) // 2]
-        threshold = max(12, median * 3)
-        for rel, deg in sorted(out_degree.items(), key=lambda kv: -kv[1]):
-            if deg < threshold or rel in seen:
-                continue
-            if any(e.file == rel for e in app_entries):
-                continue
-            app_entries.append(EntryPoint(
-                rel, "app", f"高组装度（出度 {deg}）", deg,
-                in_degree.get(rel, 0)))
-            seen.add(rel)
-
+    # 注意：**不使用「高出度」作为入口信号**。
+    # 实测两项目都证明它不可靠：
+    #   research_agent: llm_client.py(出度23)、daily_orchestrator.py(29)
+    #   Knowledge Loop: deepseek-client.ts(61)、desktop-wiki-service.ts(101)
+    # 出度高只说明「它 import 了很多东西」，不说明「它是入口」——
+    # 依赖多的服务模块会排在真正的入口前面。
+    # 入口的可靠判据是：文件名规律 / 框架注册 / 被生产模块导入。
     return app_entries, script_entries

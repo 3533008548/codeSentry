@@ -148,34 +148,74 @@ def reading_order(
         seen.add(f)
         ordered.append((f, f"契约层·{_role_of(result, f)}", 1))
 
+    # 被配额截断的候选（不进展示列表，但要在兜底阶段捞回来）
+    overflow: list[str] = []
+
     # ---- BFS 展开依赖 ----
-    # 同一层内先收集所有候选，再统一按 PR 排序入队
+    # **每层设配额**：实测 research_agent 第 1 层有 27 个文件，若不限
+    # 配额，30 个位置会被前两层吃光，深层（真正的编排器）一个都进不来。
+    # 漏掉的恰好是 graph_builder（向下 9）、daily_orchestrator（5）、
+    # research_orchestrator（7）——这些都是第 2 层的编排器。
+    #
+    # **配额按剩余位置动态计算**，不写死：
+    #   每层至少留 1/3 位置给更深的层，保证深层有机会。
+    #   实测硬编码配额（12/8/6/4）会让 TS 侧从 9/11 掉到 7/11——
+    #   那是因为 TS 侧层窄（每层 3-6 个），硬配额把第 2、3 层挤没了。
     frontier = deque(seen)
     depth = 0
-    while frontier and depth < max_depth and len(ordered) < max_items:
+    while frontier and depth < max_depth:
         depth += 1
         layer_candidates: set[str] = set()
         for f in list(frontier):
             for dep in result.dependencies.get(f, ()):
                 if dep not in seen:
                     layer_candidates.add(dep)
+        if not layer_candidates:
+            break
+
+        # 每层配额：本层最多占 2/3，至少留 1/3 给更深的层。
+        # **配额只影响「本层展示多少」，不截断整份清单**——
+        # 实测 research_agent 第 1 层有 27 个候选，若只输出前 20 个，
+        # 深层（graph_builder 等编排器）永远进不来。
+        quota = max(1, min(len(layer_candidates), (max_items * 2) // 3))
+
         # 层内按 PR 降序
-        for dep in sorted(
+        sorted_candidates = sorted(
             layer_candidates,
             key=lambda x: (-pr.get(x, 0.0), x),
-        ):
-            if dep in seen or len(ordered) >= max_items:
+        )
+        for i, dep in enumerate(sorted_candidates):
+            if dep in seen:
                 continue
-            seen.add(dep)
-            role = _role_of(result, dep)
-            ordered.append((dep, role, depth))
-            frontier.append(dep)
+            if i < quota:
+                seen.add(dep)
+                role = _role_of(result, dep)
+                ordered.append((dep, role, depth))
+                frontier.append(dep)
+            else:
+                # **超出配额的候选：不标记 seen**。
+                # 标记了它就等于永久丢弃（实测 TS 侧因此漏掉 4 个核心文件：
+                # question-rewrite / desktop-intent-router /
+                # fetch-api-request / preload）。
+                # 不标记 → 它会进入兜底阶段（按 PR 补入末尾），
+                # 同时加入 frontier 让它的依赖仍能在深层被发现。
+                overflow.append(dep)
+                if dep not in frontier:
+                    frontier.append(dep)
 
-    # ---- 兜底：BFS 覆盖不到的（孤立模块 / 叶子层 UI）----
+    # ---- 兜底：BFS 覆盖不到的（孤立模块 / 叶子层 UI / 超配额候选）----
     # 这些文件可能既不 import 也不被 import（PageRank 给分极低），
     # 但常常是必读的（路由层、UI 入口）。按 PR 补在末尾。
-    for f, _ in result.top_files(max_items * 2):
-        if f in seen or len(ordered) >= max_items:
+    #
+    # 候选池 = PageRank 前 N 名 + **被配额截断的候选**。
+    # 后者不能只靠 PR 捞（它们的 PR 可能不高），必须显式保留。
+    pool = list(result.top_files(max_items * 3))
+    for f in overflow:
+        if f not in seen and f not in [p[0] for p in pool]:
+            pool.append((f, pr.get(f, 0.0)))
+
+    for f, _ in pool:
+        if f in seen:
             continue
         seen.add(f)
         ordered.append((f, _role_of(result, f), -1))
@@ -188,7 +228,7 @@ def reading_order(
         seen.add(e.file)
         ordered.append((e.file, f"界面入口·{_role_of(result, e.file)}", -1))
 
-    return ordered[:max_items]
+    return ordered
 
 
 def render_reading_order(

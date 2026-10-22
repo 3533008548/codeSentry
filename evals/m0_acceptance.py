@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import sys
 import time
+from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -32,7 +33,8 @@ def load_ground_truth(path: Path) -> list[str]:
 
 
 def match_ground_truth(
-    truth: list[str], real_files: set[str]
+    truth: list[str], real_files: set[str],
+    ranked_files: set[str] | None = None,
 ) -> tuple[list[str], list[str]]:
     """把 ground truth 匹配到实际存在的文件。
 
@@ -43,23 +45,28 @@ def match_ground_truth(
     `desktop-answer-loop.ts` 在接手指南中出现了两种写法（带路径与不带），
     若不严格会导致同一文件被计入两次，分母虚高。
 
+    **只统计参与排序的文件**（ranked_files）：文档里提到的
+    `evals/benchmark.py`（同目录简写）属于 evals/ 目录，按设计不参与
+    重要度排序（v0.2 §4.2.1），把它算进分母等于要求工具给不该排名的
+    文件排名。
+
     Returns:
         (匹配上的文件, 未能匹配的文件)
     """
     matched: list[str] = []
     unmatched: list[str] = []
     seen: set[str] = set()
+    pool = ranked_files if ranked_files is not None else real_files
     by_base: dict[str, list[str]] = {}
-    for f in real_files:
+    for f in pool:
         by_base.setdefault(f.rsplit("/", 1)[-1], []).append(f)
 
     for t in truth:
         if t in seen:
             continue
-        if t in real_files:
-            if t not in seen:
-                matched.append(t)
-                seen.add(t)
+        if t in pool:
+            matched.append(t)
+            seen.add(t)
             continue
         base = t.rsplit("/", 1)[-1]
         cands = by_base.get(base, [])
@@ -69,6 +76,7 @@ def match_ground_truth(
             matched.append(cands[0])
             seen.add(cands[0])
         elif len(cands) > 1:
+            # 多个同名：只有当 ground truth 的目录片段能对上才算
             hit = next(
                 (c for c in cands if t.split("/")[-2:-1] and
                  t.split("/")[-2] in c), None)
@@ -107,7 +115,11 @@ def main() -> int:
     ranked = result.top_files(80)
     rank_of = {f: i + 1 for i, (f, _) in enumerate(ranked)}
     real_files = {f.path for f in result.files}
-    present, unmatched = match_ground_truth(truth, real_files)
+    # 只统计参与重要度排序的文件（evals/ scripts/ tools/ tests/ 按设计排除）
+    ranked_files = {
+        f.path for f in result.files if f.participates_in_ranking
+    }
+    present, unmatched = match_ground_truth(truth, real_files, ranked_files)
 
     print(f"\n[1] 关键文件 Top-K 命中（ground truth: {gt_path.name}，"
           f"{len(truth)} 项）")
@@ -135,17 +147,68 @@ def main() -> int:
     order_rank = {f: i + 1 for i, f in enumerate(order_files)}
     depth_of = {f: d for f, _, d in order}
 
-    print(f"\n[1b] 阅读顺序命中（L2 实际产出，从入口沿依赖 BFS）")
-    for k in (5, 10, 15, 20, 30):
+    print(f"\n[1b] 阅读顺序（L2 实际产出，从入口沿依赖 BFS）")
+    print(f"    清单长度 {len(order_files)} 项（分层完整清单，非截断 TopN）")
+    for k in (5, 10, 15, 20, 30, 50):
         hit = sum(1 for f in present if order_rank.get(f, 10**9) <= k)
         if present:
             print(f"    Top{k:<3} {hit:>3}/{len(present)}  "
                   f"({hit / len(present) * 100:.1f}%)")
 
-    # 深度分布：入口类应在浅层，底层实现应在深层
-    shallow = sum(1 for f in present if depth_of.get(f, 99) <= 1)
-    print(f"    浅层(深度≤1)命中: {shallow}/{len(present)} "
+    # 分层覆盖率：每一层里有多少核心文件被覆盖
+    by_depth: dict[int, list[str]] = defaultdict(list)
+    for f, _, d in order:
+        by_depth[d].append(f)
+    print("\n    分层覆盖（含核心数 / 该层总数 = 分层精确率）:")
+    for d in sorted(by_depth):
+        layer = by_depth[d]
+        hit = sum(1 for f in layer if f in present)
+        label = "兜底" if d < 0 else f"L{d}"
+        pct = hit / len(layer) * 100 if layer else 0
+        print(f"      {label:<6} {len(layer):>3} 项，含核心 {hit:>2} 项 "
+              f"（{pct:>5.1f}%）")
+
+    # 浅层命中率：架构骨架（入口 + 契约层）是否靠前
+    shallow = sum(1 for f in present if 0 <= depth_of.get(f, 99) <= 1)
+    print(f"\n    浅层(深度≤1)命中: {shallow}/{len(present)} "
           f"({shallow / len(present) * 100:.1f}%)")
+
+    # ---- 1c. 目录级覆盖 ----
+    # 指南常用「目录聚合项」标注职责（core/indexing/ = "Markdown 分块、检索、
+    # 附件索引与批处理队列"），此时无法知道具体哪些文件，
+    # 但可以验证「该目录下的文件是否在阅读顺序里」——
+    # 这比文件级判定更符合指南的信息粒度。
+    #
+    # 对 Python 侧同样适用：README 的目录树里 `tools/` `frontend/` 等
+    # 也都是聚合项。
+    dir_prefixes = [
+        "core/indexing/", "core/desktop/", "core/services/",
+        "core/actions/", "core/wiki/", "src/renderer/",
+        "core/core/", "core/policy/", "core/memory/", "core/notes/",
+        "core/domain/", "core/integration/", "core/audit/", "core/paste/",
+        "core/gardener/", "frontend/src/", "api/", "tools/", "evals/",
+    ]
+    print("\n    目录级覆盖（指南以目录聚合项标注职责时用这个口径）:")
+    dir_hits = 0
+    dir_total = 0
+    for pref in dir_prefixes:
+        members = [f for f in order_files if f.startswith(pref)]
+        if not members:
+            continue
+        # 该目录下的核心文件（按文件级 ground truth 判定）
+        core_in_dir = [f for f in present if f.startswith(pref)]
+        if not core_in_dir:
+            continue
+        dir_total += 1
+        covered = sum(1 for f in core_in_dir if f in order_rank)
+        if covered == len(core_in_dir):
+            dir_hits += 1
+        first = min((order_rank[f] for f in members), default=999)
+        print(f"      {pref:<20} 目录内 {len(members):>2} 项，"
+              f"核心 {len(core_in_dir):>2} 个已覆盖 {covered:>2}，"
+              f"最早位置 {first}")
+    if dir_total:
+        print(f"    → {dir_hits}/{dir_total} 个目录的核心文件全部覆盖")
 
     print("\n    阅读顺序前 12:")
     for i, (f, label, d) in enumerate(order[:12], 1):

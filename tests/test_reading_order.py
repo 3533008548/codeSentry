@@ -132,6 +132,34 @@ def test_出度为0的入口不进第0层():
     assert depth["api.py"] != 0, "出度 0 的入口不应占第 0 层"
 
 
+def test_返回完整清单而非截断():
+    """清单是分层的完整列表，不是 TopN 截断。
+
+    实测：截断会让深层模块（graph_builder 等编排器）永远进不来。
+    """
+    r = _build()
+    order = reading_order(r, max_items=2)
+    # max_items 只影响每层配额，不截断整份清单
+    assert len(order) > 2, "max_items 不应截断整份清单"
+    assert "base.py" in [f for f, _, _ in order], "深层模块应仍在清单里"
+
+
+def test_超配额候选不被丢弃():
+    """超出每层配额的候选必须保留在清单里（实测曾被永久丢弃）。"""
+    r = _build()
+    many = {f"mod{i}.py" for i in range(15)}
+    r.dependencies["main.py"] = many
+    for m in many:
+        r.dependencies[m] = set()
+        r.dependents[m] = {"main.py"}
+        r.file_pr[m] = 0.001
+        r.symbols.append(_sym("fn", m))
+    order = reading_order(r, max_items=5)
+    files = [f for f, _, _ in order]
+    kept = len([f for f in many if f in files])
+    assert kept >= 5, "超配额候选不应被丢弃"
+
+
 def test_空项目不崩():
     r = IndexResult(root="/tmp/empty")
     order = reading_order(r, max_items=10)

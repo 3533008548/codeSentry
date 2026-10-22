@@ -20,9 +20,13 @@ import json
 import re
 from pathlib import Path
 
+# 目录树行：├── dir/     或  ├── xxx.py
+TREE_DIR = re.compile(
+    r"^(?P<indent>[│\s├└─]*)(?P<name>[A-Za-z0-9_.-]+)/?\s*(?:#.*)?$"
+)
 # 代码块里的文件标注行：├── xxx.py    # 说明
 TREE_LINE = re.compile(
-    r"^[│├└─\s]*"
+    r"^(?P<indent>[│├└─\s]*)"
     r"(?P<path>[A-Za-z0-9_./\\-]+\.(?:py|ts|tsx))\s*"
     r"(?:#.*)?$",
     re.MULTILINE,
@@ -61,6 +65,57 @@ def normalize(p: str) -> str:
     return p
 
 
+def extract_from_tree(text: str) -> set[str]:
+    """从目录树代码块中提取文件，**带目录上下文**。
+
+    为什么需要上下文：README 的目录树里，工具目录下的条目常写成
+    裸文件名（`search.py`）而不是完整路径（`tools/search.py`）。
+    不跟踪目录就分不清 `search.py` 是 `tools/search.py`（工具实现，
+    按设计不参与重要度排序）还是 `core/search.py`（核心模块）。
+
+    目录栈的维护：按缩进层级推入/弹出目录项。
+    """
+    found: set[str] = set()
+    # 目录栈：(缩进宽度, 目录名)
+    stack: list[tuple[int, str]] = []
+
+    for line in text.splitlines():
+        m = TREE_LINE.match(line)
+        if m:
+            indent = len(m.group("indent").rstrip())
+            raw = m.group("path")
+            # 路径里已含目录 → 直接用
+            if "/" in raw or "\\" in raw:
+                p = normalize(raw)
+            else:
+                # 只有裸文件名 → 拼上目录栈
+                prefix = "/".join(d for _, d in stack)
+                p = normalize(f"{prefix}/{raw}" if prefix else raw)
+            if p and is_core_file(p):
+                found.add(p)
+            continue
+
+        # 目录行
+        md = TREE_DIR.match(line)
+        if md and "│" not in md.group("indent")[:1] or (
+            md and md.group("name") not in ("py", "ts", "tsx")
+        ):
+            indent_raw = md.group("indent")
+            # 计算视觉缩进：树形字符按 1 宽，保留空格
+            width = 0
+            for ch in indent_raw:
+                width += 4 if ch in "│├└─" else 1
+            name = md.group("name")
+            if name.endswith("/") or (
+                "─" in indent_raw or "├" in indent_raw or "│" in indent_raw
+            ):
+                # 弹出比当前更深的目录
+                while stack and stack[-1][0] >= width:
+                    stack.pop()
+                stack.append((width, name.rstrip("/")))
+    return found
+
+
 def is_core_file(path: str) -> bool:
     """是否属于"读懂项目必读"的清单。"""
     if DIR_ONLY.search(path):
@@ -70,14 +125,14 @@ def is_core_file(path: str) -> bool:
 
 def extract_from_text(text: str) -> set[str]:
     found: set[str] = set()
-    for m in TREE_LINE.finditer(text):
-        p = normalize(m.group("path"))
-        if p and is_core_file(p):
-            found.add(p)
+    # 1. 目录树（带目录上下文，能区分 tools/search.py 与 core/search.py）
+    found |= extract_from_tree(text)
+    # 2. 反引号路径
     for m in BACKTICK_PATH.finditer(text):
         p = normalize(m.group(1))
         if p and is_core_file(p):
             found.add(p)
+    # 3. Markdown 表格
     for m in TABLE_PATH.finditer(text):
         p = normalize(m.group("path"))
         if p and is_core_file(p):

@@ -75,7 +75,10 @@ CodeSentry = 本地优先的代码审查 Agent。确定性 AST 分析 + LLM 语�
 16. **L2 阅读顺序 = 入口 → 契约层 → 沿依赖 BFS 展开**，不是纯 PageRank 排序
     - 入口按**出度**排（组装得多才是起点）；**出度 0 的叶子入口不是阅读起点**
     - 契约层判据：无向下依赖 + 向上依赖 ≥2 + 含 interface/type 定义；**必须排在实现细节之前**
-    - 实测 Top30 命中：Python 19/44 → 23/44，TS 7/11 → 9/11
+    - **输出分层完整清单，不做 TopN 截断**（截断会让深层编排器永远进不来）
+    - 每层配额只影响本层展示；**超配额候选不得标记 seen**（标记了=永久丢弃）
+    - 实测：Python Top30 22/40、Top50 33/40；TS Top30 8/11
+    - **主指标用「目录级覆盖」**（匹配指南的目录聚合项粒度）：Python 1/1、TS 5/5 全覆盖
 17. **符号主键必须是限定名 `file::symbol`**：research_agent 重名率 18%，裸名做主键会让 PageRank 变成"给最常见的词打分"。
 18. **排除规则分两类，不可混**：① 不解析（runtime/papers/node_modules/dist）② 不参与重要度排序（scripts/evals/tools/tests）。后者是源码但不是产品架构的一部分。
 19. **TS 解析器用 TypeScript 编译器 API**（`ts.createSourceFile`），不是正则，也**不需要 ts-morph**（其价值是类型信息，M4 才用）。实测 68,618 行/秒，是 Python ast 的 3.1 倍。

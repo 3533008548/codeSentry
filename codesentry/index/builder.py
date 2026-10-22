@@ -37,6 +37,12 @@ class IndexResult:
     out_degree: dict[str, int] = field(default_factory=dict)
     in_degree: dict[str, int] = field(default_factory=dict)
     reverse_refs: dict[str, set[str]] = field(default_factory=dict)
+    # 正向依赖：这个文件依赖了哪些文件（阅读顺序沿此边 BFS）
+    dependencies: dict[str, set[str]] = field(default_factory=dict)
+    # 反向依赖：哪些文件依赖了它（影响面分析沿此边）
+    dependents: dict[str, set[str]] = field(default_factory=dict)
+    # import 边数量（只用于阅读顺序/影响面，不进 PageRank）
+    import_edge_count: int = 0
     entrypoints: list[EntryPoint] = field(default_factory=list)
     script_entrypoints: list[EntryPoint] = field(default_factory=list)
     roles: dict[str, RoleLabel] = field(default_factory=dict)
@@ -140,6 +146,10 @@ class IndexBuilder:
         out_degree: dict[str, int] = {}
         in_degree: dict[str, int] = {}
         reverse_refs: dict[str, set[str]] = {}
+        # 正向依赖：这个文件依赖了哪些文件（阅读顺序 BFS 沿此边展开）
+        dependencies: dict[str, set[str]] = {}
+        # 依赖者：哪些文件依赖了它
+        dependents: dict[str, set[str]] = {}
 
         for e in edges:
             if e.resolution not in ("local", "cross_file") or not e.target:
@@ -154,10 +164,30 @@ class IndexBuilder:
             out_degree[src_file] = out_degree.get(src_file, 0) + 1
             in_degree[dst_file] = in_degree.get(dst_file, 0) + 1
             reverse_refs.setdefault(dst_file, set()).add(src_file)
+            dependencies.setdefault(src_file, set()).add(dst_file)
+            dependents.setdefault(dst_file, set()).add(src_file)
 
         result.out_degree = out_degree
         result.in_degree = in_degree
         result.reverse_refs = reverse_refs
+
+        # ---- 4b. import 边（补充调用图覆盖不到的文件）----
+        # 调用图和依赖图是两回事：接口文件、类型契约、常量模块只有
+        # import 关系没有函数调用，在调用图里是孤立点。
+        # 实测 Knowledge Loop 有 5 个核心文件在调用图里入度出度全为 0。
+        #
+        # **import 边只用于阅读顺序与影响面，不进 PageRank** ——
+        # 保持"重要度 = 调用结构中心性"这个语义不变。
+        import_edges = resolver.resolve_import_edges()
+        for src, dst in import_edges:
+            if src not in prod or dst not in prod:
+                continue
+            dependencies.setdefault(src, set()).add(dst)
+            dependents.setdefault(dst, set()).add(src)
+        result.import_edge_count = len(import_edges)
+
+        result.dependencies = dependencies
+        result.dependents = dependents
 
         pr = pagerank(
             sorted(prod), file_edges,

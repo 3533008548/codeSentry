@@ -126,22 +126,31 @@ def main() -> int:
         print(f"      {str(r) if r else '未进榜':>8}. {f}")
 
     # ---- 1b. 阅读顺序命中（L2 的真实产出质量）----
-    # L2 输出的是「从入口出发的推荐阅读顺序」，不是纯 PageRank 排名。
-    # 入口/编排类文件在 PageRank 里天然排不上去（被引用少），
-    # 但它们恰恰是"读懂项目"最该先读的。所以要单独衡量阅读顺序。
-    from codesentry.output.report import _reading_order
-    order = [f for f, _ in _reading_order(result, top=20)]
-    order_rank = {f: i + 1 for i, f in enumerate(order)}
-    print(f"\n[1b] 阅读顺序命中（L2 实际产出，从入口出发）")
+    # L2 输出的是「从入口出发沿依赖 BFS 展开的推荐阅读顺序」，
+    # 不是纯 PageRank 排名。入口/编排类文件在 PageRank 里天然排不上去
+    # （被引用少），但它们恰恰是"读懂项目"最该先读的。
+    from codesentry.output.reading_order import reading_order
+    order = reading_order(result, max_items=30)
+    order_files = [f for f, _, _ in order]
+    order_rank = {f: i + 1 for i, f in enumerate(order_files)}
+    depth_of = {f: d for f, _, d in order}
+
+    print(f"\n[1b] 阅读顺序命中（L2 实际产出，从入口沿依赖 BFS）")
     for k in (5, 10, 15, 20, 30):
         hit = sum(1 for f in present if order_rank.get(f, 10**9) <= k)
         if present:
             print(f"    Top{k:<3} {hit:>3}/{len(present)}  "
                   f"({hit / len(present) * 100:.1f}%)")
+
+    # 深度分布：入口类应在浅层，底层实现应在深层
+    shallow = sum(1 for f in present if depth_of.get(f, 99) <= 1)
+    print(f"    浅层(深度≤1)命中: {shallow}/{len(present)} "
+          f"({shallow / len(present) * 100:.1f}%)")
+
     print("\n    阅读顺序前 12:")
-    for i, f in enumerate(order[:12], 1):
+    for i, (f, label, d) in enumerate(order[:12], 1):
         mark = "✓" if f in present else " "
-        print(f"      {i:>3}. {mark} {f}")
+        print(f"      {i:>3}. {mark} L{d if d >= 0 else '·'} {f}")
 
     # ---- 2. 入口点 ----
     print(f"\n[2] 入口点")

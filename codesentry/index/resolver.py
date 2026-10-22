@@ -67,11 +67,14 @@ class SymbolResolver:
         self.imported_names = imported_names
         self.name_to_files = defaultdict(list)
         self.qname_to_file = {}
+        self._all_files: list[str] = []
 
         for s in symbols:
             self.defs_by_file[s.file].add(s.name)
             self.qname_to_file[s.qname] = s.file
             self.name_to_files[s.name].append(s.file)
+            if s.file not in self._all_files:
+                self._all_files.append(s.file)
 
     # ---------- 解析 ----------
 
@@ -164,6 +167,74 @@ class SymbolResolver:
                 if f.replace("\\", "/").split("/")[0] == top:
                     return self._qname_in(f, callee)
         return None
+
+    # ---------- import 边（文件级）----------
+
+    def resolve_import_edges(self) -> list[tuple[str, str]]:
+        """从 import 表建立文件级依赖边。
+
+        **为什么必须单独建 import 边**：调用图和依赖图是两回事。
+        接口文件、类型契约、常量模块只有 import 关系、没有任何函数调用，
+        在调用图里是孤立点。实测 Knowledge Loop 的 5 个核心文件
+        （knowledge-repository.ts / desktop-api.ts / json-post.ts /
+        fetch-api-request.ts / preload.ts）在调用图里入度出度全为 0，
+        全部漏出阅读顺序。
+
+        解析规则：
+          1. 相对路径（../core/x）→ 按调用方目录求绝对项目路径
+          2. 绝对模块路径（core.x）→ 点号转斜杠
+          3. 从导入符号名反推定义所在文件
+        """
+        import posixpath
+
+        edges: list[tuple[str, str]] = []
+        for caller_file, imports in self.imports_by_file.items():
+            caller_dir = posixpath.dirname(caller_file)
+            for module, names in imports.items():
+                if module.startswith("node:") or module.startswith("electron"):
+                    continue
+                if not names:
+                    continue
+
+                # 1. 相对路径 → 绝对项目路径
+                if module.startswith("."):
+                    target_path = posixpath.normpath(
+                        posixpath.join(caller_dir, module))
+                else:
+                    target_path = module.replace(".", "/")
+
+                cands = self.name_to_files.get(module) or []
+                # 先按路径匹配
+                hit = next(
+                    (f for f in self._all_files
+                     if f.replace("\\", "/") == target_path
+                     or f.replace("\\", "/").startswith(target_path + "/")),
+                    None)
+                if hit is None:
+                    # 再按符号名反推：找到定义了这些名字的文件
+                    by_name = set()
+                    for n in names:
+                        by_name.update(self.name_to_files.get(n, []))
+                    cands = list(by_name)
+                    if not cands:
+                        continue
+                    # 优先选路径能对上的
+                    hit = next(
+                        (f for f in cands
+                         if f.replace("\\", "/").startswith(target_path)), None)
+                    if hit is None:
+                        # 其次选同目录
+                        hit = next(
+                            (f for f in cands
+                             if posixpath.dirname(f.replace("\\", "/")) == caller_dir),
+                            None)
+                    if hit is None and len(cands) == 1:
+                        hit = cands[0]
+                    if hit is None:
+                        continue
+                if hit != caller_file:
+                    edges.append((caller_file, hit))
+        return edges
 
     # ---------- 批量解析 ----------
 

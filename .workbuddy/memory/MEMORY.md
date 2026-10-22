@@ -68,12 +68,21 @@ CodeSentry = 本地优先的代码审查 Agent。确定性 AST 分析 + LLM 语�
     - **出度** 保留为**入口识别的独立信号**（`src/main.ts` 出度 55 入度 0，纯 PR 排 74 但它是第一入口），不作排序加权
     - **角色信号** 保留 8 类规则，但降级为**输出分组标签**（告诉用户"这是入口/守卫/契约"），不参与排序
     - 详见 `docs/CodeSentry_技术选型定稿_v0.2.md` §4.3.2
-15. **符号主键必须是限定名 `file::symbol`**：research_agent 重名率 18%，裸名做主键会让 PageRank 变成"给最常见的词打分"。
-16. **排除规则分两类，不可混**：① 不解析（runtime/papers/node_modules/dist）② 不参与重要度排序（scripts/evals/tools/tests）。后者是源码但不是产品架构的一部分。
-17. **TS 解析器用 TypeScript 编译器 API**（`ts.createSourceFile`），不是正则，也**不需要 ts-morph**（其价值是类型信息，M4 才用）。实测 68,618 行/秒，是 Python ast 的 3.1 倍。
-18. **每次全量算 PageRank**，不做局部近似（实测 30,000 节点 169 ms；局部近似 Top50 重合度仅 11/50）。**不引入 numpy/scipy/networkx**（scipy 在 Windows 装直接超时）。
-19. **性能有余量时质量优先**：L1+L2 端到端 <1s，比目标（L1<30s/L2<3min）有 30–180 倍余量。
-20. **Windows 路径分隔符必须显式统一**：`f.replace("\\","/").split(os.sep)` 永远切不开（os.sep 是 `\`）。只在此平台复现，交付前必炸。
+15. **必须建两张图：调用图 + 依赖图**（v0.2 修订六）
+    - 调用图（函数调用）覆盖实现型模块；依赖图（import）额外覆盖**接口/契约/常量模块**
+    - 实测 Knowledge Loop 有 5 个核心文件在调用图里入度出度全为 0（只有 import 没有调用）
+    - **import 边只用于阅读顺序与影响面，不进 PageRank**（保持"重要度 = 调用结构中心性"）
+16. **L2 阅读顺序 = 入口 → 契约层 → 沿依赖 BFS 展开**，不是纯 PageRank 排序
+    - 入口按**出度**排（组装得多才是起点）；**出度 0 的叶子入口不是阅读起点**
+    - 契约层判据：无向下依赖 + 向上依赖 ≥2 + 含 interface/type 定义；**必须排在实现细节之前**
+    - 实测 Top30 命中：Python 19/44 → 23/44，TS 7/11 → 9/11
+17. **符号主键必须是限定名 `file::symbol`**：research_agent 重名率 18%，裸名做主键会让 PageRank 变成"给最常见的词打分"。
+18. **排除规则分两类，不可混**：① 不解析（runtime/papers/node_modules/dist）② 不参与重要度排序（scripts/evals/tools/tests）。后者是源码但不是产品架构的一部分。
+19. **TS 解析器用 TypeScript 编译器 API**（`ts.createSourceFile`），不是正则，也**不需要 ts-morph**（其价值是类型信息，M4 才用）。实测 68,618 行/秒，是 Python ast 的 3.1 倍。
+20. **每次全量算 PageRank**，不做局部近似（实测 30,000 节点 169 ms；局部近似 Top50 重合度仅 11/50）。**不引入 numpy/scipy/networkx**（scipy 在 Windows 装直接超时）。
+21. **性能有余量时质量优先**：L1+L2 端到端 <1s，比目标（L1<30s/L2<3min）有 30–180 倍余量。
+22. **Windows 路径分隔符必须显式统一**：`f.replace("\\","/").split(os.sep)` 永远切不开（os.sep 是 `\`）。只在此平台复现，交付前必炸。
+23. **dataclass 的 field() 不支持 description**（只有 Pydantic 支持）——踩了两次。
 
 ## ⚠️ 评测方法论红线（犯过一次，必记）
 

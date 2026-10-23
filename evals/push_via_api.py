@@ -71,7 +71,10 @@ def main() -> int:
         if rel.startswith(".git/"):
             continue
         if any(part in ("__pycache__", ".pytest_cache", ".venv",
-                        "node_modules", ".workbuddy") for part in p.parts):
+                        "node_modules", ".workbuddy",
+                        "codesentry.egg-info") for part in p.parts):
+            continue
+        if rel == ".gitkeep":
             continue
         if rel.endswith((".pyc", ".pyo")):
             continue

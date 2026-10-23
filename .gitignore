@@ -8,3 +8,6 @@ dist/
 build/
 *.json.bak
 .codesentry/
+
+# AI 助手的工作记忆（内部推理记录，不适合公开仓库）
+.workbuddy/

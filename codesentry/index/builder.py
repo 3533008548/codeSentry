@@ -13,6 +13,11 @@ from pathlib import Path
 
 from codesentry.core.policy import Policy
 from codesentry.core.symbol import CallSite, FileMeta, Symbol
+from codesentry.index.cache import (
+    FileCacheEntry,
+    ParseCache,
+    hash_content,
+)
 from codesentry.index.discovery import classify, discover
 from codesentry.index.entrypoint import EntryPoint, detect as detect_entrypoints
 from codesentry.index.pagerank import pagerank
@@ -47,6 +52,7 @@ class IndexResult:
     script_entrypoints: list[EntryPoint] = field(default_factory=list)
     roles: dict[str, RoleLabel] = field(default_factory=dict)
     call_stats: dict[str, int] = field(default_factory=dict)
+    cache_stats: dict[str, float] = field(default_factory=dict)
     timings: dict[str, float] = field(default_factory=dict)
     parse_failures: int = 0
 
@@ -69,7 +75,12 @@ class IndexBuilder:
         self.policy = policy
         self.tagger = RoleTagger(policy.index.roles)
 
-    def build(self, verbose: bool = False) -> IndexResult:
+    def build(
+        self,
+        verbose: bool = False,
+        use_cache: bool | None = None,
+        refresh: bool = False,
+    ) -> IndexResult:
         cfg = self.policy.index.exclude
         result = IndexResult(root=str(self.root))
 
@@ -78,7 +89,20 @@ class IndexBuilder:
         found = discover(self.root, cfg)
         result.timings["discover"] = time.perf_counter() - t0
 
-        # ---- 2. 解析 ----
+        # ---- 缓存准备 ----
+        cache_enabled = (
+            self.policy.index.cache_enabled
+            if use_cache is None else use_cache
+        )
+        cache = ParseCache(self.root, enabled=cache_enabled)
+        if refresh:
+            cache.clear()
+        cache.load()
+
+        # ---- 2. 解析（唯一走缓存的阶段）----
+        # 增量失效（v0.2 §4.5）：内容哈希未变的文件跳过解析。
+        # **只有 parse 走缓存**，符号解析 / PageRank / 入口点每次全量重算
+        # ——实测这些加起来不到 0.1 s，而局部近似的排序质量代价很大。
         t0 = time.perf_counter()
         symbols: list[Symbol] = []
         calls: list[CallSite] = []
@@ -86,6 +110,7 @@ class IndexBuilder:
         contents: dict[str, str] = {}
         imports_by_file: dict[str, dict[str, set[str]]] = {}
         imported_names: set[str] = set()
+        alive_paths: set[str] = set()
 
         with Parser(self.root) as parser:
             for abs_path, rel, suffix in found:
@@ -97,13 +122,34 @@ class IndexBuilder:
                 except OSError:
                     continue
                 contents[rel] = text
+                alive_paths.add(rel)
 
-                try:
-                    syms, cs, meta, imps = parser.parse_with_meta(
-                        abs_path, rel, text, suffix)
-                except Exception:
-                    result.parse_failures += 1
-                    continue
+                content_hash = hash_content(text)
+                entry = cache.get(rel, content_hash)
+
+                if entry is not None:
+                    # 缓存命中：复用解析结果
+                    syms = list(entry.symbols)
+                    cs = list(entry.calls)
+                    imps = {k: set(v) for k, v in entry.imports.items()}
+                    meta = FileMeta.model_validate(entry.meta)
+                else:
+                    try:
+                        syms, cs, meta, imps = parser.parse_with_meta(
+                            abs_path, rel, text, suffix)
+                    except Exception:
+                        result.parse_failures += 1
+                        continue
+                    cache.put(FileCacheEntry(
+                        path=rel,
+                        content_hash=content_hash,
+                        mtime=abs_path.stat().st_mtime
+                        if abs_path.exists() else 0.0,
+                        symbols=syms,
+                        calls=cs,
+                        imports={k: sorted(v) for k, v in imps.items()},
+                        meta=meta.model_dump(),
+                    ))
 
                 meta.is_test = is_test
                 meta.is_script = is_script
@@ -123,7 +169,11 @@ class IndexBuilder:
 
         result.timings["parse"] = time.perf_counter() - t0
         result.symbols = symbols
+        result.cache_stats = cache.stats
 
+        # 清理已删除文件的缓存条目
+        cache.prune(alive_paths)
+        cache.save()
         result.timings["imports"] = time.perf_counter() - t0
 
         # ---- 3. 符号解析 ----
@@ -251,6 +301,13 @@ class IndexBuilder:
         print("耗时:", {k: round(v, 3) for k, v in r.timings.items()})
 
 
-def build_index(root: Path, policy: Policy, verbose: bool = False) -> IndexResult:
+def build_index(
+    root: Path,
+    policy: Policy,
+    verbose: bool = False,
+    use_cache: bool | None = None,
+    refresh: bool = False,
+) -> IndexResult:
     """便捷入口。"""
-    return IndexBuilder(root, policy).build(verbose=verbose)
+    return IndexBuilder(root, policy).build(
+        verbose=verbose, use_cache=use_cache, refresh=refresh)

@@ -22,6 +22,7 @@ from codesentry.core.policy import (
     load_policy,
 )
 from codesentry.index.builder import build_index
+from codesentry.index.store import IndexStore
 from codesentry.output.report import render_json, render_l1, render_l2
 
 
@@ -44,7 +45,7 @@ def cmd_onboard(args: argparse.Namespace) -> int:
     policy_path, _ = _resolve_policy(args.policy, root)
     policy = load_policy(policy_path)
 
-    result = build_index(root, policy)
+    result = build_index(root, policy, refresh=args.refresh)
 
     if args.json:
         print(render_json(result))
@@ -74,11 +75,45 @@ def cmd_scan(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_status(args: argparse.Namespace) -> int:
+    """报告索引状态与陈旧程度。
+
+    回答 v0.2 §4.5 提的问题：「索引是快照，代码改了索引不知道，
+    直到下次重建」——本命令让这个状态显式可见。
+    """
+    root = Path(args.path).resolve()
+    if not root.exists():
+        print(f"路径不存在: {root}", file=sys.stderr)
+        return 2
+    policy_path, _ = _resolve_policy(args.policy, root)
+    policy = load_policy(policy_path)
+
+    store = IndexStore(root)
+    saved = store.load()
+    if saved is None:
+        print("索引不存在。需要先运行：codesentry index <path>")
+        return 1
+
+    # 重建一次以比对（走缓存，很快）
+    result = build_index(root, policy)
+    info = store.check_stale(result)
+    print(store.stale_report(info))
+    print(f"索引文件: {store.index_file}")
+    print(f"构建于:   {info.built_at}（{info.age_seconds / 3600:.1f} 小时前）")
+    print(f"规模:     {saved.get('file_count')} 文件 · "
+          f"{saved.get('symbol_count')} 符号 · "
+          f"{saved.get('edge_count')} 边")
+    return 0 if not info.stale else 0
+
+
 def cmd_index(args: argparse.Namespace) -> int:
     root = Path(args.path).resolve()
     policy_path, _ = _resolve_policy(args.policy, root)
     policy = load_policy(policy_path)
-    result = build_index(root, policy, verbose=True)
+    result = build_index(root, policy, verbose=True, refresh=True)
+    store = IndexStore(root, save_to_project=args.save_to_project)
+    store.save(result)
+    print(f"索引已保存: {store.index_file}")
     if args.json:
         print(render_json(result))
     return 0
@@ -109,19 +144,30 @@ def build_parser() -> argparse.ArgumentParser:
     ob.add_argument("--level", type=int, choices=[1, 2], default=2,
                     help="输出档位：1=定位 2=骨架")
     ob.add_argument("--json", action="store_true", help="输出 JSON")
+    ob.add_argument("--refresh", action="store_true",
+                    help="清空缓存，全量重建索引")
     ob.set_defaults(func=cmd_onboard)
 
     # scan
     sc = sub.add_parser("scan", help="审查改动（M3 起）")
     sc.add_argument("path", help="项目根目录")
     sc.add_argument("--json", action="store_true", help="输出 JSON")
+    sc.add_argument("--refresh", action="store_true",
+                    help="清空缓存，全量重建索引")
     sc.set_defaults(func=cmd_scan)
 
     # index
     ix = sub.add_parser("index", help="显式重建索引")
     ix.add_argument("path", help="项目根目录")
     ix.add_argument("--json", action="store_true", help="输出 JSON")
+    ix.add_argument("--save-to-project", action="store_true",
+                    help="把索引写到项目根（默认写用户缓存目录，不污染项目）")
     ix.set_defaults(func=cmd_index)
+
+    # status
+    st = sub.add_parser("status", help="报告索引状态与陈旧程度")
+    st.add_argument("path", help="项目根目录")
+    st.set_defaults(func=cmd_status)
 
     # init
     it = sub.add_parser("init", help="生成 policy.yaml")

@@ -86,6 +86,11 @@ CodeSentry = 本地优先的代码审查 Agent。确定性 AST 分析 + LLM 语�
 21. **性能有余量时质量优先**：L1+L2 端到端 <1s，比目标（L1<30s/L2<3min）有 30–180 倍余量。
 22. **Windows 路径分隔符必须显式统一**：`f.replace("\\","/").split(os.sep)` 永远切不开（os.sep 是 `\`）。只在此平台复现，交付前必炸。
 23. **dataclass 的 field() 不支持 description**（只有 Pydantic 支持）——踩了两次。
+24. **增量缓存：只有 parse 走缓存**，PageRank/入口点/角色每次全量重算（重算部分 <0.2s，而局部近似质量代价大）
+25. **工具不该在被审查方留垃圾**：缓存与索引默认落 `%LOCALAPPDATA%/codesentry/`，不写进项目
+    （实测写项目内生成 4.7MB 并污染其 git status）。需要纳入版本控制时用 `--save-to-project`
+26. **验证脚本绝不原地改用户文件**：要制造变更必须在临时副本上做，且用二进制读写保留原始行尾符
+    （踩坑：text 模式写回把用户的 CRLF 文件改成 LF，git status 显示 M 但 git diff 为空）
 
 ## ⚠️ 评测方法论红线（犯过一次，必记）
 

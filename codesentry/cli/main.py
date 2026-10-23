@@ -3,7 +3,7 @@
 v0.2 决策 12：多子命令结构。
 
     codesentry onboard <path> [--level 1|2] [--json]   # 场景 A：理解
-    codesentry scan <path> [--json]                    # 场景 B：审查（M3 起）
+    codesentry scan <path> [--json]                    # 场景 B：审查（M2 实现检查器）
     codesentry index <path> --refresh                  # 显式重建索引
     codesentry init [path]                             # 生成 policy.yaml
 
@@ -149,7 +149,7 @@ def build_parser() -> argparse.ArgumentParser:
     ob.set_defaults(func=cmd_onboard)
 
     # scan
-    sc = sub.add_parser("scan", help="审查改动（M3 起）")
+    sc = sub.add_parser("scan", help="审查改动（M2 实现检查器）")
     sc.add_argument("path", help="项目根目录")
     sc.add_argument("--json", action="store_true", help="输出 JSON")
     sc.add_argument("--refresh", action="store_true",

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-fresh-projects-v1",
+  "purpose": "Synthetic pilot frozen before first model call. No candidate changes during this comparison. Same author labels and scores; no sealed holdout or formal quality threshold.",
+  "protocol": {
+    "model": "deepseek-flash",
+    "modes": ["observations", "source"],
+    "batch": "Run review-run once per case over the complete approved synthetic fixture. Use the same issued report for both modes. With an incomplete batch, record both modes as unavailable.",
+    "summaries": "Run each mode once with a one-request budget and no retries. Alternate mode order by case. No candidate or label changes after starting the run.",
+    "fact_status": ["supported", "missing", "wrong"],
+    "error_categories": ["extra_static_error", "unsupported_runtime_assertion"],
+    "evidence": "Grade the published claims and unknowns against source. A fact stated both correctly and incorrectly is wrong. Treat missing and wrong as mutually exclusive. A correct claim with weak citation can still be supported; record misleading citations separately.",
+    "clean_case": "Published, all required facts supported, no extra static error or unsupported runtime assertion. Unpublished summaries are separately reported, with their required facts counted as undelivered.",
+    "limits": "Use only synthetic input files and case questions for model requests. The rubric is kept outside fixtures. Never execute the input code. Preserve transport failures and usage as observed. Report raw counts without a pass threshold."
+  },
+  "cases": {
+    "empty-cache-value": [
+      {"id": "hit", "fact": "The present key supplies the empty string. saved is not None is true and handle returns the empty string.", "anchors": ["cache.py:1-2", "api.py:12-14"]},
+      {"id": "bypass", "fact": "The hit skips both can_dispatch and dispatch, even though dry_run is true.", "anchors": ["api.py:12-17", "decoder.py:5"]},
+      {"id": "miss", "fact": "With the key removed, peek returns None, dry_run remains true, can_dispatch is false, and handle returns 'blocked' without calling dispatch.", "anchors": ["cache.py:2", "decoder.py:5", "policy.py:1-2", "api.py:12-17"]}
+    ],
+    "string-flag-cross-batch": [
+      {"id": "decode", "fact": "decode returns ('q7', False) because string 'true' is not the singleton True.", "anchors": ["decoder.py:1-5"]},
+      {"id": "policy", "fact": "Empty cache returns None; cache hit is bypassed; can_dispatch(False) returns true, so handle calls dispatch.", "anchors": ["cache.py:1-2", "policy.py:1-2", "api.py:12-17"]},
+      {"id": "worker", "fact": "q7 starts with q, and dispatch/handle returns 'queued:q7'.", "anchors": ["api.py:17", "z_worker.py:1-4"]}
+    ],
+    "reachable-quota-bounds": [
+      {"id": "max", "fact": "Maximum 12, bounded by min before a possible deduction. One reachable witness is pro, batch true, credit false: min(12, 4+7+5)=12. Equivalent valid witness accepted.", "anchors": ["limits.py:2-14"]},
+      {"id": "min", "fact": "Minimum -2. Basic, batch false, burst false, credit true gives 4-6=-2. Trial cannot receive credit and has minimum 1; pro starts at 11, so it cannot beat -2. Equivalent proof accepted.", "anchors": ["limits.py:2-14"]},
+      {"id": "exclusive", "fact": "Batch and burst are alternatives via if/elif, so their bonuses do not stack.", "anchors": ["limits.py:7-10"]}
+    ],
+    "cap-order-refactor": [
+      {"id": "precap", "fact": "Quote passes flags through. Pro adds 7, batch adds 5, burst adds 0 even though it is true. Before the cap amount is 16.", "anchors": ["quote.py:4-5", "limits.py:2-10"]},
+      {"id": "current", "fact": "Current path caps 16 to 12, then credit deducts 6 because pro is not trial, returning 6.", "anchors": ["limits.py:11-14"]},
+      {"id": "reordered", "fact": "Deducting before the cap gives 16-6=10, then min(12,10)=10, a behavior change for this input.", "anchors": ["limits.py:11-14"]}
+    ],
+    "timeout-fake-store": [
+      {"id": "first-path", "fact": "Initially sent is empty; duplicate check is false. Sender raises TimeoutError, which is caught, and the first return is 'retry'.", "anchors": ["publisher.py:2-8", "test_publisher.py:5-11", "test_publisher.py:20-25"]},
+      {"id": "first-state", "fact": "After first call retries is ['A'] and sent is []. The early return skips mark_sent.", "anchors": ["publisher.py:6-10", "test_publisher.py:12-17", "test_publisher.py:23-27"]},
+      {"id": "second-state", "fact": "Same-store call still sees no sent A, times out again, returns 'retry', and leaves retries ['A','A'] and sent [].", "anchors": ["publisher.py:2-10", "test_publisher.py:9-17", "test_publisher.py:19-20"]}
+    ],
+    "runtime-boundary": [
+      {"id": "tests", "fact": "Source contains assertions but no result of running test_timeout.", "anchors": ["test_publisher.py:23-27"]},
+      {"id": "client", "fact": "The fake sender explicitly raises TimeoutError. adapter calls client.post with timeout=1; real exception type is unestablished.", "anchors": ["test_publisher.py:19-20", "adapter.py:1-4"]},
+      {"id": "ordering", "fact": "send runs before mark_sent. Retry marks retry and returns before mark_sent.", "anchors": ["publisher.py:4-10"]},
+      {"id": "exactly-once", "fact": "Exactly-once delivery is not established. Timeout does not prove the remote side failed to process; a retry can re-send without a sent mark. Equivalent explanation via unproven remote idempotency accepted.", "anchors": ["adapter.py:1-4", "publisher.py:2-10"]}
+    ]
+  }
+}

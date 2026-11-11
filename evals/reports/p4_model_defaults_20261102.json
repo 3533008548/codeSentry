@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "technical_revision": 17,
+  "kind": "web_default_model_scope_and_explicit_existing_upgrade",
+  "approval": "user_explicitly_approved_three_named_workspaces_after_automatic_review_rejection",
+  "migration": {
+    "date": "2026-11-02",
+    "kind": "authorized_model_default_upgrade",
+    "workspaces": [
+      {
+        "workspace_id": "22861763d6304da28b55c84a803d5fe3",
+        "name": "research_agent",
+        "version_before": 2,
+        "version_after": 3,
+        "file_counts_before": {
+          "model_eligible": 1,
+          "local_only": 227,
+          "exclude": 47
+        },
+        "file_counts_after": {
+          "model_eligible": 228,
+          "local_only": 0,
+          "exclude": 47
+        },
+        "preview_truncated": false,
+        "explicit_restrictions_preserved": true,
+        "chat_consent_enabled": false,
+        "previous_conversations": 0
+      },
+      {
+        "workspace_id": "9c7d4b78ba0745cfada3c1945abd3ce4",
+        "name": "CodeSentry",
+        "version_before": 2,
+        "version_after": 3,
+        "file_counts_before": {
+          "model_eligible": 0,
+          "local_only": 357,
+          "exclude": 4
+        },
+        "file_counts_after": {
+          "model_eligible": 357,
+          "local_only": 0,
+          "exclude": 4
+        },
+        "preview_truncated": false,
+        "explicit_restrictions_preserved": true,
+        "chat_consent_enabled": false,
+        "previous_conversations": 0
+      },
+      {
+        "workspace_id": "801ec9faaf9d4694832299ab8e4b2580",
+        "name": "Knowledge Loop",
+        "version_before": 1,
+        "version_after": 2,
+        "file_counts_before": {
+          "model_eligible": 0,
+          "local_only": 154,
+          "exclude": 0
+        },
+        "file_counts_after": {
+          "model_eligible": 154,
+          "local_only": 0,
+          "exclude": 0
+        },
+        "preview_truncated": false,
+        "explicit_restrictions_preserved": true,
+        "chat_consent_enabled": false,
+        "previous_conversations": 0
+      }
+    ],
+    "source_contents_read_by_migration": 0,
+    "provider_calls": 0,
+    "keys_read_or_hashed": false
+  },
+  "live_verification": [
+    {
+      "workspace_id": "22861763d6304da28b55c84a803d5fe3",
+      "name": "research_agent",
+      "policy_version": 3,
+      "model_default_enabled": true
+    },
+    {
+      "workspace_id": "9c7d4b78ba0745cfada3c1945abd3ce4",
+      "name": "CodeSentry",
+      "policy_version": 3,
+      "model_default_enabled": true
+    },
+    {
+      "workspace_id": "801ec9faaf9d4694832299ab8e4b2580",
+      "name": "Knowledge Loop",
+      "policy_version": 2,
+      "model_default_enabled": true
+    }
+  ],
+  "backend_production_unchanged_from_previous_delivery": true,
+  "checks": {
+    "frontend": {
+      "passed": 108,
+      "elapsed_seconds": 23.79
+    },
+    "backend_related": {
+      "passed": 66,
+      "elapsed_seconds": 39.04
+    },
+    "browser_related": {
+      "passed": 9,
+      "elapsed_seconds": 50.4
+    },
+    "typescript": true,
+    "vite_build": true,
+    "live_frontend": "index-B1XYhDSm.js"
+  },
+  "boundaries": {
+    "default_changed_for_new_web_workspace": true,
+    "api_cli_implicit_defaults_changed": false,
+    "explicit_local_and_exclude_rules_preserved": true,
+    "gitignore_and_sensitive_exclusions_preserved": true,
+    "real_provider_calls": 0,
+    "real_chat_consent_enabled_by_migration": false,
+    "keys_read_printed_or_hashed": false
+  },
+  "file_sha256": {
+    "frontend/src/access.ts": "91e8904bbba4b45fc42daf848fb512434810448987000fd70de7a33feb45204d",
+    "frontend/src/AccessDialog.tsx": "623ac064622a36d343dfae719084347cc63b5d08675a97039026ec1855e85b89",
+    "frontend/src/App.access.test.tsx": "8d68579578e59ec50df321716a607880983d4696a2cda1dda02914b223b70aef",
+    "frontend/src/App.semantic.test.tsx": "e72f8e0231d0603bc9e7d35101375d5638f9fc61673f3fc68f44ede57de02d8a",
+    "frontend/e2e/access-model-defaults.spec.ts": "bc33bb6a0844ab6c752e5ec378e13799260626a5254f37904dbdb96ee2439af4",
+    "README.md": "82a60c749535315436d801c2fda9b81dcc53244fa8b7d252fab783c91cc4c5ba",
+    "docs/CodeSentry_技术选型定稿_v0.2.md": "dce5963bfec28ec299060b5eb30b794a605b13af06b38fa775e33e02bf6c8566",
+    "docs/CodeSentry_工作空间与本地前端方案_v0.1.md": "aca76d9fa7a5e1c8fb55cc280ed4d647b5ab8f8efdca438d655d80ba9769bc52",
+    "docs/CodeSentry_分阶段执行方案_v1.0.md": "1eafa58d07e4d6c514fc8f7e6397b8fe18470eb85056b4ca378bcce2efb21e3a",
+    "docs/execution/P4_模型默认范围升级_20261102.md": "d37508d911dc8faa7b7750bf7dfa17cb05d0edc30a00cc0cdfc9b181409bca0e",
+    "frontend/dist/index.html": "dc3266004eb481e098c8fc236969232f7233742448183b8fb457378a735de401",
+    "frontend/dist/assets/index-B1XYhDSm.js": "2efd35d786005a0136973ddcbc71cdc1ba82237c0e46949d845078076265e87f"
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-fresh-projects-v1",
+  "kind": "single_reviewer_synthetic_pilot",
+  "freeze_sha256": "69acc2532f213d58a21ead8e70455e045fd76da90c3befe6bff5850bc766723a",
+  "rubric_sha256": "3ef1883e1121a9c6feefd968f2a1d277189f0290c614ae4c73f78ca6b2330424",
+  "live_report_sha256": "2d5618f144011e2788466cba221ff4b5cf07b910c373a4d4aba130adaf17efb3",
+  "case_count": 6,
+  "required_facts_per_mode": 19,
+  "summary": {
+    "observations": {
+      "published": 5,
+      "clean_cases": 0,
+      "supported": 7,
+      "missing": 8,
+      "wrong": 1,
+      "undelivered": 3
+    },
+    "source": {
+      "published": 4,
+      "clean_cases": 2,
+      "supported": 10,
+      "missing": 3,
+      "wrong": 0,
+      "undelivered": 6
+    }
+  },
+  "transport": {
+    "batch": {
+      "requests": 8,
+      "http_200": 8,
+      "reported_total_tokens": 7077,
+      "metered_requests": 8,
+      "transport_seconds_median": 2.748
+    },
+    "observations": {
+      "requests": 5,
+      "http_200": 5,
+      "reported_total_tokens": 3877,
+      "metered_requests": 5,
+      "transport_seconds_median": 2.494
+    },
+    "source": {
+      "requests": 5,
+      "http_200": 5,
+      "reported_total_tokens": 7696,
+      "metered_requests": 5,
+      "transport_seconds_median": 3.743
+    }
+  },
+  "cases": [
+    {
+      "id": "empty-cache-value",
+      "modes": {
+        "observations": {
+          "status": "batch_incomplete",
+          "facts": {
+            "hit": "undelivered",
+            "bypass": "undelivered",
+            "miss": "undelivered"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "The shared batch rejected a source citation."
+        },
+        "source": {
+          "status": "batch_incomplete",
+          "facts": {
+            "hit": "undelivered",
+            "bypass": "undelivered",
+            "miss": "undelivered"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "The shared batch rejected a source citation."
+        }
+      }
+    },
+    {
+      "id": "string-flag-cross-batch",
+      "modes": {
+        "observations": {
+          "status": "completed",
+          "facts": {
+            "decode": "supported",
+            "policy": "supported",
+            "worker": "missing"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Computes queued:q7 only as a conditional for the worker and leaves the actual final string unresolved."
+        },
+        "source": {
+          "status": "completed",
+          "facts": {
+            "decode": "supported",
+            "policy": "supported",
+            "worker": "missing"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Received the caller and worker excerpts, but leaves the final string unresolved despite the supplied q7 key."
+        }
+      }
+    },
+    {
+      "id": "reachable-quota-bounds",
+      "modes": {
+        "observations": {
+          "status": "completed",
+          "facts": {
+            "max": "supported",
+            "min": "wrong",
+            "exclusive": "missing"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Reports 0 as the minimum. Basic, no batch or burst, credit enabled gives -2. The answer never explains that batch and burst do not stack."
+        },
+        "source": {
+          "status": "failed",
+          "facts": {
+            "max": "undelivered",
+            "min": "undelivered",
+            "exclusive": "undelivered"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "HTTP 200, but the response was rejected by the integer calculation validator. No claims were published."
+        }
+      }
+    },
+    {
+      "id": "cap-order-refactor",
+      "modes": {
+        "observations": {
+          "status": "completed",
+          "facts": {
+            "precap": "missing",
+            "current": "missing",
+            "reordered": "missing"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Both return values and the non-equivalence are correct. The required derivation is incomplete: omits the pre-cap 16, the skipped burst branch, credit eligibility and the intermediate cap/deduction values."
+        },
+        "source": {
+          "status": "completed",
+          "facts": {
+            "precap": "supported",
+            "current": "supported",
+            "reordered": "supported"
+          },
+          "clean_case": true,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Shows mutually exclusive branch updates and the intermediate values for each order."
+        }
+      }
+    },
+    {
+      "id": "timeout-fake-store",
+      "modes": {
+        "observations": {
+          "status": "completed",
+          "facts": {
+            "first-path": "supported",
+            "first-state": "supported",
+            "second-state": "missing"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Explains the first call and resulting lists; leaves the second call unresolved."
+        },
+        "source": {
+          "status": "completed",
+          "facts": {
+            "first-path": "supported",
+            "first-state": "supported",
+            "second-state": "supported"
+          },
+          "clean_case": true,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Shows the second retry, the doubled retries list, and the unchanged empty sent list."
+        }
+      }
+    },
+    {
+      "id": "runtime-boundary",
+      "modes": {
+        "observations": {
+          "status": "completed",
+          "facts": {
+            "tests": "supported",
+            "client": "missing",
+            "ordering": "supported",
+            "exactly-once": "missing"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [
+            "The line cited for test assertions is the fake sender definition, not the assertions on lines 25-27.",
+            "The send call citation alone does not identify the mark_sent or timeout branch lines."
+          ],
+          "note": "Correctly withholds runtime conclusions but omits the explicit fake-vs-real exception distinction and the possible remote-success-before-retry scenario or equivalent causal explanation."
+        },
+        "source": {
+          "status": "completed",
+          "facts": {
+            "tests": "supported",
+            "client": "missing",
+            "ordering": "supported",
+            "exactly-once": "missing"
+          },
+          "clean_case": false,
+          "extra_static_errors": [],
+          "unsupported_runtime_assertions": [],
+          "citation_notes": [],
+          "note": "Correctly withholds runtime conclusions but omits the explicit fake-vs-real exception distinction and the possible remote-success-before-retry scenario or equivalent causal explanation."
+        }
+      }
+    }
+  ]
+}

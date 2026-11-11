@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "stage": "P4",
+  "delivery": "project_coaching_first_slice",
+  "technical_revision": 16,
+  "checks": {
+    "backend_full": {
+      "passed": 1502,
+      "skipped": 2,
+      "elapsed_seconds": 396.51
+    },
+    "frontend_full": {
+      "passed": 106,
+      "elapsed_seconds": 20.87,
+      "max_workers": 2
+    },
+    "browser_full": {
+      "passed": 14,
+      "duration_reported": "1.7m",
+      "provider": "synthetic_no_network"
+    },
+    "clean_screenshot_rerun": {
+      "passed": 1,
+      "elapsed_seconds": 10.0
+    },
+    "typescript_build": true,
+    "vite_build": true,
+    "comparison_page": {
+      "all_images_load": true,
+      "all_four_views_work": true,
+      "browser_errors": []
+    },
+    "runtime": {
+      "ready": true,
+      "chat_capability": true,
+      "port": 8765,
+      "current_frontend_asset": "index-BlaD7rbK.js"
+    }
+  },
+  "interaction_checks": {
+    "date": "2026-11-02",
+    "fixture": "synthetic_only",
+    "provider_calls": 0,
+    "viewport": {
+      "width": 1600,
+      "height": 1080
+    },
+    "adjusted_widths": {
+      "left": 284,
+      "right": 523,
+      "conversation": 777
+    },
+    "independent_collapse": true,
+    "both_collapsed_conversation_width": 1600,
+    "reload_remembers_layout": true,
+    "focus_restores_previous_visibility": true,
+    "per_workspace_layout_and_records": true,
+    "reset_and_keyboard_resize": true,
+    "continuous_questions_after_one_grant": true,
+    "citation_opens_code_without_hiding_chat": true,
+    "mobile_width": 390,
+    "mobile_no_horizontal_overflow": true,
+    "browser_errors": [],
+    "external_browser_requests": []
+  },
+  "boundaries": {
+    "real_provider_calls": 0,
+    "real_user_source_sent": false,
+    "target_code_executed": false,
+    "real_workspace_chat_consent_changed": false,
+    "key_material_printed_or_hashed": false,
+    "cross_project_memory_transfer_enabled": false,
+    "formal_model_quality_accepted": false,
+    "gate_policy_changed": false
+  },
+  "limitations": [
+    "bounded_lexical_retrieval_not_full_repository_understanding",
+    "real_model_coaching_and_refactoring_quality_unmeasured",
+    "project_local_feedback_only",
+    "session_budget_resets_on_restart_not_a_currency_cap"
+  ],
+  "known_warnings": [
+    "existing_monaco_bundle_size_warning",
+    "existing_starlette_testclient_deprecation_warning"
+  ],
+  "file_sha256": {
+    "codesentry/conversation/__init__.py": "59833403ec5a1b00e56f4514c04ad90c2414b55637d226ba7dde57bfec65fc41",
+    "codesentry/conversation/context.py": "20ed603c858099cc6fa7ba07948d77782fc938378363677452c2a8bd53fc9eb6",
+    "codesentry/conversation/service.py": "21ae1fd44f00788dc05f04eefe2981681a75e1e1946eb428ef3535fa0c0efc40",
+    "codesentry/web/conversations.py": "a32d3ae615327bb6a3b949b3b15583cad6ef578bc132ae8abddf43aeba9938ff",
+    "codesentry/web/jobs.py": "45afd0d013bd1a46214ac99b0b4afe2270388382fc507200acef3c45b12b0023",
+    "codesentry/web/app.py": "a1099bceeb04aa16d857a8b9904e3c55b83e888f409c1719864814385132cb0e",
+    "codesentry/semantic/service.py": "0f788f02ee445fad9e493bbace0a047d70fa5c9544d8e3f4423a0d998d70cead",
+    "frontend/src/App.tsx": "e194db3f30040ceb598cc9fd724c9fb401513bc05f85aed246f0e21b06e14792",
+    "frontend/src/ProjectChat.tsx": "3dae5dc7dd8935e05d1ceefe9e7177847eef3481f4ddf96ebb8909ffae862874",
+    "frontend/src/useProjectChat.ts": "c348fec1c0581a6bfc6bac1b4284b20255e22620f37d0e4021f2b939db3fb010",
+    "frontend/src/usePanelLayout.tsx": "55b3cb14bbb0fb4b05a51400c9a737b05f3843b4a17097d6d0827c75c91801dc",
+    "frontend/src/CodeViewer.tsx": "65d1ff58cd1c429c96473a7f0d7ae00de2bca5839732b0852eeb1f4f8d8b2555",
+    "frontend/src/ModelPane.tsx": "1fd00f5065e8294fc1d97d5df860c1657783aafa85a2b09f31ef013ecb6adc70",
+    "frontend/src/api.ts": "4d839be981e46b49c6e941726f52512730f2a5807892b8ae9ebca21efdff458b",
+    "frontend/src/main.tsx": "ab299cd9c53b6525aabbeb4a3bac16bb0ec55e95d91fc7ab66e7c7478c015dca",
+    "frontend/src/learning.css": "9bafd91b77bf15b06b96f9aa89fc5da56561601dac782de335140d502d0a08fe",
+    "frontend/src/App.chat.test.tsx": "e3a3fa185c71c51a0a47605ccce7d0017f69f9ccff91ba0bcdb4fa060c922684",
+    "tests/test_web_conversations.py": "bc9aa6bb5b7880acdb7684e26d66fb009ae81c49018e0f49703067b2557377ac",
+    "tests/test_web_workspaces.py": "b72fcbd09e9032049da0c93f24bcfcf503e389c4ac172af9b00790f1bd3be304",
+    "frontend/e2e/conversations.spec.ts": "557feed0b40dfe01ab116f04d0177f944f865a2e04c25081ad846fef3d5cf9f1",
+    "frontend/e2e/semantic-server.py": "0bdfbdf4bc8cb5667a872c0bc1a01daa6028125d03d0d266975b7fd6e5db13da",
+    "frontend/e2e/baselines-changes.spec.ts": "c6c8098f660f484843c3ddd91468eba821b7f14295c266f4a9a615c6cf1f62b5",
+    "frontend/e2e/defects.spec.ts": "70d433e76129b1bd6d25217fd2cc1d58ce7c236421eb0264607c7bb17fbf7cf6",
+    "frontend/e2e/gate.spec.ts": "99eb933db14dcf134884a087c8f388891662cb2db7c280cf45a52f8095a9dbc4",
+    "frontend/e2e/review.spec.ts": "0c76a925b643ae7c2495fe95a821a6be668ee8fe9b9418d1920a42c266e4dfb1",
+    "frontend/e2e/semantic.spec.ts": "184ef9430bd19f3a3192720d0fbfddef19bc8a16e5a691b3adcc51c7f53772d5",
+    "frontend/e2e/workspaces.spec.ts": "8da77f980829af45b0b3d0003dfe855f66680730180e5aba66239bd58b3de2ec",
+    "README.md": "2c51d72fe1bd995181ac59e468269adf8187cf32f1d3b842f395f1b6b51ade36",
+    "docs/CodeSentry_技术选型定稿_v0.2.md": "ad7d785bb4625d1c87d6aa6cc64143748bdb04757c947c601c9e63bcf6fa83be",
+    "docs/CodeSentry_工作空间与本地前端方案_v0.1.md": "4b3a63ccd0d87553b7b7fb56659892e2de22a444c06ebd2c6c4068fe6bebe56f",
+    "docs/CodeSentry_分阶段执行方案_v1.0.md": "8e5bb85208e427bcda347993e1a1a042f481bacc653a888e9ccd7ca32a52ac4c",
+    "docs/execution/执行台账.md": "2795014fccf4efb90d157a2b82966ffc705c753a6bb2f6861436fc3ea394e306",
+    "docs/execution/P4_项目对话与带学界面_20261102.md": "e474075a9df25597a4e1ff08633fb2ac26c51d2762c254308730478aaf0e0e35",
+    "frontend/dist/index.html": "92d2339872e2f0a16df86eafc9685104ef629b03850bfeb91de5d9aa70b7cb9d",
+    "frontend/dist/assets/index-BlaD7rbK.js": "1a5b9c87cc4044c593249ba443700af7bd7fd23007cdaa599eef70c3db2c3fbd",
+    "frontend/dist/assets/index-BU4EqN0J.css": "32de3652d757f2d6df0318e07a0869857da530eee91a2583212f5fa89bac3d4d"
+  },
+  "visual_directory": "C:\\Users\\admin\\.codex\\visualizations\\2026\\10\\23\\01a168e2-cd69-7df3-a10a-e593704dd070\\codesentry-learning-20261102",
+  "visual_sha256": {
+    "comparison.html": "344d860fdc21eb25c9391e0e6102469518f114b128235d6256cfe55e2f5e32a0",
+    "comparison-overview.png": "ada4a0c6cfb3199136d61592a3d5b23a2a87f80033210307c6cc0dc624340e57",
+    "implementation-expanded.png": "67e2a72314f3cd581859c44a16e3a87c8a3ed746dc5e09fdbfc6829e711c9068",
+    "implementation-focus.png": "b2c38e82ba5da5fca0c3c0e6e86ae5373650d21411e108fdeff017b6a8a531c4",
+    "implementation-context.png": "7c35dc1a805a3885fa8dc445a897443c98b35752673326c44b07fee7d26bdd4b",
+    "implementation-mobile.png": "c34483b7d970aab085ef195320a61fade14e1037aba70b6461a876e351ec6d66",
+    "interaction-checks.json": "959f26107ed8a9c3883c6dafe62eaba1b779a51cc5e06ede7502e5e7faa90e66",
+    "layout-v2-expanded.png": "1b750f70a965b916c242a452ff401d0e771bf28d98b9ce8b2743240729d9a1f8",
+    "layout-v2-focus.png": "e3a092dfd536101cdde7209a1d6539c72c530786fe6521c1ad9438c7dce0cf47"
+  }
+}

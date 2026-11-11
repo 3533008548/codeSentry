@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic-docker-boundary-smoke",
+  "synthetic_only": true,
+  "target_projects_executed": false,
+  "image_ref": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+  "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+  "limits": {
+    "memory_bytes": 268435456,
+    "cpus": 1,
+    "pids": 32,
+    "timeout_seconds": 10,
+    "max_log_bytes": 2048,
+    "work_bytes": 8388608
+  },
+  "snapshot_digest": "14c677dc62dd436c861a3756abcadf74f17ef085ed705797e0af8e76e293ac5f",
+  "source_unchanged": true,
+  "boundary_checks": [
+    "non_root",
+    "root_read_only",
+    "input_read_only",
+    "work_copy_writable",
+    "docker_socket_absent",
+    "host_home_absent",
+    "gold_not_mounted",
+    "network_unavailable",
+    "memory_limit",
+    "pids_limit",
+    "cpu_limit"
+  ],
+  "observations": [
+    {
+      "task_id": "boundary",
+      "expected_status": "passed",
+      "expectation_met": true,
+      "result": {
+        "status": "passed",
+        "executed": true,
+        "task_id": "boundary",
+        "kind": "probe",
+        "snapshot_digest": "14c677dc62dd436c861a3756abcadf74f17ef085ed705797e0af8e76e293ac5f",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": "{\"cpu_limit\": true, \"docker_socket_absent\": true, \"gold_not_mounted\": true, \"host_home_absent\": true, \"input_read_only\": true, \"memory_limit\": true, \"network_unavailable\": true, \"non_root\": true, \"pids_limit\": true, \"root_read_only\": true, \"work_copy_writable\": true}\n",
+        "output_sha256": "faab1aaf66ee0999816cb263f20fff79a96cd49814870f33e667538caaa56251",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.3854,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "max_log_bytes": 2048,
+          "work_bytes": 8388608
+        }
+      }
+    },
+    {
+      "task_id": "no-assertions",
+      "expected_status": "not_verified",
+      "expectation_met": true,
+      "result": {
+        "status": "not_verified",
+        "executed": true,
+        "task_id": "no-assertions",
+        "kind": "test",
+        "snapshot_digest": "14c677dc62dd436c861a3756abcadf74f17ef085ed705797e0af8e76e293ac5f",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": "",
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [
+          "no trusted test-assertion adapter; exit zero is not test verification"
+        ],
+        "elapsed_seconds": 1.1543,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "max_log_bytes": 2048,
+          "work_bytes": 8388608
+        }
+      }
+    },
+    {
+      "task_id": "nonzero",
+      "expected_status": "failed",
+      "expectation_met": true,
+      "result": {
+        "status": "failed",
+        "executed": true,
+        "task_id": "nonzero",
+        "kind": "test",
+        "snapshot_digest": "14c677dc62dd436c861a3756abcadf74f17ef085ed705797e0af8e76e293ac5f",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 3,
+        "assertion_count": 0,
+        "logs": "",
+        "output_sha256": null,
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.0956,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "max_log_bytes": 2048,
+          "work_bytes": 8388608
+        }
+      }
+    },
+    {
+      "task_id": "timeout",
+      "expected_status": "timeout",
+      "expectation_met": true,
+      "result": {
+        "status": "timeout",
+        "executed": true,
+        "task_id": "timeout",
+        "kind": "probe",
+        "snapshot_digest": "14c677dc62dd436c861a3756abcadf74f17ef085ed705797e0af8e76e293ac5f",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": null,
+        "assertion_count": 0,
+        "logs": "",
+        "output_sha256": null,
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 2.0443,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 1,
+          "max_log_bytes": 2048,
+          "work_bytes": 8388608
+        }
+      }
+    },
+    {
+      "task_id": "cancel",
+      "expected_status": "cancelled",
+      "expectation_met": true,
+      "result": {
+        "status": "cancelled",
+        "executed": true,
+        "task_id": "cancel",
+        "kind": "probe",
+        "snapshot_digest": "14c677dc62dd436c861a3756abcadf74f17ef085ed705797e0af8e76e293ac5f",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": null,
+        "assertion_count": 0,
+        "logs": "",
+        "output_sha256": null,
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 2.4538,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "max_log_bytes": 2048,
+          "work_bytes": 8388608
+        }
+      }
+    },
+    {
+      "task_id": "output-limit",
+      "expected_status": "failed",
+      "expectation_met": true,
+      "result": {
+        "status": "failed",
+        "executed": true,
+        "task_id": "output-limit",
+        "kind": "probe",
+        "snapshot_digest": "14c677dc62dd436c861a3756abcadf74f17ef085ed705797e0af8e76e293ac5f",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": null,
+        "assertion_count": 0,
+        "logs": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "output_sha256": null,
+        "log_truncated": true,
+        "cleanup_pending": false,
+        "issues": [
+          "task output exceeded its configured limit"
+        ],
+        "elapsed_seconds": 1.1903,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "max_log_bytes": 2048,
+          "work_bytes": 8388608
+        }
+      }
+    }
+  ],
+  "synthetic_smoke_passed": true,
+  "target_execution_enabled": false,
+  "test_assertion_adapter_available": false,
+  "formal_acceptance": {
+    "passed": false,
+    "reason": "tool-owned synthetic task subset only"
+  }
+}

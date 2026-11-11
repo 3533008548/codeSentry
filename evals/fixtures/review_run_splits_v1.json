@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "dataset_id": "review-synthetic-v1",
+  "samples": [
+    {
+      "id": "matching",
+      "split": "dev",
+      "repository_group": "synthetic-matching",
+      "defect_family": "fixture-matching",
+      "derived_from": [],
+      "feedback_used": false
+    },
+    {
+      "id": "clean",
+      "split": "dev",
+      "repository_group": "synthetic-clean",
+      "defect_family": "fixture-clean",
+      "derived_from": [],
+      "feedback_used": false
+    },
+    {
+      "id": "partial",
+      "split": "dev",
+      "repository_group": "synthetic-partial",
+      "defect_family": "fixture-partial",
+      "derived_from": [],
+      "feedback_used": false
+    },
+    {
+      "id": "debt",
+      "split": "dev",
+      "repository_group": "synthetic-debt",
+      "defect_family": "fixture-debt",
+      "derived_from": [],
+      "feedback_used": false
+    },
+    {
+      "id": "unknown",
+      "split": "dev",
+      "repository_group": "synthetic-unknown",
+      "defect_family": "fixture-unknown",
+      "derived_from": [],
+      "feedback_used": false
+    }
+  ]
+}

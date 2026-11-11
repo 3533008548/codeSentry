@@ -1,0 +1,60 @@
+{
+  "registry_id": "fd24d6ea1e4a44a6bccee367a7a327a3",
+  "chain_valid": true,
+  "head_hash": "e3b0909d851f50b9b09cd70844ad39d236a31d9c7f4645cd2eeca395e9565b9a",
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "dev-register",
+      "kind": "batch_registered",
+      "created_at": "2026-11-10T07:02:52.215094+00:00",
+      "payload": {
+        "batch_id": "finally-return-isolated-dev",
+        "dataset_id": "p6-python-finally-return-dev-v1",
+        "dataset_version": "1",
+        "defect_families": [
+          "python.finally_return"
+        ],
+        "frozen_input_hash": "92c0ed3ff5775a83d42d57cc1e1995f20984924de7c154bc5444a31e02dcec12",
+        "partition": "dev",
+        "preregistration_hash": "9e2398ed935b8c0dee6e26721f50787258200b8e50da17507cf6d612f12d66ec",
+        "scorer_hash": "73f0e11fbde938e27e55fdd5f7780a21a7ad7df72d46be2ca364b899a948648c",
+        "source_groups": [
+          "tool-owned-synthetic-finally-v1"
+        ]
+      },
+      "previous_hash": "77ad44cc5a330375d7af32baabe188fbe23e340878bc725b82d3bda379a515de",
+      "event_hash": "ac7a0cd5e4809813dd7df15ef46d010567dc03658ac2f6a433d21b7bf87aaaf3"
+    },
+    {
+      "sequence": 2,
+      "event_id": "dev-start",
+      "kind": "evaluation_started",
+      "created_at": "2026-11-10T07:02:52.221774+00:00",
+      "payload": {
+        "batch_id": "finally-return-isolated-dev",
+        "candidate_hash": "7b7a4d9806cd020a36ef42427de03c4e91f4cf378847cfd2e49d996f0afd2671",
+        "candidate_id": "python.finally_return",
+        "candidate_version": "1",
+        "evaluation_id": "paired-python-run"
+      },
+      "previous_hash": "ac7a0cd5e4809813dd7df15ef46d010567dc03658ac2f6a433d21b7bf87aaaf3",
+      "event_hash": "91c4974c8947509ba6814136c85688362d267602a23ad01b2ce8d4628f2620cb"
+    },
+    {
+      "sequence": 3,
+      "event_id": "dev-finish",
+      "kind": "evaluation_finished",
+      "created_at": "2026-11-10T07:03:00.563298+00:00",
+      "payload": {
+        "evaluation_id": "paired-python-run",
+        "outcome": "passed",
+        "report_hash": "6aeb822ffc3e89e39db3e8806e3893df558d1d4603a07b4ccb58246acc240da2"
+      },
+      "previous_hash": "91c4974c8947509ba6814136c85688362d267602a23ad01b2ce8d4628f2620cb",
+      "event_hash": "e3b0909d851f50b9b09cd70844ad39d236a31d9c7f4645cd2eeca395e9565b9a"
+    }
+  ],
+  "operator_declaration_only": true,
+  "holdout_evaluation_ready": false
+}

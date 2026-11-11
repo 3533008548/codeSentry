@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "partition": "dev",
+  "dataset_sha256": "7d8be1bc571784ded75aab347561208288b454183169ab3a7f92a1ecaf26d065",
+  "fixture_sha256": {
+    "app.py": "2e8f660d5e1fd499451208835406d65481f8864763b6eb1fa890d1966151fea8",
+    "pricing.py": "5720a2a24409ed773d125daec9cd466cbed637e5d5fd6721859e7e56151ae39a",
+    "check_behavior.py": "842be0c37666b6429950bbc464d68b9ea4b46dd550fac288bcf81175e36bc2f5"
+  },
+  "model": "deepseek-flash",
+  "key_source": "env_file",
+  "synthetic_only": true,
+  "results": [
+    {
+      "case_id": "zero-from-cli",
+      "seconds": 3.3,
+      "batch_status": "partial",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "app.py",
+          "status": "failed",
+          "evidence_line": null,
+          "observation": null,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "id": "R2",
+          "path": "check_behavior.py",
+          "status": "failed",
+          "evidence_line": null,
+          "observation": null,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "id": "R3",
+          "path": "pricing.py",
+          "status": "failed",
+          "evidence_line": null,
+          "observation": null,
+          "reason": "invalid_review_citation"
+        }
+      ],
+      "summary": null,
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 910,
+            "completion_tokens": 260,
+            "total_tokens": 1170
+          },
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "invalid-quantity-short-circuit",
+      "seconds": 4.83,
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "app.py",
+          "status": "completed",
+          "evidence_line": 10,
+          "observation": "main 先将首参数交给 parse_quantity；若返回 None，则直接返回字面量 invalid quantity，否则才调用 delivery_fee 并按 '--member' 是否出现在其余参数中传 member。就输入 101 而言，是否执行取决于未提供的 parse_quantity 行为（该段未展示其实现），因此本段无法直接确定。",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "check_behavior.py",
+          "status": "completed",
+          "evidence_line": 11,
+          "observation": "该测试断言 main([\"5\", \"--member\"]) 等于 \"4\"，但未覆盖 101 数量；不能据此判断 101 的分支或返回。",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "pricing.py",
+          "status": "completed",
+          "evidence_line": 35,
+          "observation": "parse_quantity 在值为 101（大于 100）时返回 None，因此 app.main 会提前返回 invalid quantity，不会调用 delivery_fee。",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "claims": [
+          {
+            "text": "输入 101 --member 时计价函数不会执行；parse_quantity 对 101 返回 None，app.main 提前返回 invalid quantity。",
+            "evidence": [
+              {
+                "path": "app.py",
+                "line": 10,
+                "id": "R1"
+              },
+              {
+                "path": "pricing.py",
+                "line": 35,
+                "id": "R3"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "R1 未展示 parse_quantity 的实现，需以 R3 的实现为准"
+        ]
+      },
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 907,
+            "completion_tokens": 225,
+            "total_tokens": 1132
+          },
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 367,
+            "completion_tokens": 74,
+            "total_tokens": 441
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "refactor-with-reachable-bounds",
+      "seconds": 2.81,
+      "batch_status": "partial",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "app.py",
+          "status": "failed",
+          "evidence_line": null,
+          "observation": null,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "id": "R2",
+          "path": "check_behavior.py",
+          "status": "failed",
+          "evidence_line": null,
+          "observation": null,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "id": "R3",
+          "path": "pricing.py",
+          "status": "failed",
+          "evidence_line": null,
+          "observation": null,
+          "reason": "invalid_review_citation"
+        }
+      ],
+      "summary": null,
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 915,
+            "completion_tokens": 258,
+            "total_tokens": 1173
+          },
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1178 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-fresh-projects-v1",
+  "synthetic_only": true,
+  "dataset_sha256": "a6ceb2a38d0f5b0c92945736222a17cbfbcfe3d85910730d2966d780c4da58fe",
+  "candidate_sha256": {
+    "codesentry/review/batch_review.py": "28405834c3f0c7706c316680ec8cbadd02fb78ef21692b82649a75852c2949b0",
+    "codesentry/review/review_merge.py": "635cfca46c1810ce204e65ecfee7fd232c0005429fdb05c56972779cca1b09d5",
+    "codesentry/cli/main.py": "ce19483f4192663ce5d22bc43105e8f5938b9bc9fee3f97558ce2e1e7abf4c03",
+    "codesentry/semantic/service.py": "35a11b8fff0c03ccfdad7a72786efae45da9cca38ee8617e0d6cb0a17b942e97"
+  },
+  "model": "deepseek-flash",
+  "results": [
+    {
+      "id": "empty-cache-value",
+      "project": "routing",
+      "batch_status": "partial",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 17,
+          "status": "failed",
+          "utf8_bytes": 400,
+          "text_sha256": "b5d2e30eb58afc46b979ecf5c9a0b65cdea3c12259f4bead153f9e1cb1860984",
+          "id": "R1",
+          "path": "api.py",
+          "batch": 1,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "failed",
+          "utf8_bytes": 70,
+          "text_sha256": "b984285c04558b1dd5f0ad83d1b762498e84fb2aa060fe93bd512b4ea7bafe00",
+          "id": "R2",
+          "path": "cache.py",
+          "batch": 1,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "failed",
+          "utf8_bytes": 149,
+          "text_sha256": "de4165d2519f7ac28fbf0baaa6d33cf7cde01e97a753267724535f6372da83f6",
+          "id": "R3",
+          "path": "decoder.py",
+          "batch": 1,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "failed",
+          "utf8_bytes": 50,
+          "text_sha256": "6c8e3f37f582c00c566c9e7d2eb6564dbdaed40d4f9e6d55834e15d64ce8e9f5",
+          "id": "R4",
+          "path": "policy.py",
+          "batch": 1,
+          "reason": "invalid_review_citation"
+        },
+        {
+          "start_line": 1,
+          "end_line": 4,
+          "status": "completed",
+          "utf8_bytes": 103,
+          "text_sha256": "d8f3bf72fbed9f0b0b3ad000ed873c4ad46a618e0ff3fa611a5010985c388ce7",
+          "id": "R5",
+          "path": "z_worker.py",
+          "batch": 2,
+          "observation": "本段仅定义 dispatch(key) 函数；在给定源码中 handle 逻辑与 cache 参数不可见，故无法确定其返回值、是否检查派发权限或调用派发。唯一可见分支为：若 key 以 'q' 开头则返回 'queued:'+key，否则返回 'done:'+key。",
+          "evidence_line": null
+        }
+      ],
+      "summaries": {
+        "observations": {
+          "status": "batch_incomplete"
+        },
+        "source": {
+          "status": "batch_incomplete"
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4"
+          ],
+          "range_count": 4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 703,
+            "completion_tokens": 313,
+            "total_tokens": 1016
+          },
+          "seconds": 2.569
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R5"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 419,
+            "completion_tokens": 93,
+            "total_tokens": 512
+          },
+          "seconds": 1.731
+        }
+      ],
+      "seconds": 5.128
+    },
+    {
+      "id": "string-flag-cross-batch",
+      "project": "routing",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 17,
+          "status": "completed",
+          "utf8_bytes": 400,
+          "text_sha256": "b5d2e30eb58afc46b979ecf5c9a0b65cdea3c12259f4bead153f9e1cb1860984",
+          "id": "R1",
+          "path": "api.py",
+          "batch": 1,
+          "observation": "handle 依次解析请求、查询缓存、检查派发权限并派发；缓存命中时直接返回 saved，dry_run 为真时经 can_dispatch 返回 'blocked'。输入 'true' 为字符串，其具体解析结果取决于 decoder，本段只依赖 trace 分支。",
+          "evidence_line": 11
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 70,
+          "text_sha256": "b984285c04558b1dd5f0ad83d1b762498e84fb2aa060fe93bd512b4ea7bafe00",
+          "id": "R2",
+          "path": "cache.py",
+          "batch": 1,
+          "observation": "peek 在 key 不在 cache 时返回 None；cache 为空且 key 为 'q7' 时，查询返回 None，因此不触发缓存提前返回。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "completed",
+          "utf8_bytes": 149,
+          "text_sha256": "de4165d2519f7ac28fbf0baaa6d33cf7cde01e97a753267724535f6372da83f6",
+          "id": "R3",
+          "path": "decoder.py",
+          "batch": 1,
+          "observation": "decode 只把 raw.get('dry_run') is True 视为真；输入 'true' 是字符串而非布尔 True，因此得到的 dry_run 为 False，最终会走派发分支。",
+          "evidence_line": 5
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 50,
+          "text_sha256": "6c8e3f37f582c00c566c9e7d2eb6564dbdaed40d4f9e6d55834e15d64ce8e9f5",
+          "id": "R4",
+          "path": "policy.py",
+          "batch": 1,
+          "observation": "can_dispatch 返回 not dry_run；dry_run 为 False 时返回 True，因此不会返回 'blocked'。本段未给出 dispatch(key) 对 key='q7' 的返回值。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 4,
+          "status": "completed",
+          "utf8_bytes": 103,
+          "text_sha256": "d8f3bf72fbed9f0b0b3ad000ed873c4ad46a618e0ff3fa611a5010985c388ce7",
+          "id": "R5",
+          "path": "z_worker.py",
+          "batch": 2,
+          "observation": "本段仅显示 dispatch 对以 'q' 开头的 key 返回 'queued:'+key，否则返回 'done:'+key；输入 key='q7' 时按此表达式会走分支，但本段与标志解析、缓存判断、权限无直接关系，最终调用方是否传 key='q7' 及整体结果未知。",
+          "evidence_line": 2
+        }
+      ],
+      "summaries": {
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "decode 只在 raw['dry_run'] 严格为布尔 True 时将 dry_run 置为 True；输入字符串 'true' 不是 True，因此 dry_run 为 False。",
+              "evidence": [
+                {
+                  "id": "R3",
+                  "line": 5,
+                  "path": "decoder.py"
+                }
+              ]
+            },
+            {
+              "text": "cache 为空且 key 为 'q7' 时 peek 返回 None，缓存分支条件不成立，因此不会提前返回 saved。",
+              "evidence": [
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "cache.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 13,
+                  "path": "api.py"
+                }
+              ]
+            },
+            {
+              "text": "can_dispatch(False) 返回 True，因此 not can_dispatch(dry_run) 为 False，不会返回 'blocked'，handle 进入 dispatch(key)。",
+              "evidence": [
+                {
+                  "id": "R4",
+                  "line": 2,
+                  "path": "policy.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 15,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 17,
+                  "path": "api.py"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "观察 R5 仅显示 dispatch 对以 'q' 开头的 key 返回 'queued:'+key；若 key 确为 'q7'，按该表达式应为 'queued:q7'，但本段未直接展示 handle 传入的 key 值及最终调用结果，需结合 handle/decode 的实际运行确认。",
+            "未提供 decode(raw) 对 key 类型和空值以外的其他校验行为，也未提供 raw 的完整结构；本请求只给出该字典，可能缺少 decode 所需的上下文。",
+            "未提供 peek 是否对 cache 以外的状态有副作用，也未提供 cache 是否可能在判断前被修改；输入称 cache 为空，但缺少运行证据。",
+            "未提供 dispatch 是否可能抛出异常或依赖外部状态；因此最终字符串是否一定为 'queued:q7' 缺少完整运行证据。"
+          ]
+        },
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "输入 'true' 是字符串而非布尔 True，decode 只把 is True 视为真，因此 dry_run 为 False，不会走 'blocked' 分支。",
+              "evidence": [
+                {
+                  "path": "decoder.py",
+                  "line": 5,
+                  "id": "R3"
+                },
+                {
+                  "path": "api.py",
+                  "line": 11,
+                  "id": "R1"
+                }
+              ]
+            },
+            {
+              "text": "cache 为空且 key 为 'q7'，peek 返回 None，不触发缓存提前返回。",
+              "evidence": [
+                {
+                  "path": "cache.py",
+                  "line": 2,
+                  "id": "R2"
+                }
+              ]
+            },
+            {
+              "text": "dry_run 为 False 时 can_dispatch 返回 True，权限检查通过，进入派发分支。",
+              "evidence": [
+                {
+                  "path": "policy.py",
+                  "line": 2,
+                  "id": "R4"
+                }
+              ]
+            },
+            {
+              "text": "按 z_worker 段，派发以 'q' 开头的 key 会返回 'queued:'+key，即 key 为 'q7' 时表达式结果为 'queued:q7'，但该段未给出调用方实际传参，不能据此确认最终字符串。",
+              "evidence": [
+                {
+                  "path": "z_worker.py",
+                  "line": 2,
+                  "id": "R5"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "handle 是否确实将 decode 得到的 dry_run=False 而非原始字符串传给 can_dispatch",
+            "dispatch(key) 对 key='q7' 的最终实际返回值及调用方传入的 key 值",
+            "派发分支是否还有其他装饰、包装或错误处理影响最终字符串",
+            "无法运行代码，无法确认最终端到端结果"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4"
+          ],
+          "range_count": 4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 692,
+            "completion_tokens": 294,
+            "total_tokens": 986
+          },
+          "seconds": 3.01
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R5"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 408,
+            "completion_tokens": 109,
+            "total_tokens": 517
+          },
+          "seconds": 1.721
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5"
+          ],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1044,
+            "completion_tokens": 456,
+            "total_tokens": 1500
+          },
+          "seconds": 4.669
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 597,
+            "completion_tokens": 276,
+            "total_tokens": 873
+          },
+          "seconds": 3.022
+        }
+      ],
+      "seconds": 14.812
+    },
+    {
+      "id": "reachable-quota-bounds",
+      "project": "quota",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 14,
+          "status": "completed",
+          "utf8_bytes": 318,
+          "text_sha256": "68b6921c29a1ee62ed301d01149885e67e1817d1d322bfa6413009226443f45e",
+          "id": "R1",
+          "path": "limits.py",
+          "batch": 1,
+          "observation": "amount 从 4 起：pro 加 7，trial 减 3；batch 真加 5，否则 burst 真加 2；再用 min(12, amount) 截顶；最后若 credit 真且 tier 非 trial 则减 6。按给定 tier 与布尔参数枚举：trial 分支为 4-3 再加 5 或 2 得 6 或 3，且 credit 不减，故最小为 3；pro 路径可达 4+7+5=16 被截为 12，credit 仍可再减 6，故最终最大为减去前 12、不减时为 12。basic 分支 4+5=9 或 4+2=6，再减 6 得 3 或 0，故最小为 0。因此所有允许输入下最大是 12，最小是 0。",
+          "evidence_line": 11
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "completed",
+          "utf8_bytes": 131,
+          "text_sha256": "55498083c6454569b9999aaf0d52c85ec1ccea137a6351e5731a70842c811705",
+          "id": "R2",
+          "path": "quote.py",
+          "batch": 1,
+          "observation": "quote 直接以 tier 和 flags 的三个键调用 allowance，没有额外数值处理；边界由 R1 的 allowance 决定。",
+          "evidence_line": 5
+        }
+      ],
+      "summaries": {
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 2,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "在所有允许输入下，allowance 的最大可达值为 12。",
+              "evidence": [
+                {
+                  "path": "limits.py",
+                  "line": 11,
+                  "id": "R1"
+                },
+                {
+                  "path": "quote.py",
+                  "line": 5,
+                  "id": "R2"
+                }
+              ]
+            },
+            {
+              "text": "最大值为 12 的输入：tier=pro、batch=true、burst=true、credit=false；计算过程为 4+7+5=16，经 min(12,16) 截顶后为 12，由于 credit=false 所以不再减 6。",
+              "evidence": [
+                {
+                  "path": "limits.py",
+                  "line": 11,
+                  "id": "R1"
+                }
+              ]
+            },
+            {
+              "text": "allowance 的最小可达值为 0。",
+              "evidence": [
+                {
+                  "path": "limits.py",
+                  "line": 11,
+                  "id": "R1"
+                },
+                {
+                  "path": "quote.py",
+                  "line": 5,
+                  "id": "R2"
+                }
+              ]
+            },
+            {
+              "text": "最小值为 0 的输入：tier=basic、batch=false、burst=true、credit=true；计算过程为 4+2=6，min(12,6)=6，credit=true 且 tier≠trial 故再减 6，结果为 0。",
+              "evidence": [
+                {
+                  "path": "limits.py",
+                  "line": 11,
+                  "id": "R1"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "没有逐一列出并验证全部 3×2×2×2=24 种输入组合的完整枚举结果，边界排除仅依赖 R1 的分支分析。",
+            "trial 分支下 credit 条件恒不减，但 R1 未明确 trial 是否可能取到低于 3 的其他路径，需核对该分支是否唯一。"
+          ]
+        },
+        "source": {
+          "status": "failed",
+          "reason": "invalid_review_calculation",
+          "requests": 1
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2"
+          ],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 576,
+            "completion_tokens": 296,
+            "total_tokens": 872
+          },
+          "seconds": 3.015
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 510,
+            "completion_tokens": 276,
+            "total_tokens": 786
+          },
+          "seconds": 2.983
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2"
+          ],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 837,
+            "completion_tokens": 940,
+            "total_tokens": 1777
+          },
+          "seconds": 6.42
+        }
+      ],
+      "seconds": 13.431
+    },
+    {
+      "id": "cap-order-refactor",
+      "project": "quota",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 14,
+          "status": "completed",
+          "utf8_bytes": 318,
+          "text_sha256": "68b6921c29a1ee62ed301d01149885e67e1817d1d322bfa6413009226443f45e",
+          "id": "R1",
+          "path": "limits.py",
+          "batch": 1,
+          "observation": "代码事实：amount 初值 4；tier 为 'pro' 时执行第 4 行 amount += 7；batch 为 True 时执行第 8 行 amount += 5，burst 分支不执行。tier='pro'、batch=True、burst=True 时，第 11 行 min(12, amount) 作用于 4+7+5=16，得到 12；credit 为 True 且 tier != 'trial'，第 13 行减 6，返回 6。若把 min(12, amount) 移到 credit 扣除之后，在本输入条件下仍先得到 4+7+5=16，再减 6 得 10，随后被 min 限制为 10，返回 10；两种顺序对本输入不等价。一般等价性仅从本段无法完全确认。",
+          "evidence_line": 11
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "completed",
+          "utf8_bytes": 131,
+          "text_sha256": "55498083c6454569b9999aaf0d52c85ec1ccea137a6351e5731a70842c811705",
+          "id": "R2",
+          "path": "quote.py",
+          "batch": 1,
+          "observation": "代码事实：quote 把 flags 中的 batch、burst、credit 原样传给 allowance，tier 也直接传入；因此题设 tier='pro' 且三者均为 True 时，quote 的返回值等于 allowance('pro', True, True, True)。本段未定义 flags 的实际取值。",
+          "evidence_line": 5
+        }
+      ],
+      "summaries": {
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 2,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "当前实现中，tier='pro' 执行 amount += 7，batch=True 执行 amount += 5 且跳过 burst 分支；min(12,16) 得 12，credit=True 且 tier!='trial' 再减 6，最终返回 6。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 3,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 4,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 7,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 8,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 11,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 13,
+                  "path": "limits.py"
+                }
+              ],
+              "sums": [
+                {
+                  "terms": [
+                    4,
+                    7,
+                    5
+                  ],
+                  "result": 16
+                },
+                {
+                  "terms": [
+                    12,
+                    -6
+                  ],
+                  "result": 6
+                }
+              ]
+            },
+            {
+              "text": "quote 把三个 flags 原样转发给 allowance，所以 quote 的返回值就是 allowance 对同一参数的结果；本输入下为 6。",
+              "evidence": [
+                {
+                  "id": "R2",
+                  "line": 5,
+                  "path": "quote.py"
+                }
+              ]
+            },
+            {
+              "text": "若把 min(12, amount) 移到 credit 扣除之后，本输入仍先累到 16，再减 6 得 10，随后 min 得 10，因此返回 10；对本题输入两种顺序不等价。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 4,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 8,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 11,
+                  "path": "limits.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 13,
+                  "path": "limits.py"
+                }
+              ],
+              "sums": [
+                {
+                  "terms": [
+                    4,
+                    7,
+                    5
+                  ],
+                  "result": 16
+                },
+                {
+                  "terms": [
+                    16,
+                    -6
+                  ],
+                  "result": 10
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "观察 R2 说“本段未定义 flags 的实际取值”，未直接给出 quote 调用处 flags 的构造；这里依赖题目明确说明三个 flags 都为 True。",
+            "除本输入外，两种执行顺序在 credit 为 False 或 tier='trial' 等情形下是否一般等价，当前证据不足以完全确认。"
+          ]
+        },
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 2,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "原顺序（先执行 min(12, amount)，再扣除 credit）在本输入下返回 6。",
+              "evidence": [
+                {
+                  "path": "limits.py",
+                  "line": 11,
+                  "id": "R1"
+                }
+              ]
+            },
+            {
+              "text": "若只把 min(12, amount) 移到扣除 credit 之后，在本输入下返回 10；两种顺序对本输入不等价。",
+              "evidence": [
+                {
+                  "path": "limits.py",
+                  "line": 11,
+                  "id": "R1"
+                }
+              ]
+            },
+            {
+              "text": "当 tier='pro'、batch=True、burst=True 时，quote 的返回值等于 allowance('pro', True, True, True)。",
+              "evidence": [
+                {
+                  "path": "quote.py",
+                  "line": 5,
+                  "id": "R2"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "本段未定义 quote 的 flags 的实际取值，无法确认三个 flag 是否都为 True。",
+            "一般等价性仅从本段观察无法完全确认。",
+            "未完整核对源码中 allowance 的具体控制流与分支条件。"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2"
+          ],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 579,
+            "completion_tokens": 319,
+            "total_tokens": 898
+          },
+          "seconds": 2.567
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2"
+          ],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 863,
+            "completion_tokens": 516,
+            "total_tokens": 1379
+          },
+          "seconds": 3.743
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 536,
+            "completion_tokens": 174,
+            "total_tokens": 710
+          },
+          "seconds": 1.838
+        }
+      ],
+      "seconds": 9.139
+    },
+    {
+      "id": "timeout-fake-store",
+      "project": "outbox",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 4,
+          "status": "completed",
+          "utf8_bytes": 119,
+          "text_sha256": "6a2c5efa712950483ccb1a380a1d6fdea23fb5a0322e55ebf7c00d58f9c542d9",
+          "id": "R1",
+          "path": "adapter.py",
+          "batch": 1,
+          "observation": "本段与问题无直接关系：这是 sender 工厂，与 test_timeout 使用的 timeout sender 无直接关系。",
+          "evidence_line": null
+        },
+        {
+          "start_line": 1,
+          "end_line": 10,
+          "status": "completed",
+          "utf8_bytes": 252,
+          "text_sha256": "3a93aaa44f78b08971ef4fb97633b2d2464f8b12cf8e66f92cd822182d5a7cb0",
+          "id": "R2",
+          "path": "publisher.py",
+          "batch": 1,
+          "observation": "publish 首次检查 store.was_sent(job['id'])；仅当返回真时返回 'duplicate'。否则 try 调用 send(job)；捕获 TimeoutError 时调用 store.mark_retry(job['id']) 并返回 'retry'。正常返回后调用 store.mark_sent 并返回 'sent'。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 27,
+          "status": "completed",
+          "utf8_bytes": 531,
+          "text_sha256": "dc5e2e159464a4f7baeabae7f2ce851287afe1242585205aa38da8fd28adeb98",
+          "id": "R3",
+          "path": "test_publisher.py",
+          "batch": 1,
+          "observation": "test_timeout 用新 FakeStore、job {'id': 'A'} 和 timeout 调用 publish 一次。timeout(job) 抛出 TimeoutError(job['id'])。FakeStore.was_sent 初始判断 key in self.sent，而 sent 初始为空，因此首次调用不进入重复分支，走 mark_retry('A')，结果为 'retry'，retries 为 ['A']，sent 为 []。本段只覆盖单次调用；未展示用同一 store、同一 A、同一个 timeout sender 再次调用，因此其第二次结果及列表变化未知。",
+          "evidence_line": 25
+        }
+      ],
+      "summaries": {
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 3,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "首次调用不进入重复分支：store.was_sent('A') 为假，send 抛 TimeoutError，publish 返回 'retry'，并调用 mark_retry('A')；此时 retries 为 ['A']，sent 为 []。",
+              "evidence": [
+                {
+                  "path": "publisher.py",
+                  "line": 2,
+                  "id": "R2"
+                },
+                {
+                  "path": "test_publisher.py",
+                  "line": 25,
+                  "id": "R3"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "用同一 store、同一 A 和同一个 timeout sender 再次调用时，was_sent 的返回值、mark_sent 是否被调用、最终返回值以及 retries 和 sent 两份列表的变化，输入未给出证据。",
+            "mark_retry 和 mark_sent 的具体实现及其对 sent 列表的影响未给出源码；只能根据 R3 初始状态推断首次结果，无法核对第二次调用。"
+          ]
+        },
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 3,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "首次调用 test_timeout 的 A 任务时，FakeStore.sent 初始为空，was_sent('A') 为假，因此不进入重复分支；timeout 抛出 TimeoutError，publish 调用 mark_retry('A') 并返回 'retry'，retries 为 ['A']，sent 为 []。",
+              "evidence": [
+                {
+                  "id": "R3",
+                  "line": 6,
+                  "path": "test_publisher.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 10,
+                  "path": "test_publisher.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 13,
+                  "path": "test_publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 7,
+                  "path": "publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 8,
+                  "path": "publisher.py"
+                }
+              ]
+            },
+            {
+              "text": "用同一 store、同一 A 和同一个 timeout sender 再次调用时，sent 仍不含 'A'，所以依然不进入重复分支，仍抛 TimeoutError，再追加一次 retry：结果仍为 'retry'，retries 变为 ['A','A']，sent 仍为 []。",
+              "evidence": [
+                {
+                  "id": "R3",
+                  "line": 10,
+                  "path": "test_publisher.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 13,
+                  "path": "test_publisher.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 20,
+                  "path": "test_publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 7,
+                  "path": "publisher.py"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "源码 test_timeout 只展示一次调用，未显式写出第二次同一 store/同一 A/timeout sender 的调用与断言，因此第二次结果和列表变化是基于 publish 与 FakeStore 源码推导，而非测试段直接展示。",
+            "adapter.py 的 sender 工厂与 test_timeout 使用的 timeout sender 关系未在源码中出现，若需确认 timeout sender 身份需查看 adapter.py 具体实现。"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ],
+          "range_count": 3,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 822,
+            "completion_tokens": 316,
+            "total_tokens": 1138
+          },
+          "seconds": 3.124
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 3,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 534,
+            "completion_tokens": 172,
+            "total_tokens": 706
+          },
+          "seconds": 1.759
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R2",
+            "R3"
+          ],
+          "range_count": 3,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1031,
+            "completion_tokens": 499,
+            "total_tokens": 1530
+          },
+          "seconds": 3.501
+        }
+      ],
+      "seconds": 9.633
+    },
+    {
+      "id": "runtime-boundary",
+      "project": "outbox",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 4,
+          "status": "completed",
+          "utf8_bytes": 119,
+          "text_sha256": "6a2c5efa712950483ccb1a380a1d6fdea23fb5a0322e55ebf7c00d58f9c542d9",
+          "id": "R1",
+          "path": "adapter.py",
+          "batch": 1,
+          "observation": "该段仅显示 make_sender 包装 client.post('/events', json=job, timeout=1) 并返回该响应；未显示真实 client 的实现，因此无法据此判断真实 client 在该超时配置下是否抛出 TimeoutError。",
+          "evidence_line": 3
+        },
+        {
+          "start_line": 1,
+          "end_line": 10,
+          "status": "completed",
+          "utf8_bytes": 252,
+          "text_sha256": "3a93aaa44f78b08971ef4fb97633b2d2464f8b12cf8e66f92cd822182d5a7cb0",
+          "id": "R2",
+          "path": "publisher.py",
+          "batch": 1,
+          "observation": "源码事实：先检查 store.was_sent(job['id'])，已发送则返回 'duplicate'；否则调用 send(job)。若 send 抛出 TimeoutError，则 mark_retry 后返回 'retry'；否则执行 mark_sent 并返回 'sent'。因此发送调用在第 5 行，登记已发送在第 9 行，顺序为先发送、后登记；超时分支不登记已发送。该段未见重试实现，无法判断线上重试的投递次数保证。",
+          "evidence_line": 5
+        },
+        {
+          "start_line": 1,
+          "end_line": 27,
+          "status": "completed",
+          "utf8_bytes": 531,
+          "text_sha256": "dc5e2e159464a4f7baeabae7f2ce851287afe1242585205aa38da8fd28adeb98",
+          "id": "R3",
+          "path": "test_publisher.py",
+          "batch": 1,
+          "observation": "该测试定义了 timeout 函数在第 20 行抛出 TimeoutError，test_timeout 断言 publish 返回 'retry'、retries 为 ['A']、sent 为空。但仅凭该段源码无法判断测试是否已运行或通过；FakeStore 是内存伪造，不能证明真实 client 行为。",
+          "evidence_line": 19
+        }
+      ],
+      "summaries": {
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 3,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "无法判断 test_timeout 已运行并通过；源码只定义了测试函数和伪造 store，没有运行证据。",
+              "evidence": [
+                {
+                  "id": "R3",
+                  "line": 23,
+                  "path": "test_publisher.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 25,
+                  "path": "test_publisher.py"
+                }
+              ]
+            },
+            {
+              "text": "无法判断真实 client 在 timeout=1 时抛出 TimeoutError；此处只显示调用，没有 client 实现证据。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 3,
+                  "path": "adapter.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 20,
+                  "path": "test_publisher.py"
+                }
+              ]
+            },
+            {
+              "text": "发送与登记顺序为：先调用 send(job)；若成功，再 mark_sent；若抛 TimeoutError，则 mark_retry 而不 mark_sent。",
+              "evidence": [
+                {
+                  "id": "R2",
+                  "line": 5,
+                  "path": "publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 7,
+                  "path": "publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 9,
+                  "path": "publisher.py"
+                }
+              ]
+            },
+            {
+              "text": "无法判断线上重试保证恰好投递一次；源码没有重试实现或投递去重保证。",
+              "evidence": [
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "publisher.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 7,
+                  "path": "publisher.py"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "test_timeout 是否实际运行并通过",
+            "真实 client 在 timeout=1 时是否抛出 TimeoutError",
+            "线上重试机制及其投递次数保证",
+            "store 的持久性与并发语义"
+          ]
+        },
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 3,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "无法从给定文件判断 test_timeout 已运行或通过；源码只定义了测试并断言返回 'retry'、retries 为 ['A']、sent 为空。",
+              "evidence": [
+                {
+                  "path": "test_publisher.py",
+                  "line": 19,
+                  "id": "R3"
+                }
+              ]
+            },
+            {
+              "text": "无法判断真实 client 会抛出此处捕获的 TimeoutError；仅见 client.post('/events', json=job, timeout=1) 的包装，缺少真实 client 实现。",
+              "evidence": [
+                {
+                  "path": "adapter.py",
+                  "line": 3,
+                  "id": "R1"
+                }
+              ]
+            },
+            {
+              "text": "无法判断线上重试保证恰好投递一次；publisher 逻辑没有重试实现，测试中的 FakeStore 是内存伪造，不能证明线上语义。",
+              "evidence": [
+                {
+                  "path": "publisher.py",
+                  "line": 5,
+                  "id": "R2"
+                },
+                {
+                  "path": "test_publisher.py",
+                  "line": 19,
+                  "id": "R3"
+                }
+              ]
+            },
+            {
+              "text": "调用发送早于登记已发送：先执行 send(job)，成功后才 mark_sent；超时分支只 mark_retry，不登记已发送。",
+              "evidence": [
+                {
+                  "path": "publisher.py",
+                  "line": 5,
+                  "id": "R2"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "test_timeout 是否已实际运行及其结果",
+            "真实 client 在 timeout=1 下是否抛出 TimeoutError",
+            "线上重试实现及其投递次数保证",
+            "真实 store 的 was_sent、mark_sent、mark_retry 实现与并发语义"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ],
+          "range_count": 3,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 824,
+            "completion_tokens": 314,
+            "total_tokens": 1138
+          },
+          "seconds": 2.927
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ],
+          "range_count": 3,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1087,
+            "completion_tokens": 423,
+            "total_tokens": 1510
+          },
+          "seconds": 3.068
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 3,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 542,
+            "completion_tokens": 260,
+            "total_tokens": 802
+          },
+          "seconds": 2.494
+        }
+      ],
+      "seconds": 9.748
+    }
+  ]
+}

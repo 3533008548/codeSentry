@@ -1,0 +1,66 @@
+{
+  "schema_version": "review-gold-v1",
+  "dataset_id": "codesentry-fingerprint-dev-v1",
+  "dataset_version": "1",
+  "split": "dev",
+  "cases": [
+    {
+      "id": "codesentry-legacy-fingerprint-before",
+      "project": "CodeSentry",
+      "language": "python",
+      "repository_group": "codesentry",
+      "defect_family": "codesentry-legacy-fingerprint-normalization",
+      "source_snapshot": "c7725030d3ee4591a468cba32e510195ae721b8ddf3d84e31140265797c050e4",
+      "path": "fingerprint.py",
+      "rule_id": "fingerprint.complete_source_preservation",
+      "rule_version": "owner-dev-v1",
+      "category": "bug",
+      "label": "bugs",
+      "adjudication": "confirmed",
+      "evidence": [
+        "Owner-confirmed development defects; not independent holdout adjudication.",
+        "Receipt SHA256: 38ef461c2df54b98bbdbf37fb21634283c0a8ff6f7273839ba9a7f5918977201",
+        "Reproduction report SHA256: 9ae72db7017f02d9d5f4b91835c144f476c628fb59513693a09dfedef4b91db5"
+      ],
+      "scope": {
+        "start_line": 23,
+        "end_line": 36,
+        "complete": false
+      },
+      "issues": [
+        {
+          "id": "after_line_12_changes_fingerprint",
+          "locations": [
+            {
+              "start_line": 34,
+              "end_line": 34,
+              "symbol": null
+            }
+          ],
+          "evidence": [
+            "Owner decision applies to this unique issue only.",
+            "Frozen AST location in normalize_snippet; before observation false, candidate observation true.",
+            "Trusted behavior case: after_line_12_changes_fingerprint",
+            "Technical decision section 3.3.2."
+          ]
+        },
+        {
+          "id": "string_internal_whitespace_changes_fingerprint",
+          "locations": [
+            {
+              "start_line": 35,
+              "end_line": 35,
+              "symbol": null
+            }
+          ],
+          "evidence": [
+            "Owner decision applies to this unique issue only.",
+            "Frozen AST location in normalize_snippet; before observation false, candidate observation true.",
+            "Trusted behavior case: string_internal_whitespace_changes_fingerprint",
+            "Technical decision section 3.3.2."
+          ]
+        }
+      ]
+    }
+  ]
+}

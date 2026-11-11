@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "kind": "baseline-review-proposal",
+  "status": "pending_human_review",
+  "previous_record_count": 2,
+  "current_issue_count": 2,
+  "previous_records": [
+    {
+      "record_index": 0,
+      "record_id": "synthetic-legacy-record",
+      "status": "legacy_sha1_requires_migration",
+      "approval_claim_ignored": true,
+      "current_indices": [],
+      "exemption_granted": false
+    },
+    {
+      "record_index": 1,
+      "record_id": "synthetic-self-approved-v2-record",
+      "status": "exact_inputs_pending_review",
+      "approval_claim_ignored": true,
+      "current_indices": [
+        0
+      ],
+      "exemption_granted": false
+    }
+  ],
+  "current_issues": [
+    {
+      "current_index": 0,
+      "fingerprint": {
+        "version": 2,
+        "identity_digest": "v2:sha256:identity:f52f093facb23ac8069ff70db8ed7b360c00e39f0fb378ba0e7b90442b5248d7",
+        "evidence_digest": "v2:sha256:evidence:9c71c85a8e134c2f74fba4ac218732cd27e9bb852ef2239bfc2c2b68b7aea474",
+        "combined_digest": "v2:sha256:f7a802a95b520fd1d49f6fdcdc18cf79395eeeef3815e4f538488b183a2b5d5e"
+      },
+      "status": "exact_inputs_pending_review",
+      "previous_record_indices": [
+        1
+      ],
+      "exemption_granted": false
+    },
+    {
+      "current_index": 1,
+      "fingerprint": {
+        "version": 2,
+        "identity_digest": "v2:sha256:identity:07f6be91e748326125fea78fe720bd1e96a78bf2ac7bcfc31baf145d733e6cce",
+        "evidence_digest": "v2:sha256:evidence:6569a8a90c01b6568c49f61256094c59c8bb3bd40e70c8208a13e74d91dbdb0c",
+        "combined_digest": "v2:sha256:f2fc4abad55a0418c124aac442f10674a7a32652c398de44feb0cbd4ea5ed82e"
+      },
+      "status": "new_issue_pending_review",
+      "previous_record_indices": [],
+      "exemption_granted": false
+    }
+  ],
+  "automatic_exemptions": false,
+  "production_exemptions_enabled": false,
+  "authoritative_baseline_written": false
+}

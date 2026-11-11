@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "scope": "synthetic static source and optional root environment declarations",
+  "cases": [
+    {"id": "anchor-behavior", "after": {"main.py": "from store import save\n\ndef run():\n    return save('goodbye')\n"}, "gold_drift": true, "expected_status": "stale", "reason": "source"},
+    {"id": "supporting-source", "after": {"store.py": "def save(value):\n    return value.upper()\n"}, "gold_drift": true, "expected_status": "stale", "reason": "source"},
+    {"id": "anchor-deleted", "after": {"main.py": null}, "gold_drift": true, "expected_status": "stale", "reason": "source"},
+    {"id": "anchor-moved", "after": {"main.py": null, "moved.py": "from store import save\n\ndef run():\n    return save('hello')\n"}, "gold_drift": true, "expected_status": "stale", "reason": "source"},
+    {"id": "tracked-version-change", "track_environment": true, "before": {".python-version": "3.12\n"}, "after": {".python-version": "3.13\n"}, "gold_drift": true, "expected_status": "stale", "reason": "environment"},
+    {"id": "tracked-lock-added", "track_environment": true, "after": {"uv.lock": "version = 1\n"}, "gold_drift": true, "expected_status": "stale", "reason": "environment"},
+    {"id": "tracked-version-removed", "track_environment": true, "before": {".python-version": "3.12\n"}, "after": {".python-version": null}, "gold_drift": true, "expected_status": "stale", "reason": "environment"},
+    {"id": "anchor-comment", "after": {"main.py": "from store import save\n\ndef run():\n    return save('hello')\n# Same behavior\n"}, "gold_drift": false, "expected_status": "stale", "reason": "source"},
+    {"id": "unrelated-file", "after": {"README.md": "New project introduction.\n"}, "gold_drift": false, "expected_status": "active"},
+    {"id": "untracked-version-change", "before": {".python-version": "3.12\n"}, "after": {".python-version": "3.13\n"}, "gold_drift": false, "expected_status": "active"},
+    {"id": "tracked-unrelated-file", "track_environment": true, "after": {"notes.txt": "Unrelated observation.\n"}, "gold_drift": false, "expected_status": "active"},
+    {"id": "tracked-no-change", "track_environment": true, "after": {}, "gold_drift": false, "expected_status": "active"}
+  ]
+}

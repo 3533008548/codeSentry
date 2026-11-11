@@ -1,0 +1,2181 @@
+{
+  "schema_version": 1,
+  "fixture_id": "navigation-structure-v1",
+  "frozen_on": "2026-10-27",
+  "status": "frozen_synthetic_structural_regression",
+  "purpose": "Mechanism regression only; not human gold, P@10, held-out quality, or cross-project acceptance.",
+  "cases": [
+    {
+      "id": "overflow_keeps_shortest_distance",
+      "notes": "A deferred direct dependency must never acquire a larger graph distance.",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "a.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "b.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "c.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 1,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "a.py",
+          "b.py"
+        ],
+        "a.py": [
+          "c.py"
+        ],
+        "b.py": [],
+        "c.py": []
+      },
+      "file_pr": {
+        "launcher.py": 0.1,
+        "a.py": 0.4,
+        "b.py": 0.2,
+        "c.py": 0.3
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 3,
+        "max_items": 2
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "a.py": 1,
+          "b.py": 1,
+          "c.py": 2
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "a.py",
+          "b.py",
+          "c.py",
+          "launcher.py"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "cycle_and_diamond_are_unique",
+      "notes": "",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "left.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "right.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "bottom.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 2,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "left.py",
+          "right.py"
+        ],
+        "left.py": [
+          "bottom.py"
+        ],
+        "right.py": [
+          "bottom.py"
+        ],
+        "bottom.py": [
+          "launcher.py"
+        ]
+      },
+      "file_pr": {
+        "launcher.py": 0.1,
+        "left.py": 0.3,
+        "right.py": 0.25,
+        "bottom.py": 0.35
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "left.py": 1,
+          "right.py": 1,
+          "bottom.py": 2
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "bottom.py",
+          "launcher.py",
+          "left.py",
+          "right.py"
+        ],
+        "forbidden": [],
+        "before": [
+          [
+            "left.py",
+            "right.py"
+          ]
+        ],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "thin_declared_process_is_root",
+      "notes": "A declared launcher remains a root even without resolved outgoing calls.",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "factory.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "service.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 0,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        },
+        {
+          "file": "factory.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 30,
+          "in_degree": 0,
+          "kind": "assembly",
+          "confidence": "static",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "factory.py",
+              "line": 1,
+              "kind": "synthetic_static"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "factory.py"
+        ],
+        "factory.py": [
+          "service.py"
+        ],
+        "service.py": []
+      },
+      "file_pr": {
+        "launcher.py": 0.1,
+        "factory.py": 0.5,
+        "service.py": 0.4
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "factory.py": 1,
+          "service.py": 2
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "factory.py",
+          "launcher.py",
+          "service.py"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "static_mount_is_root_without_calls",
+      "notes": "",
+      "files": [
+        {
+          "path": "renderer/bootstrap.tsx",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "renderer/view.tsx",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "renderer/bootstrap.tsx",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 0,
+          "in_degree": 0,
+          "kind": "mount",
+          "confidence": "static",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "renderer/bootstrap.tsx",
+              "line": 1,
+              "kind": "synthetic_static"
+            }
+          ]
+        },
+        {
+          "file": "renderer/view.tsx",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 20,
+          "in_degree": 0,
+          "kind": "candidate",
+          "confidence": "heuristic",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "renderer/view.tsx",
+              "line": 1,
+              "kind": "synthetic_static"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "renderer/bootstrap.tsx": [
+          "renderer/view.tsx"
+        ],
+        "renderer/view.tsx": []
+      },
+      "file_pr": {
+        "renderer/bootstrap.tsx": 0.1,
+        "renderer/view.tsx": 0.9
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "renderer/bootstrap.tsx": 0,
+          "renderer/view.tsx": 1
+        },
+        "roots": [
+          "renderer/bootstrap.tsx"
+        ],
+        "required": [
+          "renderer/bootstrap.tsx",
+          "renderer/view.tsx"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "multiple_launch_roles_cover_both_subgraphs",
+      "notes": "",
+      "files": [
+        {
+          "path": "server/boot.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "ui/bootstrap.tsx",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "server/service.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "ui/shell.tsx",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "shared/types.ts",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "server/boot.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 0,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "server/boot.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        },
+        {
+          "file": "ui/bootstrap.tsx",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 0,
+          "in_degree": 0,
+          "kind": "mount",
+          "confidence": "static",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "ui/bootstrap.tsx",
+              "line": 1,
+              "kind": "synthetic_static"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "server/boot.py": [
+          "server/service.py"
+        ],
+        "ui/bootstrap.tsx": [
+          "ui/shell.tsx"
+        ],
+        "server/service.py": [
+          "shared/types.ts"
+        ],
+        "ui/shell.tsx": [
+          "shared/types.ts"
+        ],
+        "shared/types.ts": []
+      },
+      "file_pr": {
+        "server/boot.py": 0.05,
+        "ui/bootstrap.tsx": 0.05,
+        "server/service.py": 0.2,
+        "ui/shell.tsx": 0.2,
+        "shared/types.ts": 0.5
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 2
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "server/boot.py": 0,
+          "ui/bootstrap.tsx": 0,
+          "server/service.py": 1,
+          "ui/shell.tsx": 1,
+          "shared/types.ts": 2
+        },
+        "roots": [
+          "server/boot.py",
+          "ui/bootstrap.tsx"
+        ],
+        "required": [
+          "server/boot.py",
+          "server/service.py",
+          "shared/types.ts",
+          "ui/bootstrap.tsx",
+          "ui/shell.tsx"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "only_existing_parsed_production_files_are_recommended",
+      "notes": "",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "service.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "root_test.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": true,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "auxiliary.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": true,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "broken.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": false,
+          "parse_error": "synthetic parse failure",
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "not_ranked.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": false,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "data.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": true,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": false,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 1,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        },
+        {
+          "file": "broken.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 100,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "broken.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        },
+        {
+          "file": "missing.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 200,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "missing.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "service.py",
+          "root_test.py",
+          "auxiliary.py",
+          "broken.py",
+          "not_ranked.py",
+          "data.py",
+          "missing.py"
+        ],
+        "service.py": []
+      },
+      "file_pr": {
+        "launcher.py": 1.0,
+        "service.py": 2.0,
+        "root_test.py": 3.0,
+        "auxiliary.py": 4.0,
+        "broken.py": 5.0,
+        "not_ranked.py": 6.0,
+        "data.py": 7.0,
+        "missing.py": 8.0
+      },
+      "symbols": [],
+      "missing_nodes": [
+        "missing.py"
+      ],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "service.py": 1
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "launcher.py",
+          "service.py"
+        ],
+        "forbidden": [
+          "root_test.py",
+          "auxiliary.py",
+          "broken.py",
+          "not_ranked.py",
+          "data.py",
+          "missing.py"
+        ],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "unreachable_contract_is_not_a_fake_depth_one_root",
+      "notes": "",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "service.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "plugins/reader_a.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "plugins/reader_b.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "shared/types.ts",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 1,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "service.py"
+        ],
+        "service.py": [],
+        "plugins/reader_a.py": [
+          "shared/types.ts"
+        ],
+        "plugins/reader_b.py": [
+          "shared/types.ts"
+        ],
+        "shared/types.ts": []
+      },
+      "file_pr": {
+        "launcher.py": 0.1,
+        "service.py": 0.5,
+        "plugins/reader_a.py": 0.15,
+        "plugins/reader_b.py": 0.15,
+        "shared/types.ts": 0.1
+      },
+      "symbols": [
+        {
+          "qname": "shared/types.ts::Contract",
+          "name": "Contract",
+          "kind": "interface",
+          "file": "shared/types.ts",
+          "line": 1,
+          "end_line": 2,
+          "signature": "",
+          "parent": null,
+          "docstring": null,
+          "export_names": [],
+          "binding_is_static": true,
+          "is_test": false,
+          "is_script": false,
+          "is_definition_only": false,
+          "length": 2
+        }
+      ],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "service.py": 1,
+          "plugins/reader_a.py": -1,
+          "plugins/reader_b.py": -1,
+          "shared/types.ts": -1
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "launcher.py",
+          "plugins/reader_a.py",
+          "plugins/reader_b.py",
+          "service.py",
+          "shared/types.ts"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "zero_depth_keeps_root_and_falls_back_other_files",
+      "notes": "",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "middle.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "leaf.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 0,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "middle.py"
+        ],
+        "middle.py": [
+          "leaf.py"
+        ],
+        "leaf.py": []
+      },
+      "file_pr": {
+        "launcher.py": 0.1,
+        "middle.py": 0.3,
+        "leaf.py": 0.6
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 0,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "middle.py": -1,
+          "leaf.py": -1
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "launcher.py",
+          "leaf.py",
+          "middle.py"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "priority_window_does_not_truncate_complete_fallback",
+      "notes": "",
+      "files": [
+        {
+          "path": "module_01.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "module_02.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "module_03.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "module_04.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "module_05.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "module_06.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "module_07.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "module_08.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [],
+      "dependencies": {
+        "module_01.py": [],
+        "module_02.py": [],
+        "module_03.py": [],
+        "module_04.py": [],
+        "module_05.py": [],
+        "module_06.py": [],
+        "module_07.py": [],
+        "module_08.py": []
+      },
+      "file_pr": {
+        "module_01.py": 0.027777777777777776,
+        "module_02.py": 0.05555555555555555,
+        "module_03.py": 0.08333333333333333,
+        "module_04.py": 0.1111111111111111,
+        "module_05.py": 0.1388888888888889,
+        "module_06.py": 0.16666666666666666,
+        "module_07.py": 0.19444444444444445,
+        "module_08.py": 0.2222222222222222
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 1
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "module_01.py": -1,
+          "module_02.py": -1,
+          "module_03.py": -1,
+          "module_04.py": -1,
+          "module_05.py": -1,
+          "module_06.py": -1,
+          "module_07.py": -1,
+          "module_08.py": -1
+        },
+        "roots": [],
+        "required": [
+          "module_01.py",
+          "module_02.py",
+          "module_03.py",
+          "module_04.py",
+          "module_05.py",
+          "module_06.py",
+          "module_07.py",
+          "module_08.py"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "stable_equal_score_order_ignores_input_permutations",
+      "notes": "",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "c.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "b.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "a.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 3,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "c.py",
+          "b.py",
+          "a.py"
+        ],
+        "a.py": [],
+        "b.py": [],
+        "c.py": []
+      },
+      "file_pr": {
+        "launcher.py": 0.25,
+        "c.py": 0.25,
+        "b.py": 0.25,
+        "a.py": 0.25
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "a.py": 1,
+          "b.py": 1,
+          "c.py": 1
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "a.py",
+          "b.py",
+          "c.py",
+          "launcher.py"
+        ],
+        "forbidden": [],
+        "before": [
+          [
+            "a.py",
+            "b.py"
+          ],
+          [
+            "b.py",
+            "c.py"
+          ]
+        ],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "weak_and_assembly_entries_do_not_create_roots",
+      "notes": "",
+      "files": [
+        {
+          "path": "factory.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "candidate_view.tsx",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "bridge.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "service.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "render_bits.tsx",
+          "language": "typescript",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "bindings.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "factory.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 20,
+          "in_degree": 0,
+          "kind": "assembly",
+          "confidence": "static",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "factory.py",
+              "line": 1,
+              "kind": "synthetic_static"
+            }
+          ]
+        },
+        {
+          "file": "candidate_view.tsx",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 30,
+          "in_degree": 0,
+          "kind": "candidate",
+          "confidence": "heuristic",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "candidate_view.tsx",
+              "line": 1,
+              "kind": "synthetic_static"
+            }
+          ]
+        },
+        {
+          "file": "bridge.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 40,
+          "in_degree": 0,
+          "kind": "bridge",
+          "confidence": "static",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "bridge.py",
+              "line": 1,
+              "kind": "synthetic_static"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "factory.py": [
+          "service.py"
+        ],
+        "candidate_view.tsx": [
+          "render_bits.tsx"
+        ],
+        "bridge.py": [
+          "bindings.py"
+        ],
+        "service.py": [],
+        "render_bits.tsx": [],
+        "bindings.py": []
+      },
+      "file_pr": {
+        "factory.py": 0.047619047619047616,
+        "candidate_view.tsx": 0.09523809523809523,
+        "bridge.py": 0.14285714285714285,
+        "service.py": 0.19047619047619047,
+        "render_bits.tsx": 0.23809523809523808,
+        "bindings.py": 0.2857142857142857
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "factory.py": -1,
+          "candidate_view.tsx": -1,
+          "bridge.py": -1,
+          "service.py": -1,
+          "render_bits.tsx": -1,
+          "bindings.py": -1
+        },
+        "roots": [],
+        "required": [
+          "bindings.py",
+          "bridge.py",
+          "candidate_view.tsx",
+          "factory.py",
+          "render_bits.tsx",
+          "service.py"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {
+          "candidate_view.tsx": "入口候选"
+        },
+        "deterministic": true
+      }
+    },
+    {
+      "id": "depth_limit_does_not_lie_about_deeper_nodes",
+      "notes": "",
+      "files": [
+        {
+          "path": "launcher.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "one.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "two.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        },
+        {
+          "path": "three.py",
+          "language": "python",
+          "lines": 3,
+          "is_test": false,
+          "is_script": false,
+          "is_data": false,
+          "is_parsed": true,
+          "parse_error": null,
+          "participates_in_ranking": true,
+          "content_hash": "",
+          "mtime": 0.0,
+          "doc_summary": null,
+          "imports": [],
+          "import_kinds": {},
+          "exports": []
+        }
+      ],
+      "entries": [
+        {
+          "file": "launcher.py",
+          "level": "app",
+          "reason": "synthetic launch evidence",
+          "out_degree": 1,
+          "in_degree": 0,
+          "kind": "process",
+          "confidence": "declared",
+          "line": 1,
+          "evidence": [
+            {
+              "file": "launcher.py",
+              "line": 1,
+              "kind": "synthetic_declared"
+            }
+          ]
+        }
+      ],
+      "dependencies": {
+        "launcher.py": [
+          "one.py"
+        ],
+        "one.py": [
+          "two.py"
+        ],
+        "two.py": [
+          "three.py"
+        ],
+        "three.py": []
+      },
+      "file_pr": {
+        "launcher.py": 0.1,
+        "one.py": 0.2,
+        "two.py": 0.3,
+        "three.py": 0.4
+      },
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 2,
+        "max_items": 1
+      },
+      "expected": {
+        "error": null,
+        "depths": {
+          "launcher.py": 0,
+          "one.py": 1,
+          "two.py": 2,
+          "three.py": -1
+        },
+        "roots": [
+          "launcher.py"
+        ],
+        "required": [
+          "launcher.py",
+          "one.py",
+          "three.py",
+          "two.py"
+        ],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "empty_project_is_an_empty_order",
+      "notes": "",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 10
+      },
+      "expected": {
+        "error": null,
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_items_0",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 0
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_items_1",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": -1
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_items_2",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": true
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_items_3",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": 1.5
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_items_4",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 4,
+        "max_items": "2"
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_depth_0",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": -1,
+        "max_items": 10
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_depth_1",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": true,
+        "max_items": 10
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_depth_2",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": 1.5,
+        "max_items": 10
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    },
+    {
+      "id": "invalid_max_depth_3",
+      "notes": "Booleans and coercible numeric strings are not integer budgets.",
+      "files": [],
+      "entries": [],
+      "dependencies": {},
+      "file_pr": {},
+      "symbols": [],
+      "missing_nodes": [],
+      "parameters": {
+        "max_depth": "2",
+        "max_items": 10
+      },
+      "expected": {
+        "error": "ValueError",
+        "depths": {},
+        "roots": [],
+        "required": [],
+        "forbidden": [],
+        "before": [],
+        "label_contains": {},
+        "deterministic": true
+      }
+    }
+  ]
+}

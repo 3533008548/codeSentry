@@ -1,0 +1,38 @@
+{
+  "approved_for_blocking": false,
+  "classification": "behavior_bug_candidate",
+  "confirmed_behavior_bug": false,
+  "contract_id": "python-assert-tuple-synthetic-v2",
+  "denominator": "number of predeclared expected syntax candidates, including independent repeated occurrences",
+  "expected_fields": [
+    "file",
+    "line",
+    "end_line",
+    "symbol",
+    "occurrence",
+    "tuple_arity"
+  ],
+  "independently_adjudicated": false,
+  "limitations": [
+    "Synthetic contract expectations are developer-authored and do not establish bug precision or recall.",
+    "Expected nonmatches are outside this rule or syntax-contract negatives, not clean-project labels.",
+    "Unreachable and side-effect examples still match syntax only; runtime effects and author intent remain unknown.",
+    "The current trusted analyzer parses Python; no candidate code is imported or executed."
+  ],
+  "matching": "exact fields and fixed syntax facts; multiset one-to-one; repeated predictions cannot earn extra hits",
+  "material_version": 2,
+  "predicate": "ast.Assert.test is a nonempty ast.Tuple and no ast.Starred exists anywhere in its test subtree",
+  "previous_contract": "python-assert-tuple-synthetic-v1",
+  "purpose": "synthetic syntax-contract expected observations, not behavioral bug gold",
+  "revision": "Final-inventory race guarded; the original 25 synthetic expected answers are unchanged. Race coverage is a separate static unit counterexample, not a new bug-gold label.",
+  "rule_id": "python.assert_tuple",
+  "rule_version": "1",
+  "schema_version": 1,
+  "semantic_sources": [
+    "https://docs.python.org/3.14/reference/simple_stmts.html#the-assert-statement",
+    "https://docs.python.org/3.14/library/stdtypes.html#truth-value-testing",
+    "https://docs.python.org/3.14/reference/expressions.html#parenthesized-forms"
+  ],
+  "split": "dev",
+  "target_execution": false
+}

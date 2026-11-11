@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "fingerprint-owner-adjudication",
+  "decision": "confirm_two_dev_defects",
+  "case_ids": [
+    "after_line_12_changes_fingerprint",
+    "string_internal_whitespace_changes_fingerprint"
+  ],
+  "reviewer": "conversation_user/project_owner",
+  "independently_adjudicated": false,
+  "scope": "dev_only",
+  "evidence": {
+    "reproduction_report_sha256": "9ae72db7017f02d9d5f4b91835c144f476c628fb59513693a09dfedef4b91db5",
+    "descriptor_sha256": "96f1b3e6623ea1c4255447ae59a224451930d5825b55d4ed9d55339a3fc2266c",
+    "plan_sha256": "0f19c918b9b52e6c925a9d26abdcfebf5f1cc6127b047d7ecaf2653aabe05b41"
+  },
+  "user_statement": "用户答复：确认这两项为开发缺陷（推荐）。仅裁决开发样例标签，不修改生产代码，不算独立封存评测。"
+}

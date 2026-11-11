@@ -1,0 +1,4873 @@
+{
+  "contract_version": 1,
+  "contract_id": "navigation-development-v1",
+  "captured_on": "2026-10-27",
+  "status": "frozen_development_inputs_with_unadjudicated_labels",
+  "purpose": "P0.2 and P0.4: freeze development navigation inputs before P1 implementation/ranking changes; not a holdout or human-approved gold set.",
+  "label_policy": {
+    "source": "legacy document-derived candidate lists retained byte-for-byte",
+    "unmentioned_files": "unknown_not_negative",
+    "human_adjudication": "not_performed",
+    "unmatched_or_ambiguous": "retain_and_block_formal_acceptance_until_resolved",
+    "duplicate_aliases": "preserve_original_entries_and_count_canonical_file_once",
+    "no_score_based_changes": true
+  },
+  "task": {
+    "id": "navigation_l1_l2_v1",
+    "prompt": "Identify application entries and provide a file-level reading order for understanding the declared source scope, with evidence locations and completeness.",
+    "languages": [
+      ".py",
+      ".ts",
+      ".tsx"
+    ],
+    "entry_gold": {
+      "status": "not_yet_independently_annotated",
+      "acceptance": "not_evaluable"
+    },
+    "p_at_10": {
+      "threshold": 0.8,
+      "denominator": 10,
+      "unique_file_hits_only": true,
+      "recall_at_k": "reported_separately",
+      "fewer_than_10_predictions": "not_a_p10_pass",
+      "missing_labels": "not_a_pass"
+    },
+    "latency_seconds": {
+      "l1_less_than": 30,
+      "l2_less_than": 180,
+      "includes_rendering": true,
+      "preparation_cost_reported_separately": true
+    }
+  },
+  "frozen_scope": {
+    "extensions": [
+      ".py",
+      ".ts",
+      ".tsx"
+    ],
+    "not_parsed_directory_names": [
+      "node_modules",
+      "__pycache__",
+      ".git",
+      ".venv",
+      "venv",
+      "dist",
+      "build",
+      ".next",
+      "site-packages",
+      ".pytest_cache",
+      "htmlcov",
+      ".mypy_cache",
+      ".ruff_cache",
+      "runtime",
+      "papers",
+      "artifacts",
+      "source_artifacts",
+      "research_documents",
+      "derived",
+      "tmp"
+    ],
+    "not_ranked_directory_names": [
+      "scripts",
+      "evals",
+      "tools",
+      "tests",
+      "test",
+      "benchmarks",
+      "migrations",
+      "docs"
+    ],
+    "hidden_directories": "not_discovered_as_in_existing_discovery",
+    "test_filename_patterns": [
+      "test_*",
+      "*_test.py",
+      "*.test.ts",
+      "*.test.tsx",
+      "*.spec.ts",
+      "*.spec.tsx",
+      "conftest*"
+    ],
+    "link_policy": "do_not_follow_symlinks_or_junctions_outside_snapshot",
+    "scope_changes": "require_new_contract_version_with_evidence_and_reason_before_remeasurement; retain_v1_and_do_not_change_after_scores",
+    "project_policy_files": "recorded_as_data; absent_policy_means_explicit_defaults_for_this_contract"
+  },
+  "codesentry_scope_evidence": [
+    {
+      "path": "codesentry/core/policy.py",
+      "sha256": "ea2538eb70df654b02ec5f50294a0f6eecca9bc85e2499e2544c25be376883b4",
+      "bytes": 10300
+    },
+    {
+      "path": "codesentry/index/discovery.py",
+      "sha256": "2dbc4724c550b39c7a4b5ba6c4d555dfc2c8d66a55e03407b51b87e64057b041",
+      "bytes": 2863
+    }
+  ],
+  "projects": [
+    {
+      "project_id": "research_agent",
+      "role": "dev-regression",
+      "holdout": false,
+      "root": "D:/develop/academic/research_agent",
+      "git_head": "84855f6555b0d88bd8bb6b64b6b2f719d8af5169",
+      "git_head_read_method": "read_only_explicit_git_dir",
+      "git_head_error": null,
+      "worktree_cleanliness": "not_asserted; exact declared working-tree files are hashed below",
+      "snapshot_sha256": "d5222c5be0b07ae20a6cbaf6891c88cfd50b4f8212fc091d06062c87b710010d",
+      "source_inventory": [
+        {
+          "path": "api/__init__.py",
+          "sha256": "4221fa721a2afac6195fae7d23bf57326cfc030a4ada8cc504cf0974e44bbe6e",
+          "bytes": 56,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/app.py",
+          "sha256": "852b88b9c19d05b083cf78d2f948b4efaf93236a9ba6ee35ddec100cb32b61ce",
+          "bytes": 4705,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/auth.py",
+          "sha256": "a4cec7936649de75f31a0e435f61237e62ebb71ca5e8f3f4b15fc96744096dbe",
+          "bytes": 1664,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/observability.py",
+          "sha256": "e37296f7cf16467a43f5686851c7596f896e15deff6ed2fac88093318873fe6e",
+          "bytes": 5407,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/redis_runs.py",
+          "sha256": "d04de5368d1a465bd929eba7570f6ecc755abfd75b2d61d2e090f92f31dc2698",
+          "bytes": 51637,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/routes.py",
+          "sha256": "a3cfec0c6c19754c06a297b18a673df98a1c7062caf40c1561c5f7b1967a4f93",
+          "bytes": 48000,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/run_manager.py",
+          "sha256": "38b5d12536f32a6dc5d2c571e3ebea42d8c377fde07fe8d29238c958dcabff76",
+          "bytes": 8101,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/schemas.py",
+          "sha256": "b20400ade173764fed8b266861ff3544ac081f1bcb5484928c96631b7f238340",
+          "bytes": 10240,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api/sse.py",
+          "sha256": "2afdc53c96b5fe34c0150b094d28328a46c42b032bec1db5fe38ed6a14ca4473",
+          "bytes": 2555,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api_server.py",
+          "sha256": "4528bbaea92ae12d0da0502170729168ea6e26587bed076226c9a58dbf92a32e",
+          "bytes": 2222,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "api_worker.py",
+          "sha256": "f10e9e92c5be264e269f965e8f527ca9196adf8b76af578ad41ec5dc2afc29f3",
+          "bytes": 5856,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "badcase_store.py",
+          "sha256": "77cfed53efad70e54ef9d4b4277492703ed76279077a8f7cfe7ca1fdbcaa8f01",
+          "bytes": 13470,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "cancellation.py",
+          "sha256": "97f7d288eaf592b3b33b53d9be08f0aa68e6295f9ecd1be652b8301698afc152",
+          "bytes": 674,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "config.py",
+          "sha256": "fcee5f36e6bada5c224bcb290d11b9874df44ed27662b3cc3ff1441b5ee8d1c6",
+          "bytes": 19557,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "context_engine.py",
+          "sha256": "a8f7a5bab2a4f4b8067096f9632e283ec5b403c45b4d69622f0a37bef7d7c61c",
+          "bytes": 6853,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "conversation_memory.py",
+          "sha256": "a23e1c7a860620c062c0f963a00fd2f13d40419204c7dcabbacb7502e23a17cc",
+          "bytes": 4034,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "conversation_recall.py",
+          "sha256": "8253647bd5ed17d485744314944cd79d920ee0de8aff81269a0c7a2e17624a25",
+          "bytes": 1175,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "conversation_reference.py",
+          "sha256": "d8c55dbb157063a895eced5097f261e150a723426f1168754173d749e57d1fbf",
+          "bytes": 18033,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "daily_orchestrator.py",
+          "sha256": "4fca8dc6ec8fad6c3631fc2e15a364a3893d52040f3260698479026fb8960f82",
+          "bytes": 43785,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "embeddings.py",
+          "sha256": "976a304ec542ae42ad0035a9e1cc110c0b2ab9444c531a5ff55ec1c1569814bf",
+          "bytes": 25395,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "evals/__init__.py",
+          "sha256": "8a8490d8b2411d60eed06a666ef49161202787ba24b914689ef09189c0465212",
+          "bytes": 47,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/benchmark.py",
+          "sha256": "89411e412216752a5128b35290f54452426db2e29178b5c9004f5c4aae553e2b",
+          "bytes": 12377,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/capture.py",
+          "sha256": "8d57b4b5df8f34cf7efb41ea869599d5921d8b93b217a11a8f54da8494016c99",
+          "bytes": 2573,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/rag_retrieval.py",
+          "sha256": "616bdef39fab77a5b3f0a9f648c77816bf3083b4a8199ab7dde78d9d0cef14d1",
+          "bytes": 13417,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/real_eval.py",
+          "sha256": "7d5c02d19ffc1a3c75448736f6e4e708cea128228e412f7e0b86c95f54023e0a",
+          "bytes": 9805,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/release_gate.py",
+          "sha256": "b850b844e52b537ce806064922a1745a93c83d11709d2e4f8425854e0f41aaea",
+          "bytes": 6996,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/runtime_cases.py",
+          "sha256": "a359dbb2f5092888e98531fbba43e48246e9fc7ca00e5c20269fb648a28cac87",
+          "bytes": 16080,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/runtime_fakes.py",
+          "sha256": "292e30a1817b4a86fedf5e2bb34b39b3b12c58dfb42c379e7d736e657c3e706c",
+          "bytes": 3865,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/runtime_replay.py",
+          "sha256": "597470bb0fba9e2fceb8f98127c548774f786ba2d79b3e484d4ef0759c786bd5",
+          "bytes": 7859,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "evals/user_acceptance.py",
+          "sha256": "a9ad7179d7b801b97e8781585b62f5e2e81dd2870e9b32cbacae892c4f10b2b3",
+          "bytes": 29083,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "evals"
+          ]
+        },
+        {
+          "path": "experiment_projects.py",
+          "sha256": "e45b4e48acab8390ce296f5900828c0b6d1323df09af04068b20cf0418fb7778",
+          "bytes": 39535,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "experiment_reproduction.py",
+          "sha256": "352efee02969211a773353973aecb9a78548eb70f31e3ebe9045589af7827af1",
+          "bytes": 32124,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "sha256": "4cad89dd99c92589a25f1c506c9cdddb3b734daf9bba4ef4fe51a44466413e7a",
+          "bytes": 18720,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/MarkdownContent.tsx",
+          "sha256": "3182c0d6dec6884a24f45d7e0831f2516521f952e5866d882f501f1e0aaeb301",
+          "bytes": 392,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/api.ts",
+          "sha256": "77842a15a38a324d72263ae598c4dc8ac3acf7c847bc1547a87e25fb9d8dd488",
+          "bytes": 12415,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/ChatMessage.tsx",
+          "sha256": "8c1cfad15d20f0901ee34b836f7193fe5bb79c075fcfee1de14e1e0f2d3ab345",
+          "bytes": 1164,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/RunInspector.tsx",
+          "sha256": "adad0b490fc6b150fed9e96ab677382288761b28a8850110663e7ddecc1e97a4",
+          "bytes": 3647,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/WorkspacePanel.tsx",
+          "sha256": "cd899f08d1e7d64a01823f567f16ed3170f278d09fdac717afa0eed2a80ba8ba",
+          "bytes": 819,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/runcenter/RunCenterList.tsx",
+          "sha256": "470fd379c10791f539ea2002a780726b099ec041f0fb8433df4190aec2bab6ae",
+          "bytes": 3258,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/runcenter/RunDetailPanel.tsx",
+          "sha256": "8fee5c86a9b9d3065de72c180c7d856337ce47ba271279a81fa721ab710aa06d",
+          "bytes": 3312,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/runcenter/StageTimeline.tsx",
+          "sha256": "70880de6454ef2af2773d235fa7ab6ea7257d893417dacef30656801ca6be943",
+          "bytes": 3830,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/workspace/ChatPanel.tsx",
+          "sha256": "84e99471458a2676c08514a846c63d87057bf9af568ab9803f68d26664f20229",
+          "bytes": 7267,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/workspace/DailyPanel.tsx",
+          "sha256": "dd198e2576fcbf2463c67a59aca8d350329027c0f7be2d6fdd87050a87ec9c14",
+          "bytes": 6477,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/workspace/DocumentPanel.tsx",
+          "sha256": "79be7527aedbda2087b7c38b0d745604c16b603c71e028200ae626e868a8a999",
+          "bytes": 7241,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/workspace/ExperimentPanel.tsx",
+          "sha256": "2fd6915a6ca3292472f0ff5a55809a1370fe57759ead5a6ad8b3b3885c16c046",
+          "bytes": 16419,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/workspace/RunsPanel.tsx",
+          "sha256": "57efe370b4ac428a4bc325a80f79d55ecdd78845309944f547350b59ac8dc742",
+          "bytes": 7853,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/workspace/SessionSidebar.tsx",
+          "sha256": "a1ec2cda51e015c2ebaba63763410908a75f3db50674908b5c07d73f366ec4f0",
+          "bytes": 14700,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/components/workspace/SimplePanels.tsx",
+          "sha256": "ff2861e3fb6183a505077cfa2a472dab8ff4f5690037bd72fb2bfd46b90a6956",
+          "bytes": 3903,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/hooks/useConversation.ts",
+          "sha256": "45f202b5f0cddfaa9f0f54a2afebdb1a6258b4529f5504fdf800a765830b9cfb",
+          "bytes": 15870,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/hooks/useDailyWorkspace.ts",
+          "sha256": "c50e5446c0bd8745892066be7866fb42bd2e5fb214ecabbecac2506462ae500c",
+          "bytes": 7953,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/hooks/useDocuments.ts",
+          "sha256": "10d7ef65dc64a96f1f0fe673fbf93d457eebbc0101e698c2bfc647f1e74122f3",
+          "bytes": 5006,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/hooks/useExperiments.ts",
+          "sha256": "2ce5418058d22ff199f6b50b05dc7f32037788ecad0baf3928b8a479a9040388",
+          "bytes": 14444,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/hooks/useRunCenter.ts",
+          "sha256": "8d41d4931afb17d25df81cf46a9da2009a21de8cc0ad30ea2e8001cc5e4025a4",
+          "bytes": 5419,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/hooks/useWorkspaceChrome.ts",
+          "sha256": "5cfd9ed7d6d3a6652f82ef6996fc9f58e2294f8bdf83f2555e8b5edbf2a59808",
+          "bytes": 4142,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/lib/errors.ts",
+          "sha256": "0cd7ceab9d422a58456b15074c7cce8e9c6d671a417245071c97c8057645ee7f",
+          "bytes": 756,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/lib/labels.test.ts",
+          "sha256": "61c9cf8af2c30d7ce9e659d705b20eba3c05ae83d2598a74782c278a80dbd1ac",
+          "bytes": 7732,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "frontend/src/lib/labels.ts",
+          "sha256": "8e1eafdc14d394315eedda6a9aeec8020def06dce40a64861f05de36d2480f12",
+          "bytes": 7876,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/lib/timeline.test.ts",
+          "sha256": "84933381ddaae9b48f62dc45d5d8b561e7096df42dcd0191f8990ad07980c91c",
+          "bytes": 5858,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "frontend/src/lib/timeline.ts",
+          "sha256": "2fc235ac2529ccb913c00b8932869054f6a24769a332e2a4b7c5989a5ab75ccf",
+          "bytes": 5779,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/lib/workspace.ts",
+          "sha256": "5f64840ec4bf4e438b7fe742d8b016a46a07972e326d237a3dac958c48746ff1",
+          "bytes": 1124,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "sha256": "a0eea9375593598b323a5b94ff6f9fde07ef6755ede247e62d0810f1e5720c31",
+          "bytes": 282,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/types.ts",
+          "sha256": "98d10ce2adb673a9c20cb185e81986d60f3dfa1f9efb42c71e0610d3f93274b2",
+          "bytes": 6713,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/src/vite-env.d.ts",
+          "sha256": "424faf9241dd699dda995b367ed36665732da1e6ec1f33b2fd40394488ecac92",
+          "bytes": 39,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "frontend/vite.config.ts",
+          "sha256": "e6caa519fa791a90fd191677fd5cb542068b58a125be00056f2618b7ee631bed",
+          "bytes": 425,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "graph_builder.py",
+          "sha256": "1f05f1ee27fab325de73dd5087f9d9e04693b2f4f0d19236f1196105563d6e0b",
+          "bytes": 43214,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "ieee_xplore.py",
+          "sha256": "e4d46230b48ee61a55236b119573f1b34e9005ee9c715019c4eba8e730beaf75",
+          "bytes": 4272,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "llm_client.py",
+          "sha256": "0afb611967d508c319ffb8dea355ac2f151a7135fd08cecafc915214811cdf3d",
+          "bytes": 22768,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "logger.py",
+          "sha256": "7f182aa1e97ffe323730d2b2c1012783ffe18c5d8e6413cb3556da30e9314448",
+          "bytes": 783,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "mcp_client.py",
+          "sha256": "b9398ce9c7cef01c4cbc5358e4727840bed45fdc8f02d2d30801d04779468cad",
+          "bytes": 16878,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "mcp_server.py",
+          "sha256": "ea887728263a24cf145f9b016af96bb674d6ab3b698bb2276f1d4aae0cecbbeb",
+          "bytes": 19742,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "memory.py",
+          "sha256": "b076451e6b56336ee8a126d8c41dc712d51fb8d993232524c5c80ed15ce0d859",
+          "bytes": 7804,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "paper_artifacts.py",
+          "sha256": "f2a3c72f88dfed0ddf9cb4044349ad82aa16bccaa6ce01cf6599b15800329603",
+          "bytes": 37981,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "paper_quality.py",
+          "sha256": "29e067c3dc23dfa8c2f8e4d9afdd10dbdcb0e93636c0bc0a21d97ec8ad7095ea",
+          "bytes": 14878,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "paper_records.py",
+          "sha256": "a2126c76b0cd540d756b704de1da3f451f255f78fddbe6c887a357c8900d5d7d",
+          "bytes": 4717,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "paper_relation_review.py",
+          "sha256": "f59645b231eb7f928b131d2425d0b7688273a5c802f9f9ade6f1ed41f6b2dec9",
+          "bytes": 28121,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "paper_relations.py",
+          "sha256": "a7b3c9801053c2a395f63344b0c0a6b87ee120bdcbd337d411ede810a6ff26a9",
+          "bytes": 15670,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "paper_store.py",
+          "sha256": "06fff4fd40153ea57bd49f54061925dd6bc8112b4952cb2c44812f1e81c15a1e",
+          "bytes": 42832,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "pdf_reader.py",
+          "sha256": "fe80fceed0677f9d172d6d160f8fc4f18aab60bcf18f80d7b31c84c406938a0f",
+          "bytes": 28147,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "prompts.py",
+          "sha256": "c90aaffc7e57858c74a50e8c585e0b58632e687a64a9934eaac28329031abde7",
+          "bytes": 12805,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "repository_preparation.py",
+          "sha256": "9ed3f4aa13385fe89fa00006b9c53d5f10a23977d7299a40babfd5e95994ca57",
+          "bytes": 10451,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "repository_sources.py",
+          "sha256": "9635f38b4c94f5d5518672ff11903fcedbc8e2744e3396b43795cc97acfff18d",
+          "bytes": 8194,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "research_agent.py",
+          "sha256": "559e1f21eaf73aad658bf9e54ffc955127e6e8b6a49d4d62c02ff21534c1d2bc",
+          "bytes": 60264,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "research_document_routing.py",
+          "sha256": "686417d68b9797929709bcff196256b26c0dc9935ab1b167d17cc9837a5a9416",
+          "bytes": 8071,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "research_documents.py",
+          "sha256": "5c81f0e4392fab4d820a80d6452cd55c8246d3d4aca6a56ce1d62e5db4b58a86",
+          "bytes": 35067,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "research_evidence.py",
+          "sha256": "3818f91029d3690e3c5911337be8938bcf9ec4721b7c1161c9d426dc786d5dda",
+          "bytes": 22350,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "research_orchestrator.py",
+          "sha256": "d4eca0c0ffe7e8cd9d7139fa57c1fd10053441a360e46d19d33a62812f9f8edb",
+          "bytes": 74577,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "resilience.py",
+          "sha256": "f68e9c6f2cb23d0c06d5dbaa2b36b153cc0e4180c0044294a7142d50ad2bfce9",
+          "bytes": 2474,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "run_contract.py",
+          "sha256": "4eb01bd230a1f4cc338a3720db8a5b0d9c35f8bedfa8383b60d5d6ad26e33c2c",
+          "bytes": 6202,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "runtime_paths.py",
+          "sha256": "ffc33d83b29ac7a4af1be21245f981becd29fbf2ab0787bb8d6c782d0fb6f6ec",
+          "bytes": 6741,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "scheduler.py",
+          "sha256": "61dd91228771e48f457665442bfce17e777f02c3a9b1ec2925832ccef07ffc63",
+          "bytes": 31460,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "scripts/audit_chunks.py",
+          "sha256": "eb0fbb77910f9d6f5ba7a763a67c8b543c9815e2a5b63ff932106dee566362b9",
+          "bytes": 5116,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/backup_runtime.py",
+          "sha256": "ba218aab2bbe993b2d862fa78b2bfc7e059de4bafa5272383732ee5abee61804",
+          "bytes": 3778,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/bench_embedding.py",
+          "sha256": "c4b5772d23e8f6490594537ff6a7b2d67f9afb01f9e438075a4cb9352944b533",
+          "bytes": 7822,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/bench_reranker.py",
+          "sha256": "7b01e6d05e18d61a593764a06928c833169763c5fad8a2a291cd2eb60674d4e8",
+          "bytes": 4838,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/build_length_probe.py",
+          "sha256": "a8789a555ea1003f7d53c40cc1a87cddd9cf499fb3b2a4330255ab00ec8c817e",
+          "bytes": 3408,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/check_lock_consistency.py",
+          "sha256": "1cdaa3597169621c59d6fd5b83c0e74af3e85fd3b8a75f36c15554441a8b07d3",
+          "bytes": 5400,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/cleanup_eval_sessions.py",
+          "sha256": "698f133ff583c05ea21834b0308f0f08fb8cb3285ef4e5aab553730a00175bc0",
+          "bytes": 4560,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/export_badcase_template.py",
+          "sha256": "28b06ecb54270de04b24af1e223b01da51e9d4e9435874db17930ce5d843753c",
+          "bytes": 1946,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/generate_rag_eval_cases.py",
+          "sha256": "b4a63998dfb3cb0468b0bc1e6858bcc029bef4cb1f1adfa43da1ca54584cfe21",
+          "bytes": 5104,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/migrate_embedding.py",
+          "sha256": "ede9c64d4223f8a183cee11154b41618a7dd93613cd547b954254173b4051f5e",
+          "bytes": 5619,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/migrate_runtime.py",
+          "sha256": "39041f53ca73d58e146a5e5e2459712857006a3c3b07252f674f2db60adf9093",
+          "bytes": 5446,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/profile_retrieval.py",
+          "sha256": "635754bdb9e02fee5d9bea2fb52cb6700827313f9fdb9a45c2815d27a03ee9e8",
+          "bytes": 8513,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/reindex_local_papers.py",
+          "sha256": "63ad40f3ac16c561bdc10dcafbfd6cc00213268cd47911f86f2ad6d9072a65c3",
+          "bytes": 8108,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/run_rag_retrieval_eval.py",
+          "sha256": "657908f32cc65a83a11c2144c0b52e959bc3f9164ac428d4f99f82de90124b8b",
+          "bytes": 5764,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/run_real_eval.py",
+          "sha256": "4e7d29fc3f244edacfd2447e03ec3dc82a686e7a801c96a6b5def8cefe7897bf",
+          "bytes": 2431,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/run_user_acceptance.py",
+          "sha256": "551c348fc660724e031cd57e5e773ca867a2d13d64b29c86d93cbf497b0eacbd",
+          "bytes": 2795,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/summarize_user_acceptance.py",
+          "sha256": "533d44c5b26b52b97e3e8dc5b6935a8bee0f5a19390934d388ce2865b897de2e",
+          "bytes": 1803,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/verify_chunking_equivalence.py",
+          "sha256": "657ad24bf803a9f7abd7f9073cb2be10d6db0ff3a5b50d248c16c61f8682df64",
+          "bytes": 4718,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/verify_hybrid_equivalence.py",
+          "sha256": "6f239cf9e0a10be6de06dc2b4e27452cac6d0a31e291c475dd38ea018c919672",
+          "bytes": 9792,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/verify_lexical_equivalence.py",
+          "sha256": "1e75b2ee5d1eb2fe51bd9f8aa8f8538d3b340a5881e0430be68674e7eda1e1b4",
+          "bytes": 10804,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/verify_rerank_equivalence.py",
+          "sha256": "ccce7986dbaca477fb0ad1379908c61bec5017668d2c3726d5e587375894c5b1",
+          "bytes": 6384,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "scripts/warm_reranker.py",
+          "sha256": "af7081b4b9e863365cd85fe84b09b9eaeae2a168056c3de7bc607f53e3d1eb28",
+          "bytes": 994,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "scripts"
+          ]
+        },
+        {
+          "path": "search_api.py",
+          "sha256": "59199763e7446c99d75eaf25dfa0df9a46d436bbfd29160c129dd63491a296fd",
+          "bytes": 17691,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "session_store.py",
+          "sha256": "5bf6e23eb6a2d20f5a2855d3ea58ce350426f6e6d21909c47bae827f98cd761c",
+          "bytes": 43599,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "tests/baseline/chunking_pre_refactor.py",
+          "sha256": "a7dc5d1768698ccb0c25c437eaf1dab3cd3750be0ef619204a77d21c6d3e7ee7",
+          "bytes": 11028,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/browser.py",
+          "sha256": "ee9f6d954afe654c1c2cc663d1138c07354a251ee539f62bd680c7d4b838bb15",
+          "bytes": 668,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/mounted_api_e2e_server.py",
+          "sha256": "3bd1ab45678df420bd62ad11ceb91b9f497cc936c50bee87ac30f450b3994bd7",
+          "bytes": 5469,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_chunking.py",
+          "sha256": "9a3180c78f3cfb18987fa9fb00fa115fe20cae63820e5ffa8c3d93974e3a1702",
+          "bytes": 14802,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_ci_test_coverage.py",
+          "sha256": "6cdf4546324914baf9b2f1b7987032e8bcde4c3a3e057b955f1cc5082a666842",
+          "bytes": 3711,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_conversation_reference.py",
+          "sha256": "5804af1a939680fc2275dc1e19f135db4df3328ea7aba7d141374e6b5da36279",
+          "bytes": 11926,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_core.py",
+          "sha256": "295a306981e3862d093cdb96ba78f4dca85115975499758ba9cd85431e6996be",
+          "bytes": 279255,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_dependency_lock_coverage.py",
+          "sha256": "08c37d685b679c2aadd50d1c8bc0d724906f776cc5b4b8564bef37e3991140bd",
+          "bytes": 5895,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_experiment_reproduction.py",
+          "sha256": "c44a53b26a0cd6cea257cabd4c6579ccf3d3726cdc220ac895fe523d291cd07d",
+          "bytes": 15732,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_hybrid.py",
+          "sha256": "fe86cf2cdd6325fea99d234f044a58bc5521b6d5beb4c36cb37d9f0a07dbdb32",
+          "bytes": 10946,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_lexical.py",
+          "sha256": "973bcf56acc9a00ffaa17e3426b10041012cf7708d8a56243e202222bd1a0a57",
+          "bytes": 10868,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_mcp_client.py",
+          "sha256": "f19beca15a3d93da5c6bff2b2e4e8c4610af148ea18de77b8a2e9e8442f3f9af",
+          "bytes": 17828,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_mcp_client_e2e.py",
+          "sha256": "aa342752ba1c24b36535e2045e5a3c08838f87a1059c27133e03eb08af1c9db1",
+          "bytes": 5034,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_mcp_client_wiring.py",
+          "sha256": "dfabf5ad8665bc89349fc04b15b69aacbda17a51a4da3bc0207232d171b1676d",
+          "bytes": 3608,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_mcp_server.py",
+          "sha256": "649590735af5350e2e5381d13196e88e8f628eb3b50d2862c99907bc575638fb",
+          "bytes": 16274,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_mcp_stdio.py",
+          "sha256": "2598660c917aee5c7407ece45e51e489218b9e8eba26783b01de2c943ce216ad",
+          "bytes": 6074,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_metrics_chain.py",
+          "sha256": "e734334e209092e588aebd20a1a4ca746b40e3de89a634f1e4a5e1e2888d2df1",
+          "bytes": 4800,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_mounted_api_e2e.py",
+          "sha256": "af862212d828c9e2140093c6c0412b8e621a29c722257fd39560c058d4664837",
+          "bytes": 5480,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_paper_matching.py",
+          "sha256": "27c54a467649ab4b29a6313d27ef31baea6fdfdfb19bb98cd47375eaac8fb5c3",
+          "bytes": 7737,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_paper_scope.py",
+          "sha256": "bd52919248e25a34a4c51ae5872564ccf31544d152c9877fef53149e77bf5144",
+          "bytes": 5648,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_relation_review.py",
+          "sha256": "bfc04574731c32cee6d3d770a7660c69d39e02055764543d834876ec27a962d0",
+          "bytes": 32297,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_repository_preparation.py",
+          "sha256": "a07a60149e0c2c17dcbb2fe4808452d302abafcc12040ef2d54e02f31ad27d69",
+          "bytes": 2779,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_repository_sources.py",
+          "sha256": "0a96fabf547363210af51466ba161ad57bac21088190e8617cbe93a9cbd4f4e0",
+          "bytes": 3353,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_rerank.py",
+          "sha256": "e390ea651ee972d0a4b4b576609ca78dde7e815f88f197523105083817143595",
+          "bytes": 8566,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_research_evidence.py",
+          "sha256": "01af7f49fd7aaab03ce0948741d1b19ba085730a1c1360a8fd2be0e47c5b168b",
+          "bytes": 12942,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_research_gates.py",
+          "sha256": "c5ded63aa42b2edf55d1ce8e805fc6617135cb2d67024d5a796a086b77ce3324",
+          "bytes": 22971,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_retrieval_metrics.py",
+          "sha256": "af692ecde65c5d7a547f0db6af0afcabab7d617f6a421d5fc3f67d24bf4cc3db",
+          "bytes": 7495,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/test_stage_timing.py",
+          "sha256": "280b2b2728ba05655a1083803eba2b8f29325d388b4639237f05435f93631101",
+          "bytes": 13230,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tool_catalog.py",
+          "sha256": "da591a5199b554c5d38f181aa0214cef6c9f6ee37fa956491dc59f45798ef9cf",
+          "bytes": 5876,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "tool_runtime.py",
+          "sha256": "58c8fb8c9cdd0d08d7b27bdb5178e03ad90abb7d44fc7ea268b391b3eac40f0c",
+          "bytes": 5196,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "tool_schemas.py",
+          "sha256": "6221df1f1879cb36c134da14644d9d0294a74be1fc09529aef1a2fdc7630d7d5",
+          "bytes": 28619,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "tools/__init__.py",
+          "sha256": "c992d1e1cf1158168520a76f098911932e12d8781be6f104ceb0eee6efc74785",
+          "bytes": 5863,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/describe.py",
+          "sha256": "40cdfc4d65d3dfcaae7a85c09cec0188e30aee3dabc35eb65881f751b02eb96a",
+          "bytes": 4691,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/experiment_projects.py",
+          "sha256": "c81449f8b5d1e8c86e8cc441d5ba290049a29f0d21007e6f376a05a5e0785b09",
+          "bytes": 2401,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/paper_card.py",
+          "sha256": "8ce3b38c9ef18a9dca4d97302c8ca0c19dee359b06dbd6b7c7bb6d450e8f21a5",
+          "bytes": 8173,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/paper_relations.py",
+          "sha256": "36317daded058e1ea4bbb4567b4adb588dbfd72c2186c3ce6b09f816ff7a2e31",
+          "bytes": 10374,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/profile_tool.py",
+          "sha256": "02a1333c7959729cec0849bb830a1763201d366efd5c82c04ac4c0e0bb6cd760",
+          "bytes": 564,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/read_pdf.py",
+          "sha256": "4d653bf1b01428b3000cb14be172c3b0c9178694fb4be22fd639c98f40c81683",
+          "bytes": 20663,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/research_documents.py",
+          "sha256": "ec48eef9f7cc29654663fc00fce9ed0179b6d18ae3373b16d4ae8b153a14bdb6",
+          "bytes": 34896,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "tools/search.py",
+          "sha256": "c5025af8ea5d6eff6bdeca3dfa9c7a5c2c5cce7ca8f7b4c35d7cd90e1a33d74b",
+          "bytes": 9333,
+          "language": "py",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tools"
+          ]
+        },
+        {
+          "path": "user_profile.py",
+          "sha256": "f27471efa7115f796362efa16777d8c891d35d9be1edcd8c16824b28c7ce6855",
+          "bytes": 5986,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "workspace_uploads.py",
+          "sha256": "ff41f33cea47cabd84272a688e5c2d75d5b3a4338a41cec8cf4156bc216f54ab",
+          "bytes": 5875,
+          "language": "py",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        }
+      ],
+      "skipped_directory_boundaries": [
+        {
+          "path": ".git",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": ".github",
+          "reason": "hidden_directory"
+        },
+        {
+          "path": ".tmp-relation-tests",
+          "reason": "hidden_directory"
+        },
+        {
+          "path": ".visual_check",
+          "reason": "hidden_directory"
+        },
+        {
+          "path": ".workbuddy",
+          "reason": "hidden_directory"
+        },
+        {
+          "path": "__pycache__",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "papers",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "runtime",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "api/__pycache__",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "evals/__pycache__",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "frontend/dist",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "frontend/node_modules",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "scripts/__pycache__",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "tests/__pycache__",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "tools/__pycache__",
+          "reason": "declared_not_parsed"
+        }
+      ],
+      "project_units": [
+        {
+          "path": ".",
+          "source_languages": {
+            "py": 124
+          },
+          "declaration_files": [
+            "docker-compose.yml",
+            "Dockerfile",
+            "requirements-dev.lock.txt",
+            "requirements-dev.txt",
+            "requirements-lock-exclusions.txt",
+            "requirements.lock.txt",
+            "requirements.txt"
+          ],
+          "runtime_declarations": {
+            "node_engines": null,
+            "package_manager": null
+          },
+          "installed_or_runnable": "unknown_not_executed"
+        },
+        {
+          "path": "frontend",
+          "source_languages": {
+            "ts": 16,
+            "tsx": 16
+          },
+          "declaration_files": [
+            "frontend/package-lock.json",
+            "frontend/package.json",
+            "frontend/tsconfig.app.json",
+            "frontend/tsconfig.json",
+            "frontend/tsconfig.node.json"
+          ],
+          "runtime_declarations": {
+            "node_engines": null,
+            "package_manager": null
+          },
+          "installed_or_runnable": "unknown_not_executed"
+        }
+      ],
+      "environment_declarations": [
+        {
+          "path": "docker-compose.yml",
+          "sha256": "600f6087e7d5d3f30c6ea18ba18c22062be4e402efb0bc8a8501c4acac041ead",
+          "bytes": 3135
+        },
+        {
+          "path": "Dockerfile",
+          "sha256": "4bcbb0933723c49231e1aa40d792bfee120b47494a8cbc6e781fcfef67f0a277",
+          "bytes": 1953
+        },
+        {
+          "path": "requirements-dev.lock.txt",
+          "sha256": "128be42faeb68cb1991b2a9237dd0999b31d350d4b10489482ac4a620a2db601",
+          "bytes": 10493
+        },
+        {
+          "path": "requirements-dev.txt",
+          "sha256": "477959e0c052668c745c010d5a53e2479b45e52552a976ea00200d63ca084083",
+          "bytes": 39
+        },
+        {
+          "path": "requirements-lock-exclusions.txt",
+          "sha256": "baa18bcb7e87c5120f3ecd80e41a910a36a8b666764eae0bf46b30848e35d90f",
+          "bytes": 1439
+        },
+        {
+          "path": "requirements.lock.txt",
+          "sha256": "0a4e5c7878c986a147ad2d832c1ad6eb9fa170d463e64531b9bb6f9fa1f27909",
+          "bytes": 10348
+        },
+        {
+          "path": "requirements.txt",
+          "sha256": "b4caf5e614c03c4d9cbf6023a1b7393068aa5223227a8af7fd497c460fecea35",
+          "bytes": 430
+        },
+        {
+          "path": "frontend/package-lock.json",
+          "sha256": "af59fba7f03434871ac9aa27a5970960c9d709e679dc4f41de008b19f4d2f8d7",
+          "bytes": 113836
+        },
+        {
+          "path": "frontend/package.json",
+          "sha256": "f54aeab0bc4765bef00bd4e2b89307b65df661e622effd468fa3b74da04e93f1",
+          "bytes": 710
+        },
+        {
+          "path": "frontend/tsconfig.app.json",
+          "sha256": "9e0aba2eb867188749cf3c7974074ad37f06dab6fc3373af8904c47f05f6614c",
+          "bytes": 760
+        },
+        {
+          "path": "frontend/tsconfig.json",
+          "sha256": "ad28d132ee48d6e23917cf5827cace785d0fc01a44ca68b0dda51cc8c3fd3f52",
+          "bytes": 126
+        },
+        {
+          "path": "frontend/tsconfig.node.json",
+          "sha256": "b01d5293b65179578fa11ae5f2d19c46a22430757a73daf5e492e8ec4fc5db2e",
+          "bytes": 429
+        }
+      ],
+      "documents": [
+        {
+          "path": "README.md",
+          "sha256": "4aaa745bd2d087a3c7cbcfa583e2350e03e64862aa20151a0ed94b231d78d306",
+          "bytes": 39691,
+          "role": "current_document_reference_not_proof_of_original_extraction_version"
+        },
+        {
+          "path": "项目接手指南.md",
+          "sha256": "18e59a43d53bedc9bc9f930b006b4fbec82e50d1b8c2ccbeab51bf2d82fb6c8e",
+          "bytes": 25909,
+          "role": "current_document_reference_not_proof_of_original_extraction_version"
+        }
+      ],
+      "legacy_gt": {
+        "path": "evals/groundtruth/research_agent.json",
+        "sha256": "6e5aba19dbc717fa418886e9398b00e5dd914217bbe0c80d7bb6aacfcb2417a7",
+        "bytes": 943,
+        "original_entry_count": 43,
+        "original_values_preserved": [
+          "api/app.py",
+          "api/auth.py",
+          "api/observability.py",
+          "api/redis_runs.py",
+          "api/routes.py",
+          "api/run_manager.py",
+          "api/schemas.py",
+          "api_server.py",
+          "api_worker.py",
+          "badcase_store.py",
+          "benchmark.py",
+          "cancellation.py",
+          "config.py",
+          "conversation_memory.py",
+          "daily_orchestrator.py",
+          "graph_builder.py",
+          "ieee_xplore.py",
+          "llm_client.py",
+          "logger.py",
+          "memory.py",
+          "paper_artifacts.py",
+          "paper_records.py",
+          "paper_relations.py",
+          "paper_store.py",
+          "pdf_reader.py",
+          "prompts.py",
+          "release_gate.py",
+          "research_agent.py",
+          "research_documents.py",
+          "research_orchestrator.py",
+          "resilience.py",
+          "run_contract.py",
+          "run_timeline.py",
+          "runtime_paths.py",
+          "scheduler.py",
+          "search_api.py",
+          "session_store.py",
+          "tool_catalog.py",
+          "tool_runtime.py",
+          "tool_schemas.py",
+          "ui_request_guard.py",
+          "user_profile.py",
+          "web_ui.py"
+        ],
+        "original_extraction_document_versions": "unknown_not_recorded_in_legacy_json"
+      },
+      "labels": [
+        {
+          "entry": 1,
+          "raw": "api/app.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api/app.py",
+          "candidates": [
+            "api/app.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 275,
+              "matched_literal": "api/app.py"
+            }
+          ]
+        },
+        {
+          "entry": 2,
+          "raw": "api/auth.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api/auth.py",
+          "candidates": [
+            "api/auth.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 276,
+              "matched_literal": "api/auth.py"
+            }
+          ]
+        },
+        {
+          "entry": 3,
+          "raw": "api/observability.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api/observability.py",
+          "candidates": [
+            "api/observability.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 281,
+              "matched_literal": "api/observability.py"
+            }
+          ]
+        },
+        {
+          "entry": 4,
+          "raw": "api/redis_runs.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api/redis_runs.py",
+          "candidates": [
+            "api/redis_runs.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 194,
+              "matched_literal": "api/redis_runs.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 217,
+              "matched_literal": "api/redis_runs.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 280,
+              "matched_literal": "api/redis_runs.py"
+            }
+          ]
+        },
+        {
+          "entry": 5,
+          "raw": "api/routes.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api/routes.py",
+          "candidates": [
+            "api/routes.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 194,
+              "matched_literal": "api/routes.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 217,
+              "matched_literal": "api/routes.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 278,
+              "matched_literal": "api/routes.py"
+            }
+          ]
+        },
+        {
+          "entry": 6,
+          "raw": "api/run_manager.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api/run_manager.py",
+          "candidates": [
+            "api/run_manager.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 279,
+              "matched_literal": "api/run_manager.py"
+            }
+          ]
+        },
+        {
+          "entry": 7,
+          "raw": "api/schemas.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api/schemas.py",
+          "candidates": [
+            "api/schemas.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 217,
+              "matched_literal": "api/schemas.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 277,
+              "matched_literal": "api/schemas.py"
+            }
+          ]
+        },
+        {
+          "entry": 8,
+          "raw": "api_server.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api_server.py",
+          "candidates": [
+            "api_server.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 511,
+              "matched_literal": "api_server.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 180,
+              "matched_literal": "api_server.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 243,
+              "matched_literal": "api_server.py"
+            }
+          ]
+        },
+        {
+          "entry": 9,
+          "raw": "api_worker.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "api_worker.py",
+          "candidates": [
+            "api_worker.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 120,
+              "matched_literal": "api_worker.py"
+            },
+            {
+              "file": "README.md",
+              "line": 512,
+              "matched_literal": "api_worker.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 217,
+              "matched_literal": "api_worker.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 244,
+              "matched_literal": "api_worker.py"
+            }
+          ]
+        },
+        {
+          "entry": 10,
+          "raw": "badcase_store.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "badcase_store.py",
+          "candidates": [
+            "badcase_store.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 494,
+              "matched_literal": "badcase_store.py"
+            }
+          ]
+        },
+        {
+          "entry": 11,
+          "raw": "benchmark.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "unique_suffix",
+          "canonical_path": "evals/benchmark.py",
+          "candidates": [
+            "evals/benchmark.py"
+          ],
+          "ranking_eligible": false,
+          "not_ranked_reasons": [
+            "evals"
+          ],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 220,
+              "matched_literal": "benchmark.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 302,
+              "matched_literal": "benchmark.py"
+            }
+          ]
+        },
+        {
+          "entry": 12,
+          "raw": "cancellation.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "cancellation.py",
+          "candidates": [
+            "cancellation.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 491,
+              "matched_literal": "cancellation.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 211,
+              "matched_literal": "cancellation.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 250,
+              "matched_literal": "cancellation.py"
+            }
+          ]
+        },
+        {
+          "entry": 13,
+          "raw": "config.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "config.py",
+          "candidates": [
+            "config.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 498,
+              "matched_literal": "config.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 239,
+              "matched_literal": "config.py"
+            }
+          ]
+        },
+        {
+          "entry": 14,
+          "raw": "conversation_memory.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "conversation_memory.py",
+          "candidates": [
+            "conversation_memory.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 489,
+              "matched_literal": "conversation_memory.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 260,
+              "matched_literal": "conversation_memory.py"
+            }
+          ]
+        },
+        {
+          "entry": 15,
+          "raw": "daily_orchestrator.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "daily_orchestrator.py",
+          "candidates": [
+            "daily_orchestrator.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 377,
+              "matched_literal": "daily_orchestrator.py"
+            },
+            {
+              "file": "README.md",
+              "line": 486,
+              "matched_literal": "daily_orchestrator.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 202,
+              "matched_literal": "daily_orchestrator.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 216,
+              "matched_literal": "daily_orchestrator.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 248,
+              "matched_literal": "daily_orchestrator.py"
+            }
+          ]
+        },
+        {
+          "entry": 16,
+          "raw": "graph_builder.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "graph_builder.py",
+          "candidates": [
+            "graph_builder.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 362,
+              "matched_literal": "graph_builder.py"
+            },
+            {
+              "file": "README.md",
+              "line": 475,
+              "matched_literal": "graph_builder.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 201,
+              "matched_literal": "graph_builder.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 210,
+              "matched_literal": "graph_builder.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 246,
+              "matched_literal": "graph_builder.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 260,
+              "matched_literal": "graph_builder.py"
+            }
+          ]
+        },
+        {
+          "entry": 17,
+          "raw": "ieee_xplore.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "ieee_xplore.py",
+          "candidates": [
+            "ieee_xplore.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 484,
+              "matched_literal": "ieee_xplore.py"
+            }
+          ]
+        },
+        {
+          "entry": 18,
+          "raw": "llm_client.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "llm_client.py",
+          "candidates": [
+            "llm_client.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 490,
+              "matched_literal": "llm_client.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 201,
+              "matched_literal": "llm_client.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 211,
+              "matched_literal": "llm_client.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 249,
+              "matched_literal": "llm_client.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 339,
+              "matched_literal": "llm_client.py"
+            }
+          ]
+        },
+        {
+          "entry": 19,
+          "raw": "logger.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "logger.py",
+          "candidates": [
+            "logger.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 499,
+              "matched_literal": "logger.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 267,
+              "matched_literal": "logger.py"
+            }
+          ]
+        },
+        {
+          "entry": 20,
+          "raw": "memory.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "memory.py",
+          "candidates": [
+            "memory.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 488,
+              "matched_literal": "memory.py"
+            },
+            {
+              "file": "README.md",
+              "line": 489,
+              "matched_literal": "memory.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 259,
+              "matched_literal": "memory.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 260,
+              "matched_literal": "memory.py"
+            }
+          ]
+        },
+        {
+          "entry": 21,
+          "raw": "paper_artifacts.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "paper_artifacts.py",
+          "candidates": [
+            "paper_artifacts.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 479,
+              "matched_literal": "paper_artifacts.py"
+            }
+          ]
+        },
+        {
+          "entry": 22,
+          "raw": "paper_records.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "paper_records.py",
+          "candidates": [
+            "paper_records.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 482,
+              "matched_literal": "paper_records.py"
+            }
+          ]
+        },
+        {
+          "entry": 23,
+          "raw": "paper_relations.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "paper_relations.py",
+          "candidates": [
+            "paper_relations.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 478,
+              "matched_literal": "paper_relations.py"
+            }
+          ]
+        },
+        {
+          "entry": 24,
+          "raw": "paper_store.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "paper_store.py",
+          "candidates": [
+            "paper_store.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 477,
+              "matched_literal": "paper_store.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 212,
+              "matched_literal": "paper_store.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 255,
+              "matched_literal": "paper_store.py"
+            }
+          ]
+        },
+        {
+          "entry": 25,
+          "raw": "pdf_reader.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "pdf_reader.py",
+          "candidates": [
+            "pdf_reader.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 476,
+              "matched_literal": "pdf_reader.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 212,
+              "matched_literal": "pdf_reader.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 257,
+              "matched_literal": "pdf_reader.py"
+            }
+          ]
+        },
+        {
+          "entry": 26,
+          "raw": "prompts.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "prompts.py",
+          "candidates": [
+            "prompts.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 471,
+              "matched_literal": "prompts.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 210,
+              "matched_literal": "prompts.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 213,
+              "matched_literal": "prompts.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 262,
+              "matched_literal": "prompts.py"
+            }
+          ]
+        },
+        {
+          "entry": 27,
+          "raw": "release_gate.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "unique_suffix",
+          "canonical_path": "evals/release_gate.py",
+          "candidates": [
+            "evals/release_gate.py"
+          ],
+          "ranking_eligible": false,
+          "not_ranked_reasons": [
+            "evals"
+          ],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 220,
+              "matched_literal": "release_gate.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 304,
+              "matched_literal": "release_gate.py"
+            }
+          ]
+        },
+        {
+          "entry": 28,
+          "raw": "research_agent.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "research_agent.py",
+          "candidates": [
+            "research_agent.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 96,
+              "matched_literal": "research_agent.py"
+            },
+            {
+              "file": "README.md",
+              "line": 508,
+              "matched_literal": "research_agent.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 200,
+              "matched_literal": "research_agent.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 245,
+              "matched_literal": "research_agent.py"
+            }
+          ]
+        },
+        {
+          "entry": 29,
+          "raw": "research_documents.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "research_documents.py",
+          "candidates": [
+            "research_documents.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 480,
+              "matched_literal": "research_documents.py"
+            },
+            {
+              "file": "README.md",
+              "line": 504,
+              "matched_literal": "research_documents.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 213,
+              "matched_literal": "research_documents.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 256,
+              "matched_literal": "research_documents.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 292,
+              "matched_literal": "research_documents.py"
+            }
+          ]
+        },
+        {
+          "entry": 30,
+          "raw": "research_orchestrator.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "research_orchestrator.py",
+          "candidates": [
+            "research_orchestrator.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 367,
+              "matched_literal": "research_orchestrator.py"
+            },
+            {
+              "file": "README.md",
+              "line": 509,
+              "matched_literal": "research_orchestrator.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 202,
+              "matched_literal": "research_orchestrator.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 214,
+              "matched_literal": "research_orchestrator.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 247,
+              "matched_literal": "research_orchestrator.py"
+            }
+          ]
+        },
+        {
+          "entry": 31,
+          "raw": "resilience.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "resilience.py",
+          "candidates": [
+            "resilience.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 492,
+              "matched_literal": "resilience.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 211,
+              "matched_literal": "resilience.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 251,
+              "matched_literal": "resilience.py"
+            }
+          ]
+        },
+        {
+          "entry": 32,
+          "raw": "run_contract.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "run_contract.py",
+          "candidates": [
+            "run_contract.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 493,
+              "matched_literal": "run_contract.py"
+            }
+          ]
+        },
+        {
+          "entry": 33,
+          "raw": "run_timeline.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "unmatched_in_declared_inventory",
+          "match_method": null,
+          "canonical_path": null,
+          "candidates": [],
+          "ranking_eligible": null,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 264,
+              "matched_literal": "run_timeline.py"
+            }
+          ]
+        },
+        {
+          "entry": 34,
+          "raw": "runtime_paths.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "runtime_paths.py",
+          "candidates": [
+            "runtime_paths.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 495,
+              "matched_literal": "runtime_paths.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 203,
+              "matched_literal": "runtime_paths.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 212,
+              "matched_literal": "runtime_paths.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 219,
+              "matched_literal": "runtime_paths.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 254,
+              "matched_literal": "runtime_paths.py"
+            }
+          ]
+        },
+        {
+          "entry": 35,
+          "raw": "scheduler.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "scheduler.py",
+          "candidates": [
+            "scheduler.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 485,
+              "matched_literal": "scheduler.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 203,
+              "matched_literal": "scheduler.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 216,
+              "matched_literal": "scheduler.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 253,
+              "matched_literal": "scheduler.py"
+            }
+          ]
+        },
+        {
+          "entry": 36,
+          "raw": "search_api.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "search_api.py",
+          "candidates": [
+            "search_api.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 483,
+              "matched_literal": "search_api.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 215,
+              "matched_literal": "search_api.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 258,
+              "matched_literal": "search_api.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 288,
+              "matched_literal": "search_api.py"
+            }
+          ]
+        },
+        {
+          "entry": 37,
+          "raw": "session_store.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "session_store.py",
+          "candidates": [
+            "session_store.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 510,
+              "matched_literal": "session_store.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 203,
+              "matched_literal": "session_store.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 214,
+              "matched_literal": "session_store.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 252,
+              "matched_literal": "session_store.py"
+            }
+          ]
+        },
+        {
+          "entry": 38,
+          "raw": "tool_catalog.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "tool_catalog.py",
+          "candidates": [
+            "tool_catalog.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 473,
+              "matched_literal": "tool_catalog.py"
+            }
+          ]
+        },
+        {
+          "entry": 39,
+          "raw": "tool_runtime.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "tool_runtime.py",
+          "candidates": [
+            "tool_runtime.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 474,
+              "matched_literal": "tool_runtime.py"
+            }
+          ]
+        },
+        {
+          "entry": 40,
+          "raw": "tool_schemas.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "tool_schemas.py",
+          "candidates": [
+            "tool_schemas.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 472,
+              "matched_literal": "tool_schemas.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 210,
+              "matched_literal": "tool_schemas.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 213,
+              "matched_literal": "tool_schemas.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 263,
+              "matched_literal": "tool_schemas.py"
+            }
+          ]
+        },
+        {
+          "entry": 41,
+          "raw": "ui_request_guard.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "unmatched_in_declared_inventory",
+          "match_method": null,
+          "canonical_path": null,
+          "candidates": [],
+          "ranking_eligible": null,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 218,
+              "matched_literal": "ui_request_guard.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 265,
+              "matched_literal": "ui_request_guard.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 343,
+              "matched_literal": "ui_request_guard.py"
+            }
+          ]
+        },
+        {
+          "entry": 42,
+          "raw": "user_profile.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "user_profile.py",
+          "candidates": [
+            "user_profile.py"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "README.md",
+              "line": 487,
+              "matched_literal": "user_profile.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 261,
+              "matched_literal": "user_profile.py"
+            }
+          ]
+        },
+        {
+          "entry": 43,
+          "raw": "web_ui.py",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "unmatched_in_declared_inventory",
+          "match_method": null,
+          "canonical_path": null,
+          "candidates": [],
+          "ranking_eligible": null,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 194,
+              "matched_literal": "web_ui.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 204,
+              "matched_literal": "web_ui.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 217,
+              "matched_literal": "web_ui.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 218,
+              "matched_literal": "web_ui.py"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 266,
+              "matched_literal": "web_ui.py"
+            }
+          ]
+        }
+      ],
+      "duplicate_alias_groups": [],
+      "summary": {
+        "source_files": 156,
+        "ranking_scope_files": 85,
+        "source_languages": {
+          "py": 124,
+          "ts": 16,
+          "tsx": 16
+        },
+        "legacy_labels": 43,
+        "matched_unique_files": 40,
+        "ranking_eligible_unique_labels": 38,
+        "not_ranked_unique_labels": 2,
+        "unmatched_labels": 3,
+        "ambiguous_labels": 0,
+        "duplicate_alias_groups": 0
+      },
+      "ranking_eligible_canonical_labels": [
+        "api/app.py",
+        "api/auth.py",
+        "api/observability.py",
+        "api/redis_runs.py",
+        "api/routes.py",
+        "api/run_manager.py",
+        "api/schemas.py",
+        "api_server.py",
+        "api_worker.py",
+        "badcase_store.py",
+        "cancellation.py",
+        "config.py",
+        "conversation_memory.py",
+        "daily_orchestrator.py",
+        "graph_builder.py",
+        "ieee_xplore.py",
+        "llm_client.py",
+        "logger.py",
+        "memory.py",
+        "paper_artifacts.py",
+        "paper_records.py",
+        "paper_relations.py",
+        "paper_store.py",
+        "pdf_reader.py",
+        "prompts.py",
+        "research_agent.py",
+        "research_documents.py",
+        "research_orchestrator.py",
+        "resilience.py",
+        "run_contract.py",
+        "runtime_paths.py",
+        "scheduler.py",
+        "search_api.py",
+        "session_store.py",
+        "tool_catalog.py",
+        "tool_runtime.py",
+        "tool_schemas.py",
+        "user_profile.py"
+      ],
+      "not_ranked_canonical_labels": [
+        "evals/benchmark.py",
+        "evals/release_gate.py"
+      ],
+      "unmatched_labels": [
+        "run_timeline.py",
+        "ui_request_guard.py",
+        "web_ui.py"
+      ],
+      "ambiguous_labels": [],
+      "proxy_p10_acceptance_status": "not_evaluable_unresolved_legacy_labels"
+    },
+    {
+      "project_id": "knowledge_loop",
+      "role": "dev-regression",
+      "holdout": false,
+      "root": "D:/develop/agent for obsidian",
+      "git_head": "d344743684d822e3906c64440de5bcbcf4a451c9",
+      "git_head_read_method": "read_only_explicit_git_dir",
+      "git_head_error": null,
+      "worktree_cleanliness": "not_asserted; exact declared working-tree files are hashed below",
+      "snapshot_sha256": "afd4e0e5410e06f35ec9d91a6a64840412f0315ec4237149cc827da2ae8db297",
+      "source_inventory": [
+        {
+          "path": "core/actions/action-proposal.ts",
+          "sha256": "d26ae8cba5e8404dbebb457a4b6d68b81b1538c08a06a49e2f88fa1a6e274d31",
+          "bytes": 12908,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/audit/audit-trail.ts",
+          "sha256": "1d5d8c3389750f6bf97fb3d6770605d61b7d0d45e6f011965caf274bdd1fa2e6",
+          "bytes": 2416,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/core/knowledge-repository.ts",
+          "sha256": "a14e679501bf6cd895c27532ab2aca0841500101fc549e54c24374661e64e89d",
+          "bytes": 713,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-agent-service.ts",
+          "sha256": "1e376df26812973fa581d2e13ad6978e031d6c4e93e9d921bda3e7f853b2a97f",
+          "bytes": 20425,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-answer-loop.ts",
+          "sha256": "89d7dcd85d88161d25cff100b3b858ce5db19291e762f6d413067221c05b6255",
+          "bytes": 11000,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-attachment-service.ts",
+          "sha256": "b53be9ddfd8886e32b3fc9e9149241404262041b0ab6ef083bc0fcc929c96bd3",
+          "bytes": 5891,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-delete-service.ts",
+          "sha256": "5fc5d30b7b7884bc5697f2f1e5d88a4de384d9c38cc757fb9db7d1f372085b90",
+          "bytes": 5062,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-intent-router.ts",
+          "sha256": "4fd72d4051610be17a1727facf097c001562dea92521916e223e3ebd41265a4e",
+          "bytes": 7715,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-maintenance-service.ts",
+          "sha256": "4a920849eaa6fe29f32bea3f0e5139b8088d231d0dbea05869cde551176444e3",
+          "bytes": 6057,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-note-rename-service.ts",
+          "sha256": "79bd0ba65704305aa0c07c3875eb694d5e2ea7559d2727947c0660a1e462593a",
+          "bytes": 6253,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-relation-service.ts",
+          "sha256": "b17bf3832abc66ff79edd6cd20bc6845a331bc0eecd87b50ef30fe850ba2fc9b",
+          "bytes": 4583,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-session-service.ts",
+          "sha256": "dfd0e8a460a167965a470df70b6439725eb69c1e97e6bba8303fbac45602fa6f",
+          "bytes": 9036,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-wiki-service.ts",
+          "sha256": "0222f241893384a1bbfc83cb4039ec3a48523981b2762796eb707c5726fa1955",
+          "bytes": 44623,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-wiki-verification-service.ts",
+          "sha256": "4cb02addc107b8d1d9129e69065c40dfeef3b318962750e402d1f639d5bfd973",
+          "bytes": 6486,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/desktop-write-service.ts",
+          "sha256": "82ce42c956068bcc8572ae48742add6e4b78845f6960139cf61598ad73a61612",
+          "bytes": 20123,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/node-file-system-knowledge-repository.ts",
+          "sha256": "c05955a2dc2029012613f50abe2c68ae12394687a954d5594e55c6e2d4617c3f",
+          "bytes": 5904,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/node-markdown-index-store.ts",
+          "sha256": "ea1bf36a830cbfb96452580e4023cf18328fb5b13297ad9c5425d72c357492c9",
+          "bytes": 1277,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/desktop/question-rewrite.ts",
+          "sha256": "6cc2c639d9fe3c1cf2564abff127527fc3f99840f659537d6479b2969e62ed70",
+          "bytes": 5432,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/domain/content-hash.ts",
+          "sha256": "52ac49b5c48c28d322cbe43394fc1f035047ded51b23d7aed64bfb10ddf80464",
+          "bytes": 4365,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/domain/diagram-hint.ts",
+          "sha256": "de0f2d26e23952a2e11d19a4892a63b35602dad37f27b6dd07d75bf6b8881d63",
+          "bytes": 2351,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/domain/source-ref.ts",
+          "sha256": "efb8297c4b3a78daf7ac230638c5862b64350be32926e012c97511619134d29b",
+          "bytes": 796,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/gardener/knowledge-gardener.ts",
+          "sha256": "fd227bd548afd9b93783be061d9ef0362bd88f973ef5b49f6470f411e7febaca",
+          "bytes": 6274,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/attachment-batch-queue.ts",
+          "sha256": "64702f1674307b78aefd4c6eaa995b5ccff868baee4cdac21f4019c069894c1e",
+          "bytes": 5633,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/attachment-index.ts",
+          "sha256": "5c52bc92da6a3edbfb83d31b2f6820812b2afa0863d02ebbef724aab13399079",
+          "bytes": 5764,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/bm25.ts",
+          "sha256": "afd970b6d62b2fe2cb9ab421cc227dc982e2cb683648e7a3b4e71a173072a119",
+          "bytes": 4889,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/markdown-index-snapshot.ts",
+          "sha256": "7710b27955a49fc65374ede8fed024cf1787ab92ba1b0a6d93ffebf8c6c804ce",
+          "bytes": 5448,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/markdown-parser.ts",
+          "sha256": "fa8530d2800b01e4732a9065cf8f63b562e22f832f358c9e394684df39473c44",
+          "bytes": 3500,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/markdown-search.ts",
+          "sha256": "b5cd1f6acdec12012a062919e6b011b8897786b0eb8a718f30cdfc79cfd2c6b6",
+          "bytes": 5443,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/note-survey.ts",
+          "sha256": "ddcab11abf047da392a9bbc6edaa7dd44fcfec1a8dfc9a5206616da62bbea76c",
+          "bytes": 3461,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/portable-markdown-knowledge-index.ts",
+          "sha256": "cb5db3355cc3dfc5e2c898f012c10194ed2746393d31b2b67a816422b445850a",
+          "bytes": 8676,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/indexing/search-rerank.ts",
+          "sha256": "499a010c5f443a8383b9bf011f042e1e413dfc8705c60f7cd90d8c5a07824bc8",
+          "bytes": 8044,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/integration/knowledge-system.ts",
+          "sha256": "0d144a1c4e456599ed0c6ef799270df5fd5f80204aebbf2997a00d4daf4fccd4",
+          "bytes": 10483,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/integration/note-relations.ts",
+          "sha256": "e2cf8a756f3615506027ff6a4a2b40393d83c5521879691e0179afa6082132c1",
+          "bytes": 8637,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/memory/agent-memory.ts",
+          "sha256": "b40b2554d75175c21000e0e994f0736f2cdb9c64bb00566e199c6b84cd28ee8a",
+          "bytes": 19911,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/memory/assistant-state.ts",
+          "sha256": "ad3c05c5397fad4df1237c591a236a14d0ce8be0ec711313158816b27311ad3e",
+          "bytes": 4451,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/memory/conversation-log.ts",
+          "sha256": "e085d74936134bc57a2d5870a194766bd0e17476d4c094d130d135625133fd4c",
+          "bytes": 6018,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/notes/duplicate-scan.ts",
+          "sha256": "874b84243d1501d8a3b929930f3434b66e5ed2dd04010fac572f717fe4879ef5",
+          "bytes": 15197,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/notes/note-maintenance.ts",
+          "sha256": "fd05d94fadc578beddb27e2584b5174bb2736437b5925f821a994ef5d1f829c7",
+          "bytes": 13538,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/notes/note-naming.ts",
+          "sha256": "f06457fdf7b0faddc9c274873cee9dc970ed6ffc1e035208d1dc8e15c5c1ee1b",
+          "bytes": 5417,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/notes/note-routing.ts",
+          "sha256": "dba82513ee4c8b105a280ea11fc4b527133daf3c3eff67930bbe7873c7812436",
+          "bytes": 8363,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/notes/vault-backup.ts",
+          "sha256": "fc6d6fe694afc6a6a362c73ebd4d40e203e623d5f078f1b21e58220f2c8e5ac5",
+          "bytes": 2068,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/paste/paste-formatter.ts",
+          "sha256": "a421e8b1b83ab3c88bedfb0b47a048b7ef22204d9cf74fda0c5fbe549689f055",
+          "bytes": 11277,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/policy/policy-engine.ts",
+          "sha256": "5891f602eccf9c3f180e6efd0fb0c4c583252ee14e97518d411420af33b5ee74",
+          "bytes": 6548,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/capture-suggestion.ts",
+          "sha256": "7397aeb0a9ab13aafbb9a0b515ab74933e5c1d713e686e83c35636a6b4d3ba67",
+          "bytes": 2830,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/deepseek-client.ts",
+          "sha256": "1e3f00601361db29d9165020c03544cb7902c52353c9b359bcfa5611521f5d90",
+          "bytes": 26220,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/deepseek-vision-client.ts",
+          "sha256": "9e039aae93a5395371b366a7ac304d314fbb8e4c43b9ab6fa61d91548032061b",
+          "bytes": 2016,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/env.ts",
+          "sha256": "12cc22e0523df335fcb142fd01fa0c32cfa6653f6279c57d238e59022a22c10f",
+          "bytes": 1093,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/fetch-api-request.ts",
+          "sha256": "bda113b4244ec7a0547961e3114bcf76b5f84bbac491ea350530659aaf761014",
+          "bytes": 7680,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/glm-client.ts",
+          "sha256": "251e677f58d885a97a65c920e00098f2c0d45a86d0201379663dcf7af6a73f54",
+          "bytes": 3365,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/in-flight-request-gate.ts",
+          "sha256": "0a702aa78cfc01eed6303ddbcc487004b8245164bdd8ab05de21db78473d4634",
+          "bytes": 613,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/json-answer-stream.ts",
+          "sha256": "ec5911049549a08fea33303af93945e9c17fa63bec63a8997d46bdc15f354f9f",
+          "bytes": 3662,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/json-post.ts",
+          "sha256": "c015b01342487aa6ddd3a7f40b32324e43831fbe44aef2fbfa29b97c2af62b35",
+          "bytes": 715,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/tavily-client.ts",
+          "sha256": "87aca23553e73ff850b84ab4a7fcd1636cb0647c7ace32d159f33376fda3296c",
+          "bytes": 2273,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/web-answer-policy.ts",
+          "sha256": "23ed4cebfdc543f48504966c249f509f6d26bab56341004f4969cdffc9b4fe03",
+          "bytes": 1567,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/services/web-search.ts",
+          "sha256": "b147a6dfcefc989b1b8e9e33bf96c0f79a554a2d754237c287cb55bbaca7461a",
+          "bytes": 3046,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/ingest-plan.ts",
+          "sha256": "090dbafae483a5f7ea21ecfb9eb0ff1bcb64ff327f6fd6f6c226b80c9a049b27",
+          "bytes": 8626,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/llm-wiki-system.ts",
+          "sha256": "a34a612f47fe1b9fe33e12034c4e989dad93fc4310da11db0e4717493f6e783c",
+          "bytes": 36469,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/source-change.ts",
+          "sha256": "cec7fc540ba941bb91930d9fbdf7be0601c9d50ca8df4ec5d0326b5de105f29c",
+          "bytes": 5625,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/topic-discovery.ts",
+          "sha256": "f70af298e88c83b737bc2cfe83b3d5a88eeb64acd4c4cea1080e1520203fa94e",
+          "bytes": 13644,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/topic-placement.ts",
+          "sha256": "925e4eb66d5658775c9e26ff38fc005279ddfec09086423e59b4c921d451ef15",
+          "bytes": 11254,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/topic-registry.ts",
+          "sha256": "4e9c1947a2f74a59044b6fa97c1b27500c4f07872c98a450a4690a8a6fb42439",
+          "bytes": 15523,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/wiki-lint.ts",
+          "sha256": "b7df18323efe0e67b79d49d26f8fc7d8d25cef01367b96b4314ab22304bf7274",
+          "bytes": 21011,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/wiki-retrieval.ts",
+          "sha256": "4f77c20727868385a6131748fa1a4485c1fc0653b8c79898f05da58d321ae310",
+          "bytes": 14409,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "core/wiki/wiki-verification.ts",
+          "sha256": "01824db36380d40921886914fa5a8cc59e5735773bb87ad49ce62a117680c2a9",
+          "bytes": 8082,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/bridge-schema.ts",
+          "sha256": "3256fcb40a81d5ddec484abd9ba6a9d04edfb01ea101401630f004c73c361feb",
+          "bytes": 5442,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/bridge.ts",
+          "sha256": "25181e1b84642568a718d6abdcacd51cca4f63110b1d1657f04a315a629980fa",
+          "bytes": 4917,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/main.ts",
+          "sha256": "d28fedfa32574858bdb88f429297f3e7f8785463c7f15e8f9c05709d91434c51",
+          "bytes": 77888,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/preload.ts",
+          "sha256": "fb97e73961dce6e5b3bf1720455568f3746389b66e8114a3ae0ec1d1ee827cfc",
+          "bytes": 2688,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/renderer/App.tsx",
+          "sha256": "513ba925a508350b8432c393c9cd6691bae828ba98efe99298a9d4843c800b16",
+          "bytes": 53588,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/renderer/MermaidDiagram.tsx",
+          "sha256": "b1f4243da286f01241621377f9d59c083b7e584354174039f0e6d57345c1c1e0",
+          "bytes": 2978,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/renderer/main.tsx",
+          "sha256": "5d6704d12ce5b34800a378c321a58b1c1411477da21c7771e5cb49db49838cf1",
+          "bytes": 235,
+          "language": "tsx",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/renderer/markdown-model.ts",
+          "sha256": "45b951b29d0c1f48097b6d86c0c97a43a4332f9e0db7e7bf2abf6e4a41989e04",
+          "bytes": 4591,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/renderer/mermaid-render-queue.ts",
+          "sha256": "58e8ed2ca2be6aff50bbc06be9044f5ef56bb6ca4f073782a2cc5dee1cb6b16c",
+          "bytes": 1285,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/renderer/window.d.ts",
+          "sha256": "81a838f755bdc4a00c5b3735e699d05c50bfc35df50c20a9bf2e0c262c3264d1",
+          "bytes": 145,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "src/shared/desktop-api.ts",
+          "sha256": "cff85500b55f0329937c451519281cecf56aafaeb4fd778e5069d0fa11e33668",
+          "bytes": 8432,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "tests/action-proposal.test.ts",
+          "sha256": "3a9c97cb50f26981c7f1c8df271f9b651d2b5c9b3e3e641827c1b71d959fc2f4",
+          "bytes": 5206,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/agent-memory-paths.test.ts",
+          "sha256": "dce454fc01760cc1c5049e6ffaa239b3255746b241b0849585afe37a1e6fb2cd",
+          "bytes": 2825,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/agent-memory.test.ts",
+          "sha256": "ebf755549f006e20c3116df311cb1b13cc22cf1383502e18a7478699a2cd2d87",
+          "bytes": 6405,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/answer-evidence.test.ts",
+          "sha256": "e543c5c2f163d7cd64f0a9a8ff359840f1674a118420e68d4160cf7339dc680b",
+          "bytes": 7138,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/answer-loop.test.ts",
+          "sha256": "5cfb7d9c1fd40cecb2e68d2218fbed0e0a3ebf14ef4fbc8cb8a51b9dec15097b",
+          "bytes": 6805,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/assistant-state.test.ts",
+          "sha256": "96f4e7318745baaf2c039adb11260942f36491f40d461380619a1f2cf6d415f7",
+          "bytes": 1564,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/attachment-batch-queue.test.ts",
+          "sha256": "48a04fe4a7b2d4a18695276106aa8c9432a810250041591706f3456230d778de",
+          "bytes": 2237,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/attachment-index.test.ts",
+          "sha256": "ce3ef1e270f6d49cc55659101ee4c53e1748e78db3ad1f6504b9facdd3f85b21",
+          "bytes": 2640,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/block-hash.test.ts",
+          "sha256": "d9fd9ee1e4a60b27490c6c2b96201f1190b48d97c35f1b82bb4f36e4625e3278",
+          "bytes": 4591,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/capture-suggestion.test.ts",
+          "sha256": "d3c543c8d56f1be3a143786b9f4de52bc234b008b2849ee1ce431a88b2a76bab",
+          "bytes": 1243,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/conversation-log.test.ts",
+          "sha256": "295b1d672188dd2f033bb80d1b8d4962fc741a91a460d7e06a09ad3984b25112",
+          "bytes": 2422,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/deepseek-client-stream.test.ts",
+          "sha256": "f031885a50a98d81f74fb35151b7df0c7722991dd1d1839f93386b6e02e6cf08",
+          "bytes": 4803,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/deepseek-client.test.ts",
+          "sha256": "bf62459816189c179b29d7526b03d952b5212f44efe94a8483e8ac29c86b7e1a",
+          "bytes": 4566,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/deepseek-vision-client.test.ts",
+          "sha256": "a558876b7ea8c30032804610bcecd42d60c5ec28e02ce58778a7e223f0bc8b11",
+          "bytes": 1233,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/desktop-agent-service.test.ts",
+          "sha256": "4215423a73bb6a1f567fbb17bca19dc5fdace90b25aaa66213bca588831f407c",
+          "bytes": 3970,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/desktop-attachment-service.test.ts",
+          "sha256": "1c6432e334d7e194a841ac3c52c9ce0c0b9a87d3bca2cfbab5b70df54cd05b52",
+          "bytes": 1415,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/desktop-intent-router.test.ts",
+          "sha256": "5ea9872791a3248e728cb1a85ec35c8dd581750f94b6f2581fe62e782be77510",
+          "bytes": 2409,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/desktop-session-service.test.ts",
+          "sha256": "6d4fb9b998bd8fd78735e2bc35c05b5fe13a804dd970676ea1958e06e734ed87",
+          "bytes": 6079,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/desktop-wiki-health.test.ts",
+          "sha256": "413d3fe0fd24c42ecfc80382b2dbdc30b6c8109614e259b341acbdd2fc5f87d7",
+          "bytes": 7683,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/desktop-wiki-service.test.ts",
+          "sha256": "9d2f534fa0fbdf28324abc2c4a85e9e4f64aa708f187d972b5141a47606ec001",
+          "bytes": 2987,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/desktop-write-service.test.ts",
+          "sha256": "221db0d4dc71dc00cb061937d324a6512c98894546e6eaf780e7d7d51a55ebd5",
+          "bytes": 6975,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/diagram-hint.test.ts",
+          "sha256": "3346ab50c2b9a66bc61eb9c29adccff18983f9d60875a048f480930b97826b8e",
+          "bytes": 1833,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/duplicate-scan.test.ts",
+          "sha256": "709e9d790b58b392413cfed4f43adaa0dc21e46e25814c7bc775532ef6fe12bf",
+          "bytes": 5780,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/env.test.ts",
+          "sha256": "d672665b22d36b5a439d3b129bc2bff539a9c499ba167a381a59b3416b69859e",
+          "bytes": 936,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/fetch-api-request-stream.test.ts",
+          "sha256": "6a1ac31de1a9b3df63a7d3b74341b6f3884cfe817d60ee9a55a7e6563792151d",
+          "bytes": 4340,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/in-flight-request-gate.test.ts",
+          "sha256": "a43cba11b2ea8f91f811a87ec5bd82919e9d3eadaca4ea63e7f05dcb6fac4c15",
+          "bytes": 916,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/ingest-plan.test.ts",
+          "sha256": "0146f7d1d275e2ba4df29d48ea42176a330d194e2b04a5a4e7515c0bcaa48b8c",
+          "bytes": 8552,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/json-answer-stream.test.ts",
+          "sha256": "27cb20cabf36ff59ca2c2fba626dceee2fd2342dd5992f2229794e72f2f3d8dd",
+          "bytes": 3692,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/knowledge-bridge.test.ts",
+          "sha256": "0914c9cf7949df715a175d488c5be84c0902cd0b72fbdcd206bc726c31bd2939",
+          "bytes": 2064,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/knowledge-gardener.test.ts",
+          "sha256": "210eca9f8db7225f4a50e6576e51f0cc76b656bddce9851ca79c4ea44e4141a8",
+          "bytes": 2695,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/knowledge-system.test.ts",
+          "sha256": "f23341ee5c2fa17e3684a9a6a443b9b8e3fad88b30cab7208df21da00589430a",
+          "bytes": 4649,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/llm-wiki-system.test.ts",
+          "sha256": "979ad56a5422a55d7ca04b1d45102cf5d4b33721b77e886535a18d5142fa34f1",
+          "bytes": 6321,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/llm-wiki.test.ts",
+          "sha256": "1380d5646782acea79ec34240707503d0a6a566769c4b5cb5b55ff10df58889c",
+          "bytes": 335,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/markdown-bm25.test.ts",
+          "sha256": "63a69387187cc331af72aef12e48c4c8801faf52f62cd11d7cd51580c08f1c2c",
+          "bytes": 3930,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/markdown-index-snapshot.test.ts",
+          "sha256": "bbe1508c857569d7684c938f26f0c4cec1b4d139c02b7c21df64d8452c70079a",
+          "bytes": 3246,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/markdown-index-sync.test.ts",
+          "sha256": "272246d415689ce6cc57d6dd71b99d017222c2740c9bcf927c296a85e49e2dae",
+          "bytes": 7841,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/markdown-index.test.ts",
+          "sha256": "668f3763982feb2719a95f0fccea1c4cf8f83b4c988d50fec09f527795076a3e",
+          "bytes": 7185,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/markdown-model.test.ts",
+          "sha256": "2755c7af82e175d188eaf819370e7daff453c87da702c8cc84393ed1a8bdba25",
+          "bytes": 3605,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/markdown-preview.test.ts",
+          "sha256": "45dbf274e54beac34663dcb8f2d381d499a526f223633d34e35c39bbc502e1ad",
+          "bytes": 6541,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/markdown-rerank.test.ts",
+          "sha256": "a793c490d1741cca7c81ea2c05d314d47ee4d4ac82685def5afd20e18c1a0a09",
+          "bytes": 5911,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/mermaid-render-queue.test.ts",
+          "sha256": "546b89db1b44be95776c3751c978907519be852d3f04b38320753e86229757f9",
+          "bytes": 1390,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/node-file-system-knowledge-repository.test.ts",
+          "sha256": "c06103ba476971266a7bf65ab2dfea136aacc89044f949a011201cc5ecc39152",
+          "bytes": 2112,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/node-markdown-index-store.test.ts",
+          "sha256": "6426577a88443518d3cc7d68e3a59d0e6133fa113da3d38435e37b1b9edbd7a9",
+          "bytes": 2290,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/note-capture.test.ts",
+          "sha256": "6a26718776da5b00e584dee6c43c25819f41b175ae40fbe7fb995bc60e257404",
+          "bytes": 5399,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/note-delete.test.ts",
+          "sha256": "e23e8a369198683bc3947d4b15482fb0c061959f422883c7bdfb9c5d875c8828",
+          "bytes": 8791,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/note-maintenance.test.ts",
+          "sha256": "f73cdd488d744c2dafc97dc39abe1c67072dc8b150f2c6606bf17c660c972ee3",
+          "bytes": 4896,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/note-relations.test.ts",
+          "sha256": "275207f53f2bb76a9747db2767dfebb493df9d04b64ce7981d8a17728614b6b5",
+          "bytes": 3679,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/note-rename-service.test.ts",
+          "sha256": "c7a777bd6a746d2dae4f230bb5e0cd5e3eddd277a3d53cc39337aa51323e2a27",
+          "bytes": 6199,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/note-topic-survey.test.ts",
+          "sha256": "c209a3c5e54e7164ca6082de06b24fa35f8677249a11c98e708f95905e53bf83",
+          "bytes": 7601,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/paste-formatter.test.ts",
+          "sha256": "0e2b83d1ac749d2743137c084ae2db19539da9bd9635aeea85de6208c8d04e36",
+          "bytes": 2053,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/policy-engine.test.ts",
+          "sha256": "bc0885b1f400ed929949d1479c905d46800026fe18acf3f2081f89cb216c553f",
+          "bytes": 5214,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/question-rewrite.test.ts",
+          "sha256": "3b357015c16ddf613827c2f5ee3b6eadff4021d3d1964c34ef2710528c63f039",
+          "bytes": 3553,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/source-change.test.ts",
+          "sha256": "c526816ecd22ac344d23ecdb6ecd61a2228871e800eedfc8fdee0fae6b8c0f6a",
+          "bytes": 5378,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/topic-placement.test.ts",
+          "sha256": "c7e56534296537985db346c78d5746eeed5c99cec8ec78f6cac60b7c1a7d3aab",
+          "bytes": 6038,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/topic-registry.test.ts",
+          "sha256": "e66adfaa1c9ba1952df239a19d818bd1e3857aa1e85be59296926925349eb1f2",
+          "bytes": 7779,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/web-answer-policy.test.ts",
+          "sha256": "d34dd29f1eb321c9ffa7da6f497fdcd042b2411091b9d4a2c22d6d65eed33f65",
+          "bytes": 1372,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/web-search.test.ts",
+          "sha256": "438f4c376c89d92a1c98172a9d52b063a854c2b9bfe8825b343e2cb6409e23c1",
+          "bytes": 1890,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/wiki-dedup.test.ts",
+          "sha256": "c1a5113b8a20a7d12dce1b08eca174bdb870dbc3bb38294b5f602f5cb3c98707",
+          "bytes": 5096,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/wiki-lint.test.ts",
+          "sha256": "055326292509b683e6ecd0350dfded34c2edab9fd51edca83b1fd054e4270042",
+          "bytes": 13098,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/wiki-missing-audit.test.ts",
+          "sha256": "e1ccd041fb90a386b8fe2996885eca8bb80f5609fd1d7afc07d24d7d11b3734d",
+          "bytes": 6564,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/wiki-node-drafts.test.ts",
+          "sha256": "5d11e57827d0ac3080b7dca1835b857fe734750feb6b1a0bf442f1cd1806a2b6",
+          "bytes": 5678,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/wiki-retrieval.test.ts",
+          "sha256": "a133b7abbb6e0cff6f5ae7b7ce4085ecd32638b087f7cf2d08b1400452a13f1e",
+          "bytes": 8582,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "tests/wiki-verification.test.ts",
+          "sha256": "0108e97be3b031e23aade599c119224eec0a5222e1a6bf2ae0b64ed6eba08e24",
+          "bytes": 1768,
+          "language": "ts",
+          "ranking_scope": false,
+          "not_ranked_reasons": [
+            "tests",
+            "test_filename_or_directory"
+          ]
+        },
+        {
+          "path": "vite.config.ts",
+          "sha256": "6daccaa4e9caf5c05689517f56e969da13a410f166647150f20e8f53d3c711b3",
+          "bytes": 463,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        },
+        {
+          "path": "vitest.config.ts",
+          "sha256": "bf13274718ada1feaf9ce378804d40151557107d98439e0ab7b45e186b9a1766",
+          "bytes": 307,
+          "language": "ts",
+          "ranking_scope": true,
+          "not_ranked_reasons": []
+        }
+      ],
+      "skipped_directory_boundaries": [
+        {
+          "path": ".git",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": ".wiki-lint-backup-2026-10-05",
+          "reason": "hidden_directory"
+        },
+        {
+          "path": ".workbuddy",
+          "reason": "hidden_directory"
+        },
+        {
+          "path": "artifacts",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "dist",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "node_modules",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "core/runtime",
+          "reason": "declared_not_parsed"
+        },
+        {
+          "path": "knowledge/agentlearning-知识环迁移/.trash",
+          "reason": "hidden_directory"
+        }
+      ],
+      "project_units": [
+        {
+          "path": ".",
+          "source_languages": {
+            "ts": 137,
+            "tsx": 3
+          },
+          "declaration_files": [
+            "package-lock.json",
+            "package.json",
+            "tsconfig.json"
+          ],
+          "runtime_declarations": {
+            "node_engines": null,
+            "package_manager": null
+          },
+          "installed_or_runnable": "unknown_not_executed"
+        }
+      ],
+      "environment_declarations": [
+        {
+          "path": "package-lock.json",
+          "sha256": "2bfb7f920b673302c7ede96a723cebc7ab357a2fa3b9e25648fb1400e835aa1d",
+          "bytes": 93151
+        },
+        {
+          "path": "package.json",
+          "sha256": "4f0605b1c11f6df25dde171aa2c04b9030e7d0cea2d5762dc6c47b098b2e4504",
+          "bytes": 1290
+        },
+        {
+          "path": "tsconfig.json",
+          "sha256": "c53e911bd901b5ef527904f0666ce611e4fafdcd8251e6ab43cb765666c144e5",
+          "bytes": 334
+        }
+      ],
+      "documents": [
+        {
+          "path": "README.md",
+          "sha256": "c8bad4b4411febbde35ecc5907e26c5da5864e62ab52a6475f11711e6dc5c5c3",
+          "bytes": 5089,
+          "role": "current_document_reference_not_proof_of_original_extraction_version"
+        },
+        {
+          "path": "项目接手指南.md",
+          "sha256": "30b5a2fc2ed942e9a55c9448488270c20cfd8d282c2608c0a6e79f79f2a41ed6",
+          "bytes": 7891,
+          "role": "current_document_reference_not_proof_of_original_extraction_version"
+        }
+      ],
+      "legacy_gt": {
+        "path": "evals/groundtruth/knowledge_loop.json",
+        "sha256": "f9d83c23c0f2c47e3c86c4b2c9b33ad2a9bd3427c78cf6159859ad9b26e98bee",
+        "bytes": 389,
+        "original_entry_count": 13,
+        "original_values_preserved": [
+          "core/core/knowledge-repository.ts",
+          "core/desktop/desktop-answer-loop.ts",
+          "core/desktop/question-rewrite.ts",
+          "core/policy/policy-engine.ts",
+          "desktop-answer-loop.ts",
+          "desktop-intent-router.ts",
+          "fetch-api-request.ts",
+          "json-post.ts",
+          "question-rewrite.ts",
+          "src/main.ts",
+          "src/preload.ts",
+          "src/renderer/App.tsx",
+          "src/shared/desktop-api.ts"
+        ],
+        "original_extraction_document_versions": "unknown_not_recorded_in_legacy_json"
+      },
+      "labels": [
+        {
+          "entry": 1,
+          "raw": "core/core/knowledge-repository.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "core/core/knowledge-repository.ts",
+          "candidates": [
+            "core/core/knowledge-repository.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 62,
+              "matched_literal": "core/core/knowledge-repository.ts"
+            }
+          ]
+        },
+        {
+          "entry": 2,
+          "raw": "core/desktop/desktop-answer-loop.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "core/desktop/desktop-answer-loop.ts",
+          "candidates": [
+            "core/desktop/desktop-answer-loop.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 65,
+              "matched_literal": "core/desktop/desktop-answer-loop.ts"
+            }
+          ]
+        },
+        {
+          "entry": 3,
+          "raw": "core/desktop/question-rewrite.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "core/desktop/question-rewrite.ts",
+          "candidates": [
+            "core/desktop/question-rewrite.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 66,
+              "matched_literal": "core/desktop/question-rewrite.ts"
+            }
+          ]
+        },
+        {
+          "entry": 4,
+          "raw": "core/policy/policy-engine.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "core/policy/policy-engine.ts",
+          "candidates": [
+            "core/policy/policy-engine.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 63,
+              "matched_literal": "core/policy/policy-engine.ts"
+            }
+          ]
+        },
+        {
+          "entry": 5,
+          "raw": "desktop-answer-loop.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "unique_suffix",
+          "canonical_path": "core/desktop/desktop-answer-loop.ts",
+          "candidates": [
+            "core/desktop/desktop-answer-loop.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 29,
+              "matched_literal": "desktop-answer-loop.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 40,
+              "matched_literal": "desktop-answer-loop.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 65,
+              "matched_literal": "desktop-answer-loop.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 89,
+              "matched_literal": "desktop-answer-loop.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 104,
+              "matched_literal": "desktop-answer-loop.ts"
+            }
+          ]
+        },
+        {
+          "entry": 6,
+          "raw": "desktop-intent-router.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "unique_suffix",
+          "canonical_path": "core/desktop/desktop-intent-router.ts",
+          "candidates": [
+            "core/desktop/desktop-intent-router.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 104,
+              "matched_literal": "desktop-intent-router.ts"
+            }
+          ]
+        },
+        {
+          "entry": 7,
+          "raw": "fetch-api-request.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "unique_suffix",
+          "canonical_path": "core/services/fetch-api-request.ts",
+          "candidates": [
+            "core/services/fetch-api-request.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 108,
+              "matched_literal": "fetch-api-request.ts"
+            }
+          ]
+        },
+        {
+          "entry": 8,
+          "raw": "json-post.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "unique_suffix",
+          "canonical_path": "core/services/json-post.ts",
+          "candidates": [
+            "core/services/json-post.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 108,
+              "matched_literal": "json-post.ts"
+            }
+          ]
+        },
+        {
+          "entry": 9,
+          "raw": "question-rewrite.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "unique_suffix",
+          "canonical_path": "core/desktop/question-rewrite.ts",
+          "candidates": [
+            "core/desktop/question-rewrite.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 28,
+              "matched_literal": "question-rewrite.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 66,
+              "matched_literal": "question-rewrite.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 77,
+              "matched_literal": "question-rewrite.ts"
+            }
+          ]
+        },
+        {
+          "entry": 10,
+          "raw": "src/main.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "src/main.ts",
+          "candidates": [
+            "src/main.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 15,
+              "matched_literal": "src/main.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 27,
+              "matched_literal": "src/main.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 58,
+              "matched_literal": "src/main.ts"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 104,
+              "matched_literal": "src/main.ts"
+            }
+          ]
+        },
+        {
+          "entry": 11,
+          "raw": "src/preload.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "src/preload.ts",
+          "candidates": [
+            "src/preload.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 59,
+              "matched_literal": "src/preload.ts"
+            }
+          ]
+        },
+        {
+          "entry": 12,
+          "raw": "src/renderer/App.tsx",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "src/renderer/App.tsx",
+          "candidates": [
+            "src/renderer/App.tsx"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 15,
+              "matched_literal": "src/renderer/App.tsx"
+            },
+            {
+              "file": "项目接手指南.md",
+              "line": 60,
+              "matched_literal": "src/renderer/App.tsx"
+            }
+          ]
+        },
+        {
+          "entry": 13,
+          "raw": "src/shared/desktop-api.ts",
+          "label_kind": "document_proxy_candidate_positive",
+          "match_status": "matched",
+          "match_method": "exact_relative_path",
+          "canonical_path": "src/shared/desktop-api.ts",
+          "candidates": [
+            "src/shared/desktop-api.ts"
+          ],
+          "ranking_eligible": true,
+          "not_ranked_reasons": [],
+          "current_document_mentions": [
+            {
+              "file": "项目接手指南.md",
+              "line": 61,
+              "matched_literal": "src/shared/desktop-api.ts"
+            }
+          ]
+        }
+      ],
+      "duplicate_alias_groups": [
+        {
+          "canonical_path": "core/desktop/desktop-answer-loop.ts",
+          "original_entries": [
+            "core/desktop/desktop-answer-loop.ts",
+            "desktop-answer-loop.ts"
+          ],
+          "reason": "multiple_legacy_labels_resolve_to_same_file"
+        },
+        {
+          "canonical_path": "core/desktop/question-rewrite.ts",
+          "original_entries": [
+            "core/desktop/question-rewrite.ts",
+            "question-rewrite.ts"
+          ],
+          "reason": "multiple_legacy_labels_resolve_to_same_file"
+        }
+      ],
+      "summary": {
+        "source_files": 140,
+        "ranking_scope_files": 77,
+        "source_languages": {
+          "ts": 137,
+          "tsx": 3
+        },
+        "legacy_labels": 13,
+        "matched_unique_files": 11,
+        "ranking_eligible_unique_labels": 11,
+        "not_ranked_unique_labels": 0,
+        "unmatched_labels": 0,
+        "ambiguous_labels": 0,
+        "duplicate_alias_groups": 2
+      },
+      "ranking_eligible_canonical_labels": [
+        "core/core/knowledge-repository.ts",
+        "core/desktop/desktop-answer-loop.ts",
+        "core/desktop/desktop-intent-router.ts",
+        "core/desktop/question-rewrite.ts",
+        "core/policy/policy-engine.ts",
+        "core/services/fetch-api-request.ts",
+        "core/services/json-post.ts",
+        "src/main.ts",
+        "src/preload.ts",
+        "src/renderer/App.tsx",
+        "src/shared/desktop-api.ts"
+      ],
+      "not_ranked_canonical_labels": [],
+      "unmatched_labels": [],
+      "ambiguous_labels": [],
+      "proxy_p10_acceptance_status": "input_scope_ready_for_development_proxy_measurement_not_human_gold"
+    }
+  ],
+  "formal_acceptance_blockers": [
+    "No independently adjudicated application-entry labels.",
+    "These projects are already used for development and cannot be relabelled as holdout.",
+    "Legacy document lists are candidate proxy labels, not complete positive/negative ground truth."
+  ]
+}

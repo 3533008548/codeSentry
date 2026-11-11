@@ -48,9 +48,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from codesentry.core.symbol import CallSite, FileMeta, Symbol
+from codesentry.access.policy import AccessPolicy, AccessDenied, is_link
 
 # 缓存格式版本 —— 解析逻辑变化时必须 bump，否则旧缓存会被误用
-CACHE_VERSION = 2
+CACHE_VERSION = 5
 
 DEFAULT_CACHE_DIR = ".codesentry"
 
@@ -80,6 +81,11 @@ class FileCacheEntry:
 
     @classmethod
     def from_dict(cls, d: dict) -> "FileCacheEntry":
+        if not isinstance(d, dict) or not isinstance(d.get('path'), str) or not isinstance(d.get('content_hash'), str):
+            raise ValueError('invalid cache entry')
+        meta = FileMeta.model_validate(d.get('meta', {}))
+        if meta.path != d['path']:
+            raise ValueError('cache metadata path mismatch')
         return cls(
             path=d["path"],
             content_hash=d["content_hash"],
@@ -87,7 +93,7 @@ class FileCacheEntry:
             symbols=[Symbol.model_validate(s) for s in d.get("symbols", [])],
             calls=[CallSite.model_validate(c) for c in d.get("calls", [])],
             imports={k: set(v) for k, v in d.get("imports", {}).items()},
-            meta=d.get("meta", {}),
+            meta=meta.model_dump(),
         )
 
 
@@ -112,6 +118,8 @@ class ParseCache:
         root: Path,
         enabled: bool = True,
         cache_dir: Path | None = None,
+        context: str = "",
+        access: AccessPolicy | None = None,
     ):
         self.root = root
         self.enabled = enabled
@@ -120,7 +128,60 @@ class ParseCache:
         self.misses = 0
         self._dirty = False
         self._loaded = False
-        self._cache_dir = cache_dir or default_cache_dir(root)
+        self._base_cache_dir = cache_dir or default_cache_dir(root)
+        self.context = context
+        # Default callers share the same safe namespace as IndexBuilder.
+        # Explicit custom legacy fixtures keep their format only when no
+        # access policy was supplied; application readers always supply one.
+        self.access = access if access is not None else (AccessPolicy(root) if cache_dir is None else None)
+        self._scope_id = self.access.fingerprint if self.access is not None else None
+        self._cache_dir = (self._base_cache_dir / 'scopes' / self._scope_id
+                           if self._scope_id is not None else self._base_cache_dir)
+        if self.access is not None:
+            self.enforce_access_scope()
+
+    @property
+    def scope_file(self) -> Path:
+        return self.cache_dir / 'parse_cache.access.json'
+
+    def enforce_access_scope(self) -> None:
+        if self.access is None:
+            return
+        self.access.check_current()
+        self.access.refresh_if_changed()
+        if self.access.fingerprint != self._scope_id:
+            self.entries.clear()
+            self.enabled = False
+            raise AccessDenied('缓存实例的访问范围已变化，需要重新创建')
+        if any(is_link(parent) for parent in (self.cache_dir.absolute(), *self.cache_dir.absolute().parents)):
+            raise AccessDenied('缓存目录已重定向，拒绝读取或写入')
+        if self.cache_dir.resolve().is_relative_to(self.access.root):
+            if any(self.access.decision(path.relative_to(self.access.root).as_posix())['mode'] == 'exclude'
+                   for path in (self.cache_file.resolve(), self.scope_file.resolve())):
+                self.enabled = False
+                return
+        if not self._base_cache_dir.resolve().is_relative_to(self.access.root):
+            # Known tool-owned legacy files are never deserialized. Do not
+            # delete unclaimed files inside a user's source directory.
+            for name in ('parse_cache.json', 'parse_cache.access.json'):
+                legacy = self._base_cache_dir / name
+                if legacy.exists() or is_link(legacy):
+                    if is_link(legacy):
+                        raise AccessDenied('旧缓存路径被重定向，等待安全清理')
+                    legacy.unlink()
+        if not self.cache_file.exists():
+            return
+        try:
+            if is_link(self.scope_file):
+                raise ValueError('redirected scope marker')
+            scope = json.loads(self.scope_file.read_text(encoding='utf-8'))
+        except (OSError, ValueError, UnicodeError):
+            scope = {}
+        if not isinstance(scope, dict) or scope.get('fingerprint') != self.access.fingerprint or is_link(self.cache_file):
+            # Never deserialize a previous wider scope, even to filter it.
+            self.cache_file.unlink(missing_ok=True)
+            self.scope_file.unlink(missing_ok=True)
+            self.entries.clear()
 
     # ---------- 路径 ----------
 
@@ -138,17 +199,32 @@ class ParseCache:
         """加载缓存。版本不匹配则整个作废（不报错，静默重建）。"""
         if not self.enabled:
             return
+        if self.access is not None:
+            self.access.check_current()
+        self.enforce_access_scope()
         self._loaded = True
         if not self.cache_file.exists():
             return
         try:
             raw = json.loads(self.cache_file.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
+            if self.access is not None:
+                self.access.check_current()
+                self.access.refresh_if_changed()
+                if self.access.fingerprint != self._scope_id:
+                    self.entries.clear()
+                    self.enabled = False
+                    return
+        except (json.JSONDecodeError, OSError, UnicodeError):
             return
-        if raw.get("version") != CACHE_VERSION:
+        if not isinstance(raw, dict) or raw.get("version") != CACHE_VERSION:
             # 解析逻辑变了，旧缓存不可信 —— 静默作废
             return
-        for d in raw.get("files", []):
+        if raw.get("context", "") != self.context:
+            return
+        files = raw.get('files', [])
+        if not isinstance(files, list):
+            return
+        for d in files:
             try:
                 entry = FileCacheEntry.from_dict(d)
             except Exception:
@@ -159,22 +235,46 @@ class ParseCache:
         """保存缓存。返回是否真的写了。"""
         if not self.enabled or not self._dirty:
             return False
+        wrote = False
         try:
+            if self.access is not None:
+                self.access.check_current()
+                self.enforce_access_scope()
+                if not self.enabled:
+                    return False
             self.cache_dir.mkdir(parents=True, exist_ok=True)
             payload = {
                 "version": CACHE_VERSION,
+                "context": self.context,
                 "files": [e.to_dict() for e in self.entries.values()],
             }
             self.cache_file.write_text(
                 json.dumps(payload, ensure_ascii=False, indent=1),
                 encoding="utf-8",
             )
+            wrote = True
+            if self.access is not None:
+                self.access.check_current()
+                self.access.refresh_if_changed()
+                if self.access.fingerprint != self._scope_id:
+                    raise AccessDenied('缓存写入期间文件范围已变化')
+                self.scope_file.write_text(json.dumps({'fingerprint': self.access.fingerprint}), encoding='utf-8')
+                self.access.check_current()
+                self.access.refresh_if_changed()
+                if self.access.fingerprint != self._scope_id:
+                    raise AccessDenied('缓存写入期间文件范围已变化')
             return True
         except OSError:
+            if wrote:
+                self.cache_file.unlink(missing_ok=True)
+                self.scope_file.unlink(missing_ok=True)
+                self.entries.clear()
             return False
 
     def clear(self) -> None:
         """清空缓存（refresh-index 用）。"""
+        if not self.enabled:
+            return
         self.entries.clear()
         self.hits = 0
         self.misses = 0
@@ -191,6 +291,8 @@ class ParseCache:
         """取缓存条目。哈希一致才算命中。"""
         if not self.enabled:
             return None
+        if self.access is not None:
+            self.enforce_access_scope()
         entry = self.entries.get(rel_path)
         if entry is None:
             self.misses += 1

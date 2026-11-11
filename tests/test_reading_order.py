@@ -49,7 +49,7 @@ def _build() -> IndexResult:
         _sym("Contract", "contract.ts", SymbolKind.INTERFACE),
     ]
 
-    r.entrypoints = [EntryPoint("main.py", "app", "测试", out_degree=2)]
+    r.entrypoints = [EntryPoint("main.py", "app", "测试", out_degree=2, kind="process", confidence="static")]
     r.dependencies = {
         "main.py": {"core.py", "api.py"},
         "core.py": {"base.py"},
@@ -120,16 +120,16 @@ def test_不重复():
     assert len(files) == len(set(files))
 
 
-def test_出度为0的入口不进第0层():
-    """叶子入口（渲染层）不应作为阅读起点。"""
+def test_已证实的零出度挂载点仍是阅读起点():
+    """调用出度不决定真实启动/挂载证据是否有效。"""
     r = _build()
     r.entrypoints = [
-        EntryPoint("main.py", "app", "测试", out_degree=2),
-        EntryPoint("api.py", "app", "测试", out_degree=0),
+        EntryPoint("main.py", "app", "测试", out_degree=2, kind="process", confidence="static"),
+        EntryPoint("api.py", "app", "测试", out_degree=0, kind="mount", confidence="static"),
     ]
     order = reading_order(r, max_items=10)
     depth = {f: d for f, _, d in order}
-    assert depth["api.py"] != 0, "出度 0 的入口不应占第 0 层"
+    assert depth["api.py"] == 0, "已证实挂载点不能因零调用出度降为兜底"
 
 
 def test_返回完整清单而非截断():
@@ -150,6 +150,7 @@ def test_超配额候选不被丢弃():
     many = {f"mod{i}.py" for i in range(15)}
     r.dependencies["main.py"] = many
     for m in many:
+        r.files.append(_meta(m))
         r.dependencies[m] = set()
         r.dependents[m] = {"main.py"}
         r.file_pr[m] = 0.001
@@ -164,3 +165,23 @@ def test_空项目不崩():
     r = IndexResult(root="/tmp/empty")
     order = reading_order(r, max_items=10)
     assert order == []
+
+
+def test_容量足够时先覆盖每条有证据分支的直接依赖():
+    result = IndexResult(root='/tmp/branches')
+    anchors = [f'branch{i}.py' for i in range(5)]
+    direct = [f'level1_{i}.py' for i in range(5)]
+    for index, anchor in enumerate(anchors):
+        leaf = f'level2_{index}.py'
+        result.files.extend(_meta(file) for file in [anchor, direct[index], leaf])
+        result.entrypoints.append(EntryPoint(anchor, 'app', 'static evidence',
+                                             kind='mount' if index == 0 else 'assembly',
+                                             confidence='static'))
+        result.dependencies[anchor] = {direct[index]}
+        result.dependencies[direct[index]] = {leaf}
+        result.file_pr[direct[index]] = 1 / (index + 1)
+    prefix = {file for file, _, _ in reading_order(result, max_depth=2, max_items=10)[:10]}
+    assert prefix == set(anchors + direct)
+    depths = {file: depth for file, _, depth in reading_order(result, max_depth=2, max_items=10)}
+    assert depths[direct[0]] == 1
+    assert all(depths[file] == -1 for file in direct[1:])

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "partition": "dev",
+  "registration_sha256": "4832214c51b733cb04e72296e53c08f525bdc3d52546790307e300923b5a7c24",
+  "dataset_id": "p6-python-finally-return-dev-v1",
+  "dataset_sha256": "92c0ed3ff5775a83d42d57cc1e1995f20984924de7c154bc5444a31e02dcec12",
+  "images": {
+    "3.11": "sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+    "3.14": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c"
+  },
+  "platform": "linux/amd64",
+  "limits": {
+    "memory_bytes": 268435456,
+    "cpus": 1,
+    "pids": 32,
+    "timeout_seconds": 20,
+    "max_log_bytes": 16384,
+    "work_bytes": 8388608
+  },
+  "snapshot_files": {
+    "boundary.py": "81f6a5be2b33df2f86c571e1fb856eba68ccaf126c64f30caf73af9c0a192885",
+    "predict.py": "9a468ff40a62b9e3a6cd2abded5a0ef8f8773505c4848bb08492677faf4a8f3a",
+    "candidate.py": "7b7a4d9806cd020a36ef42427de03c4e91f4cf378847cfd2e49d996f0afd2671",
+    "input.txt": "527797798a82e7698889a48a7f386fc79f9803d7aeccb05915b11b6f19bf1d05"
+  },
+  "host_tools": {
+    "codesentry.execution.commands": "5d96d63266aeb27d36eabfbd41d609240aa02088bb04804a4f76deaa78bca3cd",
+    "codesentry.execution.runner": "840afc5cada486e7a1262cadde4909fbe1fe300396ea253ca9cf12fc612c3104",
+    "codesentry.execution.snapshot": "74d7282178db19f80d9ea7f7313b937f596d8c41fb3964c5c50690e17a4c269f",
+    "evals.sealed_registry": "f4ddcc8a42b9e4324b4af527171452aabeef750cd293ac5b27cd7ef82201d90f",
+    "scorer": "73f0e11fbde938e27e55fdd5f7780a21a7ad7df72d46be2ca364b899a948648c"
+  },
+  "comparison": "Exact return span, owning try line and case status for contract; paired warning line sets per valid case.",
+  "formal_acceptance": false
+}

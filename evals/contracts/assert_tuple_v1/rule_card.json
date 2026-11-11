@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "rule_id": "python.assert_tuple",
+  "rule_version": "1",
+  "implementation": "codesentry/review/defects.py",
+  "implementation_sha256": "d0d0608c78f3890a0eb88e6e618b2c8254580f538ff84facb35d11013ddaa601",
+  "classification": "behavior_bug_candidate",
+  "severity": "medium",
+  "approved_for_blocking": false,
+  "confidence_meaning": "1.0 reports the syntactic predicate; it is not a probability that a real bug exists",
+  "predicate": "Assert.test is nonempty Tuple and contains no Starred anywhere in the test subtree",
+  "guarantee": "If assertions are enabled and tuple construction completes, the tuple truth check is true",
+  "not_established": ["reachability", "element side effects", "exceptions during construction", "author intent", "actual runtime failure", "human-confirmed behavior bug"],
+  "scope": "permitted .py and .pyi files parsed by the current Python AST; no target execution",
+  "identity": "complete lexical symbol + full Assert AST structural hash + per-symbol/anchor occurrence",
+  "evidence": "full source bytes SHA256, trusted rule/context and policy identities; raw evidence retained for freshness",
+  "starred_limitation": "All Starred descendants are conservatively outside scope, even if other tuple elements would ensure nonemptiness",
+  "synthetic_contract": "evals/contracts/assert_tuple_v1/spec.json",
+  "independently_adjudicated": false,
+  "bug_quality_acceptance": false,
+  "sources": [
+    "https://docs.python.org/3.14/reference/simple_stmts.html#the-assert-statement",
+    "https://docs.python.org/3.14/library/stdtypes.html#truth-value-testing",
+    "https://docs.python.org/3.14/reference/expressions.html#parenthesized-forms"
+  ]
+}

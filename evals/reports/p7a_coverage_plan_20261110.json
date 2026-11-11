@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "partition": "dev",
+  "synthetic": true,
+  "input_lines": 30000,
+  "input_bytes": 558000,
+  "input_sha256": "46843a0691629ceac1639bf8faa636ee3371817611bcff5cbe1d36397223c08b",
+  "generator": "100 modules x 30 functions x 10 physical lines; same concatenated bytes for both layouts",
+  "observed": {
+    "split": {
+      "input_files": 100,
+      "seconds": 3.888,
+      "report_bytes": 69837,
+      "plan_status": "ready",
+      "review_status": "not_started",
+      "summary": {
+        "excluded_files_seen": 0,
+        "excluded_directories_seen": 0,
+        "unsupported_files": 0,
+        "eligible_local_files": 100,
+        "files_omitted_by_limit": 0,
+        "unplanned_or_partial_files": 0,
+        "planned_ranges": 300,
+        "planned_lines": 30000,
+        "model_candidate_files": 0
+      },
+      "all_ranges_contiguous_and_rehashed": true,
+      "plan_sha256": "b78ab7b7dda99929220c6bbb8e185ed3b36cdc6df702414d8c725f3df38d82c6",
+      "limits": {
+        "max_files": 2000,
+        "max_total_bytes": 33554432,
+        "max_file_bytes": 2097152,
+        "max_ranges": 10000,
+        "max_lines_per_range": 100,
+        "max_utf8_bytes_per_range": 3000
+      }
+    },
+    "single": {
+      "input_files": 1,
+      "seconds": 0.546,
+      "report_bytes": 50522,
+      "plan_status": "ready",
+      "review_status": "not_started",
+      "summary": {
+        "excluded_files_seen": 0,
+        "excluded_directories_seen": 0,
+        "unsupported_files": 0,
+        "eligible_local_files": 1,
+        "files_omitted_by_limit": 0,
+        "unplanned_or_partial_files": 0,
+        "planned_ranges": 300,
+        "planned_lines": 30000,
+        "model_candidate_files": 0
+      },
+      "all_ranges_contiguous_and_rehashed": true,
+      "plan_sha256": "29d511fc7fff7d37779665ff0e47110bbd2fd7ef05d396670f490ed7905eeca6",
+      "limits": {
+        "max_files": 2000,
+        "max_total_bytes": 33554432,
+        "max_file_bytes": 2097152,
+        "max_ranges": 10000,
+        "max_lines_per_range": 100,
+        "max_utf8_bytes_per_range": 3000
+      }
+    }
+  },
+  "model_requested": false,
+  "target_code_executed": false,
+  "formal_acceptance": false
+}

@@ -1,7 +1,4 @@
-"""内容指纹的单测。
-
-v0.1 决策 5 的核心保证：插入行、改注释、调格式都不应让基线失效。
-"""
+"""V2 keeps complete raw evidence; cache content_hash stays compatible."""
 from codesentry.core.fingerprint import (
     compute_fingerprint,
     content_hash,
@@ -39,10 +36,10 @@ def test_符号内部插入行改变指纹():
     assert a != b, "符号内部新增代码必须改变指纹"
 
 
-def test_改注释不改变指纹():
+def test_改注释改变完整证据指纹():
     a = compute_fingerprint("r", "f.py::f", "def f():\n    return 1\n")
     b = compute_fingerprint("r", "f.py::f", "def f():\n    # 改个注释\n    return 1\n")
-    assert a == b, "整行注释变化不应改变指纹"
+    assert a != b, "未证明注释等价时保留完整原文"
 
 
 def test_改逻辑改变指纹():
@@ -51,10 +48,10 @@ def test_改逻辑改变指纹():
     assert a != b, "逻辑变化必须改变指纹"
 
 
-def test_改缩进不改变指纹():
+def test_改缩进改变完整证据指纹():
     a = compute_fingerprint("r", "f.py::f", "def f():\n    return 1\n")
     b = compute_fingerprint("r", "f.py::f", "def f():\n        return 1\n")
-    assert a == b, "缩进变化不应改变指纹"
+    assert a != b, "raw证据不忽略缩进变化"
 
 
 def test_不同规则指纹不同():
@@ -71,16 +68,14 @@ def test_不同符号指纹不同():
 
 def test_指纹格式():
     fp = compute_fingerprint("r", "s", "x = 1\n")
-    assert fp.startswith("sha1:")
-    assert len(fp) == len("sha1:") + 40
+    assert fp.startswith("v2:sha256:")
+    assert len(fp) == len("v2:sha256:") + 64
 
 
-def test_normalize_丢弃空行与块注释():
+def test_normalize_保留全部原文():
     text = "# 头部注释\n\ndef f():\n    return 1\n"
     out = normalize_snippet(text)
-    assert "头部注释" not in out
-    assert "return 1" in out
-    assert "\n\n" not in out
+    assert out == text
 
 
 def test_content_hash_稳定():

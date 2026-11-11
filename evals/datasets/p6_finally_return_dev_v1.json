@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p6-python-finally-return-dev-v1",
+  "partition": "dev",
+  "label_kind": "synthetic_syntax_contract",
+  "cases": [
+    {"id": "pending-exception", "source": "def f():\n    try:\n        raise ValueError()\n    finally:\n        return 0\n", "expected_status": "checked", "expected_hits": [[5, 5, 2]]},
+    {"id": "pending-return-multiline", "source": "def f():\n    try:\n        return 1\n    finally:\n        return (\n            2\n        )\n", "expected_status": "checked", "expected_hits": [[5, 7, 2]]},
+    {"id": "conditional-cleanup-return", "source": "def f(flag):\n    try:\n        work()\n    finally:\n        if flag:\n            return 1\n", "expected_status": "checked", "expected_hits": [[6, 6, 2]]},
+    {"id": "async-function", "source": "async def f():\n    try:\n        await work()\n    finally:\n        return 0\n", "expected_status": "checked", "expected_hits": [[5, 5, 2]]},
+    {"id": "try-star-own-finally", "source": "def f():\n    try:\n        work()\n    except* ValueError:\n        recover()\n    finally:\n        return 0\n", "expected_status": "checked", "expected_hits": [[7, 7, 2]]},
+    {"id": "nested-try-body-in-finally", "source": "def f():\n    try:\n        work()\n    finally:\n        try:\n            return 1\n        except ValueError:\n            return 0\n", "expected_status": "checked", "expected_hits": [[6, 6, 2], [8, 8, 2]]},
+    {"id": "nearest-finally-suite", "source": "def f(flag):\n    try:\n        work()\n    finally:\n        try:\n            cleanup()\n        finally:\n            if flag:\n                return 2\n        return 1\n", "expected_status": "checked", "expected_hits": [[9, 9, 5], [10, 10, 2]]},
+    {"id": "nested-function-own-finally", "source": "def f():\n    try:\n        work()\n    finally:\n        def inner():\n            try:\n                work()\n            finally:\n                return 0\n", "expected_status": "checked", "expected_hits": [[9, 9, 6]]},
+    {"id": "generator-cleanup", "source": "def generate():\n    try:\n        yield 1\n    finally:\n        return\n", "expected_status": "checked", "expected_hits": [[5, 5, 2]]},
+    {"id": "unreachable-still-syntax", "source": "def f():\n    try:\n        work()\n    finally:\n        if False:\n            return 0\n", "expected_status": "checked", "expected_hits": [[6, 6, 2]]},
+    {"id": "returns-in-try-except-and-else", "source": "def f():\n    try:\n        if ready():\n            return 1\n    except ValueError:\n        return 2\n    else:\n        return 3\n    finally:\n        cleanup()\n", "expected_status": "checked", "expected_hits": []},
+    {"id": "return-after-cleanup", "source": "def f():\n    try:\n        work()\n    finally:\n        cleanup()\n    return 0\n", "expected_status": "checked", "expected_hits": []},
+    {"id": "nested-function-return", "source": "def f():\n    try:\n        work()\n    finally:\n        def callback():\n            return 0\n        cleanup(callback)\n", "expected_status": "checked", "expected_hits": []},
+    {"id": "class-method-return", "source": "def f():\n    try:\n        work()\n    finally:\n        class Callback:\n            def run(self):\n                return 0\n", "expected_status": "checked", "expected_hits": []},
+    {"id": "text-and-loop-controls", "source": "def f(items):\n    try:\n        work()\n    finally:\n        log('return 1')\n        # return 2\n        for item in items:\n            if item:\n                continue\n            break\n", "expected_status": "checked", "expected_hits": []},
+    {"id": "except-star-illegal-return", "source": "def f():\n    try:\n        work()\n    except* ValueError:\n        try:\n            recover()\n        finally:\n            return 0\n", "expected_status": "invalid_source", "expected_hits": []},
+    {"id": "outside-function", "source": "try:\n    work()\nfinally:\n    return 0\n", "expected_status": "invalid_source", "expected_hits": []},
+    {"id": "invalid-syntax", "source": "def f()\n    return 1\n", "expected_status": "invalid_source", "expected_hits": []}
+  ]
+}

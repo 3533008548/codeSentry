@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "deepseek_key_source_resolution",
+  "date": "2026-10-30",
+  "cause": "environment_key_overrode_different_env_file_key",
+  "authentication_checks": [
+    {
+      "credential_source": "environment",
+      "endpoint": "GET /models",
+      "http_status": 401
+    },
+    {
+      "credential_source": "env_file",
+      "endpoint": "GET /models",
+      "http_status": 200,
+      "default_model_available": true
+    }
+  ],
+  "live_after_restart": {
+    "configured_key_source": "env_file",
+    "enabled_profile_sources": [
+      "env_file"
+    ],
+    "active_analyses": 0
+  },
+  "provider_read_requests": 2,
+  "model_generation_requests": 0,
+  "source_resends": 0,
+  "global_environment_modified": false,
+  "full_regression_rerun": false,
+  "formal_acceptance": false,
+  "artifact_sha256": {
+    "start-workbench.cmd": "18e0c0b787b38b20067d4758edc7f3b233db3304c05f38f233c2f9403816b4e6",
+    "README.md": "d4a06170175009cf2e38f6aeb163c2721e9c174be0fdb88008f66909ca057c35",
+    "docs/execution/P4_密钥来源冲突排查_20261030.md": "48609bbf4ffffc110fdbdf9952fdf69555e1c531a135be179ca8feb823203079"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-call-chain-dev-v1",
+  "partition": "dev",
+  "projects": [
+    {
+      "id": "ticket_dispatch",
+      "files": {
+        "api.py": "from config import allow\nfrom stages import tag as apply_tag\n\n\ndef receive(raw, mode):\n    cleaned = raw.strip()\n    if not allow(mode):\n        return 'paused'\n    return '[' + apply_tag(cleaned) + ']'\n",
+        "config.py": "def allow(mode):\n    return mode == 'run'\n",
+        "hook.py": "def relay(registry, raw):\n    return registry['emit'](raw)\n",
+        "stages.py": "from z_rules import choose as pick\n\n\ndef tag(value):\n    return pick(value.lower())\n",
+        "z_rules.py": "def choose(value):\n    if value.endswith('!'):\n        return 'urgent/' + value[:-1]\n    return 'normal/' + value\n\n\ndef emit(value):\n    return 'example/' + value\n"
+      },
+      "cases": [
+        {
+          "id": "aliased-multi-hop",
+          "question": "receive('  Go! ', 'run') 的最终返回字符串是什么？按实际传参和返回值逐步走过所有相关函数，给出源码位置。",
+          "required_facts": ["strip yields Go!; allow('run') is true", "apply_tag resolves to tag and passes go! to choose via pick", "choose takes the endswith('!') branch and returns urgent/go", "receive returns [urgent/go]"]
+        },
+        {
+          "id": "early-return-with-links",
+          "question": "receive('  Go! ', 'paused') 返回什么？解释 allow 的结果，并指出 tag 和 choose 是否执行。",
+          "required_facts": ["allow('paused') is false", "receive returns paused before invoking tag", "tag and choose are not reached for this input"]
+        },
+        {
+          "id": "registry-target-unknown",
+          "question": "relay(registry, '  Go! ') 中的 registry 由部署方传入，未提供具体内容。能否从源码确定它调用 z_rules.emit 或返回固定字符串？给出依据。",
+          "required_facts": ["relay looks up registry['emit'] and attempts to call the obtained value with the original raw input", "the registry's actual contents are required to identify the callable and return value", "the name emit alone does not bind the registry entry to z_rules.emit"]
+        }
+      ]
+    }
+  ]
+}

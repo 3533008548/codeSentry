@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-source-evidence-probe-v1",
+  "partition": "dev",
+  "files": {
+    "cli.py": "from dispatch import describe_slot, parse_slot\n\n\ndef main(argv):\n    slot = parse_slot(argv[0] if argv else '')\n    if slot is None:\n        return 'bad slot'\n    label = describe_slot(slot, {0: 'maintenance'})\n    return '[' + label + ']'\n",
+    "dispatch.py": "def parse_slot(text):\n    if not text.isdecimal():\n        return None\n    slot = int(text)\n    return slot if slot < 4 else None\n\n\ndef describe_slot(slot, labels):\n    if slot not in labels:\n        return 'vacant'\n    return labels[slot]\n\n\ndef penalty(mode, weekend, member):\n    amount = 0\n    if mode == 'express':\n        amount += 7\n    elif mode == 'bulk':\n        amount += 5\n    if weekend:\n        amount += 3\n    if member:\n        amount -= 2\n    return amount\n",
+    "test_dispatch.py": "from dispatch import penalty\n\n\ndef test_bulk_member():\n    assert penalty('bulk', True, True) == 6\n"
+  },
+  "cases": [
+    {
+      "id": "zero-slot-lookup",
+      "question": "main 接到 ['0'] 时，按解析、查表和返回的顺序解释它会得到什么字符串，指出关键分支的真假。",
+      "required_facts": ["parse_slot returns integer 0", "slot is None is false; slot not in labels is false", "describe_slot returns maintenance; main returns [maintenance]"]
+    },
+    {
+      "id": "exclusive-penalty-bounds",
+      "question": "penalty 的最大和最小可达值分别是什么？假设模式可以是任意字符串，另外两个参数为布尔值，给出达到上下界的条件和计算。",
+      "required_facts": ["express and bulk are mutually exclusive", "max = 7 + 3 = 10, express, weekend, nonmember", "min = 0 - 2 = -2, other mode, weekday, member"]
+    },
+    {
+      "id": "assertion-versus-deployment",
+      "question": "源码里的 bulk 会员测试期望多少？它能说明当前测试已通过、线上入口正在使用 penalty 吗？分别给出依据。",
+      "required_facts": ["test expects 6 from 5 + 3 - 2", "source assertion does not establish a passing execution", "no evidence of a deployed caller using penalty"]
+    }
+  ]
+}

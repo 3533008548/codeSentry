@@ -1,0 +1,11 @@
+{
+  "purpose": "Historical implementation bytes for frozen v1 syntax-contract evidence; not imported or executed",
+  "registration": "evals/reports/p3_assert_tuple_contract_registration_20261028_v1.json",
+  "registration_sha256": "e16c6535fc453aa1aab11a829acb0a1f43d88931360a01f735fe58833192b683",
+  "report": "evals/reports/p3_assert_tuple_contract_20261028_v1.json",
+  "report_sha256": "537242758405589486c1c491076650cb88021557f84aacc21294dde44b0ebf66",
+  "runner_snapshot_sha256": "325b366ad624dfb731d70c9cf578068cc72f7f53826a83a17bdd15b3e2111979",
+  "schema_version": 1,
+  "sha256": "d0d0608c78f3890a0eb88e6e618b2c8254580f538ff84facb35d11013ddaa601",
+  "source_snapshot": "codesentry/review/defects.py before final inventory guard"
+}

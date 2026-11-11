@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "stage": "P4",
+  "kind": "chat_output_reliability",
+  "technical_revision": 18,
+  "status": "development_patch_delivered",
+  "observed_incident": {
+    "failed_turns": 2,
+    "stored_failure_category": "generic_output_validation",
+    "exact_historical_response_unavailable": true,
+    "historical_root_cause": "unknown_no_replay"
+  },
+  "changes": [
+    "server_owned_source_id_citations",
+    "server_derives_excerpt_path_lines_quote_and_hash",
+    "legacy_quote_validation_remains_strict",
+    "json_formatted_assistant_history",
+    "nullable_function_metadata_is_not_a_tool_call",
+    "distinct_fixed_error_messages_no_raw_response_logging"
+  ],
+  "checks": {
+    "red_regression": {
+      "failed": 9,
+      "elapsed_seconds": 6.81,
+      "artifact": ".venv/chat-output-red-20261104.xml"
+    },
+    "backend_related": {
+      "passed": 228,
+      "elapsed_seconds": 67.65,
+      "artifact": ".venv/chat-output-green-20261104.xml"
+    },
+    "browser_related": {
+      "passed": 3,
+      "elapsed_seconds": 21.9,
+      "specs": [
+        "conversations.spec.ts",
+        "semantic.spec.ts"
+      ],
+      "transport": "synthetic_no_network"
+    },
+    "frontend_production_unchanged": true,
+    "frontend_build_not_repeated": true,
+    "full_backend_not_repeated": true
+  },
+  "runtime": {
+    "url": "http://127.0.0.1:8765",
+    "restarted_after_idle_and_process_identity_checks": true,
+    "ready": true,
+    "chat_capability": true,
+    "workspaces_preserved": 3,
+    "conversations_preserved": 1,
+    "turn_status_counts_and_nonsecret_settings_unchanged": true
+  },
+  "boundaries": {
+    "provider_generation_requests": 0,
+    "user_question_replayed": false,
+    "automatic_retries": 0,
+    "access_policy_expanded": false,
+    "model_or_chat_consent_changed": false,
+    "keys_read_printed_or_hashed_by_diagnostics": false,
+    "invalid_raw_response_persisted": false,
+    "user_source_executed_or_modified": false
+  },
+  "limitations": [
+    "historical_incident_exact_cause_unknown",
+    "source_excerpt_reference_does_not_verify_model_conclusions",
+    "real_deepseek_coaching_quality_not_measured",
+    "bounded_retrieval_and_existing_budgets_unchanged"
+  ],
+  "sources": [
+    "https://api-docs.deepseek.com/guides/json_mode/",
+    "https://api-docs.deepseek.com/api/create-chat-completion/"
+  ],
+  "file_sha256": {
+    "codesentry/conversation/context.py": "ec62529ab6f41db6eed8c30099469483c261a1a6e42641b9a393196fe5e8a756",
+    "codesentry/conversation/service.py": "826d8effe28aec1f8aa4073ec5fb2af91080b49d9ee293c63957ecf2f94c3096",
+    "codesentry/semantic/service.py": "7ef3ca330b264aa7001687e81232830e45cda5c10418a1af88cd215fa051dd4d",
+    "tests/test_web_conversations.py": "6068266fbbab677d4408a3b25aa4f8fbf1496ebc0483dd317c4a31d0fe687b0f",
+    "frontend/e2e/semantic-server.py": "06a7d921ed255c2762e86de325ff65240d5c49289ac8a951f703fe23905e25f9",
+    "README.md": "1a37b5e6f651944ac3fffd6a5ebc662cc056b82701357a4c59adc19ac68c8677",
+    "docs/CodeSentry_技术选型定稿_v0.2.md": "aac8b124795513c1d9343fef3cd709e81f356954e1b2959657abf49bc02f39ad",
+    "docs/CodeSentry_工作空间与本地前端方案_v0.1.md": "662e209e44d8164431b9bf8e984ab14de6dead1bb89022ba3645681e378ff087",
+    "docs/CodeSentry_分阶段执行方案_v1.0.md": "5bf77844a63f7c6f7d7d8eff19c031dc0c6e9fde6b1ec766ab18b6a46351db63",
+    "docs/execution/执行台账.md": "81f60e59ac000f2fab63eedd45682aab9276a49f7854eb32855711180864c61a",
+    "docs/execution/P4_对话输出与引用修复_20261104.md": "90259426aeb5162ed700b9815486246839f2080ed6df6b2f29eb93a720b89fd5"
+  },
+  "local_evidence_sha256": {
+    ".venv/chat-output-red-20261104.xml": "9eb03205a7752da67035c3fe2c2cec35cf4d45efead4cd37a955c5ad1309300d",
+    ".venv/chat-output-green-20261104.xml": "2e0b3f55b65e1e071b4186537d28e7b8bbd727cb37fc1b2d2b04fcf1792c3088",
+    ".venv/chat-output-runtime-before-20261104.json": "5da43d27468066560f5c58acbeb68e48e3591f23af75242ddbda4304a9ba0b07",
+    ".venv/chat-output-runtime-after-20261104.json": "5da43d27468066560f5c58acbeb68e48e3591f23af75242ddbda4304a9ba0b07"
+  }
+}

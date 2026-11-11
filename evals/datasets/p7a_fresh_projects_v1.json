@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-fresh-projects-v1",
+  "projects": [
+    {
+      "id": "routing",
+      "files": {
+        "api.py": "from cache import peek\nfrom decoder import decode\nfrom policy import can_dispatch\nfrom z_worker import dispatch\n\n\ndef handle(raw, cache):\n    request = decode(raw)\n    if request is None:\n        return 'invalid'\n    key, dry_run = request\n    saved = peek(cache, key)\n    if saved is not None:\n        return saved\n    if not can_dispatch(dry_run):\n        return 'blocked'\n    return dispatch(key)\n",
+        "cache.py": "def peek(cache, key):\n    return cache[key] if key in cache else None\n",
+        "decoder.py": "def decode(raw):\n    key = raw.get('key')\n    if not isinstance(key, str) or not key:\n        return None\n    return key, raw.get('dry_run') is True\n",
+        "policy.py": "def can_dispatch(dry_run):\n    return not dry_run\n",
+        "z_worker.py": "def dispatch(key):\n    if key.startswith('q'):\n        return 'queued:' + key\n    return 'done:' + key\n"
+      },
+      "cases": [
+        {"id": "empty-cache-value", "question": "handle 收到 {'key': 'q7', 'dry_run': True}，cache 为 {'q7': ''}。它返回什么，是否检查派发权限或调用派发？若只移除这个缓存键，结果和路径怎样改变？"},
+        {"id": "string-flag-cross-batch", "question": "handle 收到 {'key': 'q7', 'dry_run': 'true'}，cache 为空。跟踪标志解析、缓存判断、权限和派发，给出最终字符串及各环节的源码依据。"}
+      ]
+    },
+    {
+      "id": "quota",
+      "files": {
+        "limits.py": "def allowance(tier, batch, burst, credit):\n    amount = 4\n    if tier == 'pro':\n        amount += 7\n    elif tier == 'trial':\n        amount -= 3\n    if batch:\n        amount += 5\n    elif burst:\n        amount += 2\n    amount = min(12, amount)\n    if credit and tier != 'trial':\n        amount -= 6\n    return amount\n",
+        "quote.py": "from limits import allowance\n\n\ndef quote(tier, flags):\n    return allowance(tier, flags['batch'], flags['burst'], flags['credit'])\n"
+      },
+      "cases": [
+        {"id": "reachable-quota-bounds", "question": "假定 tier 为 basic、pro 或 trial，另外三个参数为布尔值。allowance 的最大与最小可达值是什么？分别给出一组能达到边界的输入与计算过程，说明为什么没有更高或更低的结果。"},
+        {"id": "cap-order-refactor", "question": "quote 的 tier 为 pro，三个 flags 都为 True。现在返回多少？如果只把 min(12, amount) 移到扣除 credit 之后，会返回多少？逐项说明哪些分支执行，判断这次重构是否等价。"}
+      ]
+    },
+    {
+      "id": "outbox",
+      "files": {
+        "adapter.py": "def make_sender(client):\n    def send(job):\n        return client.post('/events', json=job, timeout=1)\n    return send\n",
+        "publisher.py": "def publish(job, store, send):\n    if store.was_sent(job['id']):\n        return 'duplicate'\n    try:\n        send(job)\n    except TimeoutError:\n        store.mark_retry(job['id'])\n        return 'retry'\n    store.mark_sent(job['id'])\n    return 'sent'\n",
+        "test_publisher.py": "from publisher import publish\n\n\nclass FakeStore:\n    def __init__(self):\n        self.retries = []\n        self.sent = []\n\n    def was_sent(self, key):\n        return key in self.sent\n\n    def mark_retry(self, key):\n        self.retries.append(key)\n\n    def mark_sent(self, key):\n        self.sent.append(key)\n\n\ndef timeout(job):\n    raise TimeoutError(job['id'])\n\n\ndef test_timeout():\n    store = FakeStore()\n    assert publish({'id': 'A'}, store, timeout) == 'retry'\n    assert store.retries == ['A']\n    assert store.sent == []\n"
+      },
+      "cases": [
+        {"id": "timeout-fake-store", "question": "按源码跟踪 test_timeout 中的 A 任务。首次调用是否进入重复分支，结果和两份列表分别是什么？若再次用同一 store、同一 A 和同一个 timeout sender 调用一次，结果及列表怎样变化？"},
+        {"id": "runtime-boundary", "question": "只凭这几个文件，能否判断 test_timeout 已运行并通过、真实 client 会抛出这里捕获的 TimeoutError、线上重试保证恰好投递一次？逐项给依据，并指出调用发送与登记已发送的顺序。"}
+      ]
+    }
+  ]
+}

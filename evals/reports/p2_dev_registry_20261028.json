@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "kind": "sealed-metadata-registry",
+  "registry_id": "e79d3dfbe9864db590152f6be05555a0",
+  "declared_operator": "codex_local_operator",
+  "event_count": 5,
+  "head_hash": "083d616961519139dd02e2d9b93a6a3ea0673190170abe3077831b6ed268770f",
+  "chain_valid": true,
+  "batches": [
+    {
+      "batch_id": "codesentry-fingerprint-owner-dev-v1",
+      "dataset_id": "codesentry-fingerprint-dev-v1",
+      "dataset_version": "1",
+      "defect_families": [
+        "codesentry-legacy-fingerprint-normalization"
+      ],
+      "frozen_input_hash": "0bf55d297861f489eb1c0a6484ffc48d0b786b62d296c161cc772fedd2d89814",
+      "partition": "dev",
+      "preregistration_hash": "f66f7bb947c912cdf7965155665e069f126f1bf6a266bac1655bca5a64b4c7c2",
+      "scorer_hash": "8004ee63991865759c39aa998cc614f0156712f2086389bb03b8bf1371ab5f9f",
+      "source_groups": [
+        "codesentry"
+      ],
+      "effective_partition": "dev",
+      "registered_event": "register-owner-dev-v1",
+      "demoted_by": []
+    }
+  ],
+  "evaluations": [
+    {
+      "batch_id": "codesentry-fingerprint-owner-dev-v1",
+      "candidate_hash": "09a67de52627027b112fef1b9495d4d6592c6c004478c6055d15efa6e44f7000",
+      "candidate_id": "empty-non-detector-reference",
+      "candidate_version": "1",
+      "evaluation_id": "fingerprint-empty-reference-v1",
+      "state": "finished",
+      "start_event": "start-empty-reference-v1",
+      "outcome": "incomplete",
+      "report_hash": "e1490137cfffc10a8bc43e67a821e659864893562956f50d5782aa08267c6c88",
+      "released_to": [
+        "codex_local_operator"
+      ],
+      "feedback_accesses": [
+        {
+          "actor": "codex_local_operator",
+          "evaluation_id": "fingerprint-empty-reference-v1",
+          "event_id": "operator-read-reference-v1"
+        }
+      ],
+      "feedback_uses": [],
+      "finish_event": "finish-empty-reference-v1"
+    }
+  ],
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "register-owner-dev-v1",
+      "kind": "batch_registered",
+      "created_at": "2026-10-28T05:46:32.722207+00:00",
+      "payload": {
+        "batch_id": "codesentry-fingerprint-owner-dev-v1",
+        "dataset_id": "codesentry-fingerprint-dev-v1",
+        "dataset_version": "1",
+        "defect_families": [
+          "codesentry-legacy-fingerprint-normalization"
+        ],
+        "frozen_input_hash": "0bf55d297861f489eb1c0a6484ffc48d0b786b62d296c161cc772fedd2d89814",
+        "partition": "dev",
+        "preregistration_hash": "f66f7bb947c912cdf7965155665e069f126f1bf6a266bac1655bca5a64b4c7c2",
+        "scorer_hash": "8004ee63991865759c39aa998cc614f0156712f2086389bb03b8bf1371ab5f9f",
+        "source_groups": [
+          "codesentry"
+        ]
+      },
+      "previous_hash": "ad31fde0fb17a26fbd9071029dad8b317aae65f3673496f1e061f5c4c68e8ebb",
+      "event_hash": "dc47f877b8c04a978e4c492c03586bd697941d9c84b2cecdc14ca90c83b3db9f"
+    },
+    {
+      "sequence": 2,
+      "event_id": "start-empty-reference-v1",
+      "kind": "evaluation_started",
+      "created_at": "2026-10-28T05:46:32.728317+00:00",
+      "payload": {
+        "batch_id": "codesentry-fingerprint-owner-dev-v1",
+        "candidate_hash": "09a67de52627027b112fef1b9495d4d6592c6c004478c6055d15efa6e44f7000",
+        "candidate_id": "empty-non-detector-reference",
+        "candidate_version": "1",
+        "evaluation_id": "fingerprint-empty-reference-v1"
+      },
+      "previous_hash": "dc47f877b8c04a978e4c492c03586bd697941d9c84b2cecdc14ca90c83b3db9f",
+      "event_hash": "c127457f4a723783f7d3a391eb4c539da2b8a9fcac380dbe893d5af4a18dcd62"
+    },
+    {
+      "sequence": 3,
+      "event_id": "finish-empty-reference-v1",
+      "kind": "evaluation_finished",
+      "created_at": "2026-10-28T05:46:32.754319+00:00",
+      "payload": {
+        "evaluation_id": "fingerprint-empty-reference-v1",
+        "outcome": "incomplete",
+        "report_hash": "e1490137cfffc10a8bc43e67a821e659864893562956f50d5782aa08267c6c88"
+      },
+      "previous_hash": "c127457f4a723783f7d3a391eb4c539da2b8a9fcac380dbe893d5af4a18dcd62",
+      "event_hash": "f45e3ec71d20ac86080ef345f5d26087909abf41d473581394f0201f713fbcb0"
+    },
+    {
+      "sequence": 4,
+      "event_id": "release-reference-to-operator-v1",
+      "kind": "feedback_released",
+      "created_at": "2026-10-28T05:46:32.759215+00:00",
+      "payload": {
+        "evaluation_id": "fingerprint-empty-reference-v1",
+        "recipient": "codex_local_operator"
+      },
+      "previous_hash": "f45e3ec71d20ac86080ef345f5d26087909abf41d473581394f0201f713fbcb0",
+      "event_hash": "2faa62fc2d9d1e7cc90edbad07480e4765810df7c3068b6b1bdaaf91006971a5"
+    },
+    {
+      "sequence": 5,
+      "event_id": "operator-read-reference-v1",
+      "kind": "feedback_accessed",
+      "created_at": "2026-10-28T05:46:32.764622+00:00",
+      "payload": {
+        "actor": "codex_local_operator",
+        "evaluation_id": "fingerprint-empty-reference-v1"
+      },
+      "previous_hash": "2faa62fc2d9d1e7cc90edbad07480e4765810df7c3068b6b1bdaaf91006971a5",
+      "event_hash": "083d616961519139dd02e2d9b93a6a3ea0673190170abe3077831b6ed268770f"
+    }
+  ],
+  "operator_declaration_only": true,
+  "os_isolation_verified": false,
+  "holdout_evaluation_ready": false,
+  "gold_read": false,
+  "candidate_executed": false,
+  "formal_acceptance": {
+    "passed": false
+  },
+  "limitations": [
+    "Same-permission owners can rewrite the ledger or restore an older complete copy.",
+    "Group declarations do not discover undeclared renames, copies, or related defects.",
+    "This metadata workflow never authorizes holdout scoring or supplies OS isolation."
+  ]
+}

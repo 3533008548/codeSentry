@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "contract_id": "python-assert-tuple-synthetic-v1",
+  "cases": [
+    {"id":"tuple-message","files":{"main.py":"assert (condition, 'message')\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":1,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":2}],"issue_statuses":[]}},
+    {"id":"singleton-false","files":{"main.py":"assert (False,)\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":1,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":1}],"issue_statuses":[]}},
+    {"id":"empty-tuple","files":{"main.py":"assert ()\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"starred-can-empty","files":{"main.py":"assert (*items,)\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"starred-with-fixed-item-out-of-scope","files":{"main.py":"assert (False, *items)\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"normal-message","files":{"main.py":"assert condition, 'message'\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"parenthesized-normal-message","files":{"main.py":"assert (condition), 'message'\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"nested-ordinary-tuple","files":{"main.py":"assert ((False, 'inner'),)\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":1,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":1}],"issue_statuses":[]}},
+    {"id":"nested-starred-conservatively-out-of-scope","files":{"main.py":"assert ((*items,),)\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"multiline","files":{"main.py":"assert (\n    condition,\n    'message',\n)\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":4,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":2}],"issue_statuses":[]}},
+    {"id":"method","files":{"main.py":"class C:\n    def method(self):\n        assert (condition, 'message')\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":3,"end_line":3,"symbol":"main.py::C.method","occurrence":1,"tuple_arity":2}],"issue_statuses":[]}},
+    {"id":"nested-function","files":{"main.py":"def outer():\n    def inner():\n        assert (False,)\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":3,"end_line":3,"symbol":"main.py::outer.<locals>.inner","occurrence":1,"tuple_arity":1}],"issue_statuses":[]}},
+    {"id":"string-not-code","files":{"main.py":"text = \"assert (False, 'message')\"\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"comment-not-code","files":{"main.py":"# assert (False, 'message')\npass\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"unreachable-not-assessed","files":{"main.py":"if False:\n    assert (False, 'message')\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":2,"end_line":2,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":2}],"issue_statuses":[]}},
+    {"id":"side-effects-not-executed","files":{"main.py":"assert (effect(), 'message')\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":1,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":2}],"issue_statuses":[]}},
+    {"id":"construction-exception-not-evaluated","files":{"main.py":"assert (1 / 0, 'message')\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":1,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":2}],"issue_statuses":[]}},
+    {"id":"duplicates-retain-occurrences","files":{"main.py":"assert (False,)\nassert (False,)\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":1,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":1},{"file":"main.py","line":2,"end_line":2,"symbol":"main.py::<module>","occurrence":2,"tuple_arity":1}],"issue_statuses":[]}},
+    {"id":"syntax-error","files":{"main.py":"assert (\n"},"expected":{"review_status":"incomplete","findings":[],"issue_statuses":["syntax_error"]}},
+    {"id":"file-budget","files":{"a.py":"assert (False,)\n","b.py":"assert (False,)\n"},"limits":{"max_files":1},"expected":{"review_status":"incomplete","findings":[{"file":"a.py","line":1,"end_line":1,"symbol":"a.py::<module>","occurrence":1,"tuple_arity":1}],"issue_statuses":["budget_exhausted"]}},
+    {"id":"excluded-not-read","files":{"main.py":"assert (False,)\n"},"exclude":["main.py"],"expected":{"review_status":"not_applicable","findings":[],"issue_statuses":[]}},
+    {"id":"call-not-literal-tuple","files":{"main.py":"assert tuple(items)\n"},"expected":{"review_status":"report_only","findings":[],"issue_statuses":[]}},
+    {"id":"tuple-with-outer-message","files":{"main.py":"assert (condition, 'inner'), 'outer'\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":1,"end_line":1,"symbol":"main.py::<module>","occurrence":1,"tuple_arity":2}],"issue_statuses":[]}},
+    {"id":"class-body","files":{"main.py":"class C:\n    assert (False,)\n"},"expected":{"review_status":"report_only","findings":[{"file":"main.py","line":2,"end_line":2,"symbol":"main.py::C","occurrence":1,"tuple_arity":1}],"issue_statuses":[]}},
+    {"id":"no-python","files":{"main.ts":"export const text = 'assert (False,)';\n"},"expected":{"review_status":"not_applicable","findings":[],"issue_statuses":[]}}
+  ]
+}

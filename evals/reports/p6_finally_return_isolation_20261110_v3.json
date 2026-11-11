@@ -1,0 +1,761 @@
+{
+  "schema_version": 1,
+  "partition": "dev",
+  "registration_sha256": "9e2398ed935b8c0dee6e26721f50787258200b8e50da17507cf6d612f12d66ec",
+  "input_snapshot_sha256": "4e1c1172e1417bfcc064c1fdb2eba48c308cbdf378ed604726da61ecf983d3e9",
+  "answers_mounted": false,
+  "independent_labels": false,
+  "formal_acceptance": false,
+  "complete": true,
+  "contract_passed": true,
+  "versions": {
+    "3.11": {
+      "boundary": {
+        "status": "passed",
+        "executed": true,
+        "task_id": "boundary",
+        "kind": "probe",
+        "snapshot_digest": "4e1c1172e1417bfcc064c1fdb2eba48c308cbdf378ed604726da61ecf983d3e9",
+        "image_reference": "docker.io/library/python@sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+        "image_id": "sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": "{\"cpu_limit\": true, \"docker_socket_absent\": true, \"gold_not_mounted\": true, \"host_home_absent\": true, \"input_read_only\": true, \"memory_limit\": true, \"network_unavailable\": true, \"non_root\": true, \"pids_limit\": true, \"root_read_only\": true, \"work_copy_writable\": true}\n",
+        "output_sha256": "faab1aaf66ee0999816cb263f20fff79a96cd49814870f33e667538caaa56251",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.3322,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 20,
+          "max_log_bytes": 16384,
+          "work_bytes": 8388608
+        }
+      },
+      "compiler_execution": {
+        "status": "not_verified",
+        "executed": true,
+        "task_id": "compiler",
+        "kind": "probe",
+        "snapshot_digest": "4e1c1172e1417bfcc064c1fdb2eba48c308cbdf378ed604726da61ecf983d3e9",
+        "image_reference": "docker.io/library/python@sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+        "image_id": "sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": null,
+        "output_sha256": "18ccd57bc33c3a943918a04a711fe4ac75c68e84109eafe34f1bacbd3f6a2a1f",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.3389,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 20,
+          "max_log_bytes": 16384,
+          "work_bytes": 8388608
+        }
+      },
+      "compiler": {
+        "rows": [
+          {
+            "id": "pending-exception",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "pending-return-multiline",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "conditional-cleanup-return",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "async-function",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "try-star-own-finally",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "nested-try-body-in-finally",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "nearest-finally-suite",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "nested-function-own-finally",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "generator-cleanup",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "unreachable-still-syntax",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "returns-in-try-except-and-else",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "return-after-cleanup",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "nested-function-return",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "class-method-return",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "text-and-loop-controls",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "except-star-illegal-return",
+            "lines": [],
+            "status": "invalid_source"
+          },
+          {
+            "id": "outside-function",
+            "lines": [],
+            "status": "invalid_source"
+          },
+          {
+            "id": "invalid-syntax",
+            "lines": [],
+            "status": "invalid_source"
+          }
+        ],
+        "version": [
+          3,
+          11,
+          15
+        ]
+      },
+      "candidate_execution": {
+        "status": "not_verified",
+        "executed": true,
+        "task_id": "candidate",
+        "kind": "probe",
+        "snapshot_digest": "4e1c1172e1417bfcc064c1fdb2eba48c308cbdf378ed604726da61ecf983d3e9",
+        "image_reference": "docker.io/library/python@sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+        "image_id": "sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": null,
+        "output_sha256": "79624292ef2fa895e896276b147aa35d33a1638f1cfeb8a2d47f1d4f28e71584",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.4153,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 20,
+          "max_log_bytes": 16384,
+          "work_bytes": 8388608
+        }
+      },
+      "candidate": {
+        "rows": [
+          {
+            "hits": [
+              [
+                5,
+                5,
+                2
+              ]
+            ],
+            "id": "pending-exception",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                5,
+                7,
+                2
+              ]
+            ],
+            "id": "pending-return-multiline",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                6,
+                6,
+                2
+              ]
+            ],
+            "id": "conditional-cleanup-return",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                5,
+                5,
+                2
+              ]
+            ],
+            "id": "async-function",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                7,
+                7,
+                2
+              ]
+            ],
+            "id": "try-star-own-finally",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                6,
+                6,
+                2
+              ],
+              [
+                8,
+                8,
+                2
+              ]
+            ],
+            "id": "nested-try-body-in-finally",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                9,
+                9,
+                5
+              ],
+              [
+                10,
+                10,
+                2
+              ]
+            ],
+            "id": "nearest-finally-suite",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                9,
+                9,
+                6
+              ]
+            ],
+            "id": "nested-function-own-finally",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                5,
+                5,
+                2
+              ]
+            ],
+            "id": "generator-cleanup",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                6,
+                6,
+                2
+              ]
+            ],
+            "id": "unreachable-still-syntax",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "returns-in-try-except-and-else",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "return-after-cleanup",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "nested-function-return",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "class-method-return",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "text-and-loop-controls",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "except-star-illegal-return",
+            "status": "invalid_source"
+          },
+          {
+            "hits": [],
+            "id": "outside-function",
+            "status": "invalid_source"
+          },
+          {
+            "hits": [],
+            "id": "invalid-syntax",
+            "status": "invalid_source"
+          }
+        ],
+        "version": [
+          3,
+          11,
+          15
+        ]
+      },
+      "summary": {
+        "matched": 12,
+        "missed": 0,
+        "unexpected": 0,
+        "status_mismatches": 0,
+        "compiler_status_mismatches": 0,
+        "valid_cases": 15,
+        "invalid_cases": 3,
+        "overlap": 0,
+        "candidate_only": 12,
+        "compiler_only": 0
+      }
+    },
+    "3.14": {
+      "boundary": {
+        "status": "passed",
+        "executed": true,
+        "task_id": "boundary",
+        "kind": "probe",
+        "snapshot_digest": "4e1c1172e1417bfcc064c1fdb2eba48c308cbdf378ed604726da61ecf983d3e9",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": "{\"cpu_limit\": true, \"docker_socket_absent\": true, \"gold_not_mounted\": true, \"host_home_absent\": true, \"input_read_only\": true, \"memory_limit\": true, \"network_unavailable\": true, \"non_root\": true, \"pids_limit\": true, \"root_read_only\": true, \"work_copy_writable\": true}\n",
+        "output_sha256": "faab1aaf66ee0999816cb263f20fff79a96cd49814870f33e667538caaa56251",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.408,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 20,
+          "max_log_bytes": 16384,
+          "work_bytes": 8388608
+        }
+      },
+      "compiler_execution": {
+        "status": "not_verified",
+        "executed": true,
+        "task_id": "compiler",
+        "kind": "probe",
+        "snapshot_digest": "4e1c1172e1417bfcc064c1fdb2eba48c308cbdf378ed604726da61ecf983d3e9",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": null,
+        "output_sha256": "f531cc1f6f20b8ece0c7e4cbfb44968d2e1bbb13447c84fc051eb780805efc8c",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.3316,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 20,
+          "max_log_bytes": 16384,
+          "work_bytes": 8388608
+        }
+      },
+      "compiler": {
+        "rows": [
+          {
+            "id": "pending-exception",
+            "lines": [
+              5
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "pending-return-multiline",
+            "lines": [
+              5
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "conditional-cleanup-return",
+            "lines": [
+              6
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "async-function",
+            "lines": [
+              5
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "try-star-own-finally",
+            "lines": [
+              7
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "nested-try-body-in-finally",
+            "lines": [
+              6,
+              8
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "nearest-finally-suite",
+            "lines": [
+              9,
+              10
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "nested-function-own-finally",
+            "lines": [
+              9
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "generator-cleanup",
+            "lines": [
+              5
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "unreachable-still-syntax",
+            "lines": [
+              6
+            ],
+            "status": "checked"
+          },
+          {
+            "id": "returns-in-try-except-and-else",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "return-after-cleanup",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "nested-function-return",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "class-method-return",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "text-and-loop-controls",
+            "lines": [],
+            "status": "checked"
+          },
+          {
+            "id": "except-star-illegal-return",
+            "lines": [],
+            "status": "invalid_source"
+          },
+          {
+            "id": "outside-function",
+            "lines": [],
+            "status": "invalid_source"
+          },
+          {
+            "id": "invalid-syntax",
+            "lines": [],
+            "status": "invalid_source"
+          }
+        ],
+        "version": [
+          3,
+          14,
+          10
+        ]
+      },
+      "candidate_execution": {
+        "status": "not_verified",
+        "executed": true,
+        "task_id": "candidate",
+        "kind": "probe",
+        "snapshot_digest": "4e1c1172e1417bfcc064c1fdb2eba48c308cbdf378ed604726da61ecf983d3e9",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "platform": "linux",
+        "architecture": "amd64",
+        "exit_code": 0,
+        "assertion_count": 0,
+        "logs": null,
+        "output_sha256": "c19081163a8aace9b5ab6d7d9fd7bf5533f96e37b8c2341b271d8a226838ec9f",
+        "log_truncated": false,
+        "cleanup_pending": false,
+        "issues": [],
+        "elapsed_seconds": 1.3558,
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 20,
+          "max_log_bytes": 16384,
+          "work_bytes": 8388608
+        }
+      },
+      "candidate": {
+        "rows": [
+          {
+            "hits": [
+              [
+                5,
+                5,
+                2
+              ]
+            ],
+            "id": "pending-exception",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                5,
+                7,
+                2
+              ]
+            ],
+            "id": "pending-return-multiline",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                6,
+                6,
+                2
+              ]
+            ],
+            "id": "conditional-cleanup-return",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                5,
+                5,
+                2
+              ]
+            ],
+            "id": "async-function",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                7,
+                7,
+                2
+              ]
+            ],
+            "id": "try-star-own-finally",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                6,
+                6,
+                2
+              ],
+              [
+                8,
+                8,
+                2
+              ]
+            ],
+            "id": "nested-try-body-in-finally",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                9,
+                9,
+                5
+              ],
+              [
+                10,
+                10,
+                2
+              ]
+            ],
+            "id": "nearest-finally-suite",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                9,
+                9,
+                6
+              ]
+            ],
+            "id": "nested-function-own-finally",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                5,
+                5,
+                2
+              ]
+            ],
+            "id": "generator-cleanup",
+            "status": "checked"
+          },
+          {
+            "hits": [
+              [
+                6,
+                6,
+                2
+              ]
+            ],
+            "id": "unreachable-still-syntax",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "returns-in-try-except-and-else",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "return-after-cleanup",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "nested-function-return",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "class-method-return",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "text-and-loop-controls",
+            "status": "checked"
+          },
+          {
+            "hits": [],
+            "id": "except-star-illegal-return",
+            "status": "invalid_source"
+          },
+          {
+            "hits": [],
+            "id": "outside-function",
+            "status": "invalid_source"
+          },
+          {
+            "hits": [],
+            "id": "invalid-syntax",
+            "status": "invalid_source"
+          }
+        ],
+        "version": [
+          3,
+          14,
+          10
+        ]
+      },
+      "summary": {
+        "matched": 12,
+        "missed": 0,
+        "unexpected": 0,
+        "status_mismatches": 0,
+        "compiler_status_mismatches": 0,
+        "valid_cases": 15,
+        "invalid_cases": 3,
+        "overlap": 12,
+        "candidate_only": 0,
+        "compiler_only": 0
+      }
+    }
+  }
+}

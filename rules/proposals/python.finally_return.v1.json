@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "rule_id": "python.finally_return",
+  "version": "1",
+  "status": "proposal",
+  "mode": "report_only",
+  "production_admission": false,
+  "language": "Python",
+  "implementation": "evals/finally_return_candidate.py",
+  "scope": "A return statement in a finally suite of the same function or async function. Identify the nearest finally suite; record the return range and its owning try line.",
+  "finding": "If this return runs and completes, it exits the function from cleanup and can replace a pending return or suppress a pending exception.",
+  "review_guidance": "Check the expected success return and exception propagation separately. Consider moving normal return logic after cleanup only once both behaviors have tests. Confirm intentional suppression before changing behavior.",
+  "limitations": [
+    "This syntax check does not establish reachability, intent, a pending exception, or a confirmed bug.",
+    "Nested function and class scopes have their own cleanup context. Break and continue are outside this proposal.",
+    "The evaluator reports source that cannot be compiled for its recorded Python version as a separate status.",
+    "CPython 3.14 also warns about the pattern. A later value assessment should compare usefulness and overlap against that warning."
+  ],
+  "evidence": [
+    "https://peps.python.org/pep-0765/#specification",
+    "https://peps.python.org/pep-0765/#motivation"
+  ],
+  "development_contract": "evals/datasets/p6_finally_return_dev_v1.json"
+}

@@ -1,0 +1,850 @@
+{
+  "schema_version": 1,
+  "evaluation": "synthetic structural regression",
+  "supplement": "evidenced branch priority-window coverage",
+  "human_gold": false,
+  "p_at_10_evidence": false,
+  "cross_project_acceptance": false,
+  "held_out_evaluation": false,
+  "external_project_source_read": false,
+  "fixture_id": "navigation-coverage-v1",
+  "fixture_sha256": "593676c80210620c41d55d1f6fa3dad94dc7b82021ce1bb1bf8ebe87eec525ab",
+  "reading_order_implementation_sha256": "99abacab9ddaf80bcd427f654136119e3c9528cfaa78ac9d65158af009fb5166",
+  "totals": {
+    "cases": 9,
+    "passed": 3,
+    "failed": 6
+  },
+  "status": "failed",
+  "cases": [
+    {
+      "id": "disconnected_assembly_gets_a_structural_lane",
+      "passed": false,
+      "failures": [
+        "variant 0: priority window omits required evidenced branch file factory.py",
+        "variant 0: priority window omits required evidenced branch file service.py",
+        "variant 1: priority window omits required evidenced branch file factory.py",
+        "variant 1: priority window omits required evidenced branch file service.py",
+        "variant 2: priority window omits required evidenced branch file factory.py",
+        "variant 2: priority window omits required evidenced branch file service.py"
+      ],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ],
+        [
+          "factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "repository.py",
+          "core",
+          -1
+        ],
+        [
+          "service.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "shared_contract_does_not_hide_uncovered_direction",
+      "passed": false,
+      "failures": [
+        "variant 0: expected factory.py before service.py",
+        "variant 0: priority window omits required evidenced branch file factory.py",
+        "variant 0: priority window omits required evidenced branch file service.py",
+        "variant 1: expected factory.py before service.py",
+        "variant 1: priority window omits required evidenced branch file factory.py",
+        "variant 1: priority window omits required evidenced branch file service.py",
+        "variant 2: expected factory.py before service.py",
+        "variant 2: priority window omits required evidenced branch file factory.py",
+        "variant 2: priority window omits required evidenced branch file service.py"
+      ],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ],
+        [
+          "service.py",
+          "core",
+          -1
+        ],
+        [
+          "factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "shared.ts",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "reachable_assembly_does_not_create_a_second_lane",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "adapter.ts",
+          "core",
+          1
+        ],
+        [
+          "panel.ts",
+          "core",
+          1
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "factory.py",
+          "应用装配",
+          2
+        ],
+        [
+          "service.py",
+          "core",
+          3
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "heuristic_assembly_and_filename_candidates_do_not_open_lanes",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "guessed_factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "neutral_main.py",
+          "入口候选",
+          -1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ],
+        [
+          "guess_service.py",
+          "core",
+          -1
+        ],
+        [
+          "name_service.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "proved_bridge_context_can_have_a_structural_lane",
+      "passed": false,
+      "failures": [
+        "variant 0: priority window omits required evidenced branch file bridge.ts",
+        "variant 0: priority window omits required evidenced branch file context.ts",
+        "variant 1: priority window omits required evidenced branch file bridge.ts",
+        "variant 1: priority window omits required evidenced branch file context.ts",
+        "variant 2: priority window omits required evidenced branch file bridge.ts",
+        "variant 2: priority window omits required evidenced branch file context.ts"
+      ],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ],
+        [
+          "adapter.ts",
+          "core",
+          -1
+        ],
+        [
+          "bridge.ts",
+          "桥接上下文",
+          -1
+        ],
+        [
+          "context.ts",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "each_uncovered_evidenced_branch_gets_one_direct_dependency",
+      "passed": false,
+      "failures": [
+        "variant 0: priority window omits required evidenced branch file alpha_factory.py",
+        "variant 0: priority window omits required evidenced branch file alpha_service.py",
+        "variant 0: priority window omits required evidenced branch file beta_factory.py",
+        "variant 0: priority window omits required evidenced branch file beta_service.py",
+        "variant 1: priority window omits required evidenced branch file alpha_factory.py",
+        "variant 1: priority window omits required evidenced branch file alpha_service.py",
+        "variant 1: priority window omits required evidenced branch file beta_factory.py",
+        "variant 1: priority window omits required evidenced branch file beta_service.py",
+        "variant 2: priority window omits required evidenced branch file alpha_factory.py",
+        "variant 2: priority window omits required evidenced branch file alpha_service.py",
+        "variant 2: priority window omits required evidenced branch file beta_factory.py",
+        "variant 2: priority window omits required evidenced branch file beta_service.py"
+      ],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ],
+        [
+          "alpha_factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "alpha_service.py",
+          "core",
+          -1
+        ],
+        [
+          "beta_factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "beta_service.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "upstream_assembly_precedes_higher_ranked_downstream_assembly",
+      "passed": false,
+      "failures": [
+        "variant 0: expected outer_factory.py before inner_factory.py",
+        "variant 0: priority window omits required evidenced branch file outer_factory.py",
+        "variant 0: priority window omits required evidenced branch file inner_factory.py",
+        "variant 0: priority window omits required evidenced branch file service.py",
+        "variant 1: expected outer_factory.py before inner_factory.py",
+        "variant 1: priority window omits required evidenced branch file outer_factory.py",
+        "variant 1: priority window omits required evidenced branch file inner_factory.py",
+        "variant 1: priority window omits required evidenced branch file service.py",
+        "variant 2: expected outer_factory.py before inner_factory.py",
+        "variant 2: priority window omits required evidenced branch file outer_factory.py",
+        "variant 2: priority window omits required evidenced branch file inner_factory.py",
+        "variant 2: priority window omits required evidenced branch file service.py"
+      ],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "inner_factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "service.py",
+          "core",
+          -1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ],
+        [
+          "outer_factory.py",
+          "应用装配",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "cyclic_structure_anchors_are_unique_and_keep_unknown_distance",
+      "passed": false,
+      "failures": [
+        "variant 0: priority window omits required evidenced branch file ring_a.py",
+        "variant 0: priority window omits required evidenced branch file ring_b.py",
+        "variant 0: priority window omits required evidenced branch file service.py",
+        "variant 1: priority window omits required evidenced branch file ring_a.py",
+        "variant 1: priority window omits required evidenced branch file ring_b.py",
+        "variant 1: priority window omits required evidenced branch file service.py",
+        "variant 2: priority window omits required evidenced branch file ring_a.py",
+        "variant 2: priority window omits required evidenced branch file ring_b.py",
+        "variant 2: priority window omits required evidenced branch file service.py"
+      ],
+      "output": [
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "ui/view_00.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_01.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_02.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_03.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_04.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_05.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_06.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_07.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_08.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_09.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_10.tsx",
+          "core",
+          1
+        ],
+        [
+          "ui/view_11.tsx",
+          "core",
+          1
+        ],
+        [
+          "ring_a.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "ring_b.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "service.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "undersized_window_does_not_promise_impossible_branch_coverage",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "process.py",
+          "进程入口",
+          0
+        ],
+        [
+          "launch.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "alpha_factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "alpha_service.py",
+          "core",
+          -1
+        ],
+        [
+          "api.py",
+          "core",
+          1
+        ],
+        [
+          "beta_factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "beta_service.py",
+          "core",
+          -1
+        ],
+        [
+          "view.tsx",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    }
+  ],
+  "implementation_hash_scope": "captured UTF-8 source after universal-newline decoding",
+  "baseline_method": "Captured strong-root-only reading_order before branch-coverage changes; same frozen supplemental fixture and three input permutations; explicit synthetic entry evidence only."
+}

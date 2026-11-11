@@ -1,4 +1,6 @@
-"""从项目自带的文档中提取 ground truth（核心文件清单）。
+"""历史文档标签提取逻辑；命令入口已停用，不能绕过工作空间权限。
+
+以下用法仅为历史记录；现使用权限绑定的 navigation_development/comparison。
 
 **为什么自动提取**：v0.2 §4.3.2 记录的循环论证教训——手工挑的样本会
 带着主观偏向（本次是"按角色多样性挑"，恰好与被测机制相关）。
@@ -158,41 +160,11 @@ def find_docs(root: Path) -> list[Path]:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("project")
-    ap.add_argument("--out", help="输出 JSON 路径")
-    args = ap.parse_args()
-
-    root = Path(args.project).resolve()
-    docs = find_docs(root)
-    if not docs:
-        print(f"未找到文档: {root}")
-        return 2
-
-    all_found: set[str] = set()
-    per_doc: dict[str, list[str]] = {}
-    for doc in docs:
-        text = doc.read_text(encoding="utf-8", errors="replace")
-        found = extract_from_text(text)
-        if found:
-            per_doc[doc.name] = sorted(found)
-            all_found |= found
-
-    print(f"来源文档: {', '.join(d.name for d in docs)}")
-    for name, items in per_doc.items():
-        print(f"  {name}: {len(items)} 项")
-    print(f"\n合计去重: {len(all_found)} 个文件")
-
-    out = sorted(all_found)
-    print("\n前 20 项:")
-    for p in out[:20]:
-        print(f"  {p}")
-
-    if args.out:
-        Path(args.out).write_text(
-            json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"\n→ {args.out}")
-    return 0
+    """Retired: this historical helper predates workspace access permissions."""
+    print("Historical helper disabled: workspace access permissions are required. "
+          "Use python -m evals.navigation_development and "
+          "python -m evals.navigation_comparison; see the P1 navigation report.")
+    return 2
 
 
 if __name__ == "__main__":

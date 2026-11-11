@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "fixed-dev-empty-reference-protocol",
+  "dataset_id": "codesentry-fingerprint-dev-v1",
+  "dataset_version": "1",
+  "partition": "dev",
+  "dataset_manifest_sha256": "0bf55d297861f489eb1c0a6484ffc48d0b786b62d296c161cc772fedd2d89814",
+  "gold_sha256": "1c3a3c6dde2f4737d152fd9b5d22e060fd894109aca89d336246c8284aaa9fb1",
+  "predictions_sha256": "09a67de52627027b112fef1b9495d4d6592c6c004478c6055d15efa6e44f7000",
+  "matching_contract_sha256": "2f018bb213d7fb985b75800f3af77f3318b2be50818e6a209e45bbbe406f3e15",
+  "scorer_sha256": "8004ee63991865759c39aa998cc614f0156712f2086389bb03b8bf1371ab5f9f",
+  "reference_kind": "non_detector_reference",
+  "known_positive_issue_count": 2,
+  "scope_complete": false,
+  "detector_executed": false,
+  "quality_acceptance_allowed": false,
+  "independent_holdout_preregistration": false,
+  "purpose": "Verify empty output counts misses and keeps precision N/A; not detector performance."
+}

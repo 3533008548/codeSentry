@@ -1,0 +1,436 @@
+{
+  "schema_version": 1,
+  "evaluation": "synthetic structural regression",
+  "human_gold": false,
+  "p_at_10_evidence": false,
+  "cross_project_acceptance": false,
+  "held_out_evaluation": false,
+  "external_project_source_read": false,
+  "fixture_id": "navigation-structure-v1",
+  "fixture_sha256": "df5abc099133c50fa939609b42e929fb66582af03c343c83a97c5d9cefd4ee21",
+  "reading_order_implementation_sha256": "ff18f3c83e80fc3785696a1bb6d0a77e562b3fd2228ccaf682bcadf0fec69076",
+  "totals": {
+    "cases": 22,
+    "passed": 22,
+    "failed": 0
+  },
+  "status": "passed",
+  "cases": [
+    {
+      "id": "overflow_keeps_shortest_distance",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "a.py",
+          "core",
+          1
+        ],
+        [
+          "c.py",
+          "core",
+          2
+        ],
+        [
+          "b.py",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "cycle_and_diamond_are_unique",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "left.py",
+          "core",
+          1
+        ],
+        [
+          "right.py",
+          "core",
+          1
+        ],
+        [
+          "bottom.py",
+          "core",
+          2
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "thin_declared_process_is_root",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "factory.py",
+          "应用装配",
+          1
+        ],
+        [
+          "service.py",
+          "core",
+          2
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "static_mount_is_root_without_calls",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "renderer/bootstrap.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "renderer/view.tsx",
+          "入口候选",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "multiple_launch_roles_cover_both_subgraphs",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "server/boot.py",
+          "进程入口",
+          0
+        ],
+        [
+          "ui/bootstrap.tsx",
+          "界面挂载",
+          0
+        ],
+        [
+          "shared/types.ts",
+          "core",
+          2
+        ],
+        [
+          "server/service.py",
+          "core",
+          1
+        ],
+        [
+          "ui/shell.tsx",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "only_existing_parsed_production_files_are_recommended",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "service.py",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "unreachable_contract_is_not_a_fake_depth_one_root",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "shared/types.ts",
+          "契约层",
+          -1
+        ],
+        [
+          "service.py",
+          "core",
+          1
+        ],
+        [
+          "plugins/reader_a.py",
+          "core",
+          -1
+        ],
+        [
+          "plugins/reader_b.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "zero_depth_keeps_root_and_falls_back_other_files",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "leaf.py",
+          "core",
+          -1
+        ],
+        [
+          "middle.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "priority_window_does_not_truncate_complete_fallback",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "module_08.py",
+          "core",
+          -1
+        ],
+        [
+          "module_07.py",
+          "core",
+          -1
+        ],
+        [
+          "module_06.py",
+          "core",
+          -1
+        ],
+        [
+          "module_05.py",
+          "core",
+          -1
+        ],
+        [
+          "module_04.py",
+          "core",
+          -1
+        ],
+        [
+          "module_03.py",
+          "core",
+          -1
+        ],
+        [
+          "module_02.py",
+          "core",
+          -1
+        ],
+        [
+          "module_01.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "stable_equal_score_order_ignores_input_permutations",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "a.py",
+          "core",
+          1
+        ],
+        [
+          "b.py",
+          "core",
+          1
+        ],
+        [
+          "c.py",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "weak_and_assembly_entries_do_not_create_roots",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "factory.py",
+          "应用装配",
+          -1
+        ],
+        [
+          "bridge.py",
+          "桥接上下文",
+          -1
+        ],
+        [
+          "service.py",
+          "core",
+          -1
+        ],
+        [
+          "bindings.py",
+          "core",
+          -1
+        ],
+        [
+          "render_bits.tsx",
+          "core",
+          -1
+        ],
+        [
+          "candidate_view.tsx",
+          "入口候选",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "depth_limit_does_not_lie_about_deeper_nodes",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "进程入口",
+          0
+        ],
+        [
+          "three.py",
+          "core",
+          -1
+        ],
+        [
+          "two.py",
+          "core",
+          2
+        ],
+        [
+          "one.py",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "empty_project_is_an_empty_order",
+      "passed": true,
+      "failures": [],
+      "output": [],
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_0",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_1",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_2",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_3",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_4",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_0",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_1",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_2",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_3",
+      "passed": true,
+      "failures": [],
+      "output": null,
+      "input_permutations": 3
+    }
+  ]
+}

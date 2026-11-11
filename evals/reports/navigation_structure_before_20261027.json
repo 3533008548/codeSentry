@@ -1,0 +1,565 @@
+{
+  "schema_version": 1,
+  "evaluation": "synthetic structural regression",
+  "human_gold": false,
+  "p_at_10_evidence": false,
+  "cross_project_acceptance": false,
+  "held_out_evaluation": false,
+  "external_project_source_read": false,
+  "fixture_id": "navigation-structure-v1",
+  "fixture_sha256": "df5abc099133c50fa939609b42e929fb66582af03c343c83a97c5d9cefd4ee21",
+  "reading_order_implementation_sha256": "da1f0490a715a5cdfc1390ffbd912e88eabced7a198cfb076a4dd1c2cbc46cf3",
+  "totals": {
+    "cases": 22,
+    "passed": 5,
+    "failed": 17
+  },
+  "status": "failed",
+  "cases": [
+    {
+      "id": "overflow_keeps_shortest_distance",
+      "passed": false,
+      "failures": [
+        "variant 0: b.py: expected depth 1, got 3",
+        "variant 1: b.py: expected depth 1, got 3",
+        "variant 2: b.py: expected depth 1, got 3"
+      ],
+      "output": [
+        [
+          "launcher.py",
+          "入口",
+          0
+        ],
+        [
+          "a.py",
+          "core",
+          1
+        ],
+        [
+          "c.py",
+          "core",
+          2
+        ],
+        [
+          "b.py",
+          "core",
+          3
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "cycle_and_diamond_are_unique",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "入口",
+          0
+        ],
+        [
+          "left.py",
+          "core",
+          1
+        ],
+        [
+          "right.py",
+          "core",
+          1
+        ],
+        [
+          "bottom.py",
+          "core",
+          2
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "thin_declared_process_is_root",
+      "passed": false,
+      "failures": [
+        "variant 0: launcher.py: expected depth 0, got -1",
+        "variant 0: factory.py: expected depth 1, got 0",
+        "variant 0: service.py: expected depth 2, got 1",
+        "variant 0: only declared/static process or mount entries may be depth zero",
+        "variant 1: launcher.py: expected depth 0, got -1",
+        "variant 1: factory.py: expected depth 1, got 0",
+        "variant 1: service.py: expected depth 2, got 1",
+        "variant 1: only declared/static process or mount entries may be depth zero",
+        "variant 2: launcher.py: expected depth 0, got -1",
+        "variant 2: factory.py: expected depth 1, got 0",
+        "variant 2: service.py: expected depth 2, got 1",
+        "variant 2: only declared/static process or mount entries may be depth zero"
+      ],
+      "output": [
+        [
+          "factory.py",
+          "入口",
+          0
+        ],
+        [
+          "service.py",
+          "core",
+          1
+        ],
+        [
+          "launcher.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "static_mount_is_root_without_calls",
+      "passed": false,
+      "failures": [
+        "variant 0: renderer/bootstrap.tsx: expected depth 0, got -1",
+        "variant 0: renderer/view.tsx: expected depth 1, got 0",
+        "variant 0: only declared/static process or mount entries may be depth zero",
+        "variant 1: renderer/bootstrap.tsx: expected depth 0, got -1",
+        "variant 1: renderer/view.tsx: expected depth 1, got 0",
+        "variant 1: only declared/static process or mount entries may be depth zero",
+        "variant 2: renderer/bootstrap.tsx: expected depth 0, got -1",
+        "variant 2: renderer/view.tsx: expected depth 1, got 0",
+        "variant 2: only declared/static process or mount entries may be depth zero"
+      ],
+      "output": [
+        [
+          "renderer/view.tsx",
+          "入口",
+          0
+        ],
+        [
+          "renderer/bootstrap.tsx",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "multiple_launch_roles_cover_both_subgraphs",
+      "passed": false,
+      "failures": [
+        "variant 0: ui/shell.tsx: expected depth 1, got 3",
+        "variant 1: ui/shell.tsx: expected depth 1, got 3",
+        "variant 2: ui/shell.tsx: expected depth 1, got 3"
+      ],
+      "output": [
+        [
+          "server/boot.py",
+          "入口",
+          0
+        ],
+        [
+          "ui/bootstrap.tsx",
+          "入口",
+          0
+        ],
+        [
+          "server/service.py",
+          "core",
+          1
+        ],
+        [
+          "shared/types.ts",
+          "core",
+          2
+        ],
+        [
+          "ui/shell.tsx",
+          "core",
+          3
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "only_existing_parsed_production_files_are_recommended",
+      "passed": false,
+      "failures": [
+        "variant 0: production coverage differs: {\"missing\": [], \"extra\": [\"auxiliary.py\", \"broken.py\", \"data.py\", \"missing.py\", \"not_ranked.py\", \"root_test.py\"]}",
+        "variant 0: only declared/static process or mount entries may be depth zero",
+        "variant 1: production coverage differs: {\"missing\": [], \"extra\": [\"auxiliary.py\", \"broken.py\", \"data.py\", \"missing.py\", \"not_ranked.py\", \"root_test.py\"]}",
+        "variant 1: only declared/static process or mount entries may be depth zero",
+        "variant 2: production coverage differs: {\"missing\": [], \"extra\": [\"auxiliary.py\", \"broken.py\", \"data.py\", \"missing.py\", \"not_ranked.py\", \"root_test.py\"]}",
+        "variant 2: only declared/static process or mount entries may be depth zero"
+      ],
+      "output": [
+        [
+          "missing.py",
+          "入口",
+          0
+        ],
+        [
+          "broken.py",
+          "入口",
+          0
+        ],
+        [
+          "launcher.py",
+          "入口",
+          0
+        ],
+        [
+          "data.py",
+          "core",
+          1
+        ],
+        [
+          "not_ranked.py",
+          "core",
+          1
+        ],
+        [
+          "auxiliary.py",
+          "core",
+          1
+        ],
+        [
+          "root_test.py",
+          "core",
+          1
+        ],
+        [
+          "service.py",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "unreachable_contract_is_not_a_fake_depth_one_root",
+      "passed": false,
+      "failures": [
+        "variant 0: shared/types.ts: expected depth -1, got 1",
+        "variant 1: shared/types.ts: expected depth -1, got 1",
+        "variant 2: shared/types.ts: expected depth -1, got 1",
+        "output changes when input container order is permuted"
+      ],
+      "output": [
+        [
+          "launcher.py",
+          "入口",
+          0
+        ],
+        [
+          "shared/types.ts",
+          "契约层·core",
+          1
+        ],
+        [
+          "service.py",
+          "core",
+          1
+        ],
+        [
+          "plugins/reader_a.py",
+          "core",
+          -1
+        ],
+        [
+          "plugins/reader_b.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "zero_depth_keeps_root_and_falls_back_other_files",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "入口",
+          0
+        ],
+        [
+          "leaf.py",
+          "core",
+          -1
+        ],
+        [
+          "middle.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "priority_window_does_not_truncate_complete_fallback",
+      "passed": false,
+      "failures": [
+        "variant 0: production coverage differs: {\"missing\": [\"module_01.py\", \"module_02.py\", \"module_03.py\", \"module_04.py\", \"module_05.py\"], \"extra\": []}",
+        "variant 0: module_01.py: expected depth -1, got None",
+        "variant 0: module_02.py: expected depth -1, got None",
+        "variant 0: module_03.py: expected depth -1, got None",
+        "variant 0: module_04.py: expected depth -1, got None",
+        "variant 0: module_05.py: expected depth -1, got None",
+        "variant 1: production coverage differs: {\"missing\": [\"module_01.py\", \"module_02.py\", \"module_03.py\", \"module_04.py\", \"module_05.py\"], \"extra\": []}",
+        "variant 1: module_01.py: expected depth -1, got None",
+        "variant 1: module_02.py: expected depth -1, got None",
+        "variant 1: module_03.py: expected depth -1, got None",
+        "variant 1: module_04.py: expected depth -1, got None",
+        "variant 1: module_05.py: expected depth -1, got None",
+        "variant 2: production coverage differs: {\"missing\": [\"module_01.py\", \"module_02.py\", \"module_03.py\", \"module_04.py\", \"module_05.py\"], \"extra\": []}",
+        "variant 2: module_01.py: expected depth -1, got None",
+        "variant 2: module_02.py: expected depth -1, got None",
+        "variant 2: module_03.py: expected depth -1, got None",
+        "variant 2: module_04.py: expected depth -1, got None",
+        "variant 2: module_05.py: expected depth -1, got None"
+      ],
+      "output": [
+        [
+          "module_08.py",
+          "core",
+          -1
+        ],
+        [
+          "module_07.py",
+          "core",
+          -1
+        ],
+        [
+          "module_06.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "stable_equal_score_order_ignores_input_permutations",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "入口",
+          0
+        ],
+        [
+          "a.py",
+          "core",
+          1
+        ],
+        [
+          "b.py",
+          "core",
+          1
+        ],
+        [
+          "c.py",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "weak_and_assembly_entries_do_not_create_roots",
+      "passed": false,
+      "failures": [
+        "variant 0: factory.py: expected depth -1, got 0",
+        "variant 0: candidate_view.tsx: expected depth -1, got 0",
+        "variant 0: bridge.py: expected depth -1, got 0",
+        "variant 0: service.py: expected depth -1, got 1",
+        "variant 0: render_bits.tsx: expected depth -1, got 1",
+        "variant 0: bindings.py: expected depth -1, got 1",
+        "variant 0: only declared/static process or mount entries may be depth zero",
+        "variant 0: candidate_view.tsx: missing required label 入口候选",
+        "variant 1: factory.py: expected depth -1, got 0",
+        "variant 1: candidate_view.tsx: expected depth -1, got 0",
+        "variant 1: bridge.py: expected depth -1, got 0",
+        "variant 1: service.py: expected depth -1, got 1",
+        "variant 1: render_bits.tsx: expected depth -1, got 1",
+        "variant 1: bindings.py: expected depth -1, got 1",
+        "variant 1: only declared/static process or mount entries may be depth zero",
+        "variant 1: candidate_view.tsx: missing required label 入口候选",
+        "variant 2: factory.py: expected depth -1, got 0",
+        "variant 2: candidate_view.tsx: expected depth -1, got 0",
+        "variant 2: bridge.py: expected depth -1, got 0",
+        "variant 2: service.py: expected depth -1, got 1",
+        "variant 2: render_bits.tsx: expected depth -1, got 1",
+        "variant 2: bindings.py: expected depth -1, got 1",
+        "variant 2: only declared/static process or mount entries may be depth zero",
+        "variant 2: candidate_view.tsx: missing required label 入口候选"
+      ],
+      "output": [
+        [
+          "bridge.py",
+          "入口",
+          0
+        ],
+        [
+          "candidate_view.tsx",
+          "入口",
+          0
+        ],
+        [
+          "factory.py",
+          "入口",
+          0
+        ],
+        [
+          "bindings.py",
+          "core",
+          1
+        ],
+        [
+          "render_bits.tsx",
+          "core",
+          1
+        ],
+        [
+          "service.py",
+          "core",
+          1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "depth_limit_does_not_lie_about_deeper_nodes",
+      "passed": true,
+      "failures": [],
+      "output": [
+        [
+          "launcher.py",
+          "入口",
+          0
+        ],
+        [
+          "one.py",
+          "core",
+          1
+        ],
+        [
+          "two.py",
+          "core",
+          2
+        ],
+        [
+          "three.py",
+          "core",
+          -1
+        ]
+      ],
+      "input_permutations": 3
+    },
+    {
+      "id": "empty_project_is_an_empty_order",
+      "passed": true,
+      "failures": [],
+      "output": [],
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_0",
+      "passed": false,
+      "failures": [
+        "variant 0: expected ValueError, received output",
+        "variant 1: expected ValueError, received output",
+        "variant 2: expected ValueError, received output"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_1",
+      "passed": false,
+      "failures": [
+        "variant 0: expected ValueError, received output",
+        "variant 1: expected ValueError, received output",
+        "variant 2: expected ValueError, received output"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_2",
+      "passed": false,
+      "failures": [
+        "variant 0: expected ValueError, received output",
+        "variant 1: expected ValueError, received output",
+        "variant 2: expected ValueError, received output"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_3",
+      "passed": false,
+      "failures": [
+        "variant 0: unexpected TypeError: slice indices must be integers or None or have an __index__ method",
+        "variant 1: unexpected TypeError: slice indices must be integers or None or have an __index__ method",
+        "variant 2: unexpected TypeError: slice indices must be integers or None or have an __index__ method"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_items_4",
+      "passed": false,
+      "failures": [
+        "variant 0: unexpected TypeError: slice indices must be integers or None or have an __index__ method",
+        "variant 1: unexpected TypeError: slice indices must be integers or None or have an __index__ method",
+        "variant 2: unexpected TypeError: slice indices must be integers or None or have an __index__ method"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_0",
+      "passed": false,
+      "failures": [
+        "variant 0: expected ValueError, received output",
+        "variant 1: expected ValueError, received output",
+        "variant 2: expected ValueError, received output"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_1",
+      "passed": false,
+      "failures": [
+        "variant 0: expected ValueError, received output",
+        "variant 1: expected ValueError, received output",
+        "variant 2: expected ValueError, received output"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_2",
+      "passed": false,
+      "failures": [
+        "variant 0: expected ValueError, received output",
+        "variant 1: expected ValueError, received output",
+        "variant 2: expected ValueError, received output"
+      ],
+      "output": null,
+      "input_permutations": 3
+    },
+    {
+      "id": "invalid_max_depth_3",
+      "passed": false,
+      "failures": [
+        "variant 0: expected ValueError, received output",
+        "variant 1: expected ValueError, received output",
+        "variant 2: expected ValueError, received output"
+      ],
+      "output": null,
+      "input_permutations": 3
+    }
+  ],
+  "baseline_method": "Captured original reading_order function, evaluated with the same frozen fixture and current FileMeta/IndexResult models; every entry classification is explicit synthetic input."
+}

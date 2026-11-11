@@ -1,0 +1,2751 @@
+{
+  "binding": {
+    "bug_gold": false,
+    "case_ids": [
+      "tuple-message",
+      "singleton-false",
+      "empty-tuple",
+      "starred-can-empty",
+      "starred-with-fixed-item-out-of-scope",
+      "normal-message",
+      "parenthesized-normal-message",
+      "nested-ordinary-tuple",
+      "nested-starred-conservatively-out-of-scope",
+      "multiline",
+      "method",
+      "nested-function",
+      "string-not-code",
+      "comment-not-code",
+      "unreachable-not-assessed",
+      "side-effects-not-executed",
+      "construction-exception-not-evaluated",
+      "duplicates-retain-occurrences",
+      "syntax-error",
+      "file-budget",
+      "excluded-not-read",
+      "call-not-literal-tuple",
+      "tuple-with-outer-message",
+      "class-body",
+      "no-python"
+    ],
+    "contract_id": "python-assert-tuple-synthetic-v2",
+    "expected_syntax_candidates": 14,
+    "implementation_sha256": {
+      "codesentry/access/policy.py": "8a639ff11e7c2c0526647b10b5df76d16b20bfd85d4393337fbc49edf69eb71d",
+      "codesentry/core/finding.py": "b1eb533c55c08b4b5a345b8590ce676752a4735b70823ce267246f7be3dbc28b",
+      "codesentry/core/fingerprint.py": "3980337689b24dc4eac9d8bf7a5367c648f592d74b90ef55ec0a5a575019e12a",
+      "codesentry/review/defects.py": "562da844a8e340696dbfacb5b70c6899b2cd60923acc383ece6670831e6ac1d9",
+      "codesentry/review/scan.py": "376db10d0c8d73af7b2a82c702b7e9d0d53c46c66a33cdf2ead4ef1ed1597e67",
+      "codesentry/review/verification.py": "15226c133d31e8af259de90e1e8fcc6030e37c62c6600bb4e5726f357c7e6a87",
+      "evals/assert_tuple_contract.py": "8555954b1f543fd69a298193434bd081c967e6d40ab3917ff2bb64f6f2aa09ed"
+    },
+    "independently_adjudicated": false,
+    "material_sha256": {
+      "cases.json": "baaeae896ad0f229e81fac4fd20e8254359f56040e321c9350fcb985ed6e9479",
+      "rule_card.json": "d8bfeb89724286a2167b58e2a9dcbf572ef50e3b624f1392693579a6eb0c12dc",
+      "spec.json": "3afa65fd8bd5b3cbd1afe09f244d7deca07d12cc7b3deae3a7970951edf4d27a"
+    },
+    "schema_version": 1,
+    "split": "dev",
+    "target_execution": false
+  },
+  "bug_gold": false,
+  "cases": [
+    {
+      "case_id": "tuple-message",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "be1928db6d90f7c0b542679ebf23b4df7c5f8904f70b69de2e003d4e26444c52",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 30,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "4fa5bb56a5ce58bd49987c3f3816aa5844177b1fb9dc0b15ac21f83f4f98df61",
+              "combined_digest": "v2:sha256:e88e90cb8c305e7bf3a922efe83352e7bb5454db0a683a0f5fccbd7f61135ed9",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:14.963016Z",
+              "end_line": 1,
+              "evidence": "assert (condition, 'message')",
+              "evidence_digest": "v2:sha256:evidence:2126e5de7b1c4aff74193a41ddd3580944190f203cb2df05b2fe733e150ffe04",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert (condition, 'message')",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 2,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 2,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:e88e90cb8c305e7bf3a922efe83352e7bb5454db0a683a0f5fccbd7f61135ed9",
+              "identity_digest": "v2:sha256:identity:1555d7b79f14d605d7cdf6a6f9598a50499b94cbcc6ba64527789f80f4b3eb7c",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "3ceb172cbee559cac6448245201091640365ee0b6effeb7f5f536be8e988ca2a"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "singleton-false",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "3a7bf0382f0bd7ba6e250816c898131ceb48907dad0f3da6246215e64274a97c",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 16,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "8a3ca6ceed42d7eb6701a192b694c0e00d6d60b0f9097a317bc2d40517653373",
+              "combined_digest": "v2:sha256:787dc6ce4d937d43a6f6600b8a89084165423723cc43d5a5e089d4611c7c9cb4",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:15.062655Z",
+              "end_line": 1,
+              "evidence": "assert (False,)",
+              "evidence_digest": "v2:sha256:evidence:c413ac04dbc4f7480f4359eebb75eaf4e190bb514fbec4e8011c08916aae08b5",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert (False,)",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 1,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 1,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:787dc6ce4d937d43a6f6600b8a89084165423723cc43d5a5e089d4611c7c9cb4",
+              "identity_digest": "v2:sha256:identity:17d1d4439be3873e6fb0c974e697cbcbd5d05644ef5165a136a5ffc85316c0c7",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "469e6be8fe0e91b944e65ff1024cf257d1ec73b6463b1349513dfa4733b434dc"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "empty-tuple",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "bbb48106ae386daa48443328cdbbe3d64dc5a0be17b678d3f1061e5fdf107e25",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 10,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "5b74386aefac33919522345f0d1e108e2d64335423e3dd4fb1d6dd80c2195fdb"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "starred-can-empty",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "49f90ab2d2bd89c321bd96fd4b481168b5d8f2aa8011a04e154712d083aade2d",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 17,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "7b9ae6a2ac60ebb6c0bf8f522231ff3d95914d16d3f041037848ee3696838f31"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "starred-with-fixed-item-out-of-scope",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "42a76824eccae7b76c91fdbdff0915dc117f19b51f150a5e1d3b193d6446a4ea",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 23,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "c42526b5d42edce2a864c6004b0ae0efafde1184c96cb6250c079c6d1dffb70b"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "normal-message",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "fb7b1955ef8fa582a4b61e4887a51b5b938647d92d85cea3a724189757445f44",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 28,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "89db661d47a2a9178f277a152d22ed9abff629921c53ac29e3b30fdba7c034d7"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "parenthesized-normal-message",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "7d94f2b606f1230fe1b075c8e99c7b9635dd42266d31dfa27a7c970403d65af2",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 30,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "d9803645c7b2f7c044dafa6f97809d525d2e24a00318198e70d9e04eadac8b3b"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "nested-ordinary-tuple",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "e45678fd44fde2f32fa9e2276fe6575c46b1617e646f83a9c118c753c343ee9a",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 27,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "608a2d11ddf345ae8071229d5bce2d02f6fc592e0db75ca88fdeb91b0efcb6c4",
+              "combined_digest": "v2:sha256:3d31bd3f91992a55fe56d283bf888fc3b6ee9ba8d6b61313a0fbd0cb8bee7fc8",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:15.539583Z",
+              "end_line": 1,
+              "evidence": "assert ((False, 'inner'),)",
+              "evidence_digest": "v2:sha256:evidence:070eee4e9f534e844f1ad211ee21e159d960437697344c3412b60da9fe6e6d87",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert ((False, 'inner'),)",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 1,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 1,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:3d31bd3f91992a55fe56d283bf888fc3b6ee9ba8d6b61313a0fbd0cb8bee7fc8",
+              "identity_digest": "v2:sha256:identity:0ee42e6595342fefbf54b7f54a9a0ada04f242e370597362172680900e68eceb",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "785f9299d0798c69288e50213be1928bc06c336ab9104fd247b8448d603fac35"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "nested-starred-conservatively-out-of-scope",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "01616c471f578a60061179c4c488b7db0ab5492d33ed21b3461bff6bddbc62c1",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 20,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "92b083c512c7c3e4def1f46c156cb1dc7a5eb1f0bc0427add20784d7948aa769"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "multiline",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "58847ba37f1e93bc66f009d272a8ea030a4274296fb319b7c8b1500b58cf7848",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 41,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "4fa5bb56a5ce58bd49987c3f3816aa5844177b1fb9dc0b15ac21f83f4f98df61",
+              "combined_digest": "v2:sha256:58f29daffce9fe36d65dc105a4cab9929c5a892ce7fff20e708485b9ce81de9a",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:15.708443Z",
+              "end_line": 4,
+              "evidence": "assert (\n    condition,\n    'message',\n)",
+              "evidence_digest": "v2:sha256:evidence:df96cc4614afbe10ae0544e0a15170ad9d0e4607129e2e3d30261484a3a294ec",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert (\n    condition,\n    'message',\n)",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 2,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 2,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:58f29daffce9fe36d65dc105a4cab9929c5a892ce7fff20e708485b9ce81de9a",
+              "identity_digest": "v2:sha256:identity:536456be68909035f1d1b301538b8ffe63b95325056b4fc0f29e36de3d8df236",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "76b8ba9d6f13df18e032b3dd66fd8f6f9fa1a895eb28c041df715e159ac4b50a"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "method",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "83e97f6386b92005a15386dfdfe4d2964313a6e4d1f6155778c3f2fd08b63086",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 69,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "4fa5bb56a5ce58bd49987c3f3816aa5844177b1fb9dc0b15ac21f83f4f98df61",
+              "combined_digest": "v2:sha256:981e2e7ae7b8442c44f5dc6b704cc693e4096735962738ba67d9c2ea25886264",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:15.798099Z",
+              "end_line": 3,
+              "evidence": "        assert (condition, 'message')",
+              "evidence_digest": "v2:sha256:evidence:a7d4ea396c5e1c89911998cc595d69e1fccf99c61cc9bba48736690b1b73116b",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 3,
+                  "snippet": "        assert (condition, 'message')",
+                  "symbol": "main.py::C.method"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 2,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 2,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:981e2e7ae7b8442c44f5dc6b704cc693e4096735962738ba67d9c2ea25886264",
+              "identity_digest": "v2:sha256:identity:b6014be604af123a4879d408ccde187f59ec5d181755cea16b249ad11062200f",
+              "line": 3,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::C.method",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "111c5ba227dbbfabf8d2fb704e8a6da45815eaee48aba529e512d0fccd84bef9"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "nested-function",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "83ca016cdd11f4a34078269abef3484ad788af0465476c9f13d896735ec39d61",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 54,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "8a3ca6ceed42d7eb6701a192b694c0e00d6d60b0f9097a317bc2d40517653373",
+              "combined_digest": "v2:sha256:5bdd7a56b30c40db1f16bc470289d37b6289012ecfb343c6683102dd768246fa",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:15.895265Z",
+              "end_line": 3,
+              "evidence": "        assert (False,)",
+              "evidence_digest": "v2:sha256:evidence:f3482f3696896f973727be68149e521fdbf8602a4818a23b84ae9a7958f35788",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 3,
+                  "snippet": "        assert (False,)",
+                  "symbol": "main.py::outer.<locals>.inner"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 1,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 1,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:5bdd7a56b30c40db1f16bc470289d37b6289012ecfb343c6683102dd768246fa",
+              "identity_digest": "v2:sha256:identity:d87fee8807048289506db068879de386dc47b01f830f94afe7a96efd2814e3b9",
+              "line": 3,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::outer.<locals>.inner",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "9691392eb8540631cde7e116178fc59f2b998e2b41804c3ad1960496933b9e3b"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "string-not-code",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "ff6adc56225dacbeb0dfd5f3ed55117025abfdf9ef20d4806ef4b1dadc4821df",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 35,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "1ee157f9fcbf6a6981879bafe407529ee0f5d8a8f7e5a3d4a8108e2a24db8788"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "comment-not-code",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "de6a179b18ab8d6a2e8161710bbbf0c51d890ca3134d4c17ee7f2794f1d79289",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 33,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "a5c841bf7c6ba2d87bb2e193c3972c9a28c0ba8d748dd9c3f3963d0977c8c238"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "unreachable-not-assessed",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "bee51eda910b4f8d89f171c306072390316ea1a6f400c082092cf1bb4827b279",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 40,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "04c99e19cdfbd4bb2b9326ae091f3f2b5e56a329a5f6eb7b26b8652ecb295213",
+              "combined_digest": "v2:sha256:080c24bc6ad3cbbadbef75e591f049de9d03097335e3378e4ce0e7696d1797fe",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.160062Z",
+              "end_line": 2,
+              "evidence": "    assert (False, 'message')",
+              "evidence_digest": "v2:sha256:evidence:e1d322e90977ce78df172c1ba0ce885d9655f9c7e8c9e6039900a4a1451e8bb3",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 2,
+                  "snippet": "    assert (False, 'message')",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 2,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 2,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:080c24bc6ad3cbbadbef75e591f049de9d03097335e3378e4ce0e7696d1797fe",
+              "identity_digest": "v2:sha256:identity:b659882881e966074012e6cea869c04eb47aaffffa8790e67a5d118a0426a336",
+              "line": 2,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "0dc0fb14b8c68bf65bb501723cb6886ddd66dd47b656be56248f74eb22bac8eb"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "side-effects-not-executed",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "962180955292ed7d827b74e1d412549ad9b7b2c062eba44132e0413c6c039260",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 29,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "21cfee2300d118c12144fb503e27f4a6d42f0f3d303c7d5db12f2420590fe632",
+              "combined_digest": "v2:sha256:bd7d03e3fbee6b9fc6d9179d92fe627e57df49bb8a62bf44d4ee95dd9c57908b",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.253347Z",
+              "end_line": 1,
+              "evidence": "assert (effect(), 'message')",
+              "evidence_digest": "v2:sha256:evidence:5ce106c94ce2ffdfd57af7f052fbd2f04036b28b162044a529a79d15d6b2ce06",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert (effect(), 'message')",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 2,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 2,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:bd7d03e3fbee6b9fc6d9179d92fe627e57df49bb8a62bf44d4ee95dd9c57908b",
+              "identity_digest": "v2:sha256:identity:36aef3d5fd8c338f5408356ee8420ac7d1dd2885dcd248985b0c798eab847b96",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "8a3ea77152d9b05715622f791bfb824c32d4f55a750d830be9f50fe0a41ff191"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "construction-exception-not-evaluated",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "dc122b2644faf55ec0c054ea41505a2f7fe9fc15dcc2b30128d1e1732cc2c5cc",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 26,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "fad7ad868a64c769a8a8e7fb27758e89a000346e4b32cc2900085aa960ca4c63",
+              "combined_digest": "v2:sha256:78865a26ddedb5c81b0ff9c99a76506cd8d3eb038dc93a5aa1c2ffaa8cbe903f",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.344668Z",
+              "end_line": 1,
+              "evidence": "assert (1 / 0, 'message')",
+              "evidence_digest": "v2:sha256:evidence:d084bca6eff4c7ee006ea611d4ea2d4237802d1331780e5dabbd81334c8fccf9",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert (1 / 0, 'message')",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 2,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 2,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:78865a26ddedb5c81b0ff9c99a76506cd8d3eb038dc93a5aa1c2ffaa8cbe903f",
+              "identity_digest": "v2:sha256:identity:fc50107661aff79092e1154c4e57058f45c6cb7794f2c0d8c99747572c47a7f8",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "6896a062d9a29fb475b72e4368805f0c024f79035bf4518401e728a52b660c06"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "duplicates-retain-occurrences",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 2,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "7ba8943f67b9d791555f3239e983126404b1b9cd935d6b028810137af6ef877f",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 32,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "8a3ca6ceed42d7eb6701a192b694c0e00d6d60b0f9097a317bc2d40517653373",
+              "combined_digest": "v2:sha256:56fb45dc8c480ec1476965225915ea046cfbe4fd8d1f0731069ecb03564ff15a",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.436131Z",
+              "end_line": 1,
+              "evidence": "assert (False,)",
+              "evidence_digest": "v2:sha256:evidence:ac00f45c13a1eae63cb704bf6711a7a2d63971d1c6fa12767be8750ec480f611",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert (False,)",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 1,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 1,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:56fb45dc8c480ec1476965225915ea046cfbe4fd8d1f0731069ecb03564ff15a",
+              "identity_digest": "v2:sha256:identity:3a03045c1a5db539b27ccc8c486513f65864d07d6cfedf622ee7b97503960789",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          },
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "8a3ca6ceed42d7eb6701a192b694c0e00d6d60b0f9097a317bc2d40517653373",
+              "combined_digest": "v2:sha256:5db76331ab291a7c6a4d4678393ee03c37bb4dbd0a80484a4a508ad9425ae887",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.436348Z",
+              "end_line": 2,
+              "evidence": "assert (False,)",
+              "evidence_digest": "v2:sha256:evidence:e88cc6bbb0745dfe5ffa247e7350cdf56084273479d9c9a9f3ad3f734f477714",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 2,
+                  "snippet": "assert (False,)",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 1,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 1,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:5db76331ab291a7c6a4d4678393ee03c37bb4dbd0a80484a4a508ad9425ae887",
+              "identity_digest": "v2:sha256:identity:419395f9981d1fc2496653820d1d559ac67f37b53d9982c8bd58fa6251b806ec",
+              "line": 2,
+              "occurrence": 2,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "f9ba0b6ba96fb1a10cf2fa2b5e502b834881949c3aeeb631211ae296e6c071a9"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 2,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "syntax-error",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "ff9f479e7ed1dd7f85b25b7e38386b2199f05d3fd370cd977e6f363ead70b32b",
+        "coverage": {
+          "analyzed_python": 0,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 9,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": false
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [
+          {
+            "file": "main.py",
+            "line": 1,
+            "status": "syntax_error"
+          }
+        ],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "incomplete",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {},
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "file-budget",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "b7d6a0386c4479eae527a1a5e7595e13a000911a5d5b23d9a07c976e01764694",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 16,
+          "discovered_python": 2,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": false
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "a.py",
+            "finding": {
+              "anchor": "8a3ca6ceed42d7eb6701a192b694c0e00d6d60b0f9097a317bc2d40517653373",
+              "combined_digest": "v2:sha256:77c33ebe561a9b442634221ae0d02784eef3df2d9f59103fb052877298ae0bf5",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.581465Z",
+              "end_line": 1,
+              "evidence": "assert (False,)",
+              "evidence_digest": "v2:sha256:evidence:3094c330b5cca840805c7e0d1903fc2d366b8105bdb7f5a135dfc3ba3f4de311",
+              "evidence_refs": [
+                {
+                  "file": "a.py",
+                  "line": 1,
+                  "snippet": "assert (False,)",
+                  "symbol": "a.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 1,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 1,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "a.py",
+              "fingerprint": "v2:sha256:77c33ebe561a9b442634221ae0d02784eef3df2d9f59103fb052877298ae0bf5",
+              "identity_digest": "v2:sha256:identity:322b5a4bc852cc32c07c628721cb351b3fe8a5ecc8500d4d85af372218a7c7fb",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "a.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [
+          {
+            "file": "b.py",
+            "status": "budget_exhausted"
+          }
+        ],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 1,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "4816394ea0aaa5d8006aff59f3606bf90ad99f64db36308b59534aac372b3fac",
+        "review_status": "incomplete",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "a.py": "469e6be8fe0e91b944e65ff1024cf257d1ec73b6463b1349513dfa4733b434dc"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "excluded-not-read",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "377b8e98b0af02e520c2de46d568f6b19ecb21379651998bf2285873a73679cf",
+        "coverage": {
+          "analyzed_python": 0,
+          "attempted_python": 0,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 0,
+          "discovered_python": 0,
+          "excluded_python": 1,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": true,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": false
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "not_applicable",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {},
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "call-not-literal-tuple",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "4f76b5b79301bf0d18f81f81d6109b8fe16b398f925c8055aacce8391c42e0ab",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 20,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "5e7b26f5341119366d1e767867bc66d955078ce62d43560a5ec138a8fc5475ab"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "tuple-with-outer-message",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "80fdd7cf747e4f48680fd0cb161d21ce00536e1bc0760e2486e21ce9ca6e6087",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 37,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "8818e39bf6e0c0c0880a938d85b716f48e3fb2341c2235d7ca5248445673bbf3",
+              "combined_digest": "v2:sha256:b0af3d31406efde9b2c8b3416bb7b8f3854e2f8ab7635ffabe69b68eda9c9d27",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.770970Z",
+              "end_line": 1,
+              "evidence": "assert (condition, 'inner'), 'outer'",
+              "evidence_digest": "v2:sha256:evidence:5bb56ee660be325f117d20170b992a20803c75cbb43052e247f5f86c44d47ec3",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 1,
+                  "snippet": "assert (condition, 'inner'), 'outer'",
+                  "symbol": "main.py::<module>"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 2,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 2,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:b0af3d31406efde9b2c8b3416bb7b8f3854e2f8ab7635ffabe69b68eda9c9d27",
+              "identity_digest": "v2:sha256:identity:c05f39d9ece851eedf431c242b127504c6496c26cd990f07a2ddb9140cfac963",
+              "line": 1,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::<module>",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "4901bbaf6ab2583821f40d8f3ba1c5eb23e30fbc68a1fe3b902e9eb6763833c6"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "class-body",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 1,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "10753cb53b8fb360f048f29d03ff7f889a664b610fefcf58bad43e1da492ae18",
+        "coverage": {
+          "analyzed_python": 1,
+          "attempted_python": 1,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 29,
+          "discovered_python": 1,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 0,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": true
+        },
+        "findings": [
+          {
+            "can_block": false,
+            "classification": "behavior_bug_candidate",
+            "confirmed_behavior_bug": false,
+            "file": "main.py",
+            "finding": {
+              "anchor": "8a3ca6ceed42d7eb6701a192b694c0e00d6d60b0f9097a317bc2d40517653373",
+              "combined_digest": "v2:sha256:f8b911d7f88a34839c7ae181fe112307d198590bf82149e72eee1bccf03a0cf0",
+              "confidence": 1.0,
+              "created_at": "2026-10-28T09:42:16.864575Z",
+              "end_line": 2,
+              "evidence": "    assert (False,)",
+              "evidence_digest": "v2:sha256:evidence:bd3a38f79a2bfdd2d97ece6c9c2fc3e72f35d41714dfba258e370350ac517de8",
+              "evidence_refs": [
+                {
+                  "file": "main.py",
+                  "line": 2,
+                  "snippet": "    assert (False,)",
+                  "symbol": "main.py::C"
+                }
+              ],
+              "extraction": {
+                "branches": null,
+                "call_depth_max": null,
+                "extra": {
+                  "always_truthy_after_successful_construction": true,
+                  "assertions_enabled_requirement": true,
+                  "classification": "behavior_bug_candidate",
+                  "confirmed_behavior_bug": false,
+                  "intent_not_confirmed": true,
+                  "no_starred": true,
+                  "tuple_arity": 1,
+                  "unreachable_or_side_effects_not_assessed": true
+                },
+                "function_lines": null,
+                "sub_symbol_counts": [],
+                "sub_symbols": []
+              },
+              "facts": {
+                "always_truthy_after_successful_construction": true,
+                "assertions_enabled_requirement": true,
+                "classification": "behavior_bug_candidate",
+                "confirmed_behavior_bug": false,
+                "intent_not_confirmed": true,
+                "no_starred": true,
+                "tuple_arity": 1,
+                "unreachable_or_side_effects_not_assessed": true
+              },
+              "file": "main.py",
+              "fingerprint": "v2:sha256:f8b911d7f88a34839c7ae181fe112307d198590bf82149e72eee1bccf03a0cf0",
+              "identity_digest": "v2:sha256:identity:be92f9216b9a568b66123243a744f3a4f06d1942d249a811e47e9cf0036b41db",
+              "line": 2,
+              "occurrence": 1,
+              "reason": "assert 检查非空元组；构造成功后真值恒真。可能误写断言，尚未人工确认",
+              "rule_id": "python.assert_tuple",
+              "rule_version": "1",
+              "severity": "medium",
+              "source": "deterministic",
+              "suggestion": null,
+              "suggestion_type": null,
+              "symbol": "main.py::C",
+              "verified": true
+            },
+            "mode": "report_only"
+          }
+        ],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "report_only",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {
+          "main.py": "055125f5155aa54f5106af42bd55c94b9dbe53b09bec348a2c1e95674a2510bf"
+        },
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 1,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    },
+    {
+      "case_id": "no-python",
+      "contract_consistent": true,
+      "contract_extra": 0,
+      "contract_hits": 0,
+      "contract_missing": 0,
+      "issues_match": true,
+      "prediction": {
+        "access_fingerprint": "7f101bdc17ed887a519236a5d991551934a8b2b5523cf9d502af6e361c7349e6",
+        "coverage": {
+          "analyzed_python": 0,
+          "attempted_python": 0,
+          "byte_accounting": "actual bytes on successful load; full per-file reservation on load failure",
+          "bytes_accounted_for_budget": 0,
+          "discovered_python": 0,
+          "excluded_python": 0,
+          "other_language_files_not_evaluated": 1,
+          "permissions_limited": false,
+          "whole_repository_evaluated": false,
+          "within_scope_complete": false
+        },
+        "findings": [],
+        "formal_acceptance": {
+          "passed": false,
+          "reason": "syntax candidates only; no human bug adjudication, CI gate or detector-quality acceptance"
+        },
+        "gate_status": "not_evaluated",
+        "issues": [],
+        "language_scope": "permitted_python_files_only",
+        "limitations": [
+          "Only the assert-test syntax is established; a behavioral bug has not been confirmed by a person.",
+          "The tuple truth check is true only after successful construction and when assertions are enabled.",
+          "Reachability, side effects, exceptions, author intent and actual runtime consequences are not assessed.",
+          "Only permitted Python files are checked; zero candidates is not a gate pass or detector-quality acceptance."
+        ],
+        "mode": "defect_preview",
+        "policy": {
+          "classification": "behavior_bug_candidate",
+          "limits": {
+            "max_file_bytes": 2097152,
+            "max_files": 2000,
+            "max_total_bytes": 33554432
+          },
+          "mode": "report_only",
+          "rule_id": "python.assert_tuple",
+          "rule_version": "1",
+          "schema_version": 1
+        },
+        "policy_sha256": "a2c4649de62987a857acda5fcc788216e95fbe010b0a2c6e2e987d170bae63a0",
+        "review_status": "not_applicable",
+        "rules": [
+          {
+            "approved_for_blocking": false,
+            "classification": "behavior_bug_candidate",
+            "rule_id": "python.assert_tuple",
+            "rule_version": "1"
+          }
+        ],
+        "schema_version": 1,
+        "source_sha256": {},
+        "summary": {
+          "blocking_findings": 0,
+          "candidate_findings": 0,
+          "confirmed_behavior_bug_findings": 0
+        }
+      },
+      "status_matches": true
+    }
+  ],
+  "contract_id": "python-assert-tuple-synthetic-v2",
+  "formal_acceptance": {
+    "passed": false,
+    "reason": "developer-authored synthetic syntax contract; no bug precision, independent adjudication or gate acceptance"
+  },
+  "mode": "synthetic_syntax_contract",
+  "registration_sha256": "666944f8e274ecab702aaceccb71dab8e927bc4a9d296275408a0f96925c2bca",
+  "schema_version": 1,
+  "split": "dev",
+  "summary": {
+    "case_count": 25,
+    "consistent_cases": 25,
+    "contract_extra": 0,
+    "contract_hits": 14,
+    "contract_missing": 0,
+    "expected_syntax_candidates": 14
+  },
+  "target_execution": false
+}

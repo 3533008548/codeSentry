@@ -1,0 +1,176 @@
+{
+  "schema_version": "review-gold-v1",
+  "dataset_id": "review-synthetic-v1",
+  "dataset_version": "1",
+  "split": "dev",
+  "cases": [
+    {
+      "id": "matching",
+      "project": "synthetic-matching",
+      "language": "python",
+      "repository_group": "synthetic-matching",
+      "defect_family": "fixture-matching",
+      "source_snapshot": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "category": "bug",
+      "label": "bugs",
+      "adjudication": "confirmed",
+      "evidence": [
+        "Synthetic specification; not real project gold."
+      ],
+      "scope": {
+        "start_line": 1,
+        "end_line": 100,
+        "complete": true
+      },
+      "issues": [
+        {
+          "id": "wide",
+          "locations": [
+            {
+              "start_line": 10,
+              "end_line": 20,
+              "symbol": null
+            }
+          ],
+          "evidence": [
+            "Synthetic manually specified expected defect."
+          ]
+        },
+        {
+          "id": "narrow",
+          "locations": [
+            {
+              "start_line": 10,
+              "end_line": 10,
+              "symbol": null
+            }
+          ],
+          "evidence": [
+            "Synthetic manually specified expected defect."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clean",
+      "project": "synthetic-clean",
+      "language": "python",
+      "repository_group": "synthetic-clean",
+      "defect_family": "fixture-clean",
+      "source_snapshot": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "category": "bug",
+      "label": "clean",
+      "adjudication": "confirmed",
+      "evidence": [
+        "Synthetic specification; not real project gold."
+      ],
+      "scope": {
+        "start_line": 1,
+        "end_line": 100,
+        "complete": true
+      },
+      "issues": []
+    },
+    {
+      "id": "partial",
+      "project": "synthetic-partial",
+      "language": "python",
+      "repository_group": "synthetic-partial",
+      "defect_family": "fixture-partial",
+      "source_snapshot": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "category": "bug",
+      "label": "bugs",
+      "adjudication": "confirmed",
+      "evidence": [
+        "Synthetic specification; not real project gold."
+      ],
+      "scope": {
+        "start_line": 1,
+        "end_line": 100,
+        "complete": false
+      },
+      "issues": [
+        {
+          "id": "known",
+          "locations": [
+            {
+              "start_line": 2,
+              "end_line": 2,
+              "symbol": null
+            }
+          ],
+          "evidence": [
+            "Synthetic manually specified expected defect."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "debt",
+      "project": "synthetic-debt",
+      "language": "python",
+      "repository_group": "synthetic-debt",
+      "defect_family": "fixture-debt",
+      "source_snapshot": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "path": "src/example.py",
+      "rule_id": "synthetic.policy",
+      "rule_version": "1",
+      "category": "debt",
+      "label": "debt",
+      "adjudication": "confirmed",
+      "evidence": [
+        "Synthetic specification; not real project gold."
+      ],
+      "scope": {
+        "start_line": 1,
+        "end_line": 100,
+        "complete": true
+      },
+      "issues": [
+        {
+          "id": "debt-item",
+          "locations": [
+            {
+              "start_line": 5,
+              "end_line": 5,
+              "symbol": null
+            }
+          ],
+          "evidence": [
+            "Synthetic manually specified expected defect."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unknown",
+      "project": "synthetic-unknown",
+      "language": "python",
+      "repository_group": "synthetic-unknown",
+      "defect_family": "fixture-unknown",
+      "source_snapshot": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "category": "bug",
+      "label": "unknown",
+      "adjudication": "pending",
+      "evidence": [],
+      "scope": {
+        "start_line": 1,
+        "end_line": 100,
+        "complete": false
+      },
+      "issues": []
+    }
+  ]
+}

@@ -1,51 +1,47 @@
-"""符号解析：把被调用的裸名定位到具体定义。
+"""Resolve lexical/import bindings separately from navigation-only guesses.
 
-这是索引层的核心难点。v0.2 实测记录的纯 AST 天花板：
-
-  Python 侧 unresolved 12.8%
-    - 约 1,084 条是标准库的**类方法**（datetime.now() 的 now、
-      sqlite3.commit() 的 commit）—— ast 看不到类的方法
-    - 约 256 条是**同名多定义歧义**（create 29 次、start 21 次）
-  TypeScript 侧 unresolved 6.9%（import 语法更规整）
-
-解析策略（按优先级）：
-  1. 本文件定义           → local
-  2. import 路径精确匹配  → cross_file（最可靠）
-  3. import 路径模糊匹配  → cross_file
-  4. 全项目唯一定义       → cross_file
-  5. 多候选 / 无候选      → ambiguous / unresolved
+``local`` and ``cross_file`` represent static binding evidence. A unique name or
+nearby directory is only a ``heuristic``; ambiguous candidates never select the
+first file. Object member names alone do not establish a binding.
 """
 from __future__ import annotations
 
+import builtins
+import posixpath
+import sys
+from types import BuiltinFunctionType
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-from codesentry.core.symbol import CallSite, Symbol
+from codesentry.core.symbol import CallSite, Symbol, SymbolKind
 
 
 @dataclass
 class ResolvedCall:
-    """一条解析后的调用。"""
-
-    source: str | None          # 调用方限定名
-    target_name: str            # 被调名
-    target: str | None          # 被调方限定名（解析成功时）
+    source: str | None
+    target_name: str
+    target: str | None
     file: str
     line: int
-    resolution: str             # local/cross_file/external/builtin/...
+    resolution: str
+    candidates: tuple[str, ...] = ()
+    method: str = ""
+
+    def __post_init__(self):
+        self.candidates = tuple(self.candidates)
 
     @property
     def is_internal(self) -> bool:
+        """A project candidate exists; this alone does not prove a binding."""
         return self.target is not None
+
+    @property
+    def is_certain(self) -> bool:
+        return self.target is not None and self.resolution in {"local", "cross_file"}
 
 
 @dataclass
 class SymbolResolver:
-    """跨文件符号解析器。
-
-    依赖全局信息（本文件所有定义 + import 表），所以只能在索引层做。
-    """
-
     defs_by_file: dict[str, set[str]] = field(default_factory=dict)
     imports_by_file: dict[str, dict[str, set[str]]] = field(default_factory=dict)
     imported_names: set[str] = field(default_factory=set)
@@ -54,220 +50,278 @@ class SymbolResolver:
     external_names: set[str] = field(default_factory=set)
     builtin_names: set[str] = field(default_factory=set)
     test_helper_names: set[str] = field(default_factory=set)
+    import_kinds_by_file: dict[str, dict[str, str]] = field(default_factory=dict)
+    import_records: list[dict] = field(default_factory=list)
 
     def build(
-        self,
-        symbols: list[Symbol],
+        self, symbols: list[Symbol],
         imports_by_file: dict[str, dict[str, set[str]]],
-        imported_names: set[str],
+        imported_names: set[str], all_files: list[str] | None = None,
+        import_kinds_by_file: dict[str, dict[str, str]] | None = None,
     ) -> None:
-        """用解析结果初始化索引。"""
         self.defs_by_file = defaultdict(set)
         self.imports_by_file = imports_by_file
         self.imported_names = imported_names
+        self.import_kinds_by_file = import_kinds_by_file or {}
+        self.import_records = []
         self.name_to_files = defaultdict(list)
         self.qname_to_file = {}
-        self._all_files: list[str] = []
+        self._symbols = {symbol.qname: symbol for symbol in symbols}
+        self._by_scope: dict[tuple[str, str | None, str], list[Symbol]] = defaultdict(list)
+        self._by_name: dict[str, list[Symbol]] = defaultdict(list)
+        self._all_files = sorted(set(all_files or []) | set(imports_by_file) | {s.file for s in symbols})
+        for symbol in sorted(symbols, key=lambda item: item.qname):
+            self.defs_by_file[symbol.file].add(symbol.name)
+            self.qname_to_file[symbol.qname] = symbol.file
+            self._by_scope[(symbol.file, symbol.parent, symbol.name)].append(symbol)
+            self._by_name[symbol.name].append(symbol)
+            if symbol.file not in self.name_to_files[symbol.name]:
+                self.name_to_files[symbol.name].append(symbol.file)
 
-        for s in symbols:
-            self.defs_by_file[s.file].add(s.name)
-            self.qname_to_file[s.qname] = s.file
-            self.name_to_files[s.name].append(s.file)
-            if s.file not in self._all_files:
-                self._all_files.append(s.file)
+    def _module_files(self, caller_file: str, module: str) -> list[str]:
+        """Only exact project paths; no basename/substr/first-candidate match.
 
-    # ---------- 解析 ----------
+        Custom sys.path, TS aliases and re-export chains need environment or
+        compiler binding evidence, so they remain unresolved here.
+        """
+        if not module or module.startswith("node:"):
+            return []
+        is_python = caller_file.endswith(".py")
+        if is_python:
+            dots = len(module) - len(module.lstrip("."))
+            if dots:
+                base = posixpath.dirname(caller_file)
+                for _ in range(dots - 1):
+                    if not base or base == ".":
+                        return []
+                    base = posixpath.dirname(base)
+                target = posixpath.normpath(posixpath.join(base, module[dots:].replace(".", "/")))
+            else:
+                target = module.replace(".", "/")
+            paths = {target + ".py", posixpath.join(target, "__init__.py")}
+        else:
+            if module.startswith("."):
+                target = posixpath.normpath(posixpath.join(posixpath.dirname(caller_file), module))
+            else:
+                # Package specifiers and tsconfig aliases are environment-dependent.
+                return []
+            root, ext = posixpath.splitext(target)
+            if ext in {".js", ".jsx", ".mjs", ".cjs"}:
+                target = root
+            paths = {target, *(target + ext for ext in (".ts", ".tsx", ".mts", ".cts")),
+                     *(posixpath.join(target, "index" + ext) for ext in (".ts", ".tsx"))}
+        return [path for path in self._all_files if path in paths]
+
+    def _members(self, parents: list[Symbol], parts: list[str]) -> list[Symbol]:
+        parents = [symbol for symbol in parents if symbol.binding_is_static]
+        for part in parts:
+            parents = [member for parent in parents
+                       for member in self._by_scope.get((parent.file, parent.qname, part), [])
+                       if member.binding_is_static]
+        return sorted(parents, key=lambda item: item.qname)
+
+    def _lexical(self, call: CallSite, root: str) -> list[Symbol]:
+        if call.binding_kind == "unbound":
+            return []
+        if call.binding_kind == "local":
+            if call.binding_target in self._symbols:
+                symbol = self._symbols[call.binding_target]
+                return [symbol] if symbol.binding_is_static else []
+            return [symbol for symbol in self._by_scope.get((call.file, call.binding_scope, root), [])
+                    if symbol.binding_is_static]
+        scope = self._symbols.get(call.caller_qname or "")
+        while scope is not None:
+            candidates = [symbol for symbol in self._by_scope.get((call.file, scope.qname, root), [])
+                          if symbol.binding_is_static]
+            if candidates and scope.kind != SymbolKind.CLASS:
+                return candidates
+            scope = self._symbols.get(scope.parent or "")
+        return [symbol for symbol in self._by_scope.get((call.file, None, root), [])
+                if symbol.binding_is_static]
+
+    def _known_external(self, caller_file: str, module: str) -> bool:
+        """An explicit standard-library origin, never an absent-name guess.
+
+        This classifies the declared origin, not installation availability or
+        runtime success. Custom loaders/search paths stay outside this resolver.
+        """
+        if module.startswith("node:"):
+            return True
+        if not module or module.startswith("."):
+            return False
+        if module in self.external_names:
+            return True  # Reserved for trusted environment-supplied evidence.
+        root = module.split(".", 1)[0]
+        return (caller_file.endswith(".py") and root in sys.stdlib_module_names
+                and not self._module_files(caller_file, root))
+
+    def _missing_import_kind(self, caller_file: str, module: str) -> str:
+        return "external" if self._known_external(caller_file, module) else "unresolved"
+
+    def _imported(self, call: CallSite, parts: list[str]) -> tuple[list[Symbol], str]:
+        if call.binding_kind == "namespace":
+            members = parts[1:]
+            if not members:
+                return [], self._missing_import_kind(call.file, call.module)
+            modules = [(call.module, members)]
+            if call.file.endswith(".py"):
+                # ``import pkg`` does not prove that pkg.child was imported.
+                # Nested module paths need an explicit import occurrence.
+                declared = self.imports_by_file.get(call.file, {})
+                for split in range(1, len(members)):
+                    module = call.module + "." + ".".join(members[:split])
+                    if module in declared:
+                        modules.append((module, members[split:]))
+            result: list[Symbol] = []
+            found_file = False
+            for module, path in modules:
+                files = self._module_files(call.file, module)
+                found_file |= bool(files)
+                if len(files) > 1:
+                    return [], "ambiguous"
+                roots = [symbol for file in files for symbol in self._by_scope.get((file, None, path[0]), [])
+                         if symbol.binding_is_static and (call.file.endswith(".py") or path[0] in symbol.export_names)]
+                result.extend(self._members(roots, path[1:]))
+            return list({symbol.qname: symbol for symbol in result}.values()), (
+                "unresolved" if found_file else self._missing_import_kind(call.file, call.module))
+        files = self._module_files(call.file, call.module)
+        if len(files) > 1:
+            return [], "ambiguous"
+        roots = [symbol for file in files for symbol in self._symbols.values()
+                 if symbol.file == file and symbol.parent is None and symbol.binding_is_static
+                 and ((call.file.endswith(".py") and symbol.name == call.imported_name)
+                      or call.imported_name in symbol.export_names)]
+        result = self._members(roots, parts[1:])
+        if not result and not files and call.file.endswith(".py") and len(parts) > 1:
+            # Namespace package from-imports can prove a submodule. If an
+            # initializer exists, its unmodelled assignments/re-exports may
+            # provide the attribute instead, so do not guess a submodule.
+            sep = "" if call.module.endswith(".") else "."
+            files = self._module_files(call.file, call.module + sep + call.imported_name)
+            if len(files) > 1:
+                return [], "ambiguous"
+            roots = [symbol for file in files for symbol in self._by_scope.get((file, None, parts[1]), [])
+                     if symbol.binding_is_static]
+            result = self._members(roots, parts[2:])
+        return result, "unresolved" if files else self._missing_import_kind(call.file, call.module)
+
+    @staticmethod
+    def _answer(candidates: list[Symbol], kind: str, method: str):
+        names = tuple(sorted({symbol.qname for symbol in candidates}))
+        if len(names) == 1:
+            return names[0], kind, names, method
+        return None, "ambiguous" if names else "unresolved", names, method
+
+    def _resolve_call(self, call: CallSite):
+        expression = call.expression or (f"{call.receiver}.{call.callee_name}" if call.receiver else call.callee_name)
+        parts = expression.split(".")
+        # Bracket/call/complex receivers require types or value analysis.
+        if not all(part.replace("$", "_").isidentifier()
+                   or (part.startswith("#") and part[1:].replace("$", "_").isidentifier())
+                   for part in parts):
+            return None, "unresolved", (), "dynamic_expression"
+        if call.binding_kind == "type_only":
+            return None, "unresolved", (), "type_annotation_or_checking_context"
+        if call.binding_kind == "shadowed":
+            return None, "unresolved", (), "local_value_or_parameter"
+        if call.binding_kind in {"symbol", "namespace"}:
+            candidates, missing = self._imported(call, parts)
+            if candidates and any(symbol.kind in {SymbolKind.TYPE_ALIAS, SymbolKind.INTERFACE} for symbol in candidates):
+                return None, "unresolved", (), "type_only_definition"
+            if candidates:
+                return self._answer(candidates, "cross_file", "exact_import")
+            return None, missing, (), "exact_import_missing"
+        roots = self._lexical(call, parts[0])
+        if call.binding_kind == "local" and not roots:
+            return None, "unresolved", (), "rebound_definition"
+        if roots:
+            if len(parts) > 1:
+                # Only an explicitly bound class/namespace proves a static member.
+                roots = [symbol for symbol in roots if symbol.kind in {SymbolKind.CLASS, SymbolKind.MODULE}]
+            candidates = self._members(roots, parts[1:])
+            if candidates and any(symbol.kind in {SymbolKind.TYPE_ALIAS, SymbolKind.INTERFACE} for symbol in candidates):
+                return None, "unresolved", (), "type_only_definition"
+            if candidates:
+                return self._answer(candidates, "local", "lexical_binding")
+            return None, "unresolved", (), "unknown_member"
+        if call.receiver:
+            return None, "unresolved", (), "unknown_receiver"
+        # The parser must prove a bare Python builtin lookup after lexical
+        # shadowing. A legacy allowlist (get/start/assert_*) is not evidence.
+        value = vars(builtins).get(call.callee_name)
+        if (call.file.endswith(".py") and call.binding_kind == "builtin"
+                and isinstance(value, (BuiltinFunctionType, type))):
+            return None, "builtin", (), "unshadowed_python_builtin"
+        candidates = self._by_name.get(call.callee_name, [])
+        if len(candidates) > 1:
+            near = [symbol for symbol in candidates
+                    if posixpath.dirname(symbol.file) == posixpath.dirname(call.file)]
+            if len(near) == 1:
+                return self._answer(near, "heuristic", "unique_same_directory")
+            return None, "ambiguous", tuple(sorted(symbol.qname for symbol in candidates)), "name_candidates"
+        if candidates:
+            return self._answer(candidates, "heuristic", "global_unique_name")
+        return None, "unresolved", (), "no_binding"
 
     def resolve(self, callee: str, caller_file: str) -> tuple[str | None, str]:
-        """解析一个被调名。
-
-        Returns:
-            (目标限定名或 None, 解析方式)
-        """
-        # 1. 本文件定义
-        if callee in self.defs_by_file.get(caller_file, ()):
-            return self._qname_in(caller_file, callee), "local"
-
-        # 2. import 精确匹配
-        target = self._match_import(caller_file, callee)
-        if target:
-            return target, "cross_file"
-
-        # 3. 全项目唯一定义
-        cands = self.name_to_files.get(callee, [])
-        if len(cands) == 1:
-            return self._qname_in(cands[0], callee), "cross_file"
-
-        if len(cands) > 1:
-            # 歧义：尝试用调用者所在目录消歧
-            guess = self._disambiguate(callee, caller_file, cands)
-            if guess:
-                return guess, "cross_file"
-            return None, "ambiguous"
-
-        return None, "unresolved"
-
-    def _qname_in(self, file: str, name: str) -> str:
-        """在给定文件里找符号的限定名。
-
-        同名多定义时取第一个（限定名不唯一的情况已由 resolve 处理）。
-        """
-        return f"{file}::{name}"
-
-    def _match_import(self, caller_file: str, callee: str) -> str | None:
-        """用 import 表定位目标文件。"""
-        imports = self.imports_by_file.get(caller_file)
-        if not imports:
-            return None
-        for module, names in imports.items():
-            if callee not in names:
-                continue
-            mod_path = module.replace(".", "/").replace("\\", "/")
-            cands = self.name_to_files.get(callee, [])
-            if not cands:
-                continue
-            # 精确：路径包含模块路径
-            hit = next(
-                (f for f in cands if mod_path in f.replace("\\", "/")), None
-            )
-            if hit:
-                return self._qname_in(hit, callee)
-            # 模糊：文件名匹配模块 basename
-            base = mod_path.split("/")[-1]
-            hit = next(
-                (f for f in cands
-                 if f.replace("\\", "/").split("/")[-1] == f"{base}.py"
-                 or f.replace("\\", "/").split("/")[-1] == f"{base}.ts"
-                 or f.replace("\\", "/").split("/")[-1] == f"{base}.tsx"),
-                None,
-            )
-            if hit:
-                return self._qname_in(hit, callee)
-        return None
-
-    def _disambiguate(
-        self, callee: str, caller_file: str, cands: list[str]
-    ) -> str | None:
-        """同名多定义时的启发式消歧。
-
-        规则：同目录优先 > 同顶层目录优先。
-        """
-        caller_parts = caller_file.replace("\\", "/").split("/")
-        caller_dir = "/".join(caller_parts[:-1])
-
-        # 同目录
-        for f in cands:
-            if f.replace("\\", "/").rsplit("/", 1)[0] == caller_dir:
-                return self._qname_in(f, callee)
-
-        # 同顶层目录
-        if len(caller_parts) > 1:
-            top = caller_parts[0]
-            for f in cands:
-                if f.replace("\\", "/").split("/")[0] == top:
-                    return self._qname_in(f, callee)
-        return None
-
-    # ---------- import 边（文件级）----------
+        """Compatibility API: no receiver or import alias evidence is inferred."""
+        call = CallSite(caller_qname=None, callee_name=callee, file=caller_file, line=1)
+        target, kind, _, _ = self._resolve_call(call)
+        return target, kind
 
     def resolve_import_edges(self) -> list[tuple[str, str]]:
-        """从 import 表建立文件级依赖边。
+        """Return path-proven dependencies and retain their execution category.
 
-        **为什么必须单独建 import 边**：调用图和依赖图是两回事。
-        接口文件、类型契约、常量模块只有 import 关系、没有任何函数调用，
-        在调用图里是孤立点。实测 Knowledge Loop 的 5 个核心文件
-        （knowledge-repository.ts / desktop-api.ts / json-post.ts /
-        fetch-api-request.ts / preload.ts）在调用图里入度出度全为 0，
-        全部漏出阅读顺序。
-
-        解析规则：
-          1. 相对路径（../core/x）→ 按调用方目录求绝对项目路径
-          2. 绝对模块路径（core.x）→ 点号转斜杠
-          3. 从导入符号名反推定义所在文件
+        Type/conditional imports are dependencies for reading, not proof that a
+        runtime import or call occurred. Ambiguous/unknown paths stay in records
+        and never become edges via a filename or symbol-name fallback.
         """
-        import posixpath
+        edges: set[tuple[str, str]] = set()
+        self.import_records = []
 
-        edges: list[tuple[str, str]] = []
-        for caller_file, imports in self.imports_by_file.items():
-            caller_dir = posixpath.dirname(caller_file)
-            for module, names in imports.items():
-                if module.startswith("node:") or module.startswith("electron"):
-                    continue
-                if not names:
-                    continue
+        def record(caller: str, module: str, kind: str, files: list[str], evidence: str):
+            target = files[0] if len(files) == 1 else None
+            resolution = ("certain" if target else "ambiguous" if files else
+                          self._missing_import_kind(caller, module))
+            self.import_records.append({
+                "source": caller, "target": target, "module": module,
+                "kind": kind, "resolution": resolution,
+                "candidates": sorted(files), "evidence": evidence,
+            })
+            if target and target != caller:
+                edges.add((caller, target))
 
-                # 1. 相对路径 → 绝对项目路径
-                if module.startswith("."):
-                    target_path = posixpath.normpath(
-                        posixpath.join(caller_dir, module))
-                else:
-                    target_path = module.replace(".", "/")
+        for caller, imports in sorted(self.imports_by_file.items()):
+            for module, names in sorted(imports.items()):
+                kind = self.import_kinds_by_file.get(caller, {}).get(module, "unknown")
+                # A local module called typing defeats the standard guard claim.
+                if kind == "type" and self._module_files(caller, "typing"):
+                    kind = "conditional"
+                files = self._module_files(caller, module)
+                record(caller, module, kind, files, "exact_module_path")
+                if not files and caller.endswith(".py") and module.startswith("."):
+                    # Only initializer-free namespace packages permit this small
+                    # submodule rule. Initializer attributes remain unresolved.
+                    sep = "" if module.endswith(".") else "."
+                    for name in sorted(names):
+                        if name == "*":
+                            continue
+                        submodule = module + sep + name
+                        subfiles = self._module_files(caller, submodule)
+                        if subfiles:
+                            record(caller, submodule, kind, subfiles, "explicit_from_import_namespace_submodule")
+        return sorted(edges)
 
-                cands = self.name_to_files.get(module) or []
-                # 先按路径匹配
-                hit = next(
-                    (f for f in self._all_files
-                     if f.replace("\\", "/") == target_path
-                     or f.replace("\\", "/").startswith(target_path + "/")),
-                    None)
-                if hit is None:
-                    # 再按符号名反推：找到定义了这些名字的文件
-                    by_name = set()
-                    for n in names:
-                        by_name.update(self.name_to_files.get(n, []))
-                    cands = list(by_name)
-                    if not cands:
-                        continue
-                    # 优先选路径能对上的
-                    hit = next(
-                        (f for f in cands
-                         if f.replace("\\", "/").startswith(target_path)), None)
-                    if hit is None:
-                        # 其次选同目录
-                        hit = next(
-                            (f for f in cands
-                             if posixpath.dirname(f.replace("\\", "/")) == caller_dir),
-                            None)
-                    if hit is None and len(cands) == 1:
-                        hit = cands[0]
-                    if hit is None:
-                        continue
-                if hit != caller_file:
-                    edges.append((caller_file, hit))
-        return edges
-
-    # ---------- 批量解析 ----------
-
-    def resolve_all(
-        self,
-        calls: list[CallSite],
-        builtin_names: set[str],
-        test_helper_names: set[str],
-    ) -> list[ResolvedCall]:
-        """批量解析调用点并分类。"""
+    def resolve_all(self, calls: list[CallSite], builtin_names: set[str],
+                    test_helper_names: set[str]) -> list[ResolvedCall]:
         self.builtin_names = builtin_names
         self.test_helper_names = test_helper_names
-
         out: list[ResolvedCall] = []
-        for c in calls:
-            callee = c.callee_name
-            caller_file = c.file
-
-            if callee in test_helper_names:
-                res, kind = None, "test_helper"
-            elif callee in builtin_names:
-                res, kind = None, "builtin"
-            elif c.caller_qname is None:
-                res, kind = None, "module_level"
-            else:
-                res, kind = self.resolve(callee, caller_file)
-
+        for call in calls:
+            target, kind, candidates, method = self._resolve_call(call)
             out.append(ResolvedCall(
-                source=c.caller_qname,
-                target_name=callee,
-                target=res,
-                file=c.file,
-                line=c.line,
-                resolution=kind,
+                source=call.caller_qname, target_name=call.callee_name,
+                target=target, file=call.file, line=call.line, resolution=kind,
+                candidates=candidates, method=method,
             ))
         return out

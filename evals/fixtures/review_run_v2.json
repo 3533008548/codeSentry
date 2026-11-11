@@ -1,0 +1,29 @@
+{
+  "schema_version": "review-run-v1",
+  "run_id": "synthetic-semantic-dev-v2-global-plan",
+  "dataset_id": "review-synthetic-v1",
+  "dataset_version": "1",
+  "split": "dev",
+  "inputs": {
+    "gold": {
+      "path": "review_gold_v1.json",
+      "sha256": "b43a60c55de0d96eeffffec80b1757cf2272becddc867f940a3a8ae5774c3295"
+    },
+    "predictions": {
+      "path": "review_predictions_v1.json",
+      "sha256": "1faf5078955b703133ca1bb12820f15db08b0dd78528d4a25b32223bf490f50b"
+    },
+    "matching_contract": {
+      "path": "../contracts/review_matching_v1.json",
+      "sha256": "2f018bb213d7fb985b75800f3af77f3318b2be50818e6a209e45bbbe406f3e15"
+    },
+    "splits": {
+      "path": "review_run_splits_v2.json",
+      "sha256": "43b7fa5ab6147d199328b57294683d3989770e2bd91b987a8e6d1162042cde64"
+    },
+    "stages": {
+      "path": "review_stages_v1.json",
+      "sha256": "743e6db651132db6e4dfed220e69959345bfccfd44947aff560e55128adb1f5e"
+    }
+  }
+}

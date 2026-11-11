@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "contract_id": "python-assert-tuple-synthetic-v1",
+  "split": "dev",
+  "purpose": "synthetic syntax-contract expected observations, not behavioral bug gold",
+  "rule_id": "python.assert_tuple",
+  "rule_version": "1",
+  "predicate": "ast.Assert.test is a nonempty ast.Tuple and no ast.Starred exists anywhere in its test subtree",
+  "expected_fields": ["file", "line", "end_line", "symbol", "occurrence", "tuple_arity"],
+  "matching": "exact fields and fixed syntax facts; multiset one-to-one; repeated predictions cannot earn extra hits",
+  "denominator": "number of predeclared expected syntax candidates, including independent repeated occurrences",
+  "classification": "behavior_bug_candidate",
+  "independently_adjudicated": false,
+  "confirmed_behavior_bug": false,
+  "approved_for_blocking": false,
+  "target_execution": false,
+  "limitations": [
+    "Synthetic contract expectations are developer-authored and do not establish bug precision or recall.",
+    "Expected nonmatches are outside this rule or syntax-contract negatives, not clean-project labels.",
+    "Unreachable and side-effect examples still match syntax only; runtime effects and author intent remain unknown.",
+    "The current trusted analyzer parses Python; no candidate code is imported or executed."
+  ],
+  "semantic_sources": [
+    "https://docs.python.org/3.14/reference/simple_stmts.html#the-assert-statement",
+    "https://docs.python.org/3.14/library/stdtypes.html#truth-value-testing",
+    "https://docs.python.org/3.14/reference/expressions.html#parenthesized-forms"
+  ]
+}

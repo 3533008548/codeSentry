@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "registration": {
+    "kind": "synthetic-development-counterexample",
+    "source_sha256": {
+      "swallows.py": "77a44fc0a4e724ee7dbf63e28c0aaa67e66453becf713822f2374dbff2b0dc6c",
+      "preserves.py": "e17f882f402e88a359112ebd9d54591faae23484ec1e3f0afb24e3347d5e78b2"
+    },
+    "probe_sha256": "71ca0c059b874690372299a404b6851c06c7fba93c96d14f428bab46e4f3249d",
+    "expected_behavior": {
+      "preserves.py": {
+        "raised": "RuntimeError",
+        "message": "primary"
+      },
+      "swallows.py": {
+        "returned": 0
+      }
+    },
+    "expected_output_sha256": "8c624a892a82e2ec395cda9380fafd00ec3684b66a42ede02ab28853d1f7ed2f",
+    "images": {
+      "3.11": "sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+      "3.14": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c"
+    },
+    "comparison_report_sha256": "f9e213cd5fdcf3e50438ad8b3d17c455b203e8b1a3f99d537a2e7a3e6bf73da4",
+    "candidate_expected_hits": {
+      "preserves.py": [],
+      "swallows.py": [
+        [
+          8,
+          8,
+          2
+        ]
+      ]
+    }
+  },
+  "source": {
+    "swallows.py": "def subject():\n    try:\n        raise RuntimeError(\"primary\")\n    finally:\n        try:\n            raise ValueError(\"cleanup\")\n        except ValueError:\n            return 0\n",
+    "preserves.py": "def subject():\n    try:\n        raise RuntimeError(\"primary\")\n    finally:\n        try:\n            raise ValueError(\"cleanup\")\n        except ValueError:\n            pass\n"
+  },
+  "ruff": {
+    "py311": [],
+    "py314": []
+  },
+  "candidate": {
+    "swallows.py": {
+      "status": "checked",
+      "hits": [
+        [
+          8,
+          8,
+          2
+        ]
+      ]
+    },
+    "preserves.py": {
+      "status": "checked",
+      "hits": []
+    }
+  },
+  "executions": {
+    "3.11": {
+      "status": "passed",
+      "executed": true,
+      "task_id": "finally-exception-flow",
+      "kind": "probe",
+      "snapshot_digest": "56903c3e3a6773a321ebd5139b0f176ebffe8c0b18673db7bdb021f2adcf6ff0",
+      "image_reference": "docker.io/library/python@sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+      "image_id": "sha256:3c35dbe0205e9428cdd671c078cc6c824fc20c86591646eb91c0cdc6c86fb8bd",
+      "platform": "linux",
+      "architecture": "amd64",
+      "exit_code": 0,
+      "assertion_count": 0,
+      "logs": "{\"preserves.py\": {\"message\": \"primary\", \"raised\": \"RuntimeError\"}, \"swallows.py\": {\"returned\": 0}}\n",
+      "output_sha256": "8c624a892a82e2ec395cda9380fafd00ec3684b66a42ede02ab28853d1f7ed2f",
+      "log_truncated": false,
+      "cleanup_pending": false,
+      "issues": [],
+      "elapsed_seconds": 1.273,
+      "limits": {
+        "memory_bytes": 268435456,
+        "cpus": 1,
+        "pids": 32,
+        "timeout_seconds": 20,
+        "max_log_bytes": 16384,
+        "work_bytes": 8388608
+      }
+    },
+    "3.14": {
+      "status": "passed",
+      "executed": true,
+      "task_id": "finally-exception-flow",
+      "kind": "probe",
+      "snapshot_digest": "56903c3e3a6773a321ebd5139b0f176ebffe8c0b18673db7bdb021f2adcf6ff0",
+      "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+      "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+      "platform": "linux",
+      "architecture": "amd64",
+      "exit_code": 0,
+      "assertion_count": 0,
+      "logs": "{\"preserves.py\": {\"message\": \"primary\", \"raised\": \"RuntimeError\"}, \"swallows.py\": {\"returned\": 0}}\n",
+      "output_sha256": "8c624a892a82e2ec395cda9380fafd00ec3684b66a42ede02ab28853d1f7ed2f",
+      "log_truncated": false,
+      "cleanup_pending": false,
+      "issues": [],
+      "elapsed_seconds": 1.3225,
+      "limits": {
+        "memory_bytes": 268435456,
+        "cpus": 1,
+        "pids": 32,
+        "timeout_seconds": 20,
+        "max_log_bytes": 16384,
+        "work_bytes": 8388608
+      }
+    }
+  },
+  "target_user_code_executed": false,
+  "formal_acceptance": false
+}

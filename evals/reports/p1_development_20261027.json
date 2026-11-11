@@ -1,0 +1,194 @@
+{
+  "date": "2026-10-27",
+  "contract_sha256": "cda5ae9301a5c5175181bba3a0e43d79f5f0f68dcac52effed982e7f590dd5de",
+  "implementation_sha256": {
+    "codesentry/__init__.py": "3c4216247c0a1e5f060e9fcaaddcbe65f2a67931bb3540ffd8c42baf0ce55f6f",
+    "codesentry/cli/__init__.py": "a5d10be8ffaaf1d801e5fe84a4590e0c9b91355d817e211f4511312cb5ca7d8c",
+    "codesentry/cli/main.py": "0815be7b2605f33610df77abe1823bc7b6ce006b75ac9c092398ec282ace6bde",
+    "codesentry/core/__init__.py": "3ab238dd57987624ec84866b55ca1193eb836b0967048a37a5281eec0738995d",
+    "codesentry/core/finding.py": "c6afb0cff152afcbcf0e8786309992746bbcb3c5b71af7d41cc61afe084b89b2",
+    "codesentry/core/fingerprint.py": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "codesentry/core/policy.py": "ea2538eb70df654b02ec5f50294a0f6eecca9bc85e2499e2544c25be376883b4",
+    "codesentry/core/symbol.py": "f6858786421ef4eb063daea37d916a980c54f6da4c363ae3ad227c1b702432dc",
+    "codesentry/environment/__init__.py": "841347c9c770f630940368c1311c94c1f3ea0b79fdb07ea68e6375bfc2138563",
+    "codesentry/environment/__main__.py": "586f06af449d6b6482faee1b90b93b2818aeece0dc1dae5e57f1e03cfcdc7942",
+    "codesentry/environment/inspect.py": "7ce3c9191ec01d28a4c6ebc514413c208dcadf321a8c2f386b0686943fac435b",
+    "codesentry/environment/toolchain.py": "393b0e8742cb2a00331819acf0003f827d059c50a6b0e85024367fed8b5ac61d",
+    "codesentry/index/__init__.py": "e8f4225fc1acd9abab28de62018f58090b31ca690d7391594feb15022e6d7a81",
+    "codesentry/index/builder.py": "2dc3354cc76309440f3e047934a56642c37b2538081a25ac1f6014637797519a",
+    "codesentry/index/cache.py": "19512649f5be8e72f8ce3b3551e492b9806e1389027d46372af43444ca02423a",
+    "codesentry/index/discovery.py": "d8a660d33b67f87ce31c96cb75f836d80483ff34c28c7090d4e818d14b4066a3",
+    "codesentry/index/entrypoint.py": "63f2bdd58bf3a0b0a7cb26d1f7997b999cc18c0520bdee1fa38fed44ffbb9226",
+    "codesentry/index/pagerank.py": "5f2e12be2f287fa9ae20b5c5d17152826c27004ca07242ab45d37dbead9ca710",
+    "codesentry/index/resolver.py": "6b5f75ff7bea92e549823c98e8e7b78b9a8b933a38d18e243caeb3326178ad13",
+    "codesentry/index/roles.py": "ceef481ce95c7389631d8df72c04ab3ec2907817f6da868b1793a1d8f3ab3b45",
+    "codesentry/index/store.py": "728bc9cccf7e16c3c784cd3c933742161a76ab9743865431855b3763f28a497f",
+    "codesentry/output/__init__.py": "422d5e7cae8fe510d9648abab3656a386ec1f8327d15871447294a72360af6df",
+    "codesentry/output/reading_order.py": "da1f0490a715a5cdfc1390ffbd912e88eabced7a198cfb076a4dd1c2cbc46cf3",
+    "codesentry/output/report.py": "e3c55ac7c9b18b05e3230045d6394f1a04bf6bf1eb6f1e54c3065c7329239a2a",
+    "codesentry/parsers/__init__.py": "bfaf2189212001d2e3081931132b9720d152ce2e7ef62f8335f458a90f58c839",
+    "codesentry/parsers/_ts_extract.js": "07ab5d155849593480ae8286d8cbd7cec21e528b0f4e56e5cd160ef7ac520e02",
+    "codesentry/parsers/python_parser.py": "4ae0f1a907cb873407d0468a29fc11647884b486cbeee216472f222754671dc7",
+    "codesentry/parsers/ts_parser.py": "4fa3aff1eb325cf4a269eccb61b3936a0a02740b44664452769031eca7b5de5b",
+    "evals/m0_acceptance.py": "edbc99a6bd5a8d301502713bebdbc06df9e4c707da57081139741c703853ce0c",
+    "evals/metrics.py": "4a4b5da371e58ac7078f5ae6274843147e1def12f947c8d5ec7cc94f570c4dde",
+    "pyproject.toml": "44914af39a9cdeabc4f4fabcd4210318e05b3972aec7f7191580a56ff935b88c"
+  },
+  "test_run": {
+    "passed": 240,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 18.62,
+    "command": ".venv/Scripts/python.exe -m pytest tests/ -q --basetemp=.venv/pytest-p1-final --tb=short"
+  },
+  "target_code_executed": false,
+  "cache_used": false,
+  "projects": [
+    {
+      "project_id": "research_agent",
+      "role": "dev-regression",
+      "holdout": false,
+      "snapshot_sha256": "d5222c5be0b07ae20a6cbaf6891c88cfd50b4f8212fc091d06062c87b710010d",
+      "exit_code": 1,
+      "p10": {
+        "hits": 5,
+        "denominator": 10,
+        "rate": 0.5
+      },
+      "recall10": {
+        "hits": 5,
+        "denominator": 38,
+        "rate": 0.13157894736842105
+      },
+      "build_seconds": 6.42,
+      "l1_seconds": 6.71,
+      "l2_seconds": 6.71,
+      "process_wall_seconds": 7.419,
+      "discovered": 156,
+      "indexed": 156,
+      "parse_failures": 0,
+      "complete": true,
+      "position_errors": 0,
+      "entry_metrics": "N/A; independently adjudicated labels absent",
+      "input_drift": false,
+      "checks": [
+        {
+          "passed": false,
+          "name": "阅读顺序文档标注P@10 >= 80%"
+        },
+        {
+          "passed": false,
+          "name": "标签与输出适用（无未知标注、至少8个标签及10项输出）"
+        },
+        {
+          "passed": true,
+          "name": "解析完整"
+        },
+        {
+          "passed": true,
+          "name": "磁盘位置错误0"
+        },
+        {
+          "passed": true,
+          "name": "L1端到端 < 30s"
+        },
+        {
+          "passed": true,
+          "name": "L2端到端 < 180s"
+        },
+        {
+          "passed": false,
+          "name": "独立入口precision>=90%、recall=100%"
+        },
+        {
+          "passed": true,
+          "name": "P0冻结输入无漂移"
+        },
+        {
+          "passed": false,
+          "name": "P0正式验收未决项已解决"
+        },
+        {
+          "passed": true,
+          "name": "阈值未放宽已确认目标"
+        }
+      ],
+      "stderr": "",
+      "raw_log": ".venv/p1-acceptance/research_agent-final.txt",
+      "formal_acceptance": "not_evaluable"
+    },
+    {
+      "project_id": "knowledge_loop",
+      "role": "dev-regression",
+      "holdout": false,
+      "snapshot_sha256": "afd4e0e5410e06f35ec9d91a6a64840412f0315ec4237149cc827da2ae8db297",
+      "exit_code": 1,
+      "p10": {
+        "hits": 6,
+        "denominator": 10,
+        "rate": 0.6
+      },
+      "recall10": {
+        "hits": 6,
+        "denominator": 11,
+        "rate": 0.5454545454545454
+      },
+      "build_seconds": 1.99,
+      "l1_seconds": 2.23,
+      "l2_seconds": 2.23,
+      "process_wall_seconds": 2.885,
+      "discovered": 140,
+      "indexed": 140,
+      "parse_failures": 0,
+      "complete": true,
+      "position_errors": 0,
+      "entry_metrics": "N/A; independently adjudicated labels absent",
+      "input_drift": false,
+      "checks": [
+        {
+          "passed": false,
+          "name": "阅读顺序文档标注P@10 >= 80%"
+        },
+        {
+          "passed": true,
+          "name": "标签与输出适用（无未知标注、至少8个标签及10项输出）"
+        },
+        {
+          "passed": true,
+          "name": "解析完整"
+        },
+        {
+          "passed": true,
+          "name": "磁盘位置错误0"
+        },
+        {
+          "passed": true,
+          "name": "L1端到端 < 30s"
+        },
+        {
+          "passed": true,
+          "name": "L2端到端 < 180s"
+        },
+        {
+          "passed": false,
+          "name": "独立入口precision>=90%、recall=100%"
+        },
+        {
+          "passed": true,
+          "name": "P0冻结输入无漂移"
+        },
+        {
+          "passed": false,
+          "name": "P0正式验收未决项已解决"
+        },
+        {
+          "passed": true,
+          "name": "阈值未放宽已确认目标"
+        }
+      ],
+      "stderr": "",
+      "raw_log": ".venv/p1-acceptance/knowledge_loop-final.txt",
+      "formal_acceptance": "not_evaluable"
+    }
+  ]
+}

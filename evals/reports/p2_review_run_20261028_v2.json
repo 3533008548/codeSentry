@@ -1,0 +1,1464 @@
+{
+  "schema_version": "review-run-report-v1",
+  "status": "scored_trusted_dev_data",
+  "run_id": "synthetic-semantic-dev-v2-global-plan",
+  "dataset_id": "review-synthetic-v1",
+  "dataset_version": "1",
+  "split": "dev",
+  "inputs_sha256": {
+    "run_manifest": "e52357824a3d24d0b605553ee142e07010367455eab4b287549fd80dad1b315c",
+    "gold": "b43a60c55de0d96eeffffec80b1757cf2272becddc867f940a3a8ae5774c3295",
+    "matching_contract": "2f018bb213d7fb985b75800f3af77f3318b2be50818e6a209e45bbbe406f3e15",
+    "predictions": "1faf5078955b703133ca1bb12820f15db08b0dd78528d4a25b32223bf490f50b",
+    "splits": "43b7fa5ab6147d199328b57294683d3989770e2bd91b987a8e6d1162042cde64",
+    "stages": "743e6db651132db6e4dfed220e69959345bfccfd44947aff560e55128adb1f5e"
+  },
+  "implementation_sha256": {
+    "review_run": "a08c1e108641ce69f0af800876018d45b9caf9fdae1f43dbfc39ac6624a078c9",
+    "review_scoring": "8004ee63991865759c39aa998cc614f0156712f2086389bb03b8bf1371ab5f9f",
+    "split_audit": "f75b8e0c7e99daf66c88c560687e1efa18f924c849c92645013136c440de9014"
+  },
+  "inputs_revalidated": true,
+  "split_audit": {
+    "schema_version": 1,
+    "kind": "review-split-audit",
+    "dataset_id": "review-synthetic-v1",
+    "manifest_sha256": "7a456cc6b3d73a58622f3554b48bf8cb55afce78a1ce16489318f0957b4e665d",
+    "sample_count": 7,
+    "group_count": 7,
+    "split_counts": {
+      "dev": 5,
+      "holdout": 1,
+      "train": 1
+    },
+    "split_assignment_valid": true,
+    "issues": [],
+    "isolation_verified": false,
+    "label_truth_verified": false,
+    "formal_acceptance": {
+      "passed": false
+    }
+  },
+  "final_score": {
+    "schema_version": "review-score-v1",
+    "status": "scored_dev_data",
+    "dataset_id": "review-synthetic-v1",
+    "dataset_version": "1",
+    "split": "dev",
+    "candidate_id": "synthetic-data-only",
+    "candidate_version": "1",
+    "matching_contract": "review-matching-v1",
+    "cases": [
+      {
+        "id": "clean",
+        "project": "synthetic-clean",
+        "language": "python",
+        "rule_id": "synthetic.rule",
+        "rule_version": "1",
+        "category": "bug",
+        "label": "clean",
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "unknown_predictions": 0,
+        "duplicate_predictions": 0,
+        "positive_issues": 0,
+        "unmatched_issue_ids": [],
+        "predictions": [
+          {
+            "prediction_id": "d-false",
+            "outcome": "fp",
+            "reason": "adjudicated_negative_location",
+            "issue_id": null,
+            "duplicate": false
+          }
+        ]
+      },
+      {
+        "id": "debt",
+        "project": "synthetic-debt",
+        "language": "python",
+        "rule_id": "synthetic.policy",
+        "rule_version": "1",
+        "category": "debt",
+        "label": "debt",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "unknown_predictions": 0,
+        "duplicate_predictions": 0,
+        "positive_issues": 1,
+        "unmatched_issue_ids": [],
+        "predictions": [
+          {
+            "prediction_id": "f-policy",
+            "outcome": "tp",
+            "reason": "one_to_one_match",
+            "issue_id": "debt-item",
+            "duplicate": false
+          }
+        ]
+      },
+      {
+        "id": "matching",
+        "project": "synthetic-matching",
+        "language": "python",
+        "rule_id": "synthetic.rule",
+        "rule_version": "1",
+        "category": "bug",
+        "label": "bugs",
+        "tp": 2,
+        "fp": 1,
+        "fn": 0,
+        "unknown_predictions": 0,
+        "duplicate_predictions": 1,
+        "positive_issues": 2,
+        "unmatched_issue_ids": [],
+        "predictions": [
+          {
+            "prediction_id": "a-flexible",
+            "outcome": "tp",
+            "reason": "one_to_one_match",
+            "issue_id": "narrow",
+            "duplicate": false
+          },
+          {
+            "prediction_id": "b-only-wide",
+            "outcome": "tp",
+            "reason": "one_to_one_match",
+            "issue_id": "wide",
+            "duplicate": false
+          },
+          {
+            "prediction_id": "c-duplicate",
+            "outcome": "fp",
+            "reason": "additional_prediction_for_known_issue",
+            "issue_id": null,
+            "duplicate": true
+          }
+        ]
+      },
+      {
+        "id": "partial",
+        "project": "synthetic-partial",
+        "language": "python",
+        "rule_id": "synthetic.rule",
+        "rule_version": "1",
+        "category": "bug",
+        "label": "bugs",
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "unknown_predictions": 1,
+        "duplicate_predictions": 0,
+        "positive_issues": 1,
+        "unmatched_issue_ids": [
+          "known"
+        ],
+        "predictions": [
+          {
+            "prediction_id": "e-unlabelled",
+            "outcome": "unknown",
+            "reason": "outside_adjudicated_scope",
+            "issue_id": null,
+            "duplicate": false
+          }
+        ]
+      },
+      {
+        "id": "unknown",
+        "project": "synthetic-unknown",
+        "language": "python",
+        "rule_id": "synthetic.rule",
+        "rule_version": "1",
+        "category": "bug",
+        "label": "unknown",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "unknown_predictions": 1,
+        "duplicate_predictions": 0,
+        "positive_issues": 0,
+        "unmatched_issue_ids": [],
+        "predictions": [
+          {
+            "prediction_id": "g-unknown",
+            "outcome": "unknown",
+            "reason": "outside_adjudicated_scope",
+            "issue_id": null,
+            "duplicate": false
+          }
+        ]
+      }
+    ],
+    "metric_scope": {
+      "precision": "adjudicated_predictions_only",
+      "recall": "confirmed_issues_in_declared_cases"
+    },
+    "bug": {
+      "tp": 2,
+      "fp": 2,
+      "fn": 1,
+      "unknown_predictions": 2,
+      "duplicate_predictions": 1,
+      "cases": 4,
+      "positive_issues": 3,
+      "unknown_cases": 1,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "all_predictions_adjudicated": false
+    },
+    "debt": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "unknown_predictions": 0,
+      "duplicate_predictions": 0,
+      "cases": 1,
+      "positive_issues": 1,
+      "unknown_cases": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "all_predictions_adjudicated": true
+    },
+    "clean": {
+      "cases": 1,
+      "false_positive_predictions": 1,
+      "cases_with_false_positives": 1
+    },
+    "strata": {
+      "project": [
+        {
+          "value": "synthetic-clean",
+          "category": "bug",
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "unknown_predictions": 0,
+          "duplicate_predictions": 0,
+          "cases": 1,
+          "positive_issues": 0,
+          "unknown_cases": 0,
+          "precision": 0.0,
+          "recall": null,
+          "all_predictions_adjudicated": true
+        },
+        {
+          "value": "synthetic-debt",
+          "category": "debt",
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "unknown_predictions": 0,
+          "duplicate_predictions": 0,
+          "cases": 1,
+          "positive_issues": 1,
+          "unknown_cases": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "all_predictions_adjudicated": true
+        },
+        {
+          "value": "synthetic-matching",
+          "category": "bug",
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "unknown_predictions": 0,
+          "duplicate_predictions": 1,
+          "cases": 1,
+          "positive_issues": 2,
+          "unknown_cases": 0,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "all_predictions_adjudicated": true
+        },
+        {
+          "value": "synthetic-partial",
+          "category": "bug",
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "unknown_predictions": 1,
+          "duplicate_predictions": 0,
+          "cases": 1,
+          "positive_issues": 1,
+          "unknown_cases": 0,
+          "precision": null,
+          "recall": 0.0,
+          "all_predictions_adjudicated": false
+        },
+        {
+          "value": "synthetic-unknown",
+          "category": "bug",
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "unknown_predictions": 1,
+          "duplicate_predictions": 0,
+          "cases": 1,
+          "positive_issues": 0,
+          "unknown_cases": 1,
+          "precision": null,
+          "recall": null,
+          "all_predictions_adjudicated": false
+        }
+      ],
+      "language": [
+        {
+          "value": "python",
+          "category": "bug",
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "unknown_predictions": 2,
+          "duplicate_predictions": 1,
+          "cases": 4,
+          "positive_issues": 3,
+          "unknown_cases": 1,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "all_predictions_adjudicated": false
+        },
+        {
+          "value": "python",
+          "category": "debt",
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "unknown_predictions": 0,
+          "duplicate_predictions": 0,
+          "cases": 1,
+          "positive_issues": 1,
+          "unknown_cases": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "all_predictions_adjudicated": true
+        }
+      ],
+      "rule": [
+        {
+          "rule_id": "synthetic.policy",
+          "rule_version": "1",
+          "category": "debt",
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "unknown_predictions": 0,
+          "duplicate_predictions": 0,
+          "cases": 1,
+          "positive_issues": 1,
+          "unknown_cases": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "all_predictions_adjudicated": true
+        },
+        {
+          "rule_id": "synthetic.rule",
+          "rule_version": "1",
+          "category": "bug",
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "unknown_predictions": 2,
+          "duplicate_predictions": 1,
+          "cases": 4,
+          "positive_issues": 3,
+          "unknown_cases": 1,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "all_predictions_adjudicated": false
+        }
+      ]
+    },
+    "stage_flow": {
+      "status": "not_collected",
+      "counts": null
+    },
+    "uncertainty": {
+      "status": "not_estimated",
+      "independent_sampling": false
+    },
+    "formal_acceptance": {
+      "passed": false,
+      "reason": "dev scoring only; no independent labels, execution isolation or detector acceptance established"
+    }
+  },
+  "stage_flow": {
+    "status": "computed_from_declared_ids",
+    "channel": "semantic",
+    "execution_verified": false,
+    "counting": "maximum one-to-one matching of unique applicable gold issues at each stage",
+    "other_channels": {
+      "deterministic": "not_included",
+      "explore": "not_included"
+    },
+    "stages": [
+      {
+        "stage": "generated",
+        "prediction_ids": [
+          "a-flexible",
+          "b-only-wide",
+          "c-duplicate",
+          "d-false",
+          "e-unlabelled",
+          "f-policy",
+          "g-unknown",
+          "h-known-partial",
+          "i-budget-drop",
+          "j-judgment-drop",
+          "k-acceptance-drop",
+          "l-verification-drop"
+        ],
+        "prediction_count": 12,
+        "lost_prediction_ids": [],
+        "lost_prediction_count": 0,
+        "strata": {
+          "project": [
+            {
+              "value": "synthetic-clean",
+              "category": "bug",
+              "tp": 0,
+              "fp": 3,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 0,
+              "precision": 0.0,
+              "recall": null,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-debt",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-matching",
+              "category": "bug",
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 1,
+              "cases": 1,
+              "positive_issues": 2,
+              "unknown_cases": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-partial",
+              "category": "bug",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "synthetic-unknown",
+              "category": "bug",
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 1,
+              "precision": null,
+              "recall": null,
+              "all_predictions_adjudicated": false
+            }
+          ],
+          "language": [
+            {
+              "value": "python",
+              "category": "bug",
+              "tp": 3,
+              "fp": 4,
+              "fn": 0,
+              "unknown_predictions": 3,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.42857142857142855,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "python",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            }
+          ],
+          "rule": [
+            {
+              "rule_id": "synthetic.policy",
+              "rule_version": "1",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "rule_id": "synthetic.rule",
+              "rule_version": "1",
+              "category": "bug",
+              "tp": 3,
+              "fp": 4,
+              "fn": 0,
+              "unknown_predictions": 3,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.42857142857142855,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            }
+          ]
+        },
+        "bug": {
+          "matched_issues": 3,
+          "applicable_issues": 3,
+          "recall": 1.0,
+          "unknown_predictions": 3
+        },
+        "debt": {
+          "matched_issues": 1,
+          "applicable_issues": 1,
+          "recall": 1.0,
+          "unknown_predictions": 0
+        }
+      },
+      {
+        "stage": "budget_admitted",
+        "prediction_ids": [
+          "a-flexible",
+          "b-only-wide",
+          "c-duplicate",
+          "d-false",
+          "e-unlabelled",
+          "f-policy",
+          "g-unknown",
+          "h-known-partial",
+          "j-judgment-drop",
+          "k-acceptance-drop",
+          "l-verification-drop"
+        ],
+        "prediction_count": 11,
+        "lost_prediction_ids": [
+          "i-budget-drop"
+        ],
+        "lost_prediction_count": 1,
+        "strata": {
+          "project": [
+            {
+              "value": "synthetic-clean",
+              "category": "bug",
+              "tp": 0,
+              "fp": 2,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 0,
+              "precision": 0.0,
+              "recall": null,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-debt",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-matching",
+              "category": "bug",
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 1,
+              "cases": 1,
+              "positive_issues": 2,
+              "unknown_cases": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-partial",
+              "category": "bug",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "synthetic-unknown",
+              "category": "bug",
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 1,
+              "precision": null,
+              "recall": null,
+              "all_predictions_adjudicated": false
+            }
+          ],
+          "language": [
+            {
+              "value": "python",
+              "category": "bug",
+              "tp": 3,
+              "fp": 3,
+              "fn": 0,
+              "unknown_predictions": 3,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "python",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            }
+          ],
+          "rule": [
+            {
+              "rule_id": "synthetic.policy",
+              "rule_version": "1",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "rule_id": "synthetic.rule",
+              "rule_version": "1",
+              "category": "bug",
+              "tp": 3,
+              "fp": 3,
+              "fn": 0,
+              "unknown_predictions": 3,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            }
+          ]
+        },
+        "bug": {
+          "matched_issues": 3,
+          "applicable_issues": 3,
+          "recall": 1.0,
+          "unknown_predictions": 3
+        },
+        "debt": {
+          "matched_issues": 1,
+          "applicable_issues": 1,
+          "recall": 1.0,
+          "unknown_predictions": 0
+        }
+      },
+      {
+        "stage": "judged",
+        "prediction_ids": [
+          "a-flexible",
+          "b-only-wide",
+          "c-duplicate",
+          "d-false",
+          "e-unlabelled",
+          "f-policy",
+          "g-unknown",
+          "h-known-partial",
+          "k-acceptance-drop",
+          "l-verification-drop"
+        ],
+        "prediction_count": 10,
+        "lost_prediction_ids": [
+          "j-judgment-drop"
+        ],
+        "lost_prediction_count": 1,
+        "strata": {
+          "project": [
+            {
+              "value": "synthetic-clean",
+              "category": "bug",
+              "tp": 0,
+              "fp": 2,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 0,
+              "precision": 0.0,
+              "recall": null,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-debt",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-matching",
+              "category": "bug",
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 1,
+              "cases": 1,
+              "positive_issues": 2,
+              "unknown_cases": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-partial",
+              "category": "bug",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "synthetic-unknown",
+              "category": "bug",
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 1,
+              "precision": null,
+              "recall": null,
+              "all_predictions_adjudicated": false
+            }
+          ],
+          "language": [
+            {
+              "value": "python",
+              "category": "bug",
+              "tp": 3,
+              "fp": 3,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "python",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            }
+          ],
+          "rule": [
+            {
+              "rule_id": "synthetic.policy",
+              "rule_version": "1",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "rule_id": "synthetic.rule",
+              "rule_version": "1",
+              "category": "bug",
+              "tp": 3,
+              "fp": 3,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            }
+          ]
+        },
+        "bug": {
+          "matched_issues": 3,
+          "applicable_issues": 3,
+          "recall": 1.0,
+          "unknown_predictions": 2
+        },
+        "debt": {
+          "matched_issues": 1,
+          "applicable_issues": 1,
+          "recall": 1.0,
+          "unknown_predictions": 0
+        }
+      },
+      {
+        "stage": "accepted",
+        "prediction_ids": [
+          "a-flexible",
+          "b-only-wide",
+          "c-duplicate",
+          "d-false",
+          "e-unlabelled",
+          "f-policy",
+          "g-unknown",
+          "h-known-partial",
+          "l-verification-drop"
+        ],
+        "prediction_count": 9,
+        "lost_prediction_ids": [
+          "k-acceptance-drop"
+        ],
+        "lost_prediction_count": 1,
+        "strata": {
+          "project": [
+            {
+              "value": "synthetic-clean",
+              "category": "bug",
+              "tp": 0,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 0,
+              "precision": 0.0,
+              "recall": null,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-debt",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-matching",
+              "category": "bug",
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 1,
+              "cases": 1,
+              "positive_issues": 2,
+              "unknown_cases": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-partial",
+              "category": "bug",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "synthetic-unknown",
+              "category": "bug",
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 1,
+              "precision": null,
+              "recall": null,
+              "all_predictions_adjudicated": false
+            }
+          ],
+          "language": [
+            {
+              "value": "python",
+              "category": "bug",
+              "tp": 3,
+              "fp": 2,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.6,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "python",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            }
+          ],
+          "rule": [
+            {
+              "rule_id": "synthetic.policy",
+              "rule_version": "1",
+              "category": "debt",
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "rule_id": "synthetic.rule",
+              "rule_version": "1",
+              "category": "bug",
+              "tp": 3,
+              "fp": 2,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.6,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            }
+          ]
+        },
+        "bug": {
+          "matched_issues": 3,
+          "applicable_issues": 3,
+          "recall": 1.0,
+          "unknown_predictions": 2
+        },
+        "debt": {
+          "matched_issues": 1,
+          "applicable_issues": 1,
+          "recall": 1.0,
+          "unknown_predictions": 0
+        }
+      },
+      {
+        "stage": "verified",
+        "prediction_ids": [
+          "a-flexible",
+          "b-only-wide",
+          "c-duplicate",
+          "d-false",
+          "e-unlabelled",
+          "f-policy",
+          "g-unknown",
+          "h-known-partial"
+        ],
+        "prediction_count": 8,
+        "lost_prediction_ids": [
+          "l-verification-drop"
+        ],
+        "lost_prediction_count": 1,
+        "strata": {
+          "project": [
+            {
+              "value": "synthetic-clean",
+              "category": "bug",
+              "tp": 0,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 0,
+              "precision": 0.0,
+              "recall": null,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-debt",
+              "category": "debt",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-matching",
+              "category": "bug",
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 1,
+              "cases": 1,
+              "positive_issues": 2,
+              "unknown_cases": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-partial",
+              "category": "bug",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "synthetic-unknown",
+              "category": "bug",
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 1,
+              "precision": null,
+              "recall": null,
+              "all_predictions_adjudicated": false
+            }
+          ],
+          "language": [
+            {
+              "value": "python",
+              "category": "bug",
+              "tp": 3,
+              "fp": 2,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.6,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "python",
+              "category": "debt",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            }
+          ],
+          "rule": [
+            {
+              "rule_id": "synthetic.policy",
+              "rule_version": "1",
+              "category": "debt",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "rule_id": "synthetic.rule",
+              "rule_version": "1",
+              "category": "bug",
+              "tp": 3,
+              "fp": 2,
+              "fn": 0,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.6,
+              "recall": 1.0,
+              "all_predictions_adjudicated": false
+            }
+          ]
+        },
+        "bug": {
+          "matched_issues": 3,
+          "applicable_issues": 3,
+          "recall": 1.0,
+          "unknown_predictions": 2
+        },
+        "debt": {
+          "matched_issues": 1,
+          "applicable_issues": 1,
+          "recall": 1.0,
+          "unknown_predictions": 0
+        }
+      },
+      {
+        "stage": "final",
+        "prediction_ids": [
+          "a-flexible",
+          "b-only-wide",
+          "c-duplicate",
+          "d-false",
+          "e-unlabelled",
+          "f-policy",
+          "g-unknown"
+        ],
+        "prediction_count": 7,
+        "lost_prediction_ids": [
+          "h-known-partial"
+        ],
+        "lost_prediction_count": 1,
+        "strata": {
+          "project": [
+            {
+              "value": "synthetic-clean",
+              "category": "bug",
+              "tp": 0,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 0,
+              "precision": 0.0,
+              "recall": null,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-debt",
+              "category": "debt",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-matching",
+              "category": "bug",
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 1,
+              "cases": 1,
+              "positive_issues": 2,
+              "unknown_cases": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "value": "synthetic-partial",
+              "category": "bug",
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": null,
+              "recall": 0.0,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "synthetic-unknown",
+              "category": "bug",
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 1,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 0,
+              "unknown_cases": 1,
+              "precision": null,
+              "recall": null,
+              "all_predictions_adjudicated": false
+            }
+          ],
+          "language": [
+            {
+              "value": "python",
+              "category": "bug",
+              "tp": 2,
+              "fp": 2,
+              "fn": 1,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.5,
+              "recall": 0.6666666666666666,
+              "all_predictions_adjudicated": false
+            },
+            {
+              "value": "python",
+              "category": "debt",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            }
+          ],
+          "rule": [
+            {
+              "rule_id": "synthetic.policy",
+              "rule_version": "1",
+              "category": "debt",
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "unknown_predictions": 0,
+              "duplicate_predictions": 0,
+              "cases": 1,
+              "positive_issues": 1,
+              "unknown_cases": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "all_predictions_adjudicated": true
+            },
+            {
+              "rule_id": "synthetic.rule",
+              "rule_version": "1",
+              "category": "bug",
+              "tp": 2,
+              "fp": 2,
+              "fn": 1,
+              "unknown_predictions": 2,
+              "duplicate_predictions": 1,
+              "cases": 4,
+              "positive_issues": 3,
+              "unknown_cases": 1,
+              "precision": 0.5,
+              "recall": 0.6666666666666666,
+              "all_predictions_adjudicated": false
+            }
+          ]
+        },
+        "bug": {
+          "matched_issues": 2,
+          "applicable_issues": 3,
+          "recall": 0.6666666666666666,
+          "unknown_predictions": 2
+        },
+        "debt": {
+          "matched_issues": 1,
+          "applicable_issues": 1,
+          "recall": 1.0,
+          "unknown_predictions": 0
+        }
+      }
+    ]
+  },
+  "source_snapshot_revalidated": false,
+  "label_truth_verified": false,
+  "isolation_verified": false,
+  "candidate_executed": false,
+  "formal_acceptance": {
+    "passed": false,
+    "reason": "trusted dev metadata only; no independent labels, sealed execution or detector acceptance"
+  }
+}

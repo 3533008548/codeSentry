@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "dataset_id": "synthetic-grouping-v1",
+  "samples": [
+    {"id": "train-1", "split": "train", "repository_group": "synthetic-training", "defect_family": "lineage-a", "derived_from": [], "feedback_used": false},
+    {"id": "dev-1", "split": "dev", "repository_group": "synthetic-development", "defect_family": "lineage-b", "derived_from": [], "feedback_used": false},
+    {"id": "dev-copy", "split": "dev", "repository_group": "synthetic-derived", "defect_family": "lineage-b", "derived_from": ["dev-1"], "feedback_used": true},
+    {"id": "reserved-1", "split": "holdout", "repository_group": "synthetic-reserved", "defect_family": "lineage-c", "derived_from": [], "feedback_used": false}
+  ]
+}

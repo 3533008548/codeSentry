@@ -1,0 +1,1105 @@
+{
+  "schema_version": 1,
+  "kind": "development_replay_and_fresh_synthetic_cases",
+  "dataset_sha256": {
+    "p7a_call_chain_dev_v1.json": "011c226aecdeae5c98e5a7ad665d5d00846a192398d7d76babef02e394607555",
+    "p7a_fresh_projects_v1.json": "a6ceb2a38d0f5b0c92945736222a17cbfbcfe3d85910730d2966d780c4da58fe"
+  },
+  "candidate_sha256": {
+    "codesentry/review/batch_review.py": "0e7822ec5f5d13cfe1eedfc91caaa7c1bf4c198b6c5d7c15720d105b02e55349",
+    "codesentry/review/review_merge.py": "cfd4151c8f021ddafdecdfa85178642983ef6899f20f8e8d634ce42090222353",
+    "codesentry/cli/main.py": "1d93d4a61ed7bc89c55edbd00dd87a436f5408ecee2f09d324e28454ace2cc30",
+    "codesentry/semantic/service.py": "35a11b8fff0c03ccfdad7a72786efae45da9cca38ee8617e0d6cb0a17b942e97",
+    "codesentry/review/call_evidence.py": "f74709339b1176084a30ec671e845d90646f7fe2acad45ec440f28ee3e6317fb"
+  },
+  "synthetic_only": true,
+  "started_at_utc": "2026-11-10T10:30:03.781586+00:00",
+  "model": "deepseek-flash",
+  "batch_repair_budget": 1,
+  "summary_request_budget_per_mode": 2,
+  "results": [
+    {
+      "id": "string-flag-cross-batch",
+      "project": "routing",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 17,
+          "status": "completed",
+          "utf8_bytes": 400,
+          "text_sha256": "b5d2e30eb58afc46b979ecf5c9a0b65cdea3c12259f4bead153f9e1cb1860984",
+          "id": "R1",
+          "path": "api.py",
+          "batch": 1,
+          "observation": "handle 接收 raw 与 cache；当 decode 返回 None 时返回 'invalid'。否则解包 key、dry_run，先查 peek，命中则直接返回 saved；仅当 saved 为 None 时才检查 can_dispatch(dry_run)，不通过则返回 'blocked'，通过则返回 dispatch(key)。对给定输入，具体返回值取决于后续 R2/R3/R4 的行为。",
+          "evidence_line": 8
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 70,
+          "text_sha256": "b984285c04558b1dd5f0ad83d1b762498e84fb2aa060fe93bd512b4ea7bafe00",
+          "id": "R2",
+          "path": "cache.py",
+          "batch": 1,
+          "observation": "peek 在 key 不在 cache 时返回 None。给定 cache 为空，因此若 key 为 'q7' 未命中，返回 None，handle 不会在缓存分支返回。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "completed",
+          "utf8_bytes": 149,
+          "text_sha256": "de4165d2519f7ac28fbf0baaa6d33cf7cde01e97a753267724535f6372da83f6",
+          "id": "R3",
+          "path": "decoder.py",
+          "batch": 1,
+          "observation": "decode 要求 key 为非空字符串，否则返回 None。给定 key='q7' 满足该条件；dry_run 被解析为 raw.get('dry_run') is True。传入的 dry_run 是字符串 'true'，不是布尔 True，因此返回 (key, False)。",
+          "evidence_line": 5
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 50,
+          "text_sha256": "6c8e3f37f582c00c566c9e7d2eb6564dbdaed40d4f9e6d55834e15d64ce8e9f5",
+          "id": "R4",
+          "path": "policy.py",
+          "batch": 1,
+          "observation": "can_dispatch 返回 not dry_run；由 R3 得到 dry_run=False，因此 can_dispatch 返回 True，handle 不会返回 'blocked'，而是返回 dispatch(key)。dispatch 的源码未提供，未知其具体返回值。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 4,
+          "status": "completed",
+          "utf8_bytes": 103,
+          "text_sha256": "d8f3bf72fbed9f0b0b3ad000ed873c4ad46a618e0ff3fa611a5010985c388ce7",
+          "id": "R5",
+          "path": "z_worker.py",
+          "batch": 2,
+          "observation": "本段与问题无直接关系；这里只定义 dispatch(key)：若 key 以 'q' 开头（startswith('q')）则返回 'queued:' + key，否则返回 'done:' + key；未涉及 handle、标志解析、缓存或权限。",
+          "evidence_line": 2
+        }
+      ],
+      "summaries": {
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "给定输入下 handle 的最终返回字符串为 'queued:q7'。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 8,
+                  "id": "R1"
+                },
+                {
+                  "path": "cache.py",
+                  "line": 2,
+                  "id": "R2"
+                },
+                {
+                  "path": "decoder.py",
+                  "line": 5,
+                  "id": "R3"
+                },
+                {
+                  "path": "policy.py",
+                  "line": 2,
+                  "id": "R4"
+                },
+                {
+                  "path": "z_worker.py",
+                  "line": 2,
+                  "id": "R5"
+                }
+              ]
+            },
+            {
+              "text": "decode 对 'q7' 返回 (key, False)，因为 dry_run 解析为 raw.get('dry_run') is True，而输入是字符串 'true' 而非布尔 True。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 8,
+                  "id": "R1"
+                },
+                {
+                  "path": "decoder.py",
+                  "line": 5,
+                  "id": "R3"
+                }
+              ]
+            },
+            {
+              "text": "cache 为空时 peek 返回 None，缓存分支不命中，handle 继续进入权限检查。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 8,
+                  "id": "R1"
+                },
+                {
+                  "path": "cache.py",
+                  "line": 2,
+                  "id": "R2"
+                }
+              ]
+            },
+            {
+              "text": "can_dispatch(False) 返回 True，因此 handle 不返回 'blocked'，而是调用 dispatch('q7')；由于 'q7' 以 'q' 开头，dispatch 返回 'queued:' + 'q7' = 'queued:q7'。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 8,
+                  "id": "R1"
+                },
+                {
+                  "path": "policy.py",
+                  "line": 2,
+                  "id": "R4"
+                },
+                {
+                  "path": "z_worker.py",
+                  "line": 2,
+                  "id": "R5"
+                }
+              ]
+            }
+          ],
+          "unknowns": []
+        },
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "decode 对 key='q7' 通过非空字符串检查，且因 dry_run 是字符串 'true' 而非布尔 True，返回 ('q7', False)，handle 不返回 'invalid'。",
+              "evidence": [
+                {
+                  "id": "R3",
+                  "line": 2,
+                  "path": "decoder.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 3,
+                  "path": "decoder.py"
+                },
+                {
+                  "id": "R3",
+                  "line": 5,
+                  "path": "decoder.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 11,
+                  "path": "api.py"
+                }
+              ]
+            },
+            {
+              "text": "cache 为空且 key='q7' 不在其中，peek 返回 None，handle 的缓存命中分支不返回。",
+              "evidence": [
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "cache.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 12,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 13,
+                  "path": "api.py"
+                }
+              ]
+            },
+            {
+              "text": "can_dispatch(False) 返回 True，权限检查通过，handle 进入 dispatch('q7')，不返回 'blocked'。",
+              "evidence": [
+                {
+                  "id": "R4",
+                  "line": 2,
+                  "path": "policy.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 15,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 17,
+                  "path": "api.py"
+                }
+              ]
+            },
+            {
+              "text": "dispatch('q7') 因 key 以 'q' 开头走 startswith('q') 分支，返回 'queued:q7'，即 handle 最终返回值。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 17,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R5",
+                  "line": 2,
+                  "path": "z_worker.py"
+                },
+                {
+                  "id": "R5",
+                  "line": 3,
+                  "path": "z_worker.py"
+                }
+              ]
+            }
+          ],
+          "unknowns": [],
+          "static_call_links": [
+            {
+              "source_id": "R1",
+              "line": 17,
+              "target_id": "R5",
+              "target_line": 1
+            },
+            {
+              "source_id": "R1",
+              "line": 8,
+              "target_id": "R3",
+              "target_line": 1
+            },
+            {
+              "source_id": "R1",
+              "line": 12,
+              "target_id": "R2",
+              "target_line": 1
+            },
+            {
+              "source_id": "R1",
+              "line": 15,
+              "target_id": "R4",
+              "target_line": 1
+            }
+          ]
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4"
+          ],
+          "range_count": 4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 692,
+            "completion_tokens": 344,
+            "total_tokens": 1036
+          },
+          "seconds": 3.608
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R5"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 408,
+            "completion_tokens": 88,
+            "total_tokens": 496
+          },
+          "seconds": 1.945
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 689,
+            "completion_tokens": 220,
+            "total_tokens": 909
+          },
+          "seconds": 3.225
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5"
+          ],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1258,
+            "completion_tokens": 458,
+            "total_tokens": 1716
+          },
+          "seconds": 3.656
+        }
+      ],
+      "seconds": 17.016
+    },
+    {
+      "id": "aliased-multi-hop",
+      "project": "ticket_dispatch",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 9,
+          "status": "completed",
+          "utf8_bytes": 203,
+          "text_sha256": "fb9ff083786d796712251899e43df4c4afdf97595d25e6134e924c2b5a26b371",
+          "id": "R1",
+          "path": "api.py",
+          "batch": 1,
+          "observation": "调用 receive('  Go! ', 'run') 时，第 6 行的 raw.strip() 处理的是 '  Go! '，得到的 cleaned 值为 'Go!'（可由 strip 去除两端空白的语义推得）。第 7 行的条件 allow('run') 需要转由 R2 判断，本段未给出其结果。若通过，第 9 行返回 '[' 加上 apply_tag(cleaned) 的结果再加 ']'；若未通过，则返回 'paused'。最终字符串取决于 allow 和 apply_tag 的外部实现。",
+          "evidence_line": 6
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 42,
+          "text_sha256": "59f8905af7c0d748ed96538ecf6760570a9827350bc220dd690ff788b5fc049f",
+          "id": "R2",
+          "path": "config.py",
+          "batch": 1,
+          "observation": "allow('run') 中的表达式为 'run' == 'run'，按相等比较为 True。因此，在提问中的实参 mode 为 'run' 时，R1 第 7 行的 allow(mode) 不成立分支不会触发。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 59,
+          "text_sha256": "a59ea5d2e42bb1812e575666468242f9cdfe217e542d3c621d22b968831d12ff",
+          "id": "R3",
+          "path": "hook.py",
+          "batch": 1,
+          "observation": "本段与问题无直接关系：relay 通过 registry['emit'] 转发 raw，未被 receive('  Go! ', 'run') 的调用链引用。",
+          "evidence_line": null
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "completed",
+          "utf8_bytes": 84,
+          "text_sha256": "be7998911a6a04ed9e7328874e971dc8c495ebd940fe37d0aa6df801d5ac7a5e",
+          "id": "R4",
+          "path": "stages.py",
+          "batch": 1,
+          "observation": "tag('Go!') 会调用 pick('Go!'.lower()) 并把它作为返回值。由此得到传给 pick 的实参为 'go!'，但 pick 的具体返回未在本段给出；因此 apply_tag(cleaned) 的结果及 R1 的最终返回值均未知。",
+          "evidence_line": 5
+        },
+        {
+          "start_line": 1,
+          "end_line": 8,
+          "status": "completed",
+          "utf8_bytes": 163,
+          "text_sha256": "638cae83a7d540cfffc2077acf2ad5f3dfb5b69297a0ac028c9e1811e5d17cc8",
+          "id": "R5",
+          "path": "z_rules.py",
+          "batch": 2,
+          "observation": "本段仅定义了 choose（根据结尾是否为 '!' 返回 'urgent/' 加去掉末字符的 value，否则返回 'normal/' 加 value）和 emit（返回 'example/' 加 value）；未见 receive 函数，无法从本段确定 receive('  Go! ', 'run') 的最终返回字符串。",
+          "evidence_line": 1
+        }
+      ],
+      "summaries": {
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "receive 入口第 7 行调用 allow('run')，config.py 第 2 行返回 'run' == 'run' 即 True，故 not allow(mode) 为 False，不返回 'paused'，继续执行第 9 行。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 7,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "config.py"
+                }
+              ]
+            },
+            {
+              "text": "receive 第 6 行对 '  Go! ' 执行 strip 得到 'Go!'；第 9 行将 cleaned 传给 apply_tag。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 6,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 9,
+                  "path": "api.py"
+                }
+              ]
+            },
+            {
+              "text": "apply_tag 即 stages.py 的 tag，对 'Go!' 先 lower 得到 'go!' 再调用 pick。",
+              "evidence": [
+                {
+                  "id": "R4",
+                  "line": 5,
+                  "path": "stages.py"
+                }
+              ]
+            },
+            {
+              "text": "pick 即 z_rules.py 的 choose；对 'go!' 判断 endswith('!') 为 True，返回 'urgent/' + value[:-1] 即 'urgent/go'，因此 receive 最终返回 '[urgent/go]'。",
+              "evidence": [
+                {
+                  "id": "R5",
+                  "line": 2,
+                  "path": "z_rules.py"
+                },
+                {
+                  "id": "R5",
+                  "line": 3,
+                  "path": "z_rules.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 9,
+                  "path": "api.py"
+                }
+              ]
+            }
+          ],
+          "unknowns": [],
+          "static_call_links": [
+            {
+              "source_id": "R4",
+              "line": 5,
+              "target_id": "R5",
+              "target_line": 1
+            },
+            {
+              "source_id": "R1",
+              "line": 7,
+              "target_id": "R2",
+              "target_line": 1
+            },
+            {
+              "source_id": "R1",
+              "line": 9,
+              "target_id": "R4",
+              "target_line": 4
+            }
+          ]
+        },
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "receive('  Go! ', 'run') 的第 7 行条件 allow('run') 为 True（'run' == 'run'），因此不会走返回 'paused' 的分支。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 6,
+                  "id": "R1"
+                },
+                {
+                  "path": "config.py",
+                  "line": 2,
+                  "id": "R2"
+                }
+              ]
+            },
+            {
+              "text": "第 6 行 raw.strip() 将 '  Go! ' 处理为 cleaned='Go!'。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 6,
+                  "id": "R1"
+                }
+              ]
+            },
+            {
+              "text": "apply_tag(cleaned) 会调用 tag('Go!')，进而把 'go!' 传给 pick，但 pick 的返回值未在给出的行段中确定。",
+              "evidence": [
+                {
+                  "path": "stages.py",
+                  "line": 5,
+                  "id": "R4"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "pick('go!') 的实际返回值（来自 stages.py 的函数体）",
+            "apply_tag(cleaned) 的最终返回值及其与 tag/pick 的绑定",
+            "R1 第 9 行返回值拼接 '[' + apply_tag('Go!') + ']' 的最终字符串",
+            "R3、R5 是否包含与 receive/tag/pick 调用链相关的其他实现"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4"
+          ],
+          "range_count": 4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 598,
+            "completion_tokens": 367,
+            "total_tokens": 965
+          },
+          "seconds": 3.859
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R5"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 426,
+            "completion_tokens": 96,
+            "total_tokens": 522
+          },
+          "seconds": 1.859
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R4",
+            "R5"
+          ],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1198,
+            "completion_tokens": 410,
+            "total_tokens": 1608
+          },
+          "seconds": 3.757
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 728,
+            "completion_tokens": 236,
+            "total_tokens": 964
+          },
+          "seconds": 3.702
+        }
+      ],
+      "seconds": 18.14
+    },
+    {
+      "id": "early-return-with-links",
+      "project": "ticket_dispatch",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 9,
+          "status": "completed",
+          "utf8_bytes": 203,
+          "text_sha256": "fb9ff083786d796712251899e43df4c4afdf97595d25e6134e924c2b5a26b371",
+          "id": "R1",
+          "path": "api.py",
+          "batch": 1,
+          "observation": "receive 先对 raw 执行 strip；若 allow(mode) 为假则返回 'paused'，否则返回由 apply_tag(cleaned) 拼接出的方括号字符串。对于输入 ('  Go! ', 'paused')，mode='paused'，是否进入第 8 行取决于 allow('paused') 的结果；第 9 行的 tag 调用只在 allow 为真时可达。",
+          "evidence_line": 7
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 42,
+          "text_sha256": "59f8905af7c0d748ed96538ecf6760570a9827350bc220dd690ff788b5fc049f",
+          "id": "R2",
+          "path": "config.py",
+          "batch": 1,
+          "observation": "allow 返回 mode == 'run'。传入 'paused' 时该比较为假，因此 R1 在第 7 行的条件成立，走第 8 行返回 'paused'。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 59,
+          "text_sha256": "a59ea5d2e42bb1812e575666468242f9cdfe217e542d3c621d22b968831d12ff",
+          "id": "R3",
+          "path": "hook.py",
+          "batch": 1,
+          "observation": "本段与问题无直接关系；relay 只是调用 registry['emit'](raw)，未参与 receive 的调用链。",
+          "evidence_line": null
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "completed",
+          "utf8_bytes": 84,
+          "text_sha256": "be7998911a6a04ed9e7328874e971dc8c495ebd940fe37d0aa6df801d5ac7a5e",
+          "id": "R4",
+          "path": "stages.py",
+          "batch": 1,
+          "observation": "tag 将 value.lower() 传给 pick（choose 的别名），但该函数仅在 R1 的 allow 为真时才会被调用；本例中 allow 为假，因此 tag 及 choose 不可达。",
+          "evidence_line": 5
+        },
+        {
+          "start_line": 1,
+          "end_line": 8,
+          "status": "completed",
+          "utf8_bytes": 163,
+          "text_sha256": "638cae83a7d540cfffc2077acf2ad5f3dfb5b69297a0ac028c9e1811e5d17cc8",
+          "id": "R5",
+          "path": "z_rules.py",
+          "batch": 2,
+          "observation": "本段与问题无直接关系：该段只定义了 choose 和 emit 两个函数，未包含 receive、allow、tag 的定义，也未给出 receive('  Go! ', 'paused') 的调用、返回值或 allow 的分支逻辑。仅可见 choose 对以 '!' 结尾的字符串返回 'urgent/' 加去掉末尾 '!' 的值，对其它字符串返回 'normal/' 加原值；emit 返回 'example/' 加原值。未知项包括接收函数对输入空格和 'paused' 参数如何处理、是否调用 choose 或 tag，以及最终返回值。",
+          "evidence_line": 2
+        }
+      ],
+      "summaries": {
+        "observations": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "observations",
+          "claims": [
+            {
+              "text": "receive('  Go! ', 'paused') 返回 'paused'。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 7,
+                  "id": "R1"
+                },
+                {
+                  "path": "config.py",
+                  "line": 2,
+                  "id": "R2"
+                }
+              ]
+            },
+            {
+              "text": "allow('paused') 为假，因为 allow 返回 mode == 'run'，所以 receive 在第 7 行条件成立后走第 8 行返回 'paused'。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 7,
+                  "id": "R1"
+                },
+                {
+                  "path": "config.py",
+                  "line": 2,
+                  "id": "R2"
+                }
+              ]
+            },
+            {
+              "text": "tag 和 choose 都不执行；tag 调用只在 allow 为真时可达，而本例 allow 为假。",
+              "evidence": [
+                {
+                  "path": "api.py",
+                  "line": 7,
+                  "id": "R1"
+                },
+                {
+                  "path": "stages.py",
+                  "line": 5,
+                  "id": "R4"
+                }
+              ]
+            }
+          ],
+          "unknowns": []
+        },
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "receive('  Go! ', 'paused') 返回 'paused'：raw.strip() 得到 'Go!'，allow('paused') 为假，因此第 7 行条件成立并在第 8 行返回。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 6,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 7,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 8,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "config.py"
+                }
+              ]
+            },
+            {
+              "text": "allow('paused') 返回 False，因为 'paused' == 'run' 不成立，这使 receive 中的 not allow(mode) 为 True。",
+              "evidence": [
+                {
+                  "id": "R2",
+                  "line": 2,
+                  "path": "config.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 7,
+                  "path": "api.py"
+                }
+              ]
+            },
+            {
+              "text": "tag 不执行：调用点在第 9 行，但第 8 行已先返回 'paused'，第 9 行不可达。",
+              "evidence": [
+                {
+                  "id": "R1",
+                  "line": 8,
+                  "path": "api.py"
+                },
+                {
+                  "id": "R1",
+                  "line": 9,
+                  "path": "api.py"
+                }
+              ]
+            },
+            {
+              "text": "choose（在 stages 中别名为 pick）也不执行：它只由 tag 第 5 行调用，而 tag 本身不可达。",
+              "evidence": [
+                {
+                  "id": "R4",
+                  "line": 5,
+                  "path": "stages.py"
+                },
+                {
+                  "id": "R5",
+                  "line": 1,
+                  "path": "z_rules.py"
+                }
+              ]
+            }
+          ],
+          "unknowns": [],
+          "static_call_links": [
+            {
+              "source_id": "R4",
+              "line": 5,
+              "target_id": "R5",
+              "target_line": 1
+            },
+            {
+              "source_id": "R1",
+              "line": 7,
+              "target_id": "R2",
+              "target_line": 1
+            },
+            {
+              "source_id": "R1",
+              "line": 9,
+              "target_id": "R4",
+              "target_line": 4
+            }
+          ]
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4"
+          ],
+          "range_count": 4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 595,
+            "completion_tokens": 301,
+            "total_tokens": 896
+          },
+          "seconds": 3.592
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R5"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 423,
+            "completion_tokens": 161,
+            "total_tokens": 584
+          },
+          "seconds": 2.353
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 719,
+            "completion_tokens": 138,
+            "total_tokens": 857
+          },
+          "seconds": 2.666
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R4",
+            "R5"
+          ],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1189,
+            "completion_tokens": 407,
+            "total_tokens": 1596
+          },
+          "seconds": 16.767
+        }
+      ],
+      "seconds": 30.395
+    },
+    {
+      "id": "registry-target-unknown",
+      "project": "ticket_dispatch",
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "start_line": 1,
+          "end_line": 9,
+          "status": "completed",
+          "utf8_bytes": 203,
+          "text_sha256": "fb9ff083786d796712251899e43df4c4afdf97595d25e6134e924c2b5a26b371",
+          "id": "R1",
+          "path": "api.py",
+          "batch": 1,
+          "observation": "本段与 relay(registry, '  Go! ') 的调用路径无直接关系；这里定义的 receive 与 relay 无关。",
+          "evidence_line": null
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 42,
+          "text_sha256": "59f8905af7c0d748ed96538ecf6760570a9827350bc220dd690ff788b5fc049f",
+          "id": "R2",
+          "path": "config.py",
+          "batch": 1,
+          "observation": "本段与 relay(registry, '  Go! ') 无直接关系；allow 仅在 receive 中被使用。",
+          "evidence_line": null
+        },
+        {
+          "start_line": 1,
+          "end_line": 2,
+          "status": "completed",
+          "utf8_bytes": 59,
+          "text_sha256": "a59ea5d2e42bb1812e575666468242f9cdfe217e542d3c621d22b968831d12ff",
+          "id": "R3",
+          "path": "hook.py",
+          "batch": 1,
+          "observation": "源码事实：relay 将 raw 原样传给 registry['emit'] 并返回该调用结果；因此从源码看它会调用 registry 的 emit 项，而 registry 内容未提供，无法确定具体被调用的对象，也无法确定是否涉及 z_rules.emit。",
+          "evidence_line": 2
+        },
+        {
+          "start_line": 1,
+          "end_line": 5,
+          "status": "completed",
+          "utf8_bytes": 84,
+          "text_sha256": "be7998911a6a04ed9e7328874e971dc8c495ebd940fe37d0aa6df801d5ac7a5e",
+          "id": "R4",
+          "path": "stages.py",
+          "batch": 1,
+          "observation": "本段与 relay 无直接关系；这里显示 tag 调用 z_rules.choose，而不是 relay 调用 z_rules.emit。",
+          "evidence_line": null
+        },
+        {
+          "start_line": 1,
+          "end_line": 8,
+          "status": "completed",
+          "utf8_bytes": 163,
+          "text_sha256": "638cae83a7d540cfffc2077acf2ad5f3dfb5b69297a0ac028c9e1811e5d17cc8",
+          "id": "R5",
+          "path": "z_rules.py",
+          "batch": 2,
+          "observation": "本段只定义 choose 与 emit，未出现 relay、registry 或对 z_rules.emit 的调用；因此无法从本段确定 relay(registry, '  Go! ') 是否调用 emit，也无法确定是否返回固定字符串。是否调用及返回内容均未知。",
+          "evidence_line": null
+        }
+      ],
+      "summaries": {
+        "source": {
+          "status": "completed",
+          "requests": 1,
+          "observations_in_scope": 5,
+          "evidence_mode": "source",
+          "claims": [
+            {
+              "text": "relay 的实现是 return registry['emit'](raw)，因此它把 raw 原样传给 registry 的 'emit' 项并返回该调用的结果；在未提供 registry 内容时，源码不能确定该调用是否落到 z_rules.emit。",
+              "evidence": [
+                {
+                  "id": "R3",
+                  "line": 2,
+                  "path": "hook.py"
+                }
+              ]
+            },
+            {
+              "text": "relay 的返回值就是 registry['emit'](raw) 的返回值，源码中没有固定字符串返回路径；最终返回内容取决于 registry 的 'emit' 项，当前不可确定。",
+              "evidence": [
+                {
+                  "id": "R3",
+                  "line": 2,
+                  "path": "hook.py"
+                }
+              ]
+            }
+          ],
+          "unknowns": [
+            "registry 的具体内容及其 'emit' 项指向哪个可调用对象（是否为 z_rules.emit）未提供。",
+            "该 'emit' 被调用后实际返回什么值，以及是否产生副作用，均无法从现有源码确定。",
+            "z_rules.emit 的函数体未被给出，因此即便确认它被调用，也无法判断其返回值。",
+            "其他模块（stages、config、api）中是否存在把 z_rules.emit 放入 registry 的构造路径，当前批次未显示。"
+          ]
+        },
+        "observations": {
+          "status": "failed",
+          "requests": 2,
+          "retries": [
+            {
+              "stage": "final",
+              "reason": "invalid_review_summary_citation"
+            }
+          ],
+          "reason": "invalid_review_summary_citation"
+        }
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4"
+          ],
+          "range_count": 4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 609,
+            "completion_tokens": 222,
+            "total_tokens": 831
+          },
+          "seconds": 2.987
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R5"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 437,
+            "completion_tokens": 83,
+            "total_tokens": 520
+          },
+          "seconds": 1.878
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R3"
+          ],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 797,
+            "completion_tokens": 281,
+            "total_tokens": 1078
+          },
+          "seconds": 3.738
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 596,
+            "completion_tokens": 165,
+            "total_tokens": 761
+          },
+          "seconds": 2.71
+        },
+        {
+          "phase": "observations",
+          "source_range_ids": [],
+          "range_count": 5,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 625,
+            "completion_tokens": 195,
+            "total_tokens": 820
+          },
+          "seconds": 3.336
+        }
+      ],
+      "seconds": 19.714
+    }
+  ]
+}

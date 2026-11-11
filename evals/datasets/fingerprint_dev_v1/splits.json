@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "dataset_id": "codesentry-fingerprint-dev-v1",
+  "samples": [
+    {
+      "id": "codesentry-legacy-fingerprint-before",
+      "split": "dev",
+      "repository_group": "codesentry",
+      "defect_family": "codesentry-legacy-fingerprint-normalization",
+      "derived_from": [],
+      "feedback_used": true
+    }
+  ]
+}

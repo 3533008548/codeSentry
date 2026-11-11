@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-synthetic-pricing-deep-dive-v1",
+  "partition": "dev",
+  "source_root": "evals/fixtures/p4_closeout",
+  "workspace_files": {"app.py": "app.py", "pricing.py": "before/pricing.py", "check_behavior.py": "check_behavior.py"},
+  "grading": "Check each static claim against the listed source spans. Record missing claims, incorrect claims, and unsupported runtime conclusions separately.",
+  "cases": [
+    {
+      "id": "zero-from-cli",
+      "question": "从命令行输入 0 --member 后，跟踪到返回，解释哪个分支决定结果。",
+      "anchors": [{"path": "app.py", "start_line": 8, "end_line": 16}, {"path": "pricing.py", "start_line": 4, "end_line": 7}, {"path": "pricing.py", "start_line": 31, "end_line": 39}],
+      "required_facts": ["0 is a valid parsed quantity", "delivery_fee returns 0 before applying discounts", "main converts the fee to the string '0'"],
+      "requires_runtime_evidence": ["Whether a deployed launcher accepts or rewrites arguments before app.py receives them"]
+    },
+    {
+      "id": "invalid-quantity-short-circuit",
+      "question": "输入 101 --member，计价函数会执行吗？指出依据和返回。",
+      "anchors": [{"path": "app.py", "start_line": 8, "end_line": 12}, {"path": "pricing.py", "start_line": 31, "end_line": 39}],
+      "required_facts": ["parse_quantity returns None because 101 exceeds 100", "main returns 'invalid quantity' without calling delivery_fee"],
+      "requires_runtime_evidence": ["How callers outside app.py display or log invalid input"]
+    },
+    {
+      "id": "refactor-with-reachable-bounds",
+      "question": "把折扣和运输附加费拆开会影响行为吗？指出累加上限、需要保持的规则和测试依据。",
+      "anchors": [{"path": "pricing.py", "start_line": 4, "end_line": 28}, {"path": "check_behavior.py", "start_line": 10, "end_line": 23}],
+      "required_facts": ["The maximum discount is 8", "Surcharges are nonnegative", "Preserve zero-quantity early return, quantity thresholds, stackable discounts and the priority-plus-remote combination", "Existing tests are source evidence of test cases; current execution has not been established by reading them"],
+      "requires_runtime_evidence": ["Whether the tests pass in the current environment", "Whether unlisted callers rely on additional behavior"]
+    }
+  ]
+}

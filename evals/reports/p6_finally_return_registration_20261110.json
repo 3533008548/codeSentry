@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "rule_id": "python.finally_return",
+  "rule_version": "1",
+  "dataset_id": "p6-python-finally-return-dev-v1",
+  "partition": "dev",
+  "case_ids": [
+    "pending-exception",
+    "pending-return-multiline",
+    "conditional-cleanup-return",
+    "async-function",
+    "try-star-own-finally",
+    "nested-try-body-in-finally",
+    "nearest-finally-suite",
+    "nested-function-own-finally",
+    "generator-cleanup",
+    "unreachable-still-syntax",
+    "returns-in-try-except-and-else",
+    "return-after-cleanup",
+    "nested-function-return",
+    "class-method-return",
+    "text-and-loop-controls",
+    "except-star-illegal-return",
+    "outside-function",
+    "invalid-syntax"
+  ],
+  "sha256": {
+    "rules/proposals/python.finally_return.v1.json": "a5926589b9d80d391c197971998691d04dd4bc0630617495038102adb1582fd3",
+    "evals/datasets/p6_finally_return_dev_v1.json": "92c0ed3ff5775a83d42d57cc1e1995f20984924de7c154bc5444a31e02dcec12",
+    "evals/finally_return_candidate.py": "7b7a4d9806cd020a36ef42427de03c4e91f4cf378847cfd2e49d996f0afd2671",
+    "evals/finally_return_contract.py": "44bbb11ba7e7a7d8e46858b436d96c766bdf6de62b9f260f94656f613ceaac32"
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "version": "3.14.5"
+  },
+  "matching": "exact multiset of (return_start_line, return_end_line, owner_try_line), and exact case status"
+}

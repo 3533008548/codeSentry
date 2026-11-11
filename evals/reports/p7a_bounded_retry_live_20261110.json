@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "kind": "live_synthetic_fault_injection",
+  "synthetic_only": true,
+  "model": "deepseek-flash",
+  "dataset_sha256": "a6ceb2a38d0f5b0c92945736222a17cbfbcfe3d85910730d2966d780c4da58fe",
+  "results": [
+    {
+      "case": "empty-cache-value",
+      "fault": "batch",
+      "injected": true,
+      "batch_status": "model_scope_complete",
+      "batch_retries": [
+        {
+          "batch": 1,
+          "reasons": {
+            "R1": "invalid_review_citation"
+          }
+        }
+      ],
+      "range_outcomes": [
+        {
+          "id": "R1",
+          "path": "api.py",
+          "status": "completed",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "cache.py",
+          "status": "completed",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "decoder.py",
+          "status": "completed",
+          "reason": null
+        },
+        {
+          "id": "R4",
+          "path": "policy.py",
+          "status": "completed",
+          "reason": null
+        },
+        {
+          "id": "R5",
+          "path": "z_worker.py",
+          "status": "completed",
+          "reason": null
+        }
+      ],
+      "summary": null,
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2",
+            "R3",
+            "R4"
+          ],
+          "range_count": 4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 703,
+            "completion_tokens": 298,
+            "total_tokens": 1001
+          },
+          "seconds": 3.088,
+          "injected_fault": "bad_quote"
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 558,
+            "completion_tokens": 85,
+            "total_tokens": 643
+          },
+          "seconds": 1.783
+        },
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R5"
+          ],
+          "range_count": 1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 419,
+            "completion_tokens": 112,
+            "total_tokens": 531
+          },
+          "seconds": 1.967
+        }
+      ]
+    },
+    {
+      "case": "reachable-quota-bounds",
+      "fault": "source",
+      "injected": true,
+      "batch_status": "model_scope_complete",
+      "batch_retries": [],
+      "range_outcomes": [
+        {
+          "id": "R1",
+          "path": "limits.py",
+          "status": "completed",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "quote.py",
+          "status": "completed",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "completed",
+        "requests": 2,
+        "retries": [
+          {
+            "stage": "final",
+            "reason": "invalid_review_calculation"
+          }
+        ],
+        "observations_in_scope": 2,
+        "evidence_mode": "source",
+        "claims": [
+          {
+            "text": "allowance 的可达最大值为 12；当 tier 为 pro 且 batch 为真时 amount 依次变为 11、16，再被 min(12,16) 截为 12；若 credit 为真还会再减 6，因此取最大值时 credit 应为假。",
+            "evidence": [
+              {
+                "id": "R1",
+                "line": 3,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 4,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 7,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 8,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 11,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 12,
+                "path": "limits.py"
+              }
+            ],
+            "sums": [
+              {
+                "terms": [
+                  4,
+                  7,
+                  5
+                ],
+                "result": 16
+              }
+            ]
+          },
+          {
+            "text": "allowance 的可达最小值为 -2；当 tier 为 basic、batch 和 burst 均为假、credit 为真时，amount 初值 4 不变，min 仍为 4，随后因 credit 且 tier != 'trial' 减 6，得到 -2；trial 分支会加 -3 到 7 且不享 credit，pro 分支至少从 11 起算，故更低值不可达。",
+            "evidence": [
+              {
+                "id": "R1",
+                "line": 2,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 7,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 11,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 12,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 13,
+                "path": "limits.py"
+              }
+            ],
+            "sums": [
+              {
+                "terms": [
+                  4,
+                  -6
+                ],
+                "result": -2
+              }
+            ]
+          },
+          {
+            "text": "tier 为 pro 且 batch 和 credit 均为真时结果为 min(12,4+7+5)-6=6，说明 credit 会在 min 截断后再减 6。",
+            "evidence": [
+              {
+                "id": "R1",
+                "line": 4,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 8,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 11,
+                "path": "limits.py"
+              },
+              {
+                "id": "R1",
+                "line": 13,
+                "path": "limits.py"
+              }
+            ],
+            "sums": [
+              {
+                "terms": [
+                  4,
+                  7,
+                  5
+                ],
+                "result": 16
+              }
+            ]
+          },
+          {
+            "text": "quote 直接把 flags 的 batch、burst、credit 传给 allowance，没有额外限制，因此 quote 的可达值与 allowance 在这些输入下相同。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 5,
+                "path": "quote.py"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "未执行代码验证，以上边界均由源码逐分支推导。",
+          "未核实调用方是否会对 tier 或 flags 做额外约束。"
+        ]
+      },
+      "requests": [
+        {
+          "phase": "batch",
+          "source_range_ids": [
+            "R1",
+            "R2"
+          ],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 576,
+            "completion_tokens": 433,
+            "total_tokens": 1009
+          },
+          "seconds": 3.991
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2"
+          ],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 976,
+            "completion_tokens": 460,
+            "total_tokens": 1436
+          },
+          "seconds": 3.89,
+          "injected_fault": "bad_sum"
+        },
+        {
+          "phase": "source",
+          "source_range_ids": [
+            "R1",
+            "R2"
+          ],
+          "range_count": 2,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1005,
+            "completion_tokens": 663,
+            "total_tokens": 1668
+          },
+          "seconds": 4.77
+        }
+      ]
+    }
+  ]
+}

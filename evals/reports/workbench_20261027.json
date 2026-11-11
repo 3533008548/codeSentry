@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "scope": "P1.7-P1.9 local web workbench functional acceptance",
+  "recorded_at": "2026-10-27T07:57:04.069359+00:00",
+  "platform": "win32",
+  "runtime": {
+    "python": "3.14.5",
+    "fastapi": "0.162.0",
+    "uvicorn": "0.54.0",
+    "starlette": "1.10.0",
+    "httpx": "0.28.1"
+  },
+  "tests": {
+    "python": {
+      "command": ".venv/Scripts/python.exe -m pytest -q --basetemp .venv/pytest-workbench-final-2",
+      "passed": 278,
+      "skipped": 1,
+      "failed": 0,
+      "elapsed_seconds": 32.28,
+      "skip_reason": "Windows account cannot create ordinary symlinks; real Windows junction case passed",
+      "warnings": [
+        "Starlette TestClient deprecates httpx; no runtime failure"
+      ]
+    },
+    "frontend": {
+      "command": "npm test",
+      "passed": 19,
+      "failed": 0,
+      "typecheck_and_production_build": "passed"
+    },
+    "browser": {
+      "command": "npm run test:e2e",
+      "passed": 3,
+      "failed": 0,
+      "elapsed_seconds": 13.4,
+      "engine": "Installed Google Chrome via Playwright",
+      "viewports": [
+        [
+          1440,
+          1000
+        ],
+        [
+          1000,
+          800
+        ]
+      ],
+      "cases": [
+        "create/reopen; read-only Monaco; same-name source and result isolation; saved tabs; actual analysis; historical config unchanged; changed-settings notice; changed-source notice",
+        "delayed A file response cannot replace B",
+        "actual queued/running cancellation; retained history; narrow viewport"
+      ],
+      "observed_external_http_requests": [],
+      "observed_page_errors": []
+    },
+    "lease_process_exit_repeats": {
+      "passed": 5,
+      "waits_for": "actual lock-holder process exit; no retry/backoff"
+    }
+  },
+  "launch": {
+    "command": ".venv/Scripts/codesentry.exe serve --data-dir .venv/workbench-data",
+    "url": "http://127.0.0.1:8765",
+    "source_build_only": true,
+    "restart_restored_workspace_and_history": true
+  },
+  "self_workspace": {
+    "id": "9c7d4b78ba0745cfada3c1945abd3ce4",
+    "analysis_id": "8c312ccc370549ccbe68beadf4a61b10",
+    "status": "succeeded",
+    "files": 72,
+    "symbols": 648,
+    "edges": 5347,
+    "parse_failures": 0,
+    "is_complete": true,
+    "input_fingerprint": "d8decabafba8165c87beda36bb799ce8350636f241d4d1f4ad8894b898c3f281",
+    "environment_fingerprint": "c80614748e688bc890a31d7cfa7d9787c46605b2457c3f9a0b04498788eda061",
+    "not_navigation_quality_evidence": true
+  },
+  "screenshots": [
+    "docs/execution/assets/workbench-overview-20261027.png",
+    "docs/execution/assets/workbench-code-20261027.png"
+  ],
+  "boundaries": {
+    "target_code_executed": false,
+    "target_dependencies_installed": false,
+    "target_tests_collected": false,
+    "cloud_model_calls": false,
+    "review_available": false,
+    "operating_system_sandbox_available": false,
+    "overall_p1_quality_passed": false,
+    "unchanged_navigation_contract_sha256": "cda5ae9301a5c5175181bba3a0e43d79f5f0f68dcac52effed982e7f590dd5de",
+    "historical_development_p_at_10": [
+      0.5,
+      0.6
+    ],
+    "required_p_at_10": 0.8
+  },
+  "implementation_sha256": {
+    "codesentry/__init__.py": "3c4216247c0a1e5f060e9fcaaddcbe65f2a67931bb3540ffd8c42baf0ce55f6f",
+    "codesentry/cli/__init__.py": "a5d10be8ffaaf1d801e5fe84a4590e0c9b91355d817e211f4511312cb5ca7d8c",
+    "codesentry/cli/main.py": "18d4dce469563b12ae9983c488c2f585287bf920f8a8c7441e8a5554f65cdaa8",
+    "codesentry/core/__init__.py": "3ab238dd57987624ec84866b55ca1193eb836b0967048a37a5281eec0738995d",
+    "codesentry/core/finding.py": "c6afb0cff152afcbcf0e8786309992746bbcb3c5b71af7d41cc61afe084b89b2",
+    "codesentry/core/fingerprint.py": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "codesentry/core/policy.py": "ea2538eb70df654b02ec5f50294a0f6eecca9bc85e2499e2544c25be376883b4",
+    "codesentry/core/symbol.py": "f6858786421ef4eb063daea37d916a980c54f6da4c363ae3ad227c1b702432dc",
+    "codesentry/environment/__init__.py": "841347c9c770f630940368c1311c94c1f3ea0b79fdb07ea68e6375bfc2138563",
+    "codesentry/environment/__main__.py": "586f06af449d6b6482faee1b90b93b2818aeece0dc1dae5e57f1e03cfcdc7942",
+    "codesentry/environment/inspect.py": "7ce3c9191ec01d28a4c6ebc514413c208dcadf321a8c2f386b0686943fac435b",
+    "codesentry/environment/toolchain.py": "393b0e8742cb2a00331819acf0003f827d059c50a6b0e85024367fed8b5ac61d",
+    "codesentry/index/__init__.py": "e8f4225fc1acd9abab28de62018f58090b31ca690d7391594feb15022e6d7a81",
+    "codesentry/index/builder.py": "2dc3354cc76309440f3e047934a56642c37b2538081a25ac1f6014637797519a",
+    "codesentry/index/cache.py": "19512649f5be8e72f8ce3b3551e492b9806e1389027d46372af43444ca02423a",
+    "codesentry/index/discovery.py": "d8a660d33b67f87ce31c96cb75f836d80483ff34c28c7090d4e818d14b4066a3",
+    "codesentry/index/entrypoint.py": "63f2bdd58bf3a0b0a7cb26d1f7997b999cc18c0520bdee1fa38fed44ffbb9226",
+    "codesentry/index/pagerank.py": "5f2e12be2f287fa9ae20b5c5d17152826c27004ca07242ab45d37dbead9ca710",
+    "codesentry/index/resolver.py": "6b5f75ff7bea92e549823c98e8e7b78b9a8b933a38d18e243caeb3326178ad13",
+    "codesentry/index/roles.py": "ceef481ce95c7389631d8df72c04ab3ec2907817f6da868b1793a1d8f3ab3b45",
+    "codesentry/index/store.py": "728bc9cccf7e16c3c784cd3c933742161a76ab9743865431855b3763f28a497f",
+    "codesentry/output/__init__.py": "422d5e7cae8fe510d9648abab3656a386ec1f8327d15871447294a72360af6df",
+    "codesentry/output/reading_order.py": "da1f0490a715a5cdfc1390ffbd912e88eabced7a198cfb076a4dd1c2cbc46cf3",
+    "codesentry/output/report.py": "e3c55ac7c9b18b05e3230045d6394f1a04bf6bf1eb6f1e54c3065c7329239a2a",
+    "codesentry/parsers/__init__.py": "bfaf2189212001d2e3081931132b9720d152ce2e7ef62f8335f458a90f58c839",
+    "codesentry/parsers/_ts_extract.js": "07ab5d155849593480ae8286d8cbd7cec21e528b0f4e56e5cd160ef7ac520e02",
+    "codesentry/parsers/python_parser.py": "4ae0f1a907cb873407d0468a29fc11647884b486cbeee216472f222754671dc7",
+    "codesentry/parsers/ts_parser.py": "4fa3aff1eb325cf4a269eccb61b3936a0a02740b44664452769031eca7b5de5b",
+    "codesentry/web/__init__.py": "cf8ac7b8383fab7b9cb1f60fe3c9cba84b7a173d4b89418bec2b11cca7fe0a85",
+    "codesentry/web/app.py": "38192fe549cbcd6d7c51328e07ce2f779ebfbc3b114e3bfc22b1552cd89b057b",
+    "codesentry/web/jobs.py": "7f03fa2eee34f5986c908236df46a9d0b4cc8a1807936ea4bd78a894a2e1347a",
+    "codesentry/web/processes.py": "88700ce7c77a38b15a8bd4e00ac5c276a5d214ea7ec8259e7bc219d962e527ad",
+    "codesentry/web/worker.py": "dcd00f5ace032a663650eee7f61c26f1eb9e01583c0757a3f30d7ad4b7752d71",
+    "codesentry/workspaces/__init__.py": "26e2726f9b67eed4a0cfab23cbdd775c7964273c51caf9dcb4a0fbe3b80249e5",
+    "codesentry/workspaces/files.py": "5a107809a478a770a24d6154bfc008a1aeec6ba148cccdf56c2a1f461e94c669",
+    "codesentry/workspaces/lease.py": "beec2fed4059c1748fc3de469edd5a8c726793eef83918147d68951c7ff854ce",
+    "codesentry/workspaces/store.py": "b031c1d416ec506cc111bafb9ffe94614d0dd71a964273468f66e319201f4e38",
+    "frontend/e2e/start-server.mjs": "a75c64ef78c5285d71e627502c21e908f9cd418a2f781ecdf9a8c6d6124568d2",
+    "frontend/e2e/workspaces.spec.ts": "ac38eb9abfd3ceb6486f2b0adb2ac85ff3a8a7d775061b83351bc7f3e9200964",
+    "frontend/index.html": "5651bdcbc488c1996d4270a824a93ad8a0a7cf3a53fb5b950510ce213b38f2fd",
+    "frontend/package-lock.json": "a759ef69880283c8b71b62cf8652e6eb4ed17477e18046b9d4b6b983ddab212d",
+    "frontend/package.json": "841a707a57b5af3c1e05d2314d5ff0cbaa36323f53b23e32d11ef7ab67f5db9a",
+    "frontend/playwright.config.ts": "f7aff9d9dccfe50db4a1f17473a6bb79c50c36f1b139ee6c7b4550637a9c9686",
+    "frontend/src/api.test.ts": "59acde884d043dcfc0de91b28f10a5f32db8532fabf5f953477c2ac0ffc5e204",
+    "frontend/src/api.ts": "d2ec1f45ca304ac54b946cc8234a13d62c9879f12cac469776fe5db9634a14ac",
+    "frontend/src/App.test.tsx": "71e04cb4e0a484b409e3fc85b033f273249811c306a3816b4001cd90d5c122e7",
+    "frontend/src/App.tsx": "ac9146a8292b314197a88f8883cbf0fc389fe72735fe0bee7af547e959ce682d",
+    "frontend/src/CodeViewer.tsx": "85b12442d8b10faa80d277305a75168a4717edab867cc16419d266d92a3a96bb",
+    "frontend/src/FileTree.tsx": "4fb2de7d9c1884ab88b1d699abb265e7bb92d3604950afbb8d0a7fec0b416d07",
+    "frontend/src/format.ts": "83db2ad7a595f8f21a1421fdac5fc8101cfa3a6293bc2c78e0e4549794a3cf63",
+    "frontend/src/main.tsx": "d7ac0a33935137c50aad29410bba15d9d72a984716c2a30dbace8cdce4b9f5dd",
+    "frontend/src/ResultPane.tsx": "7468cd0e7eaceab58b993d08b14414f92baa6ebc292dd575942392a168738cc2",
+    "frontend/src/state.test.ts": "979d5fe4fa977628725c193eb8f9dfaa2ea16623bb98b67dfff5294ec98ca23d",
+    "frontend/src/state.ts": "70641f98eb428b5a36b824d33cbc0ffbcfb124738d2c4854737d95d8c798174c",
+    "frontend/src/styles.css": "fb2c772cff1eacea4bedd8b2b7dca18cd51c2a7fb105173ed86f101c90f61bc9",
+    "frontend/tsconfig.json": "b3285339a94073dd3af94db1af236c00088a6a82015f761d5fc7f369fbb78dcf",
+    "frontend/vite.config.ts": "c33f9b82e6d276911a8bd1bbb14e109ee279f9b11d5e65a56b26d8489e8d6f6b",
+    "pyproject.toml": "59fcbd69b7a43580a4740e6cad86cf1c9d7ecef73dede5bda3b616cc4f900c2b",
+    "tests/test_web_launch.py": "1eab1e5a73b3b42e74541c74ab06083720794359044e27f8d3e53faac41968cb",
+    "tests/test_web_workspaces.py": "7e5752f269aaeaec333aa513c0bb8ba5e754b55f3cd6783d7c94380c0f5539bb"
+  },
+  "built_index_sha256": "30728e4cbdb54b7728c28721249707d6733aa0d23bb04e5b22a385554f31a295"
+}

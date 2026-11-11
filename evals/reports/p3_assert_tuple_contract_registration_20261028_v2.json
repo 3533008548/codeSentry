@@ -1,0 +1,50 @@
+{
+  "bug_gold": false,
+  "case_ids": [
+    "tuple-message",
+    "singleton-false",
+    "empty-tuple",
+    "starred-can-empty",
+    "starred-with-fixed-item-out-of-scope",
+    "normal-message",
+    "parenthesized-normal-message",
+    "nested-ordinary-tuple",
+    "nested-starred-conservatively-out-of-scope",
+    "multiline",
+    "method",
+    "nested-function",
+    "string-not-code",
+    "comment-not-code",
+    "unreachable-not-assessed",
+    "side-effects-not-executed",
+    "construction-exception-not-evaluated",
+    "duplicates-retain-occurrences",
+    "syntax-error",
+    "file-budget",
+    "excluded-not-read",
+    "call-not-literal-tuple",
+    "tuple-with-outer-message",
+    "class-body",
+    "no-python"
+  ],
+  "contract_id": "python-assert-tuple-synthetic-v2",
+  "expected_syntax_candidates": 14,
+  "implementation_sha256": {
+    "codesentry/access/policy.py": "8a639ff11e7c2c0526647b10b5df76d16b20bfd85d4393337fbc49edf69eb71d",
+    "codesentry/core/finding.py": "b1eb533c55c08b4b5a345b8590ce676752a4735b70823ce267246f7be3dbc28b",
+    "codesentry/core/fingerprint.py": "3980337689b24dc4eac9d8bf7a5367c648f592d74b90ef55ec0a5a575019e12a",
+    "codesentry/review/defects.py": "562da844a8e340696dbfacb5b70c6899b2cd60923acc383ece6670831e6ac1d9",
+    "codesentry/review/scan.py": "376db10d0c8d73af7b2a82c702b7e9d0d53c46c66a33cdf2ead4ef1ed1597e67",
+    "codesentry/review/verification.py": "15226c133d31e8af259de90e1e8fcc6030e37c62c6600bb4e5726f357c7e6a87",
+    "evals/assert_tuple_contract.py": "8555954b1f543fd69a298193434bd081c967e6d40ab3917ff2bb64f6f2aa09ed"
+  },
+  "independently_adjudicated": false,
+  "material_sha256": {
+    "cases.json": "baaeae896ad0f229e81fac4fd20e8254359f56040e321c9350fcb985ed6e9479",
+    "rule_card.json": "d8bfeb89724286a2167b58e2a9dcbf572ef50e3b624f1392693579a6eb0c12dc",
+    "spec.json": "3afa65fd8bd5b3cbd1afe09f244d7deca07d12cc7b3deae3a7970951edf4d27a"
+  },
+  "schema_version": 1,
+  "split": "dev",
+  "target_execution": false
+}

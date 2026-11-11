@@ -1,0 +1,16 @@
+{
+  "schema_version": 2,
+  "partition": "developer-authored challenge set separate from v1",
+  "scope": "synthetic follow-up dependencies and optional root environment declarations",
+  "cases": [
+    {"id": "history-code-changed", "followup": true, "after": {"history_only.py": "MODE = 'compat'\n"}, "gold_drift": true, "reason": "source"},
+    {"id": "history-code-deleted", "followup": true, "after": {"history_only.py": null}, "gold_drift": true, "reason": "source"},
+    {"id": "history-code-moved", "followup": true, "after": {"history_only.py": null, "relocated.py": "MODE = 'stable'\n"}, "gold_drift": true, "reason": "source"},
+    {"id": "tracked-python-requirement", "before": {"pyproject.toml": "[project]\nrequires-python = '>=3.12'\n"}, "track_environment": true, "after": {"pyproject.toml": "[project]\nrequires-python = '>=3.13'\n"}, "gold_drift": true, "reason": "environment"},
+    {"id": "tracked-npm-lock-updated", "before": {"package-lock.json": "{\"lockfileVersion\": 2}\n"}, "track_environment": true, "after": {"package-lock.json": "{\"lockfileVersion\": 3}\n"}, "gold_drift": true, "reason": "environment"},
+    {"id": "history-rewritten-identical", "followup": true, "after": {"history_only.py": "MODE = 'stable'\n"}, "gold_drift": false},
+    {"id": "history-unrelated-doc", "followup": true, "after": {"README.md": "# Updated overview\n"}, "gold_drift": false},
+    {"id": "excluded-dotenv-not-tracked", "track_environment": true, "after": {".env": "SYNTHETIC_ENV_CHANGE=1\n"}, "gold_drift": false},
+    {"id": "history-cosmetic-comment", "followup": true, "after": {"history_only.py": "MODE = 'stable'\n# Clarify the example\n"}, "gold_drift": false, "reason": "source", "conservative_stale": true}
+  ]
+}

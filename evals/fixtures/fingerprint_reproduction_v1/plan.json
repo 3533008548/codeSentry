@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "plan_id": "fingerprint-reproduction-v1",
+  "cases": [
+    {
+      "case_id": "after_line_12_changes_fingerprint",
+      "argv": [
+        "python3",
+        "-I",
+        "behavior_driver.py",
+        "after_line_12_changes_fingerprint"
+      ],
+      "cwd": ".",
+      "expected_output_sha256": "3632f2682e778d435c22c741288b2cfe10ecb8658b096605565765b904778d13"
+    },
+    {
+      "case_id": "string_internal_whitespace_changes_fingerprint",
+      "argv": [
+        "python3",
+        "-I",
+        "behavior_driver.py",
+        "string_internal_whitespace_changes_fingerprint"
+      ],
+      "cwd": ".",
+      "expected_output_sha256": "6a3ee419238880c3b26a67af9bf707f6cbe2093e56d66a568a01bf7e5a630127"
+    },
+    {
+      "case_id": "identical_snippet_is_stable",
+      "argv": [
+        "python3",
+        "-I",
+        "behavior_driver.py",
+        "identical_snippet_is_stable"
+      ],
+      "cwd": ".",
+      "expected_output_sha256": "22e6a733ebb2135baf6ba8742f9d32fcc3357bab97edec2f7e8b935b81d17cdb"
+    }
+  ]
+}

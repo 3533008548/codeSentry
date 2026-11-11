@@ -1,0 +1,417 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 2
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (condition, 'message')\n"
+      },
+      "id": "tuple-message"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 1
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (False,)\n"
+      },
+      "id": "singleton-false"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert ()\n"
+      },
+      "id": "empty-tuple"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (*items,)\n"
+      },
+      "id": "starred-can-empty"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (False, *items)\n"
+      },
+      "id": "starred-with-fixed-item-out-of-scope"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert condition, 'message'\n"
+      },
+      "id": "normal-message"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (condition), 'message'\n"
+      },
+      "id": "parenthesized-normal-message"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 1
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert ((False, 'inner'),)\n"
+      },
+      "id": "nested-ordinary-tuple"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert ((*items,),)\n"
+      },
+      "id": "nested-starred-conservatively-out-of-scope"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 4,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 2
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (\n    condition,\n    'message',\n)\n"
+      },
+      "id": "multiline"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 3,
+            "file": "main.py",
+            "line": 3,
+            "occurrence": 1,
+            "symbol": "main.py::C.method",
+            "tuple_arity": 2
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "class C:\n    def method(self):\n        assert (condition, 'message')\n"
+      },
+      "id": "method"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 3,
+            "file": "main.py",
+            "line": 3,
+            "occurrence": 1,
+            "symbol": "main.py::outer.<locals>.inner",
+            "tuple_arity": 1
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "def outer():\n    def inner():\n        assert (False,)\n"
+      },
+      "id": "nested-function"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "text = \"assert (False, 'message')\"\n"
+      },
+      "id": "string-not-code"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "# assert (False, 'message')\npass\n"
+      },
+      "id": "comment-not-code"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 2,
+            "file": "main.py",
+            "line": 2,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 2
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "if False:\n    assert (False, 'message')\n"
+      },
+      "id": "unreachable-not-assessed"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 2
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (effect(), 'message')\n"
+      },
+      "id": "side-effects-not-executed"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 2
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (1 / 0, 'message')\n"
+      },
+      "id": "construction-exception-not-evaluated"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 1
+          },
+          {
+            "end_line": 2,
+            "file": "main.py",
+            "line": 2,
+            "occurrence": 2,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 1
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (False,)\nassert (False,)\n"
+      },
+      "id": "duplicates-retain-occurrences"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [
+          "syntax_error"
+        ],
+        "review_status": "incomplete"
+      },
+      "files": {
+        "main.py": "assert (\n"
+      },
+      "id": "syntax-error"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "a.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "a.py::<module>",
+            "tuple_arity": 1
+          }
+        ],
+        "issue_statuses": [
+          "budget_exhausted"
+        ],
+        "review_status": "incomplete"
+      },
+      "files": {
+        "a.py": "assert (False,)\n",
+        "b.py": "assert (False,)\n"
+      },
+      "id": "file-budget",
+      "limits": {
+        "max_files": 1
+      }
+    },
+    {
+      "exclude": [
+        "main.py"
+      ],
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "not_applicable"
+      },
+      "files": {
+        "main.py": "assert (False,)\n"
+      },
+      "id": "excluded-not-read"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert tuple(items)\n"
+      },
+      "id": "call-not-literal-tuple"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 1,
+            "file": "main.py",
+            "line": 1,
+            "occurrence": 1,
+            "symbol": "main.py::<module>",
+            "tuple_arity": 2
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "assert (condition, 'inner'), 'outer'\n"
+      },
+      "id": "tuple-with-outer-message"
+    },
+    {
+      "expected": {
+        "findings": [
+          {
+            "end_line": 2,
+            "file": "main.py",
+            "line": 2,
+            "occurrence": 1,
+            "symbol": "main.py::C",
+            "tuple_arity": 1
+          }
+        ],
+        "issue_statuses": [],
+        "review_status": "report_only"
+      },
+      "files": {
+        "main.py": "class C:\n    assert (False,)\n"
+      },
+      "id": "class-body"
+    },
+    {
+      "expected": {
+        "findings": [],
+        "issue_statuses": [],
+        "review_status": "not_applicable"
+      },
+      "files": {
+        "main.ts": "export const text = 'assert (False,)';\n"
+      },
+      "id": "no-python"
+    }
+  ],
+  "contract_id": "python-assert-tuple-synthetic-v2",
+  "schema_version": 1
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "kind": "fingerprint-owner-confirmed-dev-dataset",
+  "dataset_id": "codesentry-fingerprint-dev-v1",
+  "dataset_version": "1",
+  "split": "dev",
+  "inputs_sha256": {
+    "receipt": "38ef461c2df54b98bbdbf37fb21634283c0a8ff6f7273839ba9a7f5918977201",
+    "reproduction_report": "9ae72db7017f02d9d5f4b91835c144f476c628fb59513693a09dfedef4b91db5",
+    "fixture_descriptor": "96f1b3e6623ea1c4255447ae59a224451930d5825b55d4ed9d55339a3fc2266c",
+    "plan_file": "0f19c918b9b52e6c925a9d26abdcfebf5f1cc6127b047d7ecaf2653aabe05b41"
+  },
+  "implementation_sha256": {
+    "evals.fingerprint_reproduction": "ebaf7dc5868ab83e881f384e053f38cf5f5dc6ecaef0e3cfb606224c35840acb",
+    "evals.fingerprint_verification": "dcb60bd770e1378c2666c6e9ddbc0ac5ce92b7f59aefdce8aef949b4762174db",
+    "evals.review_scoring": "8004ee63991865759c39aa998cc614f0156712f2086389bb03b8bf1371ab5f9f",
+    "evals.fingerprint_dataset": "79362d7cfa2143f8f9bf22b1c8498d8590e0fa7de57187e04cb9d56a8e3ce472"
+  },
+  "files_sha256": {
+    "gold.json": "1c3a3c6dde2f4737d152fd9b5d22e060fd894109aca89d336246c8284aaa9fb1",
+    "predictions.json": "09a67de52627027b112fef1b9495d4d6592c6c004478c6055d15efa6e44f7000",
+    "splits.json": "87304c10b5a63bddd852f82905e888c9a6209f882f3cbdbe9f11ec1b5de25a49",
+    "adjudication.json": "c2227f291528d7aebaf6eea4888c66bf71a7acf0dd305bb40350b2410eb19634",
+    "source_card.json": "e8e2d7d8eac0ed267e469523fa996e105f49678cbd861c226db507711ae26456"
+  },
+  "reference_kind": "non_detector_reference",
+  "independently_adjudicated": false,
+  "identity_authenticated": false,
+  "formal_acceptance": {
+    "passed": false
+  }
+}

@@ -1,0 +1,594 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "stage": "P1 continued implementation",
+  "status": "improved implementation verified; formal P1 acceptance not passed",
+  "changes": [
+    "shared live read-only registry guard with pinned database and workspace identity",
+    "fresh single lstat redirect checks; narrowing startup declaration scan",
+    "application entry metric selects evidenced process/mount file union only",
+    "blinded local annotation drafts for user-confirmed overall onboarding task",
+    "end-to-end output clocks, post-audit readiness and command completion measured separately",
+    "structural entry role displayed as an unverified entry hint"
+  ],
+  "frozen_contract_and_fixtures_sha256": {
+    "evals/contracts/navigation_v1.json": "cda5ae9301a5c5175181bba3a0e43d79f5f0f68dcac52effed982e7f590dd5de",
+    "evals/fixtures/navigation_structure_v1.json": "df5abc099133c50fa939609b42e929fb66582af03c343c83a97c5d9cefd4ee21",
+    "evals/fixtures/navigation_coverage_v1.json": "593676c80210620c41d55d1f6fa3dad94dc7b82021ce1bb1bf8ebe87eec525ab"
+  },
+  "boundaries": {
+    "target_code_executed": false,
+    "target_dependencies_installed": false,
+    "target_tests_collected": false,
+    "model_calls": false,
+    "source_or_derived_content_sent_to_model": false,
+    "permissions_widened": false,
+    "full_read_before_after_checks_retained": true,
+    "plaintext_reports_in_operator_managed_ignored_venv_only": true
+  },
+  "build_and_render_comparisons": [
+    {
+      "project_id": "research_agent",
+      "report": "evals/reports/p1_performance_research_agent_20261027.json",
+      "sha256": "c786c9950fc0f7cafb31b53d417e07512a64fc28576fe8f34baf495c00c084ae",
+      "counts": {
+        "indexed": 155,
+        "parsed": 155,
+        "parse_failures": 0,
+        "source_complete": false,
+        "entry_evidence_issues": 3,
+        "position_errors": 0,
+        "before_entry_candidates": 5,
+        "current_entry_roles": {
+          "assembly": 3,
+          "candidate": 5,
+          "mount": 1
+        },
+        "before_reading_items": 84,
+        "after_reading_items": 84
+      },
+      "proxy_label_metrics": {
+        "legacy_detector_legacy_reader": {
+          "hits": 5,
+          "requested_k": 10,
+          "returned_prefix": 10,
+          "p10": 0.5,
+          "recall10_hits": 5,
+          "recall10_denominator": 38,
+          "recall10": 0.13157894736842105,
+          "unlabelled_prefix": 5,
+          "unlabelled_is_not_false_positive": true,
+          "formal_quality_passed": false
+        },
+        "current_detector_legacy_reader": {
+          "hits": 5,
+          "requested_k": 10,
+          "returned_prefix": 10,
+          "p10": 0.5,
+          "recall10_hits": 5,
+          "recall10_denominator": 38,
+          "recall10": 0.13157894736842105,
+          "unlabelled_prefix": 5,
+          "unlabelled_is_not_false_positive": true,
+          "formal_quality_passed": false
+        },
+        "current_detector_current_reader": {
+          "hits": 6,
+          "requested_k": 10,
+          "returned_prefix": 10,
+          "p10": 0.6,
+          "recall10_hits": 6,
+          "recall10_denominator": 38,
+          "recall10": 0.15789473684210525,
+          "unlabelled_prefix": 4,
+          "unlabelled_is_not_false_positive": true,
+          "formal_quality_passed": false
+        }
+      },
+      "build_and_render_seconds": {
+        "build_seconds": 14.6159,
+        "l1_characters": 2143,
+        "l2_characters": 6168,
+        "build_and_l1_seconds": 14.6188,
+        "build_and_l2_seconds": 14.6218,
+        "stage_seconds": {
+          "environment": 0.551,
+          "discover": 0.4212,
+          "parse": 7.1273,
+          "imports": 0.0,
+          "resolve": 0.2405,
+          "pagerank": 0.0098,
+          "symbol_pagerank": 0.003,
+          "entrypoints": 0.2543,
+          "roles": 0.0526,
+          "validate_snapshot": 5.6473
+        },
+        "including_validation_seconds": 34.6661
+      },
+      "interpretation": "build plus render only; not end-to-end L1/L2"
+    },
+    {
+      "project_id": "knowledge_loop",
+      "report": "evals/reports/p1_performance_knowledge_loop_20261027.json",
+      "sha256": "82edd079d1703b32eb443828d9aebedb8429f85e225a74c4bafeec09f72362ca",
+      "counts": {
+        "indexed": 140,
+        "parsed": 140,
+        "parse_failures": 0,
+        "source_complete": false,
+        "entry_evidence_issues": 1,
+        "position_errors": 0,
+        "before_entry_candidates": 4,
+        "current_entry_roles": {
+          "process": 1,
+          "assembly": 1,
+          "candidate": 1,
+          "mount": 1
+        },
+        "before_reading_items": 77,
+        "after_reading_items": 77
+      },
+      "proxy_label_metrics": {
+        "legacy_detector_legacy_reader": {
+          "hits": 6,
+          "requested_k": 10,
+          "returned_prefix": 10,
+          "p10": 0.6,
+          "recall10_hits": 6,
+          "recall10_denominator": 11,
+          "recall10": 0.5454545454545454,
+          "unlabelled_prefix": 4,
+          "unlabelled_is_not_false_positive": true,
+          "formal_quality_passed": false
+        },
+        "current_detector_legacy_reader": {
+          "hits": 6,
+          "requested_k": 10,
+          "returned_prefix": 10,
+          "p10": 0.6,
+          "recall10_hits": 6,
+          "recall10_denominator": 11,
+          "recall10": 0.5454545454545454,
+          "unlabelled_prefix": 4,
+          "unlabelled_is_not_false_positive": true,
+          "formal_quality_passed": false
+        },
+        "current_detector_current_reader": {
+          "hits": 6,
+          "requested_k": 10,
+          "returned_prefix": 10,
+          "p10": 0.6,
+          "recall10_hits": 6,
+          "recall10_denominator": 11,
+          "recall10": 0.5454545454545454,
+          "unlabelled_prefix": 4,
+          "unlabelled_is_not_false_positive": true,
+          "formal_quality_passed": false
+        }
+      },
+      "build_and_render_seconds": {
+        "build_seconds": 11.0475,
+        "l1_characters": 1350,
+        "l2_characters": 6642,
+        "build_and_l1_seconds": 11.0495,
+        "build_and_l2_seconds": 11.0512,
+        "stage_seconds": {
+          "environment": 0.2963,
+          "discover": 0.4077,
+          "parse": 5.2339,
+          "imports": 0.0,
+          "resolve": 0.0948,
+          "pagerank": 0.004,
+          "symbol_pagerank": 0.0025,
+          "entrypoints": 0.0158,
+          "roles": 0.0268,
+          "validate_snapshot": 4.7615
+        },
+        "including_validation_seconds": 28.7701
+      },
+      "interpretation": "build plus render only; not end-to-end L1/L2"
+    }
+  ],
+  "complete_latency_samples": [
+    {
+      "project_id": "research_agent",
+      "report": "evals/reports/p1_latency_research_agent_20261027.json",
+      "sha256": "72d75aa8b9891bb287bb0c95c91627a814dace0011812cae6f5f7f843779afa0",
+      "command_receipt_local_path": ".venv/p1-latency-research-command.txt",
+      "receipt_sha256": "34b75fdd22cb9209295063b628231646c50bccd74deb6d0411e0998ab6617862",
+      "execution_context": "tool_default",
+      "latency": {
+        "l1_end_to_end_seconds": 42.603,
+        "l2_end_to_end_seconds": 42.6553,
+        "post_output_validation_seconds": 15.0596,
+        "validated_outputs_ready_seconds": 57.7149,
+        "l1_limit_seconds": 30,
+        "l1_below_limit": false,
+        "l2_limit_seconds": 180,
+        "l2_below_limit": true,
+        "timing_scope": "preparation + full precheck + uncached build + rendered UTF-8 file write and flush",
+        "timing_definition_reference": "evals/m0_acceptance.py:main; cumulative L1/L2 output-flush boundaries, not post-audit validated-ready boundaries",
+        "post_audit_excluded_from_l1_l2": true,
+        "validated_ready_excludes_measurement_record_persistence_and_final_publication_check": true,
+        "json_record_persistence_excluded_from_timing": true
+      },
+      "command_seconds": 58.0262,
+      "local_output_hashes_verified": true,
+      "post_measurement_source_differences": [
+        "codesentry/cli/access.py",
+        "evals/navigation_latency.py"
+      ]
+    },
+    {
+      "project_id": "research_agent",
+      "report": "evals/reports/p1_latency_research_agent_20261027_v2.json",
+      "sha256": "c6c8a903339f062c2a69ff53ae4ac4cca6f8cb15851757ef677d254431205f5b",
+      "command_receipt_local_path": ".venv/p1-latency-research-v2-command.txt",
+      "receipt_sha256": "cf0d0fd229af28f92eb4fb6ceba294fc23780243ab47dff8e346a4edb8f2dce0",
+      "execution_context": "tool_default",
+      "latency": {
+        "l1_end_to_end_seconds": 20.699,
+        "l2_end_to_end_seconds": 20.7222,
+        "preparation_seconds": 6.6877,
+        "uncached_build_seconds": 13.9869,
+        "l1_delivery_seconds": 0.0244,
+        "post_output_validation_seconds": 6.4203,
+        "validated_outputs_ready_seconds": 27.1424,
+        "l1_limit_seconds": 30,
+        "l1_below_limit": true,
+        "l2_limit_seconds": 180,
+        "l2_below_limit": true,
+        "timing_scope": "preparation + full precheck + uncached build + rendered UTF-8 file write and flush",
+        "timing_definition_reference": "evals/m0_acceptance.py:main; cumulative L1/L2 output-flush boundaries, not post-audit validated-ready boundaries",
+        "post_audit_excluded_from_l1_l2": true,
+        "validated_ready_excludes_measurement_record_persistence_and_final_publication_check": true,
+        "json_record_persistence_excluded_from_timing": true
+      },
+      "command_seconds": 27.3289,
+      "local_output_hashes_verified": true,
+      "post_measurement_source_differences": [
+        "codesentry/cli/access.py"
+      ]
+    },
+    {
+      "project_id": "research_agent",
+      "report": "evals/reports/p1_latency_research_agent_host_20261027.json",
+      "sha256": "bbba188f92da5e0678869ddbb21caf7f5829465c9d39361d5d5729967192665e",
+      "command_receipt_local_path": ".venv/p1-latency-research-host-command.txt",
+      "receipt_sha256": "610aa599b5d15f5fcc3348ecec012b672453dcf671a66e0b92f18680e02c4e5c",
+      "execution_context": "workbench_host",
+      "latency": {
+        "l1_end_to_end_seconds": 39.0183,
+        "l2_end_to_end_seconds": 39.0687,
+        "preparation_seconds": 10.3236,
+        "uncached_build_seconds": 28.643,
+        "l1_delivery_seconds": 0.0516,
+        "post_output_validation_seconds": 13.7081,
+        "validated_outputs_ready_seconds": 52.7769,
+        "l1_limit_seconds": 30,
+        "l1_below_limit": false,
+        "l2_limit_seconds": 180,
+        "l2_below_limit": true,
+        "timing_scope": "preparation + full precheck + uncached build + rendered UTF-8 file write and flush",
+        "timing_definition_reference": "evals/m0_acceptance.py:main; cumulative L1/L2 output-flush boundaries, not post-audit validated-ready boundaries",
+        "post_audit_excluded_from_l1_l2": true,
+        "validated_ready_excludes_measurement_record_persistence_and_final_publication_check": true,
+        "json_record_persistence_excluded_from_timing": true
+      },
+      "command_seconds": 53.0747,
+      "local_output_hashes_verified": true,
+      "post_measurement_source_differences": [
+        "codesentry/cli/access.py"
+      ]
+    },
+    {
+      "project_id": "knowledge_loop",
+      "report": "evals/reports/p1_latency_knowledge_loop_20261027.json",
+      "sha256": "8a83ecfdd1ddb0f33a20b8e404dcec9516f51adb1d252b8d15653d869f124249",
+      "command_receipt_local_path": ".venv/p1-latency-knowledge-command.txt",
+      "receipt_sha256": "1da246b2d3429e31f473da73cdd6c7e5e35e4c13b3b01796fc48e07828c89581",
+      "execution_context": "tool_default",
+      "latency": {
+        "l1_end_to_end_seconds": 17.1152,
+        "l2_end_to_end_seconds": 17.1414,
+        "post_output_validation_seconds": 5.8771,
+        "validated_outputs_ready_seconds": 23.0185,
+        "l1_limit_seconds": 30,
+        "l1_below_limit": true,
+        "l2_limit_seconds": 180,
+        "l2_below_limit": true,
+        "timing_scope": "preparation + full precheck + uncached build + rendered UTF-8 file write and flush",
+        "timing_definition_reference": "evals/m0_acceptance.py:main; cumulative L1/L2 output-flush boundaries, not post-audit validated-ready boundaries",
+        "post_audit_excluded_from_l1_l2": true,
+        "validated_ready_excludes_measurement_record_persistence_and_final_publication_check": true,
+        "json_record_persistence_excluded_from_timing": true
+      },
+      "command_seconds": 23.1571,
+      "local_output_hashes_verified": true,
+      "post_measurement_source_differences": [
+        "codesentry/cli/access.py",
+        "evals/navigation_latency.py"
+      ]
+    },
+    {
+      "project_id": "knowledge_loop",
+      "report": "evals/reports/p1_latency_knowledge_loop_20261027_v2.json",
+      "sha256": "cbea501c664f0685308b1e1ae870b72b662e4c889ce5073b1ddc2bd43e675b67",
+      "command_receipt_local_path": ".venv/p1-latency-knowledge-v2-command.txt",
+      "receipt_sha256": "f94825619322185d85e08a2e92dd3326858a03d23b46dc134b6f687fb900a5f3",
+      "execution_context": "tool_default",
+      "latency": {
+        "l1_end_to_end_seconds": 35.8663,
+        "l2_end_to_end_seconds": 35.9224,
+        "preparation_seconds": 10.8689,
+        "uncached_build_seconds": 24.9225,
+        "l1_delivery_seconds": 0.0749,
+        "post_output_validation_seconds": 13.8859,
+        "validated_outputs_ready_seconds": 49.8084,
+        "l1_limit_seconds": 30,
+        "l1_below_limit": false,
+        "l2_limit_seconds": 180,
+        "l2_below_limit": true,
+        "timing_scope": "preparation + full precheck + uncached build + rendered UTF-8 file write and flush",
+        "timing_definition_reference": "evals/m0_acceptance.py:main; cumulative L1/L2 output-flush boundaries, not post-audit validated-ready boundaries",
+        "post_audit_excluded_from_l1_l2": true,
+        "validated_ready_excludes_measurement_record_persistence_and_final_publication_check": true,
+        "json_record_persistence_excluded_from_timing": true
+      },
+      "command_seconds": 50.115,
+      "local_output_hashes_verified": true,
+      "post_measurement_source_differences": [
+        "codesentry/cli/access.py"
+      ]
+    }
+  ],
+  "latency_summary": {
+    "research_agent": {
+      "samples": 3,
+      "l1_min_seconds": 20.699,
+      "l1_max_seconds": 42.603,
+      "all_l1_observations_below_30": false,
+      "all_l2_observations_below_180": true,
+      "l1_stability_accepted": false
+    },
+    "knowledge_loop": {
+      "samples": 2,
+      "l1_min_seconds": 17.1152,
+      "l1_max_seconds": 35.8663,
+      "all_l1_observations_below_30": false,
+      "all_l2_observations_below_180": true,
+      "l1_stability_accepted": false
+    }
+  },
+  "measurement_limits": {
+    "parse_cache_used": false,
+    "os_file_cache_controlled": false,
+    "host_other_load_controlled": false,
+    "tests_ran_concurrently_with_measurements": false,
+    "all_slow_samples_retained": true,
+    "cause_of_timing_variability": "not established",
+    "tool_environment_alone_explains_timeout": false,
+    "l1_threshold_seconds_unchanged": 30,
+    "l2_threshold_seconds_unchanged": 180,
+    "p95_or_long_term_latency_claimed": false
+  },
+  "interpretation_corrections": [
+    "Earlier 41s/33s figures measure build plus render, not full preparation and output.",
+    "Do not select the fastest samples to claim stable performance.",
+    "CLI initial-denial error mapping was restored after measurement; valid analysis hot paths were unchanged.",
+    "First latency harness was later instrumented with phase clocks; prior observations remain valid historical samples.",
+    "Windows replacement fixtures may release the raw SQLite handle; no POSIX live-handle replacement claim.",
+    "Registry connection lock is not a whole-AccessPolicy thread-safety proof."
+  ],
+  "annotation_preparation": {
+    "task_id": "p1-overall-onboarding-v1",
+    "scope": "overall onboarding",
+    "confirmed_by_user": true,
+    "confirmation_date": "2026-10-27",
+    "scope_confirmation_is_label_approval": false,
+    "exports": [
+      {
+        "project_id": "research_agent",
+        "operator_managed_local_export": ".venv/navigation-annotations/p1-research-review-20261027-v2.json",
+        "sha256": "8a2b99858fd410458b3c58b47e72d58061afcf63efb8898fd814fdfbf2feb05f",
+        "files": 155,
+        "task_scope_confirmed": true,
+        "human_labels_approved": false,
+        "source_snapshot_revalidated": false,
+        "specific_main_flow_and_deployment_pending": true
+      },
+      {
+        "project_id": "knowledge_loop",
+        "operator_managed_local_export": ".venv/navigation-annotations/p1-knowledge-review-20261027-v2.json",
+        "sha256": "79f67aedf91ec69bdb64a73b743ba06dc8d0c6f78049eae3727d42255681635b",
+        "files": 140,
+        "task_scope_confirmed": true,
+        "human_labels_approved": false,
+        "source_snapshot_revalidated": false,
+        "specific_main_flow_and_deployment_pending": true
+      }
+    ]
+  },
+  "verification": {
+    "final_python": {
+      "tests": 555,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2,
+      "passed": 553,
+      "seconds": 214.071,
+      "local_path": ".venv/p1-progress-release.xml",
+      "sha256": "caa845617b2ba2b36f96df105c1414740e558747ed9fbc38fa2a726cc78d6e20"
+    },
+    "retained_failed_regression": {
+      "tests": 554,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 2,
+      "passed": 551,
+      "seconds": 216.38,
+      "local_path": ".venv/p1-progress-final.xml",
+      "sha256": "749ae3e74eab1e155300f6e8e00be45fca594d12ddb28af0cd0cb124c063c1c0"
+    },
+    "failed_regression_reason": "Initial unconfirmed registry denial returned 1 instead of original invalid-input code 2; fixed without relaxing read denials.",
+    "frontend": {
+      "passed": 32,
+      "log": ".venv/p1-progress-ui-tests.txt",
+      "sha256": "931cfbec34050eab64ce0f1a197cccfe5cc27e23175b701183b9108635c5eb48"
+    },
+    "frontend_build": {
+      "passed": true,
+      "log": ".venv/ui-build.txt",
+      "bundle": "frontend/dist/assets/index-Dbxk6N94.js",
+      "bundle_sha256": "39f3a3b8d1d6b2c8d4a700ec4ec677c26cfea1ff0366e267b7f4fda1f7a4f607"
+    },
+    "real_browser_before_wording_only_change": {
+      "passed": 5,
+      "log": ".venv/p1-progress-browser-tests.txt",
+      "sha256": "025b738200075df5f4b769ff0f1a972ab1a424d86394d8b1afa7eabdbe9bd701"
+    },
+    "real_browser_after_wording_change": {
+      "passed": 1,
+      "case": "startup roles, evidence and hint labels",
+      "log": ".venv/p1-progress-browser-label-tests.txt",
+      "sha256": "d3a868a855bae89fe6d90694248acfcac31095136e22cd040de014c7740ef0c3"
+    },
+    "skip_reason": "Two ordinary symlink creation cases lack Windows privilege; actual hardlink/junction checks passed.",
+    "visual_evidence": {
+      "synthetic_only": true,
+      "path": "docs/execution/assets/navigation-evidence-20261027-p1-progress-v2.png",
+      "sha256": "9369feedd0e8ba1618733df1db5aa28684b676ce8dbfdd41f64cbeecd1217e30"
+    },
+    "restarted_workbench_health": {
+      "api_ready": true,
+      "current_bundle": true,
+      "two_confirmed_scopes_retained": true,
+      "all_model_scopes_empty": true
+    }
+  },
+  "formal_acceptance": {
+    "passed": false,
+    "document_proxy_hits": "6/10 on both development projects",
+    "entry_gold": "not independently adjudicated; metrics N/A",
+    "l1_stability": "not accepted; observations above 30 seconds retained",
+    "task_scope_confirmed": true,
+    "labels_or_understanding_results_approved": false,
+    "holdout_used": false,
+    "legacy_gt_modified": false
+  },
+  "current_implementation_and_test_sha256": {
+    "codesentry/__init__.py": "3c4216247c0a1e5f060e9fcaaddcbe65f2a67931bb3540ffd8c42baf0ce55f6f",
+    "codesentry/access/__init__.py": "8e90dde17e679b896f3e4b8ed76a232d375c58239500e3ac44ba34ce97ead84e",
+    "codesentry/access/artifacts.py": "d2b7739656758de67b2e77f87082c485a823e7814efff51b81e3df58a319f8a1",
+    "codesentry/access/model.py": "2e3958f2db05c9846fa0588c46c4170bb7038e6976ef775ffc3b42322d398cb6",
+    "codesentry/access/policy.py": "8a639ff11e7c2c0526647b10b5df76d16b20bfd85d4393337fbc49edf69eb71d",
+    "codesentry/access/registry.py": "f978d809c80ef2277d649abf379bc350ce9f9178603ded96ecd32cdcb463cdb6",
+    "codesentry/cli/__init__.py": "a5d10be8ffaaf1d801e5fe84a4590e0c9b91355d817e211f4511312cb5ca7d8c",
+    "codesentry/cli/access.py": "0fcaaf6e6c97d444759cb06d836ce0560f06daa2d27ac6a9700b3b93fc04a13f",
+    "codesentry/cli/main.py": "1b83c4a9614b92ec4628d38c9645ee1ccb55cce023df7746dbc3af0f60427e61",
+    "codesentry/core/__init__.py": "3ab238dd57987624ec84866b55ca1193eb836b0967048a37a5281eec0738995d",
+    "codesentry/core/finding.py": "c6afb0cff152afcbcf0e8786309992746bbcb3c5b71af7d41cc61afe084b89b2",
+    "codesentry/core/fingerprint.py": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "codesentry/core/policy.py": "ea2538eb70df654b02ec5f50294a0f6eecca9bc85e2499e2544c25be376883b4",
+    "codesentry/core/symbol.py": "4f5b8af1266e67f7944f6c4c440ec082e310a8a01e7f13f4c03bfaff362d9749",
+    "codesentry/environment/__init__.py": "841347c9c770f630940368c1311c94c1f3ea0b79fdb07ea68e6375bfc2138563",
+    "codesentry/environment/__main__.py": "586f06af449d6b6482faee1b90b93b2818aeece0dc1dae5e57f1e03cfcdc7942",
+    "codesentry/environment/inspect.py": "1db852d79eb429e0d3743222141dec011e93dd838136e03ea7c9ad2e4b586984",
+    "codesentry/environment/toolchain.py": "393b0e8742cb2a00331819acf0003f827d059c50a6b0e85024367fed8b5ac61d",
+    "codesentry/index/__init__.py": "e8f4225fc1acd9abab28de62018f58090b31ca690d7391594feb15022e6d7a81",
+    "codesentry/index/builder.py": "c1450299546d2096dd7daf70a3d0df92db63dc6df29caa241a2abd4114f63c01",
+    "codesentry/index/cache.py": "617b6ee7f4dc0b797482770ab074c6242c6dbc14e62a92b44c5cb99fa0ffeac3",
+    "codesentry/index/discovery.py": "a5376a5cea240cc12bb6e7442ff4137ef53c1e3c4fa36c420a8ea3f26b69b2fe",
+    "codesentry/index/entrypoint.py": "689bc61aa9e35d534935cd5099f6391870d421a5642c1bca948ca58e6487db6a",
+    "codesentry/index/pagerank.py": "5f2e12be2f287fa9ae20b5c5d17152826c27004ca07242ab45d37dbead9ca710",
+    "codesentry/index/resolver.py": "6b5f75ff7bea92e549823c98e8e7b78b9a8b933a38d18e243caeb3326178ad13",
+    "codesentry/index/roles.py": "ceef481ce95c7389631d8df72c04ab3ec2907817f6da868b1793a1d8f3ab3b45",
+    "codesentry/index/startup.py": "108d0051f5a217bb06e0b091eede530038bec4ab5d3e49a08654787431e0569f",
+    "codesentry/index/store.py": "a3b2fc39a1ba009dac14b82937101c94101032fe99c2d8675e913dc827f0a5ad",
+    "codesentry/output/__init__.py": "422d5e7cae8fe510d9648abab3656a386ec1f8327d15871447294a72360af6df",
+    "codesentry/output/reading_order.py": "5e98f4c840319d389299f92e1cc822378e10544b5692d0599fe7bb41bb5600ec",
+    "codesentry/output/report.py": "90c8a128a5ae89b3f595b0bf36da532f37e636672d3eb4ac9361c24fc54c0d3d",
+    "codesentry/parsers/__init__.py": "bfaf2189212001d2e3081931132b9720d152ce2e7ef62f8335f458a90f58c839",
+    "codesentry/parsers/_ts_extract.js": "1e05cfe4349b0fdb1902154bf43fbaaed5871d6e503580514e760bf2e3160146",
+    "codesentry/parsers/python_parser.py": "9dc4d694a50d0730302baa2c073881d5baacbe27343aadc346d2138794cd0017",
+    "codesentry/parsers/ts_parser.py": "cf97a2a96a865905e5d420b25f36b1135be44b8f7fca0d449737fb4120fb3756",
+    "codesentry/web/__init__.py": "cf8ac7b8383fab7b9cb1f60fe3c9cba84b7a173d4b89418bec2b11cca7fe0a85",
+    "codesentry/web/app.py": "0b030a729737d59bc770c9e66fc29208750e0b9999e18bb25a5d0c144e3d46d6",
+    "codesentry/web/jobs.py": "258b502dbd5c1d2caec12c398532dcabc3a88837420dfd176007d25ba4a778aa",
+    "codesentry/web/processes.py": "88700ce7c77a38b15a8bd4e00ac5c276a5d214ea7ec8259e7bc219d962e527ad",
+    "codesentry/web/worker.py": "eb75b0e4d92efcf607bf72ba656cde11d63a0e21bc6b7816d321b29ea37a8e1c",
+    "codesentry/workspaces/__init__.py": "26e2726f9b67eed4a0cfab23cbdd775c7964273c51caf9dcb4a0fbe3b80249e5",
+    "codesentry/workspaces/files.py": "f7ddbe4578278183e477272cf9fbd6d1ee00183fddb79aa5a734ff3b2b9a549f",
+    "codesentry/workspaces/lease.py": "beec2fed4059c1748fc3de469edd5a8c726793eef83918147d68951c7ff854ce",
+    "codesentry/workspaces/store.py": "f28ca2b3765bffe73c0b4dc8b730515be1e89db0c334ed0f013db556d3952942",
+    "evals/extract_groundtruth.py": "aebfd991c519989da83139c1fc0463831ed779dc6f2bd7239d59bfcdfd2e23ac",
+    "evals/m0_acceptance.py": "f7286a4c0839ea74091903fbd0617b2c5fa26f2c2f25d85016512de42380655d",
+    "evals/metrics.py": "a1393b4bffd121830fecde26c51cd56b77336219d0884209a7b198453f5b75c8",
+    "evals/navigation_annotations.py": "724743f76512ca5dc9b41b9cfb904ee01d25373621fa551750fd7fc6f54f5b1d",
+    "evals/navigation_comparison.py": "f4fb0728e62c49d4a0d647f108ecbdc0c2695ad40e80e6a56d9a423856073bc6",
+    "evals/navigation_coverage.py": "b98814e93d4b8d3b763039cd1f479522969597cb4a4fc6366c7ed5c9279b5a79",
+    "evals/navigation_development.py": "c838d4be957e7ff98ce1c4b3f5545e7cfb3dccfa8cb78d1c9bec61fd1dd20ed2",
+    "evals/navigation_latency.py": "6761e438084fdb31b789fa7d2f607e57c4edf1bc9611c4f70d8ee03724a8eac5",
+    "evals/navigation_structure.py": "0c916f5820324435354cbf1e46256cffe6273732643ebf369f4e707c7455c237",
+    "evals/push_history.py": "e2543b3e1dbd1fe0ce82dddf54f86abdddc3a64398fdc14cbe5c8e1a8ec148b6",
+    "evals/push_via_api.py": "1ddba99c3853c0dcb7cbb5bd9b7368dc66135e45aa48c5c047567c07c4f2143d",
+    "evals/verify_cache.py": "189094ed33162a674b0a30b2034e82b25befb6bced2753f2da32a93c6f6a00ff",
+    "frontend/e2e/start-server.mjs": "a75c64ef78c5285d71e627502c21e908f9cd418a2f781ecdf9a8c6d6124568d2",
+    "frontend/e2e/workspaces.spec.ts": "b147ae94ca6b513576b6bf0158ac15a211b8f038705138e36804df4705ee8d9f",
+    "frontend/package-lock.json": "a759ef69880283c8b71b62cf8652e6eb4ed17477e18046b9d4b6b983ddab212d",
+    "frontend/package.json": "841a707a57b5af3c1e05d2314d5ff0cbaa36323f53b23e32d11ef7ab67f5db9a",
+    "frontend/playwright.config.ts": "f7aff9d9dccfe50db4a1f17473a6bb79c50c36f1b139ee6c7b4550637a9c9686",
+    "frontend/src/AccessDialog.tsx": "78b28d7bb0809b3292e015753137859fab6ca71e80a5478e644ca91818f7b460",
+    "frontend/src/App.access.test.tsx": "6feef32b2fe2103357ce863ee57637d80372dae271c02ecae5c46cc26e5d6387",
+    "frontend/src/App.test.tsx": "8ba60843f9c2cf34fec5982c2c628e6621aa1e08f814af891f6cdfcb69b2c010",
+    "frontend/src/App.tsx": "e42bfc64332d5327f5e9ddc5617e6023249b2268c401c49a7abb887baa04615e",
+    "frontend/src/CodeViewer.tsx": "b8474f762ea789e48cc503f0bf96af64a9e97ff8900ae2742163b0ee4f1b3c10",
+    "frontend/src/EntryEvidence.test.tsx": "fda8122ae71870c1ab1831d0e59d5a4903e0bedc61ab45cf7a23403a5483fece",
+    "frontend/src/EntryEvidence.tsx": "0a5b5a5db26a509d74c2d214471e2c5bc2cfe164bd02fdf01bab73854a38d10b",
+    "frontend/src/FileTree.tsx": "4fb2de7d9c1884ab88b1d699abb265e7bb92d3604950afbb8d0a7fec0b416d07",
+    "frontend/src/ResultPane.tsx": "ce546b65ec8bcbb607163fef45de389fc1c340e82a2bd0feef5b9da92b926c38",
+    "frontend/src/access.ts": "65f4223b8e88fd03c2f5b288184aef9a33db01de41de192a728a38d924db526a",
+    "frontend/src/api.test.ts": "470e7a34c6bd66f4d02f6ca87f3058cf97fb4486c777bde1ae43922232664efe",
+    "frontend/src/api.ts": "a964dc65a4d3f96a735348db32ec7b897e229f4ac16687f67edf09c175074ad7",
+    "frontend/src/format.ts": "e81b62ba4a11d27f9d9e2a5eba9101b2a4d3ef5f03a358819a7cf89291827b89",
+    "frontend/src/main.tsx": "d7ac0a33935137c50aad29410bba15d9d72a984716c2a30dbace8cdce4b9f5dd",
+    "frontend/src/readerCache.ts": "d604e6775364bd571a8829384001d995d15a9524a8f3b6c4a9ad91a283576b2d",
+    "frontend/src/state.test.ts": "ed9bf0e7326ae3fd12143d883cbe3bcd0208fb571e719bda0866d22bc48f1257",
+    "frontend/src/state.ts": "454a0b30925266d0135f3c4534ab6edcfd130c84beef5d54043eadfd8fc82fa2",
+    "frontend/src/styles.css": "2569b009767072f384a723f97b5276dd50a8917ef9ddf127bb5b8c657a38c111",
+    "frontend/src/useWorkbench.ts": "29048badd51494272bbed99d2fa126ca86ceabb7e269251ede0ec654e447af46",
+    "pyproject.toml": "03040f39082ac6804ad7c37274732ae20696746f5bdd616c610f96ee498358e9",
+    "tests/test_acceptance.py": "61a80d74ee734a35524507cee61248f108f381415123007680eee094dc022828",
+    "tests/test_access_core.py": "04ecf893c99a0769fe7761c20a8202b6103147d07d63aa5fb1d3e7e3f6dc44e5",
+    "tests/test_access_metadata.py": "b03a99437e5c187a6d824f666b633e5240b6937f6c5791a13cda760d4641bd56",
+    "tests/test_access_policy.py": "5fca1833f5ea16362205fc3a4e7bcc018ccaa6a7b2dd35ff8fb96abfb63c23de",
+    "tests/test_cache.py": "0a663a0948e860bc4f523cef2086650bccae4077bcc440b617c18a565948672f",
+    "tests/test_cli_access.py": "bf49971eee07239c80587449b32f113a8a81472c0c645ff6d9c0f24b19ee1a71",
+    "tests/test_discovery.py": "62460682327d046d2fc1dc79aae1a66b62d492c7b3f5fefafb727fefcb6c2e50",
+    "tests/test_entry_evidence.py": "74e9f0e82ce3592eea3c8e68cf0038494498aa342cec2e6f30d1df63f35fba65",
+    "tests/test_environment.py": "a2919757466b10e72b0021952b40aa6fa3995b1eb5394f34ec5e981172882f1a",
+    "tests/test_finding.py": "9fac89378a6196cc490a4999139042de66bbddf01bed751109fdc29fa76dcb19",
+    "tests/test_fingerprint.py": "d4d159d4009071e8f15e6761f3d0eaac715496d8afc95446741cf57800f8953f",
+    "tests/test_index_integrity.py": "966dc4ab8e963683096d8770416e4a7523348b32a82e4b4196d112a011d6afe6",
+    "tests/test_metrics.py": "28f00f749d7a4b5861a5c6d2c959673025b248acb64b2b6a2709d552a2cf18e3",
+    "tests/test_navigation_access.py": "3d6f47679d3e1da6ac296faee44f06cdca636bf0e45879b984d23b85c63647fe",
+    "tests/test_navigation_annotations.py": "7312dac9cedab333febdd8d9dfcfaba5b8d9b784f98807d7db48826e89369107",
+    "tests/test_navigation_comparison.py": "f804caf8d96c3097b642323341309869f6b6904e0fceb640f528c8da30908c6d",
+    "tests/test_navigation_coverage.py": "94b08b643401e9672a6593c78b18c89b932c7edbc073b9c389d25c1485ffb608",
+    "tests/test_navigation_development.py": "35ac9959a8ef0aaa5e9b7143288a30a180031c74b9c6f62077fc6f4ad124be42",
+    "tests/test_navigation_latency.py": "f42b9270691e98198b6a4d52747289b0e2f78b2f94402939a0b72d11c435e63e",
+    "tests/test_navigation_structure.py": "ab882be8419ef6bf70926721617c6ddadef2642919c4a10a5bf90370a4f0667c",
+    "tests/test_pagerank.py": "c2b4b1af34586148e21e4e664ef7948f924e740d202d2817e7dcb06940b0f03a",
+    "tests/test_parsers.py": "b3baa01f65ad717d6ccae0555b9773635cefea67c6656b0c91d5c262876afbc0",
+    "tests/test_python_binding.py": "7a123ac9dd1a5a805452a346426aecb6ab415b96792d302b34a4f477b38b1b63",
+    "tests/test_reading_order.py": "ad3aa9b00e3f7216bc3849a55d8a8b0715e42d01b3456361b3cb58135a026bfa",
+    "tests/test_registry_guard.py": "eb33ff54098887344add2c7d05d5c31c96c5b3afbebc7007adc9c2cc4fe1483e",
+    "tests/test_report.py": "094af5b64fe3eb7328e1c33b6ccfaf27a3e1bcd6647abe1e8ea378f8a642e377",
+    "tests/test_resolver.py": "e180a82e22a06514b59d9844f065c8e8075fc375df0c0910f214843e52601f99",
+    "tests/test_retired_evaluation_helpers.py": "784e6dbeb549b564f8406beb2003b63b527b0852d3e2aa8550299b52c680d8a2",
+    "tests/test_startup_scan.py": "8e2d81c95f5a9a97b0dc1bf3e6cb6a0904a287361c9547253219b13ded117b4e",
+    "tests/test_web_access.py": "96c42757498a858f8b5f0fc4ee77a16fbd5e4e76a41aaf81c474bbeace71bcd7",
+    "tests/test_web_launch.py": "1eab1e5a73b3b42e74541c74ab06083720794359044e27f8d3e53faac41968cb",
+    "tests/test_web_workspaces.py": "64bbbffd8a1b96af9ebe9a2cd6416db6a17962563b3f7cb3638bca6edd1319f4"
+  }
+}

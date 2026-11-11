@@ -1,0 +1,607 @@
+{
+  "schema_version": 1,
+  "partition": "dev",
+  "dataset_sha256": "7d8be1bc571784ded75aab347561208288b454183169ab3a7f92a1ecaf26d065",
+  "fixture_sha256": {
+    "app.py": "2e8f660d5e1fd499451208835406d65481f8864763b6eb1fa890d1966151fea8",
+    "pricing.py": "5720a2a24409ed773d125daec9cd466cbed637e5d5fd6721859e7e56151ae39a",
+    "check_behavior.py": "842be0c37666b6429950bbc464d68b9ea4b46dd550fac288bcf81175e36bc2f5"
+  },
+  "model": "deepseek-flash",
+  "key_source": "env_file",
+  "synthetic_only": true,
+  "results": [
+    {
+      "case_id": "zero-from-cli",
+      "seconds": 12.19,
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "app.py",
+          "status": "completed",
+          "evidence_line": 12,
+          "observation": "main 先解析 argv[0]；对输入 \"0\"，parse_quantity 的分支需由 R3 判断。只有 quantity 为 None 时才返回 \"invalid quantity\"。否则以 member=\"--member\" in argv[1:] 调用 delivery_fee，并返回其字符串。从本段无法看到对 0 的最终返回结果。",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "check_behavior.py",
+          "status": "completed",
+          "evidence_line": 14,
+          "observation": "这里的断言只覆盖 main([\"5\",\"--member\"]) 和 delivery_fee(0, priority=True)，没有覆盖命令行输入 \"0 --member\"，因此无法据此得知该输入的返回结果。",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "pricing.py",
+          "status": "completed",
+          "evidence_line": 6,
+          "observation": "对 quantity=0，quantity <= 0 分支直接返回 0，早于所有折扣与附加费计算；该分支未读取 member 等参数。parse_quantity(\"0\") 时 text 非空、\"0\".isdecimal() 为真、int 值 0 不大于 100，返回 0。因此代码路径为 0 → 返回 0，经 R1 转为字符串 \"0\"。这是基于源码分支的跟踪，未执行代码。",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "source",
+        "claims": [
+          {
+            "text": "parse_quantity 对输入 \"0\" 会通过非空与十进制检查，int 值为 0 且不大于 100，因此返回 0，main 不会进入 invalid quantity 分支。",
+            "evidence": [
+              {
+                "id": "R3",
+                "line": 32,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 34,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 37,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 39,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R1",
+                "line": 10,
+                "path": "app.py"
+              }
+            ]
+          },
+          {
+            "text": "main 将 member 设为 \"--member\" in argv[1:]，对输入 [\"0\",\"--member\"] 该值为 True，并调用 delivery_fee(0, member=True)。",
+            "evidence": [
+              {
+                "id": "R1",
+                "line": 9,
+                "path": "app.py"
+              },
+              {
+                "id": "R1",
+                "line": 12,
+                "path": "app.py"
+              }
+            ]
+          },
+          {
+            "text": "决定最终结果的是 delivery_fee 的 quantity <= 0 分支：它在任何折扣或附加费计算之前直接返回 0，未读取 member；因此该输入的结果为字符串 \"0\"。",
+            "evidence": [
+              {
+                "id": "R3",
+                "line": 6,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 7,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R1",
+                "line": 12,
+                "path": "app.py"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "上述跟踪基于源码分支推导，未实际执行代码，因此没有运行时验证结果。",
+          "现有测试未覆盖命令行输入 \"0 --member\"，无法用测试断言直接佐证该输入的返回结果。"
+        ]
+      },
+      "observation_only_summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "observations",
+        "claims": [
+          {
+            "text": "输入 \"0\" 时，parse_quantity(\"0\") 的 text 非空、\"0\".isdecimal() 为真、int 值 0 不大于 100，因此返回整数 0，而非 None；所以 main 不会走返回 \"invalid quantity\" 的分支。",
+            "evidence": [
+              {
+                "path": "app.py",
+                "line": 12,
+                "id": "R1"
+              },
+              {
+                "path": "pricing.py",
+                "line": 6,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "delivery_fee 对 quantity=0 时，quantity <= 0 分支先于所有折扣和附加费计算直接返回 0，且该分支不读取 member 参数；因此 \"--member\" 是否存在都不改变结果。",
+            "evidence": [
+              {
+                "path": "pricing.py",
+                "line": 6,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "main 收到 delivery_fee 返回的整数 0 后将其转为字符串返回，最终返回值为 \"0\"。",
+            "evidence": [
+              {
+                "path": "app.py",
+                "line": 12,
+                "id": "R1"
+              },
+              {
+                "path": "pricing.py",
+                "line": 6,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "决定结果的是 pricing.py 中 quantity <= 0 的提前返回分支，而不是 member 相关逻辑。",
+            "evidence": [
+              {
+                "path": "pricing.py",
+                "line": 6,
+                "id": "R3"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "check_behavior.py 的断言未覆盖 \"0 --member\"，无法用现有测试验证该返回值；需核对是否有其他测试覆盖此输入。",
+          "以上为源码分支跟踪，未实际运行代码，最终返回 \"0\" 需通过运行确认。",
+          "R1 未列出 main 将 delivery_fee 返回值转为字符串的具体代码行，需核对源码确认 str() 转换位置。",
+          "若实际输入解析对 \"0\" 有额外特殊处理（如空串或前导符号），R1/R3 未覆盖这些边界，需核对 parse_quantity 完整实现。"
+        ]
+      },
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1163,
+            "completion_tokens": 327,
+            "total_tokens": 1490
+          },
+          "resent_ranges": [],
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 500,
+            "completion_tokens": 354,
+            "total_tokens": 854
+          },
+          "resent_ranges": []
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1344,
+            "completion_tokens": 419,
+            "total_tokens": 1763
+          },
+          "resent_ranges": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "invalid-quantity-short-circuit",
+      "seconds": 10.07,
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "app.py",
+          "status": "completed",
+          "evidence_line": 10,
+          "observation": "main 先把 argv[0] 交给 parse_quantity；若返回 None，main 直接返回 \"invalid quantity\"，不会调用 delivery_fee。只有 parse_quantity 返回非 None 时，才执行第 12 行，并以 argv[1:] 中是否包含 \"--member\" 作为 member 参数传入。",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "check_behavior.py",
+          "status": "completed",
+          "evidence_line": 11,
+          "observation": "测试并不覆盖输入 101 的情况：test_cli_quote 只断言 main([\"5\", \"--member\"]) 等于 \"4\"，没有验证 quantity 大于 100 时返回 \"invalid quantity\"。",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "pricing.py",
+          "status": "completed",
+          "evidence_line": 37,
+          "observation": "parse_quantity(\"101\") 会返回 None：\"101\".isdecimal() 为真，int(\"101\") 得到 101，而 101 > 100 成立，因此触发第 38 行返回 None；代码显式上界为 100。另 delivery_fee(101, member=True) 本身会计算 max(0, 8-2-2+0)=4，但这一结果不会被 main 采用的 101 输入走到。",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "source",
+        "claims": [
+          {
+            "text": "输入 101 --member 时，parse_quantity(\"101\") 因 101 > 100 返回 None，因此 main 在第 10 行分支命中并直接返回 \"invalid quantity\"，计价函数 delivery_fee 不会执行。",
+            "evidence": [
+              {
+                "id": "R3",
+                "line": 37,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 38,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R1",
+                "line": 10,
+                "path": "app.py"
+              },
+              {
+                "id": "R1",
+                "line": 11,
+                "path": "app.py"
+              }
+            ]
+          },
+          {
+            "text": "main 只有在第 10 行条件为假（quantity 非 None）时才在第 12 行调用 delivery_fee；本次输入下该条件为真，故第 12 行不执行。",
+            "evidence": [
+              {
+                "id": "R1",
+                "line": 10,
+                "path": "app.py"
+              },
+              {
+                "id": "R1",
+                "line": 12,
+                "path": "app.py"
+              },
+              {
+                "id": "R3",
+                "line": 38,
+                "path": "pricing.py"
+              }
+            ]
+          },
+          {
+            "text": "即便绕过上界直接调用 delivery_fee(101, member=True)，结果也是 max(0, 8-2-2+0)=4；但 main 在输入 101 时不会走到这里，最终返回仍是 \"invalid quantity\"。",
+            "evidence": [
+              {
+                "id": "R3",
+                "line": 9,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 11,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 13,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R3",
+                "line": 28,
+                "path": "pricing.py"
+              },
+              {
+                "id": "R1",
+                "line": 11,
+                "path": "app.py"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "给定观察未展示 101 输入的端到端实际运行输出，无法确认运行时入口与文件一致性。",
+          "测试未覆盖 101 输入（R2 仅测 main([\"5\",\"--member\"])），因此没有基于测试结果的验证。",
+          "若 argv 为空时 main 的行为不在本问题范围，未核对。",
+          "是否存在其他入口或包装层绕过 main 直接调用 delivery_fee，未提供证据。"
+        ]
+      },
+      "observation_only_summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "observations",
+        "claims": [
+          {
+            "text": "不会执行：parse_quantity(\"101\") 因 101 > 100 显式触发第 38 行返回 None，main 随即返回 \"invalid quantity\"，不会调用 delivery_fee。",
+            "evidence": [
+              {
+                "path": "app.py",
+                "line": 10,
+                "id": "R1"
+              },
+              {
+                "path": "pricing.py",
+                "line": 37,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "返回值为 \"invalid quantity\"，而非 delivery_fee 在 member=True 下本可算出的 4。",
+            "evidence": [
+              {
+                "path": "app.py",
+                "line": 10,
+                "id": "R1"
+              },
+              {
+                "path": "pricing.py",
+                "line": 37,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "测试未覆盖 101 这一输入，不能据此确认该边界行为已被测试验证。",
+            "evidence": [
+              {
+                "path": "check_behavior.py",
+                "line": 11,
+                "id": "R2"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "未提供 main 与 parse_quantity 完整源码，无法独立核对第 10、12、37、38 行的精确条件与调用顺序。",
+          "未实际运行代码，\"invalid quantity\" 的最终返回时长与输出形式仍需以源码为准。",
+          "未见命令行 argv 解析细节，无法确认 --member 在 argv[1:] 中的具体位置。"
+        ]
+      },
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1160,
+            "completion_tokens": 305,
+            "total_tokens": 1465
+          },
+          "resent_ranges": [],
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 492,
+            "completion_tokens": 216,
+            "total_tokens": 708
+          },
+          "resent_ranges": []
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1336,
+            "completion_tokens": 504,
+            "total_tokens": 1840
+          },
+          "resent_ranges": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "refactor-with-reachable-bounds",
+      "seconds": 38.05,
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "app.py",
+          "status": "completed",
+          "evidence_line": 9,
+          "observation": "入口层将命令行参数交给 parse_quantity，失败时返回固定字符串；否则调用 delivery_fee，并根据 argv[1:] 中是否包含 \"--member\" 传入 member；本段不涉及折扣与附加费是否拆分的问题。",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "check_behavior.py",
+          "status": "completed",
+          "evidence_line": 20,
+          "observation": "测试体现行为依据：CLI 5 件会员返回 \"4\"；0 件且 priority 返回 0；1 件标准返回 8；折扣三项叠加返回 2；运输三项叠加返回 19。测试未直接断言折扣与运输附加费是否分开计算。",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "pricing.py",
+          "status": "completed",
+          "evidence_line": 28,
+          "observation": "源码事实：折扣与附加费分别累加后按 max(0, 8 - discount + surcharge) 计算，最终下限为 0；discount 在此函数中没有显式上限，quantity 的上限由 parse_quantity 限制为 100。实现中需要保持的条件包括：数量门槛为 >=5 和 >=10 各加 2；member 加 2；coupon 和 prepaid 各加 1；priority、remote、fragile 分别加 6、4、3；priority 与 remote 同时为真再额外加 2。未知：若把折扣与附加费拆成独立函数再合并，是否完全等价，本段未提供拆分实现，无法确认。",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "failed",
+        "reason": "timeout",
+        "requests": 1
+      },
+      "observation_only_summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "observations",
+        "claims": [
+          {
+            "text": "当前实现先分别累加折扣与附加费，再用 max(0, 8 - discount + surcharge) 合并计算，最终下限为 0；由于折扣和附加费在最终公式中以正负项进入，只要拆分后仍保留同样的累加项和同一公式，行为在数学上等价。",
+            "evidence": [
+              {
+                "path": "pricing.py",
+                "line": 28,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "需保持的数量与资格门槛：数量 >=5 和 >=10 各加 2；member 加 2；coupon 和 prepaid 各加 1。",
+            "evidence": [
+              {
+                "path": "pricing.py",
+                "line": 28,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "需保持的运输附加规则：priority、remote、fragile 分别加 6、4、3；priority 与 remote 同时为真再额外加 2。",
+            "evidence": [
+              {
+                "path": "pricing.py",
+                "line": 28,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "测试依据包括：CLI 5 件会员返回 \"4\"；0 件且 priority 返回 0；1 件标准返回 8；折扣三项叠加返回 2；运输三项叠加返回 19；但测试未直接断言折扣与运输附加费是否分开计算。",
+            "evidence": [
+              {
+                "path": "check_behavior.py",
+                "line": 20,
+                "id": "R2"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "discount 在该函数中没有显式上限，quantity 仅由 parse_quantity 限制为 100；拆分实现是否与当前合并实现完全等价，输入未提供拆分代码，无法确认。",
+          "测试没有针对“拆分折扣与附加费”的直接断言，因此拆分后的回归测试覆盖证据不足。",
+          "入口层只把 argv[1:] 是否含 \"--member\" 传给 member，折扣与附加费的拆分不在此层体现；拆分后入口层是否需要调整，输入未提供。"
+        ]
+      },
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1168,
+            "completion_tokens": 373,
+            "total_tokens": 1541
+          },
+          "resent_ranges": [],
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 546,
+            "completion_tokens": 366,
+            "total_tokens": 912
+          },
+          "resent_ranges": []
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "app.py",
+            "check_behavior.py",
+            "pricing.py"
+          ],
+          "status": "timeout"
+        }
+      ]
+    }
+  ]
+}

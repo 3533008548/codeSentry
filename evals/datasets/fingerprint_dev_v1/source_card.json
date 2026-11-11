@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "dataset_id": "codesentry-fingerprint-dev-v1",
+  "status": "confirmed_dev_by_owner",
+  "split": "dev",
+  "label": "bugs",
+  "confirmed_issue_count": 2,
+  "source_snapshot": "c7725030d3ee4591a468cba32e510195ae721b8ddf3d84e31140265797c050e4",
+  "source_provenance": {
+    "repository": "CodeSentry",
+    "relative_path": "codesentry/core/fingerprint.py",
+    "head_commit": "3df1782b23eecec50486f75b761e5814a516ba92",
+    "head_blob_oid": "0c3fe2153a114649fb62ebb48615412d0d7a5f89",
+    "head_content_sha256": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "working_tree_sha256": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "normalized_lf_equal_to_head": true,
+    "line_endings": "working copy preserved byte-for-byte; LF normalization used only for HEAD comparison"
+  },
+  "inputs_sha256": {
+    "receipt": "38ef461c2df54b98bbdbf37fb21634283c0a8ff6f7273839ba9a7f5918977201",
+    "reproduction_report": "9ae72db7017f02d9d5f4b91835c144f476c628fb59513693a09dfedef4b91db5",
+    "fixture_descriptor": "96f1b3e6623ea1c4255447ae59a224451930d5825b55d4ed9d55339a3fc2266c",
+    "plan_file": "0f19c918b9b52e6c925a9d26abdcfebf5f1cc6127b047d7ecaf2653aabe05b41"
+  },
+  "original_unknown_data_card_sha256": "945d143b7f888c60dca90c1472188483b8663dd2c02dc67f25979d4a84880882",
+  "independently_adjudicated": false,
+  "identity_authenticated": false,
+  "reference_predictions": {
+    "kind": "non_detector_reference",
+    "candidate_id": "empty-non-detector-reference",
+    "meaning": "No detector executed; empty predictions demonstrate FN accounting, not detector quality."
+  },
+  "stability_control": "Not a clean negative label; it only checks repeated identical inputs.",
+  "fix_candidate": "Behavioral candidate only; not labelled clean and not merged into production.",
+  "scope": "Only the two adjudicated before issues are positive; all other locations remain unknown.",
+  "formal_acceptance": {
+    "passed": false
+  }
+}

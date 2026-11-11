@@ -1,0 +1,189 @@
+{
+  "dataset_id": "review-synthetic-v1",
+  "dataset_version": "1",
+  "candidate_id": "synthetic-data-only",
+  "candidate_version": "1",
+  "schema_version": "review-stages-v1",
+  "channel": "semantic",
+  "raw_predictions": [
+    {
+      "id": "a-flexible",
+      "case_id": "matching",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 10,
+      "symbol": null
+    },
+    {
+      "id": "b-only-wide",
+      "case_id": "matching",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 20,
+      "symbol": null
+    },
+    {
+      "id": "c-duplicate",
+      "case_id": "matching",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 10,
+      "symbol": null
+    },
+    {
+      "id": "d-false",
+      "case_id": "clean",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 9,
+      "symbol": null
+    },
+    {
+      "id": "e-unlabelled",
+      "case_id": "partial",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 90,
+      "symbol": null
+    },
+    {
+      "id": "f-policy",
+      "case_id": "debt",
+      "path": "src/example.py",
+      "rule_id": "synthetic.policy",
+      "rule_version": "1",
+      "line": 5,
+      "symbol": null
+    },
+    {
+      "id": "g-unknown",
+      "case_id": "unknown",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 1,
+      "symbol": null
+    },
+    {
+      "id": "h-known-partial",
+      "case_id": "partial",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 2,
+      "symbol": null
+    },
+    {
+      "id": "i-budget-drop",
+      "case_id": "clean",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 98,
+      "symbol": null
+    },
+    {
+      "id": "j-judgment-drop",
+      "case_id": "unknown",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 99,
+      "symbol": null
+    },
+    {
+      "id": "k-acceptance-drop",
+      "case_id": "clean",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 97,
+      "symbol": null
+    },
+    {
+      "id": "l-verification-drop",
+      "case_id": "debt",
+      "path": "src/example.py",
+      "rule_id": "synthetic.policy",
+      "rule_version": "1",
+      "line": 6,
+      "symbol": null
+    }
+  ],
+  "stages": {
+    "generated": [
+      "a-flexible",
+      "b-only-wide",
+      "c-duplicate",
+      "d-false",
+      "e-unlabelled",
+      "f-policy",
+      "g-unknown",
+      "h-known-partial",
+      "i-budget-drop",
+      "j-judgment-drop",
+      "k-acceptance-drop",
+      "l-verification-drop"
+    ],
+    "budget_admitted": [
+      "a-flexible",
+      "b-only-wide",
+      "c-duplicate",
+      "d-false",
+      "e-unlabelled",
+      "f-policy",
+      "g-unknown",
+      "h-known-partial",
+      "j-judgment-drop",
+      "k-acceptance-drop",
+      "l-verification-drop"
+    ],
+    "judged": [
+      "a-flexible",
+      "b-only-wide",
+      "c-duplicate",
+      "d-false",
+      "e-unlabelled",
+      "f-policy",
+      "g-unknown",
+      "h-known-partial",
+      "k-acceptance-drop",
+      "l-verification-drop"
+    ],
+    "accepted": [
+      "a-flexible",
+      "b-only-wide",
+      "c-duplicate",
+      "d-false",
+      "e-unlabelled",
+      "f-policy",
+      "g-unknown",
+      "h-known-partial",
+      "l-verification-drop"
+    ],
+    "verified": [
+      "a-flexible",
+      "b-only-wide",
+      "c-duplicate",
+      "d-false",
+      "e-unlabelled",
+      "f-policy",
+      "g-unknown",
+      "h-known-partial"
+    ],
+    "final": [
+      "a-flexible",
+      "b-only-wide",
+      "c-duplicate",
+      "d-false",
+      "e-unlabelled",
+      "f-policy",
+      "g-unknown"
+    ]
+  }
+}

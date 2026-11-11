@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "mode": "report_only",
+  "binding": {
+    "schema_version": 1,
+    "rule_id": "python.finally_return",
+    "rule_version": "1",
+    "dataset_id": "p6-python-finally-return-dev-v1",
+    "partition": "dev",
+    "case_ids": [
+      "pending-exception",
+      "pending-return-multiline",
+      "conditional-cleanup-return",
+      "async-function",
+      "try-star-own-finally",
+      "nested-try-body-in-finally",
+      "nearest-finally-suite",
+      "nested-function-own-finally",
+      "generator-cleanup",
+      "unreachable-still-syntax",
+      "returns-in-try-except-and-else",
+      "return-after-cleanup",
+      "nested-function-return",
+      "class-method-return",
+      "text-and-loop-controls",
+      "except-star-illegal-return",
+      "outside-function",
+      "invalid-syntax"
+    ],
+    "sha256": {
+      "rules/proposals/python.finally_return.v1.json": "a5926589b9d80d391c197971998691d04dd4bc0630617495038102adb1582fd3",
+      "evals/datasets/p6_finally_return_dev_v1.json": "92c0ed3ff5775a83d42d57cc1e1995f20984924de7c154bc5444a31e02dcec12",
+      "evals/finally_return_candidate.py": "7b7a4d9806cd020a36ef42427de03c4e91f4cf378847cfd2e49d996f0afd2671",
+      "evals/finally_return_contract.py": "44bbb11ba7e7a7d8e46858b436d96c766bdf6de62b9f260f94656f613ceaac32"
+    },
+    "runtime": {
+      "implementation": "CPython",
+      "version": "3.14.5"
+    },
+    "matching": "exact multiset of (return_start_line, return_end_line, owner_try_line), and exact case status"
+  },
+  "registration_sha256": "4832214c51b733cb04e72296e53c08f525bdc3d52546790307e300923b5a7c24",
+  "summary": {
+    "cases": 18,
+    "matched": 12,
+    "missed": 0,
+    "unexpected": 0,
+    "status_mismatches": 0
+  },
+  "contract_consistent": true,
+  "formal_acceptance": false,
+  "independent_labels": false,
+  "target_execution": false,
+  "cases": [
+    {
+      "case_id": "pending-exception",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          5,
+          5,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            5,
+            5,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "pending-return-multiline",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          5,
+          7,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            5,
+            7,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "conditional-cleanup-return",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          6,
+          6,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            6,
+            6,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "async-function",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          5,
+          5,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            5,
+            5,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "try-star-own-finally",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          7,
+          7,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            7,
+            7,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "nested-try-body-in-finally",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          6,
+          6,
+          2
+        ],
+        [
+          8,
+          8,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            6,
+            6,
+            2
+          ],
+          [
+            8,
+            8,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "nearest-finally-suite",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          9,
+          9,
+          5
+        ],
+        [
+          10,
+          10,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            9,
+            9,
+            5
+          ],
+          [
+            10,
+            10,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "nested-function-own-finally",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          9,
+          9,
+          6
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            9,
+            9,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "generator-cleanup",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          5,
+          5,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            5,
+            5,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "unreachable-still-syntax",
+      "expected_status": "checked",
+      "expected_hits": [
+        [
+          6,
+          6,
+          2
+        ]
+      ],
+      "observed": {
+        "status": "checked",
+        "hits": [
+          [
+            6,
+            6,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "returns-in-try-except-and-else",
+      "expected_status": "checked",
+      "expected_hits": [],
+      "observed": {
+        "status": "checked",
+        "hits": []
+      }
+    },
+    {
+      "case_id": "return-after-cleanup",
+      "expected_status": "checked",
+      "expected_hits": [],
+      "observed": {
+        "status": "checked",
+        "hits": []
+      }
+    },
+    {
+      "case_id": "nested-function-return",
+      "expected_status": "checked",
+      "expected_hits": [],
+      "observed": {
+        "status": "checked",
+        "hits": []
+      }
+    },
+    {
+      "case_id": "class-method-return",
+      "expected_status": "checked",
+      "expected_hits": [],
+      "observed": {
+        "status": "checked",
+        "hits": []
+      }
+    },
+    {
+      "case_id": "text-and-loop-controls",
+      "expected_status": "checked",
+      "expected_hits": [],
+      "observed": {
+        "status": "checked",
+        "hits": []
+      }
+    },
+    {
+      "case_id": "except-star-illegal-return",
+      "expected_status": "invalid_source",
+      "expected_hits": [],
+      "observed": {
+        "status": "invalid_source",
+        "hits": []
+      }
+    },
+    {
+      "case_id": "outside-function",
+      "expected_status": "invalid_source",
+      "expected_hits": [],
+      "observed": {
+        "status": "invalid_source",
+        "hits": []
+      }
+    },
+    {
+      "case_id": "invalid-syntax",
+      "expected_status": "invalid_source",
+      "expected_hits": [],
+      "observed": {
+        "status": "invalid_source",
+        "hits": []
+      }
+    }
+  ]
+}

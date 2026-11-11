@@ -1,0 +1,11 @@
+{
+  "case": "synthetic registry guard only",
+  "checks_per_trial": 400,
+  "trial_seconds": [
+    0.6070609000016702,
+    0.6469729999989795,
+    0.6230553999994299
+  ],
+  "implementation_sha256": "a2271ff2009657a4d6dfdd28a7ff8846c2828bd47be99af29f598221d64288c6",
+  "is_navigation_benchmark": false
+}

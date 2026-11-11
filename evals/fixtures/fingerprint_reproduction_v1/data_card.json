@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "sample_id": "codesentry-legacy-fingerprint-dev-v1",
+  "split": "dev",
+  "status": "development_candidate_pending_independent_review",
+  "label": "unknown",
+  "independent_human_adjudication": "pending",
+  "source_provenance": {
+    "repository": "CodeSentry",
+    "relative_path": "codesentry/core/fingerprint.py",
+    "head_commit": "3df1782b23eecec50486f75b761e5814a516ba92",
+    "head_blob_oid": "0c3fe2153a114649fb62ebb48615412d0d7a5f89",
+    "head_content_sha256": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "working_tree_sha256": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "normalized_lf_equal_to_head": true,
+    "line_endings": "working copy preserved byte-for-byte; LF normalization used only for HEAD comparison"
+  },
+  "rule_basis": {
+    "path": "docs/CodeSentry_技术选型定稿_v0.2.md",
+    "section": "3.3.2",
+    "principle": "Evidence must cover complete rule-dependent source and preserve string literal semantics; unknown equivalence keeps raw source. Hashes alone grant no baseline approval."
+  },
+  "variant_files": {
+    "before": [
+      {
+        "path": "fingerprint.py",
+        "sha256": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989"
+      },
+      {
+        "path": "behavior_driver.py",
+        "sha256": "6042bf33c6e521ed88d7c19c3eb85b7c9f1dec27e77cacee80c9054a93c53673"
+      }
+    ],
+    "fix_candidate": [
+      {
+        "path": "fingerprint.py",
+        "sha256": "45a062a05ab3e904cff0fe9bc80bafdac8fb7f9c3cbb5f109dc85d47b5f55638"
+      },
+      {
+        "path": "behavior_driver.py",
+        "sha256": "6042bf33c6e521ed88d7c19c3eb85b7c9f1dec27e77cacee80c9054a93c53673"
+      }
+    ]
+  },
+  "plan_sha256": "0f19c918b9b52e6c925a9d26abdcfebf5f1cc6127b047d7ecaf2653aabe05b41",
+  "cases": [
+    {
+      "case_id": "after_line_12_changes_fingerprint",
+      "property": "A semantic assignment change after twelve nonempty code lines must change the snippet fingerprint.",
+      "expected_actual": true,
+      "static_before_hypothesis": false
+    },
+    {
+      "case_id": "string_internal_whitespace_changes_fingerprint",
+      "property": "Two spaces versus one inside a Python string literal changes its value and must change the snippet fingerprint.",
+      "expected_actual": true,
+      "static_before_hypothesis": false
+    },
+    {
+      "case_id": "identical_snippet_is_stable",
+      "property": "The same rule, symbol and complete snippet must produce the same fingerprint.",
+      "expected_actual": true,
+      "static_before_hypothesis": true
+    }
+  ],
+  "dynamic_reproduction": {
+    "status": "not_run",
+    "before": null,
+    "fix_candidate": null
+  },
+  "candidate_change": "Only normalize_snippet is replaced in the fixture candidate to return the complete original snippet; production code remains unchanged.",
+  "limitations": [
+    "This is a dev reproduction candidate, not an independently adjudicated bugs gold sample.",
+    "The fixture retains the legacy SHA-1 API; it does not implement versioned identity/evidence separation, related configuration or environment binding, duplicate anchors, or approved baseline migration.",
+    "Preserving raw source is conservative: formatting and comment changes may change fingerprints.",
+    "Successful three-case reproduction cannot establish full CodeSentry or cross-project detector correctness.",
+    "Expected output, plan, provenance and this data card stay outside both candidate snapshots."
+  ]
+}

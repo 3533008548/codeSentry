@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "evaluation": "controlled development detector/reader ablation",
+  "project_id": "knowledge_loop",
+  "manifest_sha256": "f37939c6867c23743fd33c3d556f0bd98a745df465177f720fe18c1730a12bb1",
+  "input_snapshot_sha256": "4111e822dfbf72c70e9f057696607493be4c9b53b0cc65c019d237a5fa65e8f9",
+  "parent_contract_sha256": "cda5ae9301a5c5175181bba3a0e43d79f5f0f68dcac52effed982e7f590dd5de",
+  "legacy_compatibility": {
+    "change_counts": {
+      "access_scope_conflict": 1,
+      "startup_input_not_frozen_in_v1": 1
+    },
+    "comparable_to_v1": false,
+    "kind_counts": {
+      "source": 1
+    }
+  },
+  "baseline_tool_commit": "3df1782b23eecec50486f75b761e5814a516ba92",
+  "baseline_tool_sources_sha256": {
+    "codesentry/index/entrypoint.py": "63f2bdd58bf3a0b0a7cb26d1f7997b999cc18c0520bdee1fa38fed44ffbb9226",
+    "codesentry/output/reading_order.py": "d759c7cf5ebd3f9887fd0cdc38622dba5ead82e77e246ddbafec5baf5cfbe0da"
+  },
+  "conditions": {
+    "same_current_parser_and_graph": true,
+    "historical_binary_replayed": false,
+    "target_code_executed": false,
+    "target_dependencies_installed": false,
+    "target_tests_collected": false,
+    "model_calls": false,
+    "target_source_text_exported": false,
+    "cache_used": false,
+    "manifest_valid_before_and_after": true
+  },
+  "counts": {
+    "indexed": 140,
+    "parsed": 140,
+    "parse_failures": 0,
+    "source_complete": false,
+    "entry_evidence_issues": 1,
+    "position_errors": 0,
+    "before_entry_candidates": 4,
+    "current_entry_roles": {
+      "process": 1,
+      "assembly": 1,
+      "candidate": 1,
+      "mount": 1
+    },
+    "before_reading_items": 77,
+    "after_reading_items": 77
+  },
+  "proxy_label_metrics": {
+    "legacy_detector_legacy_reader": {
+      "hits": 6,
+      "requested_k": 10,
+      "returned_prefix": 10,
+      "p10": 0.6,
+      "recall10_hits": 6,
+      "recall10_denominator": 11,
+      "recall10": 0.5454545454545454,
+      "unlabelled_prefix": 4,
+      "unlabelled_is_not_false_positive": true,
+      "formal_quality_passed": false
+    },
+    "current_detector_legacy_reader": {
+      "hits": 6,
+      "requested_k": 10,
+      "returned_prefix": 10,
+      "p10": 0.6,
+      "recall10_hits": 6,
+      "recall10_denominator": 11,
+      "recall10": 0.5454545454545454,
+      "unlabelled_prefix": 4,
+      "unlabelled_is_not_false_positive": true,
+      "formal_quality_passed": false
+    },
+    "current_detector_current_reader": {
+      "hits": 5,
+      "requested_k": 10,
+      "returned_prefix": 10,
+      "p10": 0.5,
+      "recall10_hits": 5,
+      "recall10_denominator": 11,
+      "recall10": 0.45454545454545453,
+      "unlabelled_prefix": 5,
+      "unlabelled_is_not_false_positive": true,
+      "formal_quality_passed": false
+    }
+  },
+  "performance": {
+    "build_seconds": 34.222,
+    "l1_characters": 1350,
+    "l2_characters": 6637,
+    "build_and_l1_seconds": 34.2258,
+    "build_and_l2_seconds": 34.2311,
+    "including_validation_seconds": 93.6705
+  },
+  "formal_acceptance": {
+    "passed": false,
+    "human_entry_gold": "not_adjudicated",
+    "label_source": "unchanged legacy document positives; unlabelled remains unknown",
+    "unmatched_labels_retained": 0,
+    "ambiguous_labels_retained": 0,
+    "blockers": [
+      "No independently adjudicated application-entry labels.",
+      "These projects are already used for development and cannot be relabelled as holdout.",
+      "Legacy document lists are candidate proxy labels, not complete positive/negative ground truth."
+    ]
+  }
+}

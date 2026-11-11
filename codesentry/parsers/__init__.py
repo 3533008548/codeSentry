@@ -2,6 +2,7 @@
 
 统一入口，按扩展名分派到对应语言的解析器。
 """
+from codesentry.environment import Toolchain, get_toolchain
 from codesentry.core.symbol import CallSite, FileMeta, Symbol
 from codesentry.parsers.python_parser import (
     BUILTIN_NAMES,
@@ -28,13 +29,13 @@ class Parser:
     持有各语言解析器实例（TS 解析器需要常驻 Node 进程）。
     """
 
-    def __init__(self, project_root, use_typescript: bool = True):
+    def __init__(self, project_root, use_typescript: bool = True, toolchain: Toolchain | None = None):
         self.project_root = project_root
         self.python = PythonParser()
         self.typescript: TypeScriptParser | None = None
         self.warnings: list[str] = []
         if use_typescript:
-            self.typescript = TypeScriptParser(project_root)
+            self.typescript = TypeScriptParser(project_root, toolchain=toolchain or get_toolchain(project_root))
 
     def parse_with_meta(
         self, path, rel_path: str, text: str, suffix: str
@@ -48,13 +49,13 @@ class Parser:
             return self.python.parse_with_meta(path, rel_path, text)
         if suffix in (".ts", ".tsx"):
             if self.typescript is None:
-                return [], [], FileMeta(path=rel_path, language="unknown"), {}
+                return [], [], FileMeta(path=rel_path, language="unknown", is_parsed=False, parse_error="unsupported_or_unavailable_parser"), {}
             try:
                 return self.typescript.parse_with_meta(path, rel_path, text)
-            except RuntimeError as e:
+            except (RuntimeError, OSError, ValueError) as e:
                 self.warnings.append(f"{rel_path}: {e}")
-                return [], [], FileMeta(path=rel_path, language="unknown"), {}
-        return [], [], FileMeta(path=rel_path, language="unknown"), {}
+                return [], [], FileMeta(path=rel_path, language="typescript", is_parsed=False, parse_error=str(e), lines=text.count("\n")), {}
+        return [], [], FileMeta(path=rel_path, language="unknown", is_parsed=False, parse_error="unsupported_or_unavailable_parser"), {}
 
     def parse(
         self, path, rel_path: str, suffix: str
@@ -81,10 +82,10 @@ class Parser:
                 path, rel_path, is_test, is_script, is_data)
         if suffix in (".ts", ".tsx"):
             if self.typescript is None:
-                return FileMeta(path=rel_path, language="unknown")
+                return FileMeta(path=rel_path, language="unknown", is_parsed=False, parse_error="unsupported_or_unavailable_parser")
             return self.typescript.file_meta(
                 path, rel_path, is_test, is_script, is_data)
-        return FileMeta(path=rel_path, language="unknown")
+        return FileMeta(path=rel_path, language="unknown", is_parsed=False, parse_error="unsupported_or_unavailable_parser")
 
     def close(self) -> None:
         if self.typescript:

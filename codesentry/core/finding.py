@@ -1,20 +1,18 @@
-"""Finding 数据契约。
+"""Untrusted drafts and report data never carry blocking authority.
 
-一份模型同时满足三件事（v0.1 决策 2）：
-  1. 向 LLM 提供 JSON Schema 做结构化输出约束
-  2. 在 Web 报告里序列化
-  3. 在 policy.yaml 中做配置校验
-
-`source` 字段决定它能否进阻断路径（v0.1 决策 7）：
-  只有 deterministic + 回验通过才可阻断。
+Only a current trusted verification context can recognise its original finding
+objects. Serialized source/verified/fingerprint fields remain report data.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+if TYPE_CHECKING:
+    from codesentry.review.verification import VerificationContext
 
 
 class Severity(str, Enum):
@@ -28,6 +26,7 @@ class Severity(str, Enum):
 class Source(str, Enum):
     """结论来源，决定门禁行为。"""
 
+    UNKNOWN = "unknown"
     DETERMINISTIC = "deterministic"
     LLM = "llm"
     EXPLORE = "explore"
@@ -48,6 +47,8 @@ class Extraction(BaseModel):
     是我们自己数出来的。回答"你怎么知道"时不依赖模型的自我声明。
     """
 
+    model_config = ConfigDict(extra="forbid", validate_assignment=True)
+
     sub_symbols: list[str] = Field(default_factory=list)
     sub_symbol_counts: list[int] = Field(default_factory=list)
     function_lines: int | None = None
@@ -62,6 +63,8 @@ class Evidence(BaseModel):
     每个证据都必须能被用户 5 秒内自行核对。
     """
 
+    model_config = ConfigDict(extra="forbid", validate_assignment=True)
+
     file: str
     line: int = Field(ge=1)
     snippet: str = ""
@@ -71,14 +74,16 @@ class Evidence(BaseModel):
 class Finding(BaseModel):
     """一条审查结论。"""
 
+    model_config = ConfigDict(extra="forbid", validate_assignment=True)
+
     file: str
-    line: int = Field(ge=1)
-    end_line: int | None = Field(default=None, ge=1)
+    line: int = Field(ge=1, strict=True)
+    end_line: int | None = Field(default=None, ge=1, strict=True)
     symbol: str | None = None
 
     rule_id: str = Field(description="如 complexity.function_length")
     severity: Severity = Severity.MEDIUM
-    source: Source = Source.DETERMINISTIC
+    source: Source = Source.UNKNOWN
 
     reason: str = Field(description="为什么这是问题")
     evidence: str = Field(default="", description="人类可读的证据描述")
@@ -87,27 +92,56 @@ class Finding(BaseModel):
     extraction: Extraction | None = None
     suggestion: str | None = None
     suggestion_type: SuggestionType | None = None
-    confidence: float = Field(default=1.0, ge=0.0, le=1.0)
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+
+    rule_version: str = ""
+    anchor: str = ""
+    occurrence: int = Field(default=1, ge=1, strict=True)
+    facts: dict[str, Any] = Field(default_factory=dict)
+    identity_digest: str = ""
+    evidence_digest: str = ""
+    combined_digest: str = ""
 
     fingerprint: str = Field(
         default="", description="内容指纹，用于基线匹配（禁用行号）"
     )
     verified: bool = Field(
-        default=True, description="是否通过回验（行号存在 + 符号命中）"
+        default=False, description="创建报告时是否经可信规则重算；此字段不授予阻断资格"
     )
-    created_at: datetime = Field(default_factory=datetime.now)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-    def can_block(self) -> bool:
-        """能否进入阻断路径。
+    @model_validator(mode="after")
+    def _location(self):
+        if self.end_line is not None and self.end_line < self.line:
+            raise ValueError("end_line cannot precede line")
+        return self
 
-        规则（v0.1 决策 7 + v0.2 三条护栏）：
-          - 必须来自确定性层
-          - 必须通过回验
-          - 置信度必须足够高
-        LLM 结论与 explore 模式一律不可阻断。
-        """
-        if self.source is not Source.DETERMINISTIC:
+    def can_block(self, context: VerificationContext | None = None) -> bool:
+        """Minimum eligibility only; a final gate and approved baseline are separate."""
+        if context is None:
             return False
-        if not self.verified:
-            return False
-        return self.confidence >= 0.9
+        from codesentry.review.verification import VerificationContext
+        return type(context) is VerificationContext and context.can_block(self)
+
+
+class LLMFindingDraft(BaseModel):
+    """Model-shaped suggestions; provenance and verification fields are forbidden."""
+
+    model_config = ConfigDict(extra="forbid")
+    file: str
+    line: int = Field(ge=1, strict=True)
+    end_line: int | None = Field(default=None, ge=1, strict=True)
+    symbol: str | None = None
+    rule_id: str
+    severity: Severity = Severity.MEDIUM
+    reason: str
+    evidence: str = ""
+    evidence_refs: list[Evidence] = Field(default_factory=list)
+    suggestion: str | None = None
+    suggestion_type: SuggestionType | None = None
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+
+    def to_finding(self, *, source: Source = Source.LLM) -> Finding:
+        if source not in {Source.LLM, Source.EXPLORE}:
+            raise ValueError("a model draft cannot become a deterministic finding")
+        return Finding(**self.model_dump(), source=source, verified=False)

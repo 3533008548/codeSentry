@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "kind": "ruff-development-comparison",
+  "plan": {
+    "partition": "dev",
+    "tool_version": "0.15.22",
+    "published_wheel_sha256": "9be63ba1eb936acd2d1342fb8337c356353706fce233b2a15a09a97037e6acde",
+    "tool_binary_sha256": "1ecdb4d9d397335707b94447878773b63c50d96c6d5a8d8aa76e1f05f25d8658",
+    "wheel_url": "https://files.pythonhosted.org/packages/cb/46/4965251734c2b6fcdca1b1b187d20bcac3af0ee5b083b89c910bb961ce3a/ruff-0.15.22-py3-none-win_amd64.whl",
+    "dataset_sha256": "92c0ed3ff5775a83d42d57cc1e1995f20984924de7c154bc5444a31e02dcec12",
+    "isolated_candidate_report_sha256": "6aeb822ffc3e89e39db3e8806e3893df558d1d4603a07b4ccb58246acc240da2",
+    "isolated_registration_sha256": "9e2398ed935b8c0dee6e26721f50787258200b8e50da17507cf6d612f12d66ec",
+    "command_arguments": [
+      "check",
+      "--isolated",
+      "--no-cache",
+      "--ignore-noqa",
+      "--select",
+      "B012",
+      "--output-format",
+      "json",
+      "--target-version"
+    ],
+    "targets": [
+      "py311",
+      "py314"
+    ],
+    "comparison": "Pair B012 start lines with candidate return start lines per case. Score the 15 compiler-valid cases; retain the 3 invalid cases separately.",
+    "selection": "explicit basenames from the frozen case manifest",
+    "initial_discovery": "Ruff excluded the .venv fixture directory from recursive discovery. No result was scored."
+  },
+  "ruff": "ruff 0.15.22",
+  "targets": {
+    "py311": {
+      "summary": {
+        "compared_valid_cases": 15,
+        "separate_invalid_cases": 3,
+        "overlap": 11,
+        "candidate_only": 1,
+        "ruff_only": 0
+      },
+      "cases": [
+        {
+          "id": "pending-exception",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 5
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "pending-return-multiline",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 7
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "conditional-cleanup-return",
+          "compiler_valid": true,
+          "candidate_lines": [
+            6
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 6,
+              "end_line": 6
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "async-function",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 5
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "try-star-own-finally",
+          "compiler_valid": true,
+          "candidate_lines": [
+            7
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 7,
+              "end_line": 7
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "nested-try-body-in-finally",
+          "compiler_valid": true,
+          "candidate_lines": [
+            6,
+            8
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 6,
+              "end_line": 6
+            }
+          ],
+          "only_candidate": [
+            8
+          ],
+          "only_ruff": []
+        },
+        {
+          "id": "nearest-finally-suite",
+          "compiler_valid": true,
+          "candidate_lines": [
+            9,
+            10
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 9,
+              "end_line": 9
+            },
+            {
+              "code": "B012",
+              "line": 10,
+              "end_line": 10
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "nested-function-own-finally",
+          "compiler_valid": true,
+          "candidate_lines": [
+            9
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 9,
+              "end_line": 9
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "generator-cleanup",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 5
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "unreachable-still-syntax",
+          "compiler_valid": true,
+          "candidate_lines": [
+            6
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 6,
+              "end_line": 6
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "returns-in-try-except-and-else",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "return-after-cleanup",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "nested-function-return",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "class-method-return",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "text-and-loop-controls",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "except-star-illegal-return",
+          "compiler_valid": false,
+          "candidate_lines": [],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 8,
+              "end_line": 8
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": [
+            8
+          ]
+        },
+        {
+          "id": "outside-function",
+          "compiler_valid": false,
+          "candidate_lines": [],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 4,
+              "end_line": 4
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": [
+            4
+          ]
+        },
+        {
+          "id": "invalid-syntax",
+          "compiler_valid": false,
+          "candidate_lines": [],
+          "ruff_diagnostics": [
+            {
+              "code": "invalid-syntax",
+              "line": 1,
+              "end_line": 2
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        }
+      ],
+      "exit_code": 1
+    },
+    "py314": {
+      "summary": {
+        "compared_valid_cases": 15,
+        "separate_invalid_cases": 3,
+        "overlap": 11,
+        "candidate_only": 1,
+        "ruff_only": 0
+      },
+      "cases": [
+        {
+          "id": "pending-exception",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 5
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "pending-return-multiline",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 7
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "conditional-cleanup-return",
+          "compiler_valid": true,
+          "candidate_lines": [
+            6
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 6,
+              "end_line": 6
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "async-function",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 5
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "try-star-own-finally",
+          "compiler_valid": true,
+          "candidate_lines": [
+            7
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 7,
+              "end_line": 7
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "nested-try-body-in-finally",
+          "compiler_valid": true,
+          "candidate_lines": [
+            6,
+            8
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 6,
+              "end_line": 6
+            }
+          ],
+          "only_candidate": [
+            8
+          ],
+          "only_ruff": []
+        },
+        {
+          "id": "nearest-finally-suite",
+          "compiler_valid": true,
+          "candidate_lines": [
+            9,
+            10
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 9,
+              "end_line": 9
+            },
+            {
+              "code": "B012",
+              "line": 10,
+              "end_line": 10
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "nested-function-own-finally",
+          "compiler_valid": true,
+          "candidate_lines": [
+            9
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 9,
+              "end_line": 9
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "generator-cleanup",
+          "compiler_valid": true,
+          "candidate_lines": [
+            5
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 5,
+              "end_line": 5
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "unreachable-still-syntax",
+          "compiler_valid": true,
+          "candidate_lines": [
+            6
+          ],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 6,
+              "end_line": 6
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "returns-in-try-except-and-else",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "return-after-cleanup",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "nested-function-return",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "class-method-return",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "text-and-loop-controls",
+          "compiler_valid": true,
+          "candidate_lines": [],
+          "ruff_diagnostics": [],
+          "only_candidate": [],
+          "only_ruff": []
+        },
+        {
+          "id": "except-star-illegal-return",
+          "compiler_valid": false,
+          "candidate_lines": [],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 8,
+              "end_line": 8
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": [
+            8
+          ]
+        },
+        {
+          "id": "outside-function",
+          "compiler_valid": false,
+          "candidate_lines": [],
+          "ruff_diagnostics": [
+            {
+              "code": "B012",
+              "line": 4,
+              "end_line": 4
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": [
+            4
+          ]
+        },
+        {
+          "id": "invalid-syntax",
+          "compiler_valid": false,
+          "candidate_lines": [],
+          "ruff_diagnostics": [
+            {
+              "code": "invalid-syntax",
+              "line": 1,
+              "end_line": 2
+            }
+          ],
+          "only_candidate": [],
+          "only_ruff": []
+        }
+      ],
+      "exit_code": 1
+    }
+  },
+  "independent_labels": false,
+  "formal_acceptance": false
+}

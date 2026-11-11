@@ -1,0 +1,14 @@
+{
+  "schema_version": "review-matching-v1",
+  "identity": [
+    "case_id",
+    "rule_id",
+    "rule_version",
+    "path"
+  ],
+  "locations": "any selector; inclusive line range AND exact symbol when specified",
+  "matching": "maximum-cardinality one-to-one; identical predictions share one opportunity",
+  "unmatched": "FP only in adjudicated complete scope or duplicate of a known issue; otherwise unknown",
+  "categories": "bug and debt separate; clean is a rule-specific reviewed negative",
+  "empty_denominators": "null"
+}

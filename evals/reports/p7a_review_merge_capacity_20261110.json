@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "partition": "dev",
+  "synthetic": true,
+  "transport": "offline_mock",
+  "input_lines": 30000,
+  "input_files": 2,
+  "input_sha256": "6821c923f80d5bc2b7e33cd4c879d0a12d647ad73f3d151e3d3496518d3a15c7",
+  "batch_runs": [
+    40,
+    35
+  ],
+  "merged_completed_lines": 30000,
+  "merged_range_counts": {
+    "completed": 300,
+    "failed": 0,
+    "blocked": 0,
+    "interrupted": 0,
+    "pending": 0,
+    "conflict": 0
+  },
+  "summary_group_sizes": [
+    86,
+    85,
+    85,
+    44
+  ],
+  "all_range_ids_routed_to_summary_groups_in_order": true,
+  "summary": {
+    "status": "completed",
+    "requests": 5,
+    "observations_in_scope": 300,
+    "claims": [
+      {
+        "text": "Compare beginning and end of this scope.",
+        "evidence": [
+          {
+            "path": "module_0.py",
+            "line": 1,
+            "id": "R1"
+          },
+          {
+            "path": "module_1.py",
+            "line": 14901,
+            "id": "R300"
+          }
+        ]
+      }
+    ],
+    "unknowns": [
+      "Runtime unobserved."
+    ]
+  },
+  "seconds": 8.96
+}

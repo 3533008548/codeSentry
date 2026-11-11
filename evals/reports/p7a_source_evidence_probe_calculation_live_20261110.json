@@ -1,0 +1,711 @@
+{
+  "schema_version": 1,
+  "partition": "dev",
+  "dataset_sha256": "d3156d1df4d6bab501b5e20227a6ef15c86a6ccb434a4b031723c7cebd3120e0",
+  "fixture_sha256": {
+    "cli.py": "ea6d05cc1faa2aad273b1e08302795f6361c7bb23bd78dfb51c1ffc73db1cad1",
+    "dispatch.py": "ffd134e5d4f59e9e8e152588e3fe0dc44385c931ef2734b26146c33b1e1b091d",
+    "test_dispatch.py": "7a4e615a13eaa65fbcded51d45035642f1716393cfa4499024dbb8f2d70b14f2"
+  },
+  "model": "deepseek-flash",
+  "key_source": "env_file",
+  "synthetic_only": true,
+  "results": [
+    {
+      "case_id": "zero-slot-lookup",
+      "seconds": 8.75,
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "cli.py",
+          "status": "completed",
+          "evidence_line": 5,
+          "observation": "main 以 argv[0]（此处为 '0'）调用 parse_slot（前提是 argv 非空），并在 slot 为 None 时返回 'bad slot'；否则用 labels 为 {0: 'maintenance'} 的标签字典调用 describe_slot，并把标签用方括号包裹后返回。",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "dispatch.py",
+          "status": "completed",
+          "evidence_line": 5,
+          "observation": "对 '0'，parse_slot 中 not text.isdecimal() 为假，随后 slot = int('0') = 0，且 0 < 4 为真，因此返回 0。describe_slot 中 0 not in {0: 'maintenance'} 为假，因此返回 labels[0]，即 'maintenance'。",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "test_dispatch.py",
+          "status": "completed",
+          "evidence_line": null,
+          "observation": "本段与所问的 main(['0']) 路径没有直接关系：仅有一个针对 penalty('bulk', True, True) 的测试。",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "source",
+        "claims": [
+          {
+            "text": "parse_slot('0') 先判断 not text.isdecimal()：'0'.isdecimal() 为真，所以该条件为假，不返回 None。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 2,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 3,
+                "path": "dispatch.py"
+              }
+            ]
+          },
+          {
+            "text": "随后 slot = int('0') = 0，且 0 < 4 为真，因此 parse_slot 返回 0；main 中 slot is None 为假，不返回 'bad slot'。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 4,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 5,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R1",
+                "line": 6,
+                "path": "cli.py"
+              }
+            ]
+          },
+          {
+            "text": "describe_slot(0, {0: 'maintenance'}) 中 0 not in labels 为假，因此返回 labels[0] 即 'maintenance'。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 9,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 11,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R1",
+                "line": 8,
+                "path": "cli.py"
+              }
+            ]
+          },
+          {
+            "text": "main 最后返回用方括号包裹的标签，即最终字符串 '[maintenance]'。",
+            "evidence": [
+              {
+                "id": "R1",
+                "line": 9,
+                "path": "cli.py"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "未提供其他测试或调用上下文，无法验证不带源码的运行时行为。"
+        ]
+      },
+      "observation_only_summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "observations",
+        "claims": [
+          {
+            "text": "main 解析 argv[0]='0'：parse_slot 中 not text.isdecimal() 为假，slot=int('0')=0，且 0<4 为真，故返回 0；slot 不是 None。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 5,
+                "id": "R2"
+              }
+            ]
+          },
+          {
+            "text": "查表：describe_slot 中 0 not in {0: 'maintenance'} 为假，返回 labels[0]，即 'maintenance'。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 5,
+                "id": "R2"
+              }
+            ]
+          },
+          {
+            "text": "返回：main 用方括号包裹标签，最终返回字符串 '[maintenance]'。",
+            "evidence": [
+              {
+                "path": "cli.py",
+                "line": 5,
+                "id": "R1"
+              },
+              {
+                "path": "dispatch.py",
+                "line": 5,
+                "id": "R2"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "未提供 main 的源码行，无法核对 argv 的取值方式以及返回时方括号包裹的精确拼接形式。",
+          "未提供 parse_slot 与 describe_slot 的完整源码，无法核对是否存在其他分支、异常或提前返回。",
+          "R3 仅涉及 penalty 测试，与 main(['0']) 路径无关，不能佐证该路径。"
+        ]
+      },
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 748,
+            "completion_tokens": 257,
+            "total_tokens": 1005
+          },
+          "resent_ranges": [],
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 456,
+            "completion_tokens": 230,
+            "total_tokens": 686
+          },
+          "resent_ranges": []
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 903,
+            "completion_tokens": 388,
+            "total_tokens": 1291
+          },
+          "resent_ranges": [
+            "R1",
+            "R2"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "exclusive-penalty-bounds",
+      "seconds": 10.17,
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "cli.py",
+          "status": "completed",
+          "evidence_line": null,
+          "observation": "本段实现入口解析并调用 describe_slot，与 penalty 计算无直接关系。",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "dispatch.py",
+          "status": "completed",
+          "evidence_line": 14,
+          "observation": "penalty 从 amount=0 开始：mode=='express' 时加 7，elif mode=='bulk' 时加 5，其他模式不加；weekend 为真加 3；member 为真减 2。因此以任意模式字符串、周末与会员两个布尔值为输入，可达最小值为 -2（非 express/bulk、weekend 假、member 真），可达最大值为 10（express、weekend 真、member 假）。注意 10 为显式更新相加所得，并非源码中单独写出的常量。",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "test_dispatch.py",
+          "status": "completed",
+          "evidence_line": 5,
+          "observation": "测试断言 penalty('bulk', True, True) == 6，与 5+3-2 的路径相符，但不覆盖上下界。",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "source",
+        "claims": [
+          {
+            "text": "penalty 从 0 开始，若 mode 等于 'express' 则加 7，否则若等于 'bulk' 则加 5，其他任意字符串不加；weekend 为真加 3，member 为真减 2。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 15,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 16,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 17,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 18,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 20,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 22,
+                "path": "dispatch.py"
+              }
+            ]
+          },
+          {
+            "text": "最大值 10 的条件为 mode=='express'、weekend 为真、member 为假，累加为 0+7+3。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 17,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 21,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 23,
+                "path": "dispatch.py"
+              }
+            ],
+            "sums": [
+              {
+                "terms": [
+                  0,
+                  7,
+                  3
+                ],
+                "result": 10
+              }
+            ]
+          },
+          {
+            "text": "最小值 -2 的条件为非 express/bulk 的任意模式（触发 else 分支，不加分）、weekend 为假、member 为真，累加为 0-2。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 16,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 18,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 20,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 23,
+                "path": "dispatch.py"
+              }
+            ],
+            "sums": [
+              {
+                "terms": [
+                  0,
+                  -2
+                ],
+                "result": -2
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "R2 是观察摘要而非逐行源码；未直接核对 dispatch.py 的实际源码行与缩进/分支结构。",
+          "未验证是否存在其他调用方在调用 penalty 前修改参数或包装返回值。",
+          "测试仅覆盖 bulk/weekend/member 得 6 的情况，未覆盖上下界。"
+        ]
+      },
+      "observation_only_summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "observations",
+        "claims": [
+          {
+            "text": "penalty 从 0 开始，仅由三处条件更新构成：mode=='express' 加 7，elif mode=='bulk' 加 5，其他模式字符串不加；weekend 真加 3；member 真减 2。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 14,
+                "id": "R2"
+              }
+            ]
+          },
+          {
+            "text": "最小值可达 -2：条件为非 express/bulk 的任意模式串、weekend 为假、member 为真（0+0-2）。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 14,
+                "id": "R2"
+              }
+            ]
+          },
+          {
+            "text": "最大值可达 10：条件为 mode=='express'、weekend 为真、member 为假（0+7+3-0），这是显式更新相加所得，并非源码单独写出的常量。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 14,
+                "id": "R2"
+              }
+            ]
+          },
+          {
+            "text": "bulk 分支因 elif 与 express 互斥，单独 bulk 路径的取值集合为 0/3/5/8 再减 0 或 2，不触及 10 的上界。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 14,
+                "id": "R2"
+              },
+              {
+                "path": "test_dispatch.py",
+                "line": 5,
+                "id": "R3"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "未核对 dispatch.py 源码全文，无法排除 R2 摘录之外是否还有对 penalty 的其他更新（例如异常分支或后续乘法）。",
+          "未验证 mode 是否可为 None 或非字符串输入，问题只假设为任意字符串。",
+          "未确认是否存在对返回值做钳制（clamp）或取模的代码，若有会改变实际上下界。",
+          "测试仅覆盖 bulk/True/True==6，未覆盖 express 或非 express/bulk 的边界路径。"
+        ]
+      },
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 751,
+            "completion_tokens": 251,
+            "total_tokens": 1002
+          },
+          "resent_ranges": [],
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 455,
+            "completion_tokens": 344,
+            "total_tokens": 799
+          },
+          "resent_ranges": []
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 847,
+            "completion_tokens": 489,
+            "total_tokens": 1336
+          },
+          "resent_ranges": [
+            "R2",
+            "R3"
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "assertion-versus-deployment",
+      "seconds": 9.4,
+      "batch_status": "model_scope_complete",
+      "batch_ranges": [
+        {
+          "id": "R1",
+          "path": "cli.py",
+          "status": "completed",
+          "evidence_line": null,
+          "observation": "本段与问题无直接关系：这里只处理命令行槽位解析和标签描述，未涉及 bulk 会员测试、测试通过状态或 penalty 的上线使用。",
+          "reason": null
+        },
+        {
+          "id": "R2",
+          "path": "dispatch.py",
+          "status": "completed",
+          "evidence_line": 19,
+          "observation": "源码事实：penalty 会根据输入对 amount 累加多个条件量。传入 'bulk'、weekend=True、member=True 时，先因 bulk 得到 amount=5，再因周末得到 8，再因会员减 2，返回 8-2=6。这仅是源码表达式，不能证明线上入口正在调用它。",
+          "reason": null
+        },
+        {
+          "id": "R3",
+          "path": "test_dispatch.py",
+          "status": "completed",
+          "evidence_line": 5,
+          "observation": "源码事实：test_bulk_member 断言 penalty('bulk', True, True) == 6，即该测试期望值为 6。该文件只显示测试代码，未提供运行结果，因此不能说明测试已通过，也不能说明线上入口正在使用 penalty。",
+          "reason": null
+        }
+      ],
+      "summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "source",
+        "claims": [
+          {
+            "text": "源码中的 bulk 会员测试期望 penalty('bulk', True, True) 返回 6。",
+            "evidence": [
+              {
+                "id": "R3",
+                "line": 5,
+                "path": "test_dispatch.py"
+              }
+            ]
+          },
+          {
+            "text": "按 penalty 源码，mode='bulk' 触发 amount += 5，weekend=True 触发 amount += 3，member=True 触发 amount -= 2，初值 0 最终得到 6，与测试期望一致。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 15,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 19,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 21,
+                "path": "dispatch.py"
+              },
+              {
+                "id": "R2",
+                "line": 23,
+                "path": "dispatch.py"
+              }
+            ],
+            "sums": [
+              {
+                "terms": [
+                  0,
+                  5,
+                  3,
+                  -2
+                ],
+                "result": 6
+              }
+            ]
+          },
+          {
+            "text": "现有证据不能说明该测试已通过：test_dispatch.py 只展示测试代码与断言，没有测试运行结果。",
+            "evidence": [
+              {
+                "id": "R3",
+                "line": 5,
+                "path": "test_dispatch.py"
+              }
+            ]
+          },
+          {
+            "text": "现有证据也不能说明线上入口正在使用 penalty：源码只定义函数及计算，未展示任何调用 penalty 的线上入口。",
+            "evidence": [
+              {
+                "id": "R2",
+                "line": 14,
+                "path": "dispatch.py"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "test_bulk_member 的实际运行结果（通过或失败）",
+          "线上入口是否调用了 dispatch.py 中的 penalty 函数",
+          "线上入口调用 penalty 时实际传入的 mode、weekend、member 参数",
+          "是否存在其他文件定义或调用同名 penalty 而影响测试或线上行为"
+        ]
+      },
+      "observation_only_summary": {
+        "status": "completed",
+        "requests": 1,
+        "observations_in_scope": 3,
+        "evidence_mode": "observations",
+        "claims": [
+          {
+            "text": "bulk 会员测试的期望值是 6，源码断言为 penalty('bulk', True, True) == 6。",
+            "evidence": [
+              {
+                "path": "test_dispatch.py",
+                "line": 5,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "按源码表达式，bulk、weekend、member 同时为真时 amount 依次更新为 5、8、6，最终返回 6，与测试期望值一致。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 19,
+                "id": "R2"
+              },
+              {
+                "path": "test_dispatch.py",
+                "line": 5,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "该测试不能说明当前测试已通过：只展示了测试代码和断言，没有提供运行结果。",
+            "evidence": [
+              {
+                "path": "test_dispatch.py",
+                "line": 5,
+                "id": "R3"
+              }
+            ]
+          },
+          {
+            "text": "该测试不能说明线上入口正在使用 penalty：源码表达式和测试代码都不含线上调用入口或部署状态证据。",
+            "evidence": [
+              {
+                "path": "dispatch.py",
+                "line": 19,
+                "id": "R2"
+              },
+              {
+                "path": "test_dispatch.py",
+                "line": 5,
+                "id": "R3"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "缺少测试运行日志或退出码，无法判断 test_bulk_member 当前是否实际通过。",
+          "缺少线上入口的调用链、配置或部署证据，无法判断 penalty 是否被线上使用。",
+          "R1 所在命令行解析段与问题无直接关系，未提供额外证据。"
+        ]
+      },
+      "requests": [
+        {
+          "kind": "batch",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 748,
+            "completion_tokens": 242,
+            "total_tokens": 990
+          },
+          "resent_ranges": [],
+          "returned_review_ids": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 448,
+            "completion_tokens": 235,
+            "total_tokens": 683
+          },
+          "resent_ranges": []
+        },
+        {
+          "kind": "summary",
+          "source_paths": [
+            "cli.py",
+            "dispatch.py",
+            "test_dispatch.py"
+          ],
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 840,
+            "completion_tokens": 403,
+            "total_tokens": 1243
+          },
+          "resent_ranges": [
+            "R2",
+            "R3"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "evaluation": "controlled development detector/reader ablation",
+  "project_id": "research_agent",
+  "manifest_sha256": "0cc680d3dca78ba40ad4613a41e743b1c54e6d6edf4c64a8b9c860c36f5779df",
+  "input_snapshot_sha256": "0e63556af064f3e49e4dea4654fe66a63d8855a0a5f129e72065480068aa6c9f",
+  "parent_contract_sha256": "cda5ae9301a5c5175181bba3a0e43d79f5f0f68dcac52effed982e7f590dd5de",
+  "legacy_compatibility": {
+    "change_counts": {
+      "access_scope_conflict": 4,
+      "startup_input_not_frozen_in_v1": 3
+    },
+    "comparable_to_v1": false,
+    "kind_counts": {
+      "document": 2,
+      "source": 2
+    }
+  },
+  "baseline_tool_commit": "3df1782b23eecec50486f75b761e5814a516ba92",
+  "baseline_tool_sources_sha256": {
+    "codesentry/index/entrypoint.py": "63f2bdd58bf3a0b0a7cb26d1f7997b999cc18c0520bdee1fa38fed44ffbb9226",
+    "codesentry/output/reading_order.py": "d759c7cf5ebd3f9887fd0cdc38622dba5ead82e77e246ddbafec5baf5cfbe0da"
+  },
+  "analysis_implementation_sha256": {
+    "codesentry/__init__.py": "3c4216247c0a1e5f060e9fcaaddcbe65f2a67931bb3540ffd8c42baf0ce55f6f",
+    "codesentry/access/__init__.py": "8e90dde17e679b896f3e4b8ed76a232d375c58239500e3ac44ba34ce97ead84e",
+    "codesentry/access/artifacts.py": "d2b7739656758de67b2e77f87082c485a823e7814efff51b81e3df58a319f8a1",
+    "codesentry/access/model.py": "2e3958f2db05c9846fa0588c46c4170bb7038e6976ef775ffc3b42322d398cb6",
+    "codesentry/access/policy.py": "8a639ff11e7c2c0526647b10b5df76d16b20bfd85d4393337fbc49edf69eb71d",
+    "codesentry/access/registry.py": "f978d809c80ef2277d649abf379bc350ce9f9178603ded96ecd32cdcb463cdb6",
+    "codesentry/cli/__init__.py": "a5d10be8ffaaf1d801e5fe84a4590e0c9b91355d817e211f4511312cb5ca7d8c",
+    "codesentry/cli/access.py": "58bec5e8ee6de17e639d75f4ce7d86deb177ab9c5c1b6596c0c3ea1888e9e3ab",
+    "codesentry/cli/main.py": "1b83c4a9614b92ec4628d38c9645ee1ccb55cce023df7746dbc3af0f60427e61",
+    "codesentry/core/__init__.py": "3ab238dd57987624ec84866b55ca1193eb836b0967048a37a5281eec0738995d",
+    "codesentry/core/finding.py": "c6afb0cff152afcbcf0e8786309992746bbcb3c5b71af7d41cc61afe084b89b2",
+    "codesentry/core/fingerprint.py": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "codesentry/core/policy.py": "ea2538eb70df654b02ec5f50294a0f6eecca9bc85e2499e2544c25be376883b4",
+    "codesentry/core/symbol.py": "4f5b8af1266e67f7944f6c4c440ec082e310a8a01e7f13f4c03bfaff362d9749",
+    "codesentry/environment/__init__.py": "841347c9c770f630940368c1311c94c1f3ea0b79fdb07ea68e6375bfc2138563",
+    "codesentry/environment/__main__.py": "586f06af449d6b6482faee1b90b93b2818aeece0dc1dae5e57f1e03cfcdc7942",
+    "codesentry/environment/inspect.py": "1db852d79eb429e0d3743222141dec011e93dd838136e03ea7c9ad2e4b586984",
+    "codesentry/environment/toolchain.py": "393b0e8742cb2a00331819acf0003f827d059c50a6b0e85024367fed8b5ac61d",
+    "codesentry/index/__init__.py": "e8f4225fc1acd9abab28de62018f58090b31ca690d7391594feb15022e6d7a81",
+    "codesentry/index/builder.py": "c1450299546d2096dd7daf70a3d0df92db63dc6df29caa241a2abd4114f63c01",
+    "codesentry/index/cache.py": "617b6ee7f4dc0b797482770ab074c6242c6dbc14e62a92b44c5cb99fa0ffeac3",
+    "codesentry/index/discovery.py": "a5376a5cea240cc12bb6e7442ff4137ef53c1e3c4fa36c420a8ea3f26b69b2fe",
+    "codesentry/index/entrypoint.py": "689bc61aa9e35d534935cd5099f6391870d421a5642c1bca948ca58e6487db6a",
+    "codesentry/index/pagerank.py": "5f2e12be2f287fa9ae20b5c5d17152826c27004ca07242ab45d37dbead9ca710",
+    "codesentry/index/resolver.py": "6b5f75ff7bea92e549823c98e8e7b78b9a8b933a38d18e243caeb3326178ad13",
+    "codesentry/index/roles.py": "ceef481ce95c7389631d8df72c04ab3ec2907817f6da868b1793a1d8f3ab3b45",
+    "codesentry/index/startup.py": "108d0051f5a217bb06e0b091eede530038bec4ab5d3e49a08654787431e0569f",
+    "codesentry/index/store.py": "a3b2fc39a1ba009dac14b82937101c94101032fe99c2d8675e913dc827f0a5ad",
+    "codesentry/output/__init__.py": "422d5e7cae8fe510d9648abab3656a386ec1f8327d15871447294a72360af6df",
+    "codesentry/output/reading_order.py": "5e98f4c840319d389299f92e1cc822378e10544b5692d0599fe7bb41bb5600ec",
+    "codesentry/output/report.py": "90c8a128a5ae89b3f595b0bf36da532f37e636672d3eb4ac9361c24fc54c0d3d",
+    "codesentry/parsers/__init__.py": "bfaf2189212001d2e3081931132b9720d152ce2e7ef62f8335f458a90f58c839",
+    "codesentry/parsers/_ts_extract.js": "1e05cfe4349b0fdb1902154bf43fbaaed5871d6e503580514e760bf2e3160146",
+    "codesentry/parsers/python_parser.py": "9dc4d694a50d0730302baa2c073881d5baacbe27343aadc346d2138794cd0017",
+    "codesentry/parsers/ts_parser.py": "cf97a2a96a865905e5d420b25f36b1135be44b8f7fca0d449737fb4120fb3756",
+    "codesentry/web/__init__.py": "cf8ac7b8383fab7b9cb1f60fe3c9cba84b7a173d4b89418bec2b11cca7fe0a85",
+    "codesentry/web/app.py": "0b030a729737d59bc770c9e66fc29208750e0b9999e18bb25a5d0c144e3d46d6",
+    "codesentry/web/jobs.py": "258b502dbd5c1d2caec12c398532dcabc3a88837420dfd176007d25ba4a778aa",
+    "codesentry/web/processes.py": "88700ce7c77a38b15a8bd4e00ac5c276a5d214ea7ec8259e7bc219d962e527ad",
+    "codesentry/web/worker.py": "eb75b0e4d92efcf607bf72ba656cde11d63a0e21bc6b7816d321b29ea37a8e1c",
+    "codesentry/workspaces/__init__.py": "26e2726f9b67eed4a0cfab23cbdd775c7964273c51caf9dcb4a0fbe3b80249e5",
+    "codesentry/workspaces/files.py": "f7ddbe4578278183e477272cf9fbd6d1ee00183fddb79aa5a734ff3b2b9a549f",
+    "codesentry/workspaces/lease.py": "beec2fed4059c1748fc3de469edd5a8c726793eef83918147d68951c7ff854ce",
+    "codesentry/workspaces/store.py": "f28ca2b3765bffe73c0b4dc8b730515be1e89db0c334ed0f013db556d3952942",
+    "evals/navigation_comparison.py": "f4fb0728e62c49d4a0d647f108ecbdc0c2695ad40e80e6a56d9a423856073bc6",
+    "evals/navigation_development.py": "c838d4be957e7ff98ce1c4b3f5545e7cfb3dccfa8cb78d1c9bec61fd1dd20ed2",
+    "evals/m0_acceptance.py": "f7286a4c0839ea74091903fbd0617b2c5fa26f2c2f25d85016512de42380655d",
+    "evals/metrics.py": "a1393b4bffd121830fecde26c51cd56b77336219d0884209a7b198453f5b75c8"
+  },
+  "conditions": {
+    "same_current_parser_and_graph": true,
+    "historical_binary_replayed": false,
+    "target_code_executed": false,
+    "target_dependencies_installed": false,
+    "target_tests_collected": false,
+    "model_calls": false,
+    "target_source_text_exported": false,
+    "cache_used": false,
+    "manifest_valid_before_and_after": true
+  },
+  "counts": {
+    "indexed": 155,
+    "parsed": 155,
+    "parse_failures": 0,
+    "source_complete": false,
+    "entry_evidence_issues": 3,
+    "position_errors": 0,
+    "before_entry_candidates": 5,
+    "current_entry_roles": {
+      "assembly": 3,
+      "candidate": 5,
+      "mount": 1
+    },
+    "before_reading_items": 84,
+    "after_reading_items": 84
+  },
+  "proxy_label_metrics": {
+    "legacy_detector_legacy_reader": {
+      "hits": 5,
+      "requested_k": 10,
+      "returned_prefix": 10,
+      "p10": 0.5,
+      "recall10_hits": 5,
+      "recall10_denominator": 38,
+      "recall10": 0.13157894736842105,
+      "unlabelled_prefix": 5,
+      "unlabelled_is_not_false_positive": true,
+      "formal_quality_passed": false
+    },
+    "current_detector_legacy_reader": {
+      "hits": 5,
+      "requested_k": 10,
+      "returned_prefix": 10,
+      "p10": 0.5,
+      "recall10_hits": 5,
+      "recall10_denominator": 38,
+      "recall10": 0.13157894736842105,
+      "unlabelled_prefix": 5,
+      "unlabelled_is_not_false_positive": true,
+      "formal_quality_passed": false
+    },
+    "current_detector_current_reader": {
+      "hits": 6,
+      "requested_k": 10,
+      "returned_prefix": 10,
+      "p10": 0.6,
+      "recall10_hits": 6,
+      "recall10_denominator": 38,
+      "recall10": 0.15789473684210525,
+      "unlabelled_prefix": 4,
+      "unlabelled_is_not_false_positive": true,
+      "formal_quality_passed": false
+    }
+  },
+  "performance": {
+    "build_seconds": 14.6159,
+    "l1_characters": 2143,
+    "l2_characters": 6168,
+    "build_and_l1_seconds": 14.6188,
+    "build_and_l2_seconds": 14.6218,
+    "stage_seconds": {
+      "environment": 0.551,
+      "discover": 0.4212,
+      "parse": 7.1273,
+      "imports": 0.0,
+      "resolve": 0.2405,
+      "pagerank": 0.0098,
+      "symbol_pagerank": 0.003,
+      "entrypoints": 0.2543,
+      "roles": 0.0526,
+      "validate_snapshot": 5.6473
+    },
+    "including_validation_seconds": 34.6661
+  },
+  "formal_acceptance": {
+    "passed": false,
+    "human_entry_gold": "not_adjudicated",
+    "label_source": "unchanged legacy document positives; unlabelled remains unknown",
+    "unmatched_labels_retained": 3,
+    "ambiguous_labels_retained": 0,
+    "blockers": [
+      "No independently adjudicated application-entry labels.",
+      "These projects are already used for development and cannot be relabelled as holdout.",
+      "Legacy document lists are candidate proxy labels, not complete positive/negative ground truth."
+    ]
+  }
+}

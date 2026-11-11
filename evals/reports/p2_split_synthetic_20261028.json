@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "review-split-audit",
+  "dataset_id": "synthetic-grouping-v1",
+  "manifest_sha256": "01339b4ea2be99b9c4f5f2af969bd69ada6d31d1d76b6ae999236f4f27000daf",
+  "sample_count": 4,
+  "group_count": 3,
+  "split_counts": {
+    "dev": 2,
+    "holdout": 1,
+    "train": 1
+  },
+  "split_assignment_valid": true,
+  "issues": [],
+  "isolation_verified": false,
+  "label_truth_verified": false,
+  "formal_acceptance": {
+    "passed": false
+  }
+}

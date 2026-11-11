@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "dataset_id": "p7a-fresh-projects-v1",
+  "frozen_at_utc": "2026-11-10T08:50:37.611303+00:00",
+  "kind": "pre-run_synthetic_pilot",
+  "files_sha256": {
+    "evals/datasets/p7a_fresh_projects_v1.json": "a6ceb2a38d0f5b0c92945736222a17cbfbcfe3d85910730d2966d780c4da58fe",
+    "evals/datasets/p7a_fresh_projects_rubric_v1.json": "3ef1883e1121a9c6feefd968f2a1d277189f0290c614ae4c73f78ca6b2330424",
+    "evals/p7a_live_probe.py": "ce6af6f34785a66f81ddc3027b30bff6da8857cf14e22bf8600479f2e356e397",
+    "codesentry/review/batch_review.py": "28405834c3f0c7706c316680ec8cbadd02fb78ef21692b82649a75852c2949b0",
+    "codesentry/review/review_merge.py": "635cfca46c1810ce204e65ecfee7fd232c0005429fdb05c56972779cca1b09d5",
+    "codesentry/cli/main.py": "ce19483f4192663ce5d22bc43105e8f5938b9bc9fee3f97558ce2e1e7abf4c03",
+    "codesentry/semantic/service.py": "35a11b8fff0c03ccfdad7a72786efae45da9cca38ee8617e0d6cb0a17b942e97"
+  }
+}

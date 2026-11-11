@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "kind": "codesentry-legacy-fingerprint-contract-reproduction",
+  "status": "reproduced",
+  "reproduction_id": "fingerprint-reproduction-v1",
+  "split": "dev",
+  "fixture_descriptor_sha256": "96f1b3e6623ea1c4255447ae59a224451930d5825b55d4ed9d55339a3fc2266c",
+  "fixture_files_sha256": {
+    "before/behavior_driver.py": "6042bf33c6e521ed88d7c19c3eb85b7c9f1dec27e77cacee80c9054a93c53673",
+    "before/fingerprint.py": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "data_card.json": "945d143b7f888c60dca90c1472188483b8663dd2c02dc67f25979d4a84880882",
+    "descriptor.json": "96f1b3e6623ea1c4255447ae59a224451930d5825b55d4ed9d55339a3fc2266c",
+    "fix_candidate/behavior_driver.py": "6042bf33c6e521ed88d7c19c3eb85b7c9f1dec27e77cacee80c9054a93c53673",
+    "fix_candidate/fingerprint.py": "45a062a05ab3e904cff0fe9bc80bafdac8fb7f9c3cbb5f109dc85d47b5f55638",
+    "plan.json": "0f19c918b9b52e6c925a9d26abdcfebf5f1cc6127b047d7ecaf2653aabe05b41"
+  },
+  "source_provenance": {
+    "repository": "CodeSentry",
+    "relative_path": "codesentry/core/fingerprint.py",
+    "head_commit": "3df1782b23eecec50486f75b761e5814a516ba92",
+    "head_blob_oid": "0c3fe2153a114649fb62ebb48615412d0d7a5f89",
+    "head_content_sha256": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "working_tree_sha256": "b524329828545334e69ed645eac016917acc951c73d228e06f48dbbe6d15a989",
+    "normalized_lf_equal_to_head": true,
+    "line_endings": "working copy preserved byte-for-byte; LF normalization used only for HEAD comparison"
+  },
+  "fixed_policy_digest": "96bd762291ac2b73e8883498252ad52022f23dc0f5e7e289cfd807a863bb6156",
+  "plan_digest": "baa0a9123fb69fd8ed3f4eb887029f99bcee1951eb912b770437159b3e7f9bf9",
+  "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+  "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+  "limits": {
+    "memory_bytes": 268435456,
+    "cpus": 1,
+    "pids": 32,
+    "timeout_seconds": 10,
+    "max_log_bytes": 4096,
+    "work_bytes": 8388608
+  },
+  "variants": {
+    "before": {
+      "admission": {
+        "schema_version": 1,
+        "kind": "fixed-development-task-admission",
+        "policy_id": "codesentry-fingerprint-dev-v1",
+        "policy_digest": "96bd762291ac2b73e8883498252ad52022f23dc0f5e7e289cfd807a863bb6156",
+        "binding_digest": "0949f566a364394caaf9050577f29447c1bc3900c2ae127ca475ea8ef59ffe48",
+        "purpose": "p2-tool-development-reproduction",
+        "source_snapshot_digest": "c7725030d3ee4591a468cba32e510195ae721b8ddf3d84e31140265797c050e4",
+        "plan_digest": "baa0a9123fb69fd8ed3f4eb887029f99bcee1951eb912b770437159b3e7f9bf9",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "max_log_bytes": 4096,
+          "work_bytes": 8388608
+        },
+        "arbitrary_project_execution_authorized": false
+      },
+      "verification": {
+        "schema_version": 1,
+        "status": "failed",
+        "plan_id": "fingerprint-reproduction-v1",
+        "plan_digest": "baa0a9123fb69fd8ed3f4eb887029f99bcee1951eb912b770437159b3e7f9bf9",
+        "snapshot_digest": "c7725030d3ee4591a468cba32e510195ae721b8ddf3d84e31140265797c050e4",
+        "policy_fingerprint": "f472365459dced1e57e91cadd38091a5badac6a1131c87890ca9df3d426e736b",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "limits": {
+          "cpus": 1,
+          "max_log_bytes": 4096,
+          "memory_bytes": 268435456,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "work_bytes": 8388608
+        },
+        "planned_cases": 3,
+        "attempted_cases": 3,
+        "executed_cases": 3,
+        "completed_cases": 3,
+        "passed_cases": 1,
+        "failed_cases": 2,
+        "incomplete_cases": 0,
+        "not_run_cases": 0,
+        "host_behavior_checks_planned": 6,
+        "host_behavior_checks_evaluated": 6,
+        "host_behavior_checks_passed": 4,
+        "host_behavior_checks_failed": 2,
+        "cleanup_pending": false,
+        "evidence_valid": true,
+        "issues": [],
+        "cases": [
+          {
+            "case_id": "after_line_12_changes_fingerprint",
+            "status": "failed",
+            "exit_zero": true,
+            "output_digest_matches": false,
+            "expected_output_sha256": "3632f2682e778d435c22c741288b2cfe10ecb8658b096605565765b904778d13",
+            "actual_output_sha256": "338a1a126da79229a40e37942f542cfba84053d42dec4fdb932dfdd51dfa04a1",
+            "execution": {
+              "status": "not_verified",
+              "executed": true,
+              "task_id": "after_line_12_changes_fingerprint",
+              "kind": "test",
+              "snapshot_digest": "c7725030d3ee4591a468cba32e510195ae721b8ddf3d84e31140265797c050e4",
+              "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "platform": "linux",
+              "architecture": "amd64",
+              "exit_code": 0,
+              "assertion_count": 0,
+              "logs": "{\"actual\":false,\"case_id\":\"after_line_12_changes_fingerprint\"}\n",
+              "output_sha256": "338a1a126da79229a40e37942f542cfba84053d42dec4fdb932dfdd51dfa04a1",
+              "log_truncated": false,
+              "cleanup_pending": false,
+              "issues": [
+                "no trusted test-assertion adapter; exit zero is not test verification"
+              ],
+              "elapsed_seconds": 1.4163,
+              "limits": {
+                "memory_bytes": 268435456,
+                "cpus": 1,
+                "pids": 32,
+                "timeout_seconds": 10,
+                "max_log_bytes": 4096,
+                "work_bytes": 8388608
+              }
+            },
+            "issues": []
+          },
+          {
+            "case_id": "string_internal_whitespace_changes_fingerprint",
+            "status": "failed",
+            "exit_zero": true,
+            "output_digest_matches": false,
+            "expected_output_sha256": "6a3ee419238880c3b26a67af9bf707f6cbe2093e56d66a568a01bf7e5a630127",
+            "actual_output_sha256": "cbe5b56678abf238d81325f62b91249fb01aac791219d4f2ae8a52400b2ad15f",
+            "execution": {
+              "status": "not_verified",
+              "executed": true,
+              "task_id": "string_internal_whitespace_changes_fingerprint",
+              "kind": "test",
+              "snapshot_digest": "c7725030d3ee4591a468cba32e510195ae721b8ddf3d84e31140265797c050e4",
+              "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "platform": "linux",
+              "architecture": "amd64",
+              "exit_code": 0,
+              "assertion_count": 0,
+              "logs": "{\"actual\":false,\"case_id\":\"string_internal_whitespace_changes_fingerprint\"}\n",
+              "output_sha256": "cbe5b56678abf238d81325f62b91249fb01aac791219d4f2ae8a52400b2ad15f",
+              "log_truncated": false,
+              "cleanup_pending": false,
+              "issues": [
+                "no trusted test-assertion adapter; exit zero is not test verification"
+              ],
+              "elapsed_seconds": 1.4033,
+              "limits": {
+                "memory_bytes": 268435456,
+                "cpus": 1,
+                "pids": 32,
+                "timeout_seconds": 10,
+                "max_log_bytes": 4096,
+                "work_bytes": 8388608
+              }
+            },
+            "issues": []
+          },
+          {
+            "case_id": "identical_snippet_is_stable",
+            "status": "passed",
+            "exit_zero": true,
+            "output_digest_matches": true,
+            "expected_output_sha256": "22e6a733ebb2135baf6ba8742f9d32fcc3357bab97edec2f7e8b935b81d17cdb",
+            "actual_output_sha256": "22e6a733ebb2135baf6ba8742f9d32fcc3357bab97edec2f7e8b935b81d17cdb",
+            "execution": {
+              "status": "not_verified",
+              "executed": true,
+              "task_id": "identical_snippet_is_stable",
+              "kind": "test",
+              "snapshot_digest": "c7725030d3ee4591a468cba32e510195ae721b8ddf3d84e31140265797c050e4",
+              "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "platform": "linux",
+              "architecture": "amd64",
+              "exit_code": 0,
+              "assertion_count": 0,
+              "logs": "{\"actual\":true,\"case_id\":\"identical_snippet_is_stable\"}\n",
+              "output_sha256": "22e6a733ebb2135baf6ba8742f9d32fcc3357bab97edec2f7e8b935b81d17cdb",
+              "log_truncated": false,
+              "cleanup_pending": false,
+              "issues": [
+                "no trusted test-assertion adapter; exit zero is not test verification"
+              ],
+              "elapsed_seconds": 1.3423,
+              "limits": {
+                "memory_bytes": 268435456,
+                "cpus": 1,
+                "pids": 32,
+                "timeout_seconds": 10,
+                "max_log_bytes": 4096,
+                "work_bytes": 8388608
+              }
+            },
+            "issues": []
+          }
+        ]
+      },
+      "preparation_seconds": 0.0549,
+      "verification_seconds": 4.3232
+    },
+    "fix_candidate": {
+      "admission": {
+        "schema_version": 1,
+        "kind": "fixed-development-task-admission",
+        "policy_id": "codesentry-fingerprint-dev-v1",
+        "policy_digest": "96bd762291ac2b73e8883498252ad52022f23dc0f5e7e289cfd807a863bb6156",
+        "binding_digest": "11f0794bd3d6fccb79efc2ff4cd414b04430c6906bc4c337bd9c9991f8e04802",
+        "purpose": "p2-tool-development-reproduction",
+        "source_snapshot_digest": "356cda1b9d0c1d09c817e96ca7d2303e57d15004f27e1131dd38e23d5e7e001d",
+        "plan_digest": "baa0a9123fb69fd8ed3f4eb887029f99bcee1951eb912b770437159b3e7f9bf9",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "limits": {
+          "memory_bytes": 268435456,
+          "cpus": 1,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "max_log_bytes": 4096,
+          "work_bytes": 8388608
+        },
+        "arbitrary_project_execution_authorized": false
+      },
+      "verification": {
+        "schema_version": 1,
+        "status": "passed",
+        "plan_id": "fingerprint-reproduction-v1",
+        "plan_digest": "baa0a9123fb69fd8ed3f4eb887029f99bcee1951eb912b770437159b3e7f9bf9",
+        "snapshot_digest": "356cda1b9d0c1d09c817e96ca7d2303e57d15004f27e1131dd38e23d5e7e001d",
+        "policy_fingerprint": "312727080f82b0a53a362b85ea1240a2293f8fcb6024801ee7b9f9fcef4f24a4",
+        "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+        "limits": {
+          "cpus": 1,
+          "max_log_bytes": 4096,
+          "memory_bytes": 268435456,
+          "pids": 32,
+          "timeout_seconds": 10,
+          "work_bytes": 8388608
+        },
+        "planned_cases": 3,
+        "attempted_cases": 3,
+        "executed_cases": 3,
+        "completed_cases": 3,
+        "passed_cases": 3,
+        "failed_cases": 0,
+        "incomplete_cases": 0,
+        "not_run_cases": 0,
+        "host_behavior_checks_planned": 6,
+        "host_behavior_checks_evaluated": 6,
+        "host_behavior_checks_passed": 6,
+        "host_behavior_checks_failed": 0,
+        "cleanup_pending": false,
+        "evidence_valid": true,
+        "issues": [],
+        "cases": [
+          {
+            "case_id": "after_line_12_changes_fingerprint",
+            "status": "passed",
+            "exit_zero": true,
+            "output_digest_matches": true,
+            "expected_output_sha256": "3632f2682e778d435c22c741288b2cfe10ecb8658b096605565765b904778d13",
+            "actual_output_sha256": "3632f2682e778d435c22c741288b2cfe10ecb8658b096605565765b904778d13",
+            "execution": {
+              "status": "not_verified",
+              "executed": true,
+              "task_id": "after_line_12_changes_fingerprint",
+              "kind": "test",
+              "snapshot_digest": "356cda1b9d0c1d09c817e96ca7d2303e57d15004f27e1131dd38e23d5e7e001d",
+              "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "platform": "linux",
+              "architecture": "amd64",
+              "exit_code": 0,
+              "assertion_count": 0,
+              "logs": "{\"actual\":true,\"case_id\":\"after_line_12_changes_fingerprint\"}\n",
+              "output_sha256": "3632f2682e778d435c22c741288b2cfe10ecb8658b096605565765b904778d13",
+              "log_truncated": false,
+              "cleanup_pending": false,
+              "issues": [
+                "no trusted test-assertion adapter; exit zero is not test verification"
+              ],
+              "elapsed_seconds": 1.3336,
+              "limits": {
+                "memory_bytes": 268435456,
+                "cpus": 1,
+                "pids": 32,
+                "timeout_seconds": 10,
+                "max_log_bytes": 4096,
+                "work_bytes": 8388608
+              }
+            },
+            "issues": []
+          },
+          {
+            "case_id": "string_internal_whitespace_changes_fingerprint",
+            "status": "passed",
+            "exit_zero": true,
+            "output_digest_matches": true,
+            "expected_output_sha256": "6a3ee419238880c3b26a67af9bf707f6cbe2093e56d66a568a01bf7e5a630127",
+            "actual_output_sha256": "6a3ee419238880c3b26a67af9bf707f6cbe2093e56d66a568a01bf7e5a630127",
+            "execution": {
+              "status": "not_verified",
+              "executed": true,
+              "task_id": "string_internal_whitespace_changes_fingerprint",
+              "kind": "test",
+              "snapshot_digest": "356cda1b9d0c1d09c817e96ca7d2303e57d15004f27e1131dd38e23d5e7e001d",
+              "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "platform": "linux",
+              "architecture": "amd64",
+              "exit_code": 0,
+              "assertion_count": 0,
+              "logs": "{\"actual\":true,\"case_id\":\"string_internal_whitespace_changes_fingerprint\"}\n",
+              "output_sha256": "6a3ee419238880c3b26a67af9bf707f6cbe2093e56d66a568a01bf7e5a630127",
+              "log_truncated": false,
+              "cleanup_pending": false,
+              "issues": [
+                "no trusted test-assertion adapter; exit zero is not test verification"
+              ],
+              "elapsed_seconds": 1.3603,
+              "limits": {
+                "memory_bytes": 268435456,
+                "cpus": 1,
+                "pids": 32,
+                "timeout_seconds": 10,
+                "max_log_bytes": 4096,
+                "work_bytes": 8388608
+              }
+            },
+            "issues": []
+          },
+          {
+            "case_id": "identical_snippet_is_stable",
+            "status": "passed",
+            "exit_zero": true,
+            "output_digest_matches": true,
+            "expected_output_sha256": "22e6a733ebb2135baf6ba8742f9d32fcc3357bab97edec2f7e8b935b81d17cdb",
+            "actual_output_sha256": "22e6a733ebb2135baf6ba8742f9d32fcc3357bab97edec2f7e8b935b81d17cdb",
+            "execution": {
+              "status": "not_verified",
+              "executed": true,
+              "task_id": "identical_snippet_is_stable",
+              "kind": "test",
+              "snapshot_digest": "356cda1b9d0c1d09c817e96ca7d2303e57d15004f27e1131dd38e23d5e7e001d",
+              "image_reference": "docker.io/library/python@sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "image_id": "sha256:82abc9f53600280b0757126f83c5a7d47088592d2acb6b4c0b9e97f76865508c",
+              "platform": "linux",
+              "architecture": "amd64",
+              "exit_code": 0,
+              "assertion_count": 0,
+              "logs": "{\"actual\":true,\"case_id\":\"identical_snippet_is_stable\"}\n",
+              "output_sha256": "22e6a733ebb2135baf6ba8742f9d32fcc3357bab97edec2f7e8b935b81d17cdb",
+              "log_truncated": false,
+              "cleanup_pending": false,
+              "issues": [
+                "no trusted test-assertion adapter; exit zero is not test verification"
+              ],
+              "elapsed_seconds": 1.3454,
+              "limits": {
+                "memory_bytes": 268435456,
+                "cpus": 1,
+                "pids": 32,
+                "timeout_seconds": 10,
+                "max_log_bytes": 4096,
+                "work_bytes": 8388608
+              }
+            },
+            "issues": []
+          }
+        ]
+      },
+      "preparation_seconds": 0.0477,
+      "verification_seconds": 4.1903
+    }
+  },
+  "comparison_verified": true,
+  "total_seconds": 8.8094,
+  "implementation_sha256": {
+    "codesentry.execution.admission": "a99f70b514022e4b140c8e8d4f8778526ba909b57c4eb0747e9d4cf19dac71a5",
+    "codesentry.execution.runner": "840afc5cada486e7a1262cadde4909fbe1fe300396ea253ca9cf12fc612c3104",
+    "codesentry.execution.snapshot": "74d7282178db19f80d9ea7f7313b937f596d8c41fb3964c5c50690e17a4c269f",
+    "codesentry.execution.verification": "f96c0fe09c83fcbc036281ede3fecdc9d31daaf5784a90be29f6f43af56c2cb0",
+    "evals.fingerprint_reproduction": "ebaf7dc5868ab83e881f384e053f38cf5f5dc6ecaef0e3cfb606224c35840acb",
+    "evals.fingerprint_verification": "dcb60bd770e1378c2666c6e9ddbc0ac5ce92b7f59aefdce8aef949b4762174db"
+  },
+  "production_code_and_baseline_modified": false,
+  "source_fixture_hashes_revalidated": true,
+  "target_user_projects_executed": false,
+  "arbitrary_project_execution_enabled": false,
+  "independent_human_adjudication": "pending",
+  "dataset_label": "unknown",
+  "formal_acceptance": {
+    "passed": false,
+    "reason": "one dev contract reproduction; no detector-quality or full P3 fingerprint migration acceptance"
+  }
+}

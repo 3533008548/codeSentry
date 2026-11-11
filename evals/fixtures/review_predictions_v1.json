@@ -1,0 +1,72 @@
+{
+  "schema_version": "review-predictions-v1",
+  "dataset_id": "review-synthetic-v1",
+  "dataset_version": "1",
+  "candidate_id": "synthetic-data-only",
+  "candidate_version": "1",
+  "predictions": [
+    {
+      "id": "a-flexible",
+      "case_id": "matching",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 10,
+      "symbol": null
+    },
+    {
+      "id": "b-only-wide",
+      "case_id": "matching",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 20,
+      "symbol": null
+    },
+    {
+      "id": "c-duplicate",
+      "case_id": "matching",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 10,
+      "symbol": null
+    },
+    {
+      "id": "d-false",
+      "case_id": "clean",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 9,
+      "symbol": null
+    },
+    {
+      "id": "e-unlabelled",
+      "case_id": "partial",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 90,
+      "symbol": null
+    },
+    {
+      "id": "f-policy",
+      "case_id": "debt",
+      "path": "src/example.py",
+      "rule_id": "synthetic.policy",
+      "rule_version": "1",
+      "line": 5,
+      "symbol": null
+    },
+    {
+      "id": "g-unknown",
+      "case_id": "unknown",
+      "path": "src/example.py",
+      "rule_id": "synthetic.rule",
+      "rule_version": "1",
+      "line": 1,
+      "symbol": null
+    }
+  ]
+}

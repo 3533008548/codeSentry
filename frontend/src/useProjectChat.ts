@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ApiError, type Api, type ChatSettings, type Conversation, type ConversationSummary, type CrapDiscussionTarget, type CrapToolOptions, type InsightDraft, type PolicyIdentity, type Workspace } from "./api";
+import { ApiError, type Api, type ChatSettings, type Conversation, type ConversationSummary, type InsightDraft, type PolicyIdentity, type Workspace } from "./api";
 import { accessKey, ensureAccess } from "./access";
 
 interface ChatState { key: string; settings?: ChatSettings; topics: ConversationSummary[]; current?: Conversation; loading: boolean; error: string | null }
@@ -116,17 +116,10 @@ export function useProjectChat(client: Api, workspace: Workspace | undefined, on
       if (alive(requestKey)) setState(value => ({ ...value, current, topics: value.topics.map(topic => topic.id === cid ? { ...topic, title: current.title } : topic) }));
     });
   }
-  function send(question: string, selectedPath?: string, crapTarget?: CrapDiscussionTarget) {
+  function send(question: string, selectedPath?: string) {
     const settings = visible.settings;
     if (!settings?.consent || running || !question.trim()) return Promise.resolve(false);
-    return submitTurn("send", (ws, cid) => crapTarget
-      ? client.sendQuestion!(ws.id, cid, question, settings.revision, undefined, crapTarget)
-      : client.sendQuestion!(ws.id, cid, question, settings.revision, selectedPath));
-  }
-  const canRunCrap = !!client.runCrapTool;
-  function runCrap(options: CrapToolOptions) {
-    if (!client.runCrapTool || running || visible.loading) return Promise.resolve(false);
-    return submitTurn("crap", (ws, cid) => client.runCrapTool!(ws.id, cid, options, ws.access_policy!.version));
+    return submitTurn("send", (ws, cid) => client.sendQuestion!(ws.id, cid, question, settings.revision, selectedPath));
   }
   async function save(consent: boolean) {
     const settings = visible.settings;
@@ -174,7 +167,7 @@ export function useProjectChat(client: Api, workspace: Workspace | undefined, on
   function changeInsight(noteId: string, action: "retire" | "delete", cid?: string) {
     return insightRequest(ws => client.changeInsight!(ws.id, noteId, action, ws.access_policy!.version, cid));
   }
-  return { ...visible, working, running, send, canRunCrap, runCrap, select, save, cancel, remove, refreshSettings,
+  return { ...visible, working, running, send, select, save, cancel, remove, refreshSettings,
     insightsSupported, listInsights, saveInsight, changeInsight };
 }
 export type ProjectChat = ReturnType<typeof useProjectChat>;

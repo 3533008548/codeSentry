@@ -33,21 +33,20 @@ it("makes conversation primary without any implicit provider request", async () 
   expect((screen.getByRole("textbox", { name: "向项目Agent提问" }) as HTMLTextAreaElement).value).toContain("核心模块");
 });
 
-it("opens the local CRAP form during chat restoration and waits before submitting", async () => {
+it("sends a complexity request through conversation after chat restoration", async () => {
   let finish!: (value: ChatSettings) => void;
   const pending = new Promise<ChatSettings>(resolve => { finish = resolve; });
-  const api = client({ chatSettings: vi.fn(() => pending), runCrapTool: vi.fn() });
+  const api = client({ chatSettings: vi.fn(() => pending) });
   render(<App client={api} />);
   await screen.findByText("正在恢复本项目的对话…");
   const input = screen.getByRole("textbox", { name: "向项目Agent提问" });
-  fireEvent.change(input, { target: { value: "/crap" } });
+  fireEvent.change(input, { target: { value: "帮我检查项目复杂度" } });
   fireEvent.keyDown(input, { key: "Enter" });
-  await screen.findByRole("dialog", { name: "CRAP 本地工具" });
-  const submit = screen.getByRole<HTMLButtonElement>("button", { name: "生成报告" });
-  expect(submit.disabled).toBe(true);
+  expect(api.sendQuestion).not.toHaveBeenCalled();
   await act(async () => { finish(settings("a")); await pending; });
-  expect(submit.disabled).toBe(false);
-  expect(api.runCrapTool).not.toHaveBeenCalled();
+  expect(screen.queryByRole("button", { name: "CRAP 报告" })).toBeNull();
+  fireEvent.keyDown(input, { key: "Enter" });
+  await waitFor(() => expect(api.sendQuestion).toHaveBeenCalledWith("a", "topic-a", "帮我检查项目复杂度", 1, undefined));
 });
 
 it("asks once for project consent, then sends the user's question directly", async () => {

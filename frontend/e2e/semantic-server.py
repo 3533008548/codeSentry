@@ -51,6 +51,16 @@ class SyntheticTransport:
                 citations = [{"source_id": item["source_id"]} for item in sources[:3]]
                 content = {"answer": "## 先看一条线：接收请求 → 处理业务 → 保存结果\n\n我们从“创建任务”开始。本步先弄清入口负责什么、业务规则在哪里，以及结果何时写入。可以随时停下来追问。\n\n入口将请求交给 `TaskService`，服务创建任务并调用存储。点击文件引用就能在旁边对照源码。\n\n## 值得进一步核对的重构线索\n\n**名称规则在入口和服务各有一份。** 我们需要先核对它们是否表达同一条约束；若职责不同，保留两处可能更清楚。\n\n如果规则相同，可以集中表达，减少后续修改时遗漏一处的风险。代价是需要统一错误行为并做兼容验证。\n\n性能建议暂不下结论：当前还缺吞吐目标与内存峰值的依据。\n\n合成验收响应，仅用于验证交互，不代表模型真实效果。",
                            "citations": citations, "followups": ["解释这两处校验", "继续看保存过程", "讲得再细一点"]}
+                if payload["question"] == "找一处适合拆分的 Python 函数。":
+                    steps = payload.get("tool_results", [])
+                    if not steps:
+                        content = {"tool": "run_crap", "arguments": {}}
+                    elif len(steps) == 1:
+                        target = steps[0]["matches"][0]
+                        content = {"tool": "read_source", "arguments": {"path": target["path"],
+                                   "start_line": target["line"], "end_line": target["end_line"]}}
+                    else:
+                        content["citations"] = [{"source_id": steps[1]["matches"][0]["source_id"]}]
                 envelope = {"choices": [{"finish_reason": "stop", "message": {"role": "assistant", "content": json.dumps(content, ensure_ascii=False)}}],
                             "usage": {"prompt_tokens": 100, "completion_tokens": 20, "total_tokens": 120}}
                 live_guard()

@@ -43,13 +43,6 @@ class Feedback(BaseModel):
     text: str = Field(max_length=1000)
 
 
-class CrapToolRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    coverage_path: str | None = Field(default=None, min_length=1, max_length=4096)
-    reference: float = Field(default=10, gt=0, allow_inf_nan=False, strict=True)
-    expected_policy_version: int = Field(ge=1, strict=True)
-
-
 class InsightDraft(BaseModel):
     model_config = ConfigDict(extra="forbid")
     statement: str = Field(min_length=1, max_length=1200)
@@ -125,12 +118,6 @@ def install_conversation_routes(app):
             return manager.conversations.submit(workspace, conversation_id, body.question, body.selected_path,
                                                 body.expected_settings_revision,
                                                 crap_target=body.crap_target.model_dump() if body.crap_target else None) | identity(workspace)
-
-    @app.post("/api/workspaces/{workspace_id}/conversations/{conversation_id}/tools/crap", status_code=202)
-    def run_crap(workspace_id: str, conversation_id: str, body: CrapToolRequest, request: Request):
-        manager = request.app.state.manager
-        with manager.authorized(workspace_id) as (workspace, _access):
-            return manager.conversations.submit_crap(workspace, conversation_id, **body.model_dump()) | identity(workspace)
 
     @app.post("/api/workspaces/{workspace_id}/conversations/{conversation_id}/cancel")
     def cancel(workspace_id: str, conversation_id: str, request: Request):

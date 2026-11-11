@@ -420,8 +420,6 @@ export interface ProjectInsight {
 }
 interface InsightResponse extends PolicyIdentity { workspace_id: string }
 export interface CrapCoverage { covered: number; total: number; ratio: number }
-export interface CrapToolOptions { coverage_path: string | null; reference: number }
-export interface CrapDiscussionTarget { turn_id: string; file: string; line: number }
 export interface CrapFunction {
   file: string; function: string; line: number; end_line: number; complexity: number;
   crap: number | null; at_or_above_reference: boolean | null; coverage_status: string;
@@ -437,7 +435,13 @@ export interface CrapReport {
   functions: CrapFunction[]; source_sha256: Record<string, string>;
   issues: { file: string; status: string }[]; issue_count: number;
 }
-export interface CrapToolTurn extends CrapToolOptions { name: "crap"; report?: CrapReport }
+export interface CrapToolTurn { name: "crap"; coverage_path: string | null; reference: number; report?: CrapReport }
+export interface AgentStep {
+  tool: "search_code" | "read_source" | "trace_calls" | "run_crap";
+  status: "completed" | "unavailable" | "already_called";
+  locations: ChatSourceLocation[];
+  trigger?: "model" | "task";
+}
 export interface ConversationTurn {
   id: string; question: string; status: "running" | "completed" | "failed" | "cancelled" | "interrupted";
   answer: string; error: string | null; created_at: string; feedback: string;
@@ -445,7 +449,7 @@ export interface ConversationTurn {
   sources: { path: string; start_line: number; end_line: number; sha256: string }[];
   coverage?: { eligible_files: number; selected_files: number; source_bytes: number; partial: boolean };
   tool?: CrapToolTurn;
-  crap_target?: CrapDiscussionTarget;
+  steps?: AgentStep[];
 }
 export interface Conversation extends ConversationSummary { turns: ConversationTurn[] }
 export interface Api {
@@ -496,8 +500,7 @@ export interface Api {
   conversations?(id: string, signal?: AbortSignal): Promise<ConversationSummary[]>;
   createConversation?(id: string): Promise<ConversationSummary>;
   conversation?(id: string, conversationId: string, signal?: AbortSignal): Promise<Conversation>;
-  sendQuestion?(id: string, conversationId: string, question: string, settingsRevision: number, selectedPath?: string, crapTarget?: CrapDiscussionTarget): Promise<Conversation>;
-  runCrapTool?(id: string, conversationId: string, options: CrapToolOptions, policyVersion: number): Promise<Conversation>;
+  sendQuestion?(id: string, conversationId: string, question: string, settingsRevision: number, selectedPath?: string): Promise<Conversation>;
   cancelConversation?(id: string, conversationId: string): Promise<Conversation>;
   deleteConversation?(id: string, conversationId: string): Promise<void>;
   conversationFeedback?(id: string, conversationId: string, turnId: string, text: string): Promise<Conversation>;
@@ -798,15 +801,10 @@ export class LocalApi implements Api {
     if (value.id !== conversationId) throw new ApiError("对话身份不匹配，已忽略响应");
     return value;
   }
-  async sendQuestion(id: string, conversationId: string, question: string, settingsRevision: number, selectedPath?: string, crapTarget?: CrapDiscussionTarget) {
+  async sendQuestion(id: string, conversationId: string, question: string, settingsRevision: number, selectedPath?: string) {
     return ensureWorkspace(await this.request<Conversation>(`/api/workspaces/${segment(id)}/conversations/${segment(conversationId)}/messages`, {
       method: "POST", body: JSON.stringify({ question, expected_settings_revision: settingsRevision,
-        ...(selectedPath ? { selected_path: selectedPath } : {}), ...(crapTarget ? { crap_target: crapTarget } : {}) }) }, false), id);
-  }
-  async runCrapTool(id: string, conversationId: string, options: CrapToolOptions, policyVersion: number) {
-    return ensureWorkspace(await this.request<Conversation>(`/api/workspaces/${segment(id)}/conversations/${segment(conversationId)}/tools/crap`, {
-      method: "POST", body: JSON.stringify({ ...options, expected_policy_version: policyVersion }),
-    }, false), id);
+        ...(selectedPath ? { selected_path: selectedPath } : {}) }) }, false), id);
   }
   async cancelConversation(id: string, conversationId: string) {
     return ensureWorkspace(await this.request<Conversation>(`/api/workspaces/${segment(id)}/conversations/${segment(conversationId)}/cancel`, { method: "POST" }), id);

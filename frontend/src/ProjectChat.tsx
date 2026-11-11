@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowUp, BookOpen, ChevronRight, FileCode2, Gauge, LoaderCircle, NotebookPen, Plus, Settings2, Square, Trash2, X } from "lucide-react";
-import type { ChatSourceLocation, CrapDiscussionTarget, CrapFunction, CrapToolOptions, SourceFile } from "./api";
+import { ArrowUp, BookOpen, ChevronRight, FileCode2, LoaderCircle, NotebookPen, Plus, Settings2, Square, Trash2, X } from "lucide-react";
+import type { ChatSourceLocation, SourceFile } from "./api";
 import type { ProjectChat } from "./useProjectChat";
-import { CrapReportView, CrapToolDialog } from "./CrapReport";
+import { CrapReportView } from "./CrapReport";
 import { InsightDialog } from "./InsightDialog";
 
 const starters = [
   { name: "理解代码", detail: "找出入口和关键流程", prompt: "带我了解这个项目的目标、核心模块和启动方式。先讲清全貌，再指出一条主要流程和源码位置。" },
-  { name: "讨论重构", detail: "根据代码证据讨论改进", prompt: "从代码中找一处值得改进的地方，说明依据、改动取舍和验证方式。优先考虑职责和复杂度。" },
+  { name: "讨论重构", detail: "定位复杂函数并核查调用与测试", prompt: "帮我找一处值得重构的 Python 函数。检查复杂度、调用关系和相关测试，给出能保持行为的改法或保留理由。" },
 ];
+
+const toolLabels = { search_code: "检索源码", read_source: "读取源码", trace_calls: "追踪调用", run_crap: "计算复杂度" };
+const toolStatuses = { completed: "已完成", unavailable: "暂无可用证据", already_called: "已使用同一结果" };
 
 export function ProjectChatPane({ chat, files, selectedPath, draft, setDraft, onOpen, onModel, onAccess }: {
   chat: ProjectChat; files: SourceFile[]; selectedPath?: string | null;
@@ -17,10 +20,8 @@ export function ProjectChatPane({ chat, files, selectedPath, draft, setDraft, on
 }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [attach, setAttach] = useState(false);
-  const [focus, setFocus] = useState<{ target: CrapDiscussionTarget; functionName: string } | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [notes, setNotes] = useState<{ turnId?: string } | null>(null);
-  const [crapOptions, setCrapOptions] = useState<CrapToolOptions | null>(null);
   const input = useRef<HTMLTextAreaElement>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const nearBottom = useRef(true);
@@ -29,28 +30,14 @@ export function ProjectChatPane({ chat, files, selectedPath, draft, setDraft, on
   useEffect(() => { setAttach(false); }, [selectedPath]);
   useEffect(() => { if (draft) input.current?.focus(); }, [draft]);
   useEffect(() => { if (nearBottom.current && scroller.current) scroller.current.scrollTop = scroller.current.scrollHeight; }, [chat.current]);
-  useEffect(() => { nearBottom.current = true; setFocus(null); setNotes(null); }, [chat.current?.id]);
-  function openCrap() {
-    setCrapOptions({ coverage_path: files.some(file => file.path === "coverage.json") ? "coverage.json" : null, reference: 10 });
-  }
-  function isCrapRequest(text: string) {
-    return /^(\/crap|生成\s*crap\s*报告[。！!]?)$/i.test(text.trim());
-  }
-  function discuss(turnId: string, row: CrapFunction, location: ChatSourceLocation) {
-    setAttach(false);
-    setFocus({ target: { turn_id: turnId, file: row.file, line: row.line }, functionName: row.function });
-    onOpen(location);
-    if (!draft.trim()) setDraft("请给出一个有具体源码依据的改法或保留理由，说明要保持的行为，以及如何用测试验证。");
-    input.current?.focus();
-  }
+  useEffect(() => { nearBottom.current = true; setNotes(null); }, [chat.current?.id]);
   async function send() {
     const question = draft.trim();
     if (!question || chat.running || chat.working) return;
-    if (chat.canRunCrap && isCrapRequest(question)) { openCrap(); return; }
     if (chat.loading) return;
     if (!chat.settings?.consent) { setSettingsOpen(true); return; }
-    if (await chat.send(question, attach && attachable && !focus ? selectedPath! : undefined, focus?.target)) {
-      setDraft(""); setAttach(false); setFocus(null); nearBottom.current = true;
+    if (await chat.send(question, attach && attachable ? selectedPath! : undefined)) {
+      setDraft(""); setAttach(false); nearBottom.current = true;
     }
   }
   const turns = chat.current?.turns || [];
@@ -75,33 +62,26 @@ export function ProjectChatPane({ chat, files, selectedPath, draft, setDraft, on
     <div className="chat-scroll" ref={scroller} onScroll={() => { const element = scroller.current; if (element) nearBottom.current = element.scrollHeight - element.scrollTop - element.clientHeight < 120; }}>
       <div className="chat-messages">
         {chat.loading && <p className="chat-loading"><LoaderCircle size={17} className="spin" />正在恢复本项目的对话…</p>}
-        {!chat.loading && !turns.length && <div className="chat-introduction"><div className="chat-avatar"><BookOpen size={22} /></div><h2>从一个代码问题开始</h2><p>问项目怎么运行，或从 CRAP 报告里挑一个函数讨论改法。</p>
+        {!chat.loading && !turns.length && <div className="chat-introduction"><div className="chat-avatar"><BookOpen size={22} /></div><h2>从一个代码问题开始</h2><p>问项目怎么运行，或者让 Agent 找一处值得重构的代码。</p>
           <div className="chat-starters">{starters.map(step => <button key={step.name} onClick={() => setDraft(step.prompt)}><span>{step.name}</span><small>{step.detail}</small><ChevronRight size={15} /></button>)}</div>
           <p className="chat-intro-note">{eligible.length ? `当前有 ${eligible.length} 个模型候选文件。` : "尚未设置模型候选文件。"}开始对话前确认一次取材范围，后续可直接提问。<button onClick={onAccess}>调整范围</button></p>
         </div>}
         {turns.map(turn => <section className="chat-turn" key={turn.id} data-testid="chat-turn">
           <div className="chat-user">{turn.question}</div>
-          <div className="chat-speaker"><span className="chat-avatar">{turn.tool ? <Gauge size={16} /> : "✧"}</span><strong>CodeSentry</strong><span>{turn.tool ? "本地工具 · CRAP" : turn.status === "running" ? "正在查阅相关代码并组织回答…" : turn.status === "completed" ? `参考 ${turn.sources.length} 个文件片段 · 模型讲解，结论待核对` : "本轮未完成"}</span></div>
-          {turn.status === "running" && <div className="chat-loading" role="status"><LoaderCircle size={17} className="spin" />{turn.tool ? "正在计算圈复杂度和覆盖率…" : "稍等一下，正在结合你的问题阅读代码。"}</div>}
+          <div className="chat-speaker"><span className="chat-avatar">✧</span><strong>CodeSentry</strong><span>{turn.status === "running" ? "正在处理任务…" : turn.status === "completed" ? (turn.answer ? `参考 ${turn.sources.length} 个源码片段` : "本地 CRAP 报告") : "本轮未完成"}</span></div>
+          {turn.status === "running" && <div className="chat-loading" role="status"><LoaderCircle size={17} className="spin" />正在查阅证据并组织回答。</div>}
           {turn.error && <div className="chat-failure" role="alert"><p>{turn.error}</p><button className="text-button" disabled={!!chat.working || chat.running}
-            onClick={() => {
-              if (turn.tool) setCrapOptions(turn.tool);
-              else {
-                const target = turn.crap_target;
-                const row = target && turns.find(item => item.id === target.turn_id)?.tool?.report?.functions
-                  .find(item => item.file === target.file && item.line === target.line);
-                if (target && !row) { openCrap(); return; }
-                setAttach(false);
-                setFocus(target && row ? { target, functionName: row.function } : null);
-                setDraft(turn.question);
-              }
-            }}>{turn.tool ? "重新生成 CRAP" : "重新提问"}</button></div>}
-          {turn.tool?.report && <CrapReportView tool={turn.tool} onOpen={onOpen}
-            busy={chat.running || !!chat.working} canDiscuss={path => eligible.some(file => file.path === path)}
-            onDiscuss={(row, location) => discuss(turn.id, row, location)} />}
+            onClick={() => { setAttach(false); setDraft(turn.question); }}>重新提问</button></div>}
+          {!!turn.steps?.length && <details className="chat-evidence"><summary>工具记录 · {turn.steps.length} 步</summary>
+            <ol>{turn.steps.map((step, index) => <li key={index}>
+              <span>{toolLabels[step.tool]} · {toolStatuses[step.status]}{step.trigger === "task" ? " · 按任务要求" : ""}</span>
+              <div className="chat-citations">{step.locations.map((location, position) => <button key={position} onClick={() => onOpen(location)}><FileCode2 size={12} />{location.path}:{location.line}</button>)}</div>
+            </li>)}</ol>
+          </details>}
+          {turn.tool?.report && <CrapReportView tool={turn.tool} onOpen={onOpen} />}
           {turn.answer && <><MarkdownText text={turn.answer} />
             {!!turn.citations.length && <div className="chat-citations">{turn.citations.map((citation, index) => <button key={index} onClick={() => onOpen(citation)} title={citation.quote}><FileCode2 size={12} />{citation.path}:{citation.line}{citation.end_line !== citation.line ? `–${citation.end_line}` : ""}<span>↗</span></button>)}</div>}
-            <details className="chat-evidence"><summary>查看本轮取材依据{turn.coverage?.partial ? " · 局部检索" : ""}</summary><p>以下为本轮直接取材的文件和行段。引用已按发送时快照核对，模型结论仍需验证。</p>{turn.sources.map(source => <div key={source.path}>{source.path}:{source.start_line}–{source.end_line}</div>)}</details>
+            <details className="chat-evidence"><summary>查看本轮取材依据{turn.coverage?.partial ? " · 局部检索" : ""}</summary><p>以下为本轮直接取材的文件和行段。引用已按发送时快照核对，模型结论仍需验证。</p>{turn.sources.map(source => <div key={`${source.path}:${source.start_line}:${source.end_line}`}>{source.path}:{source.start_line}–{source.end_line}</div>)}</details>
             {chat.insightsSupported && !!turn.citations.length && <button className="text-button chat-save-insight" onClick={() => setNotes({ turnId: turn.id })}><NotebookPen size={12} />记下这点</button>}
             {!!turn.followups.length && turn.id === turns.at(-1)?.id && <div className="chat-followups">{turn.followups.map(text => <button key={text} onClick={() => setDraft(text)}>{text}</button>)}</div>}
           </>}
@@ -111,25 +91,16 @@ export function ProjectChatPane({ chat, files, selectedPath, draft, setDraft, on
     </div>
     <div className="chat-compose-wrap"><form className="chat-composer" onSubmit={event => { event.preventDefault(); void send(); }}>
       <textarea ref={input} aria-label="向项目Agent提问" placeholder="直接问项目问题，或告诉我想从哪一步继续…" value={draft} maxLength={4000} onChange={event => setDraft(event.target.value)} onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); void send(); } }} />
-      {focus ? <div className="chat-attachment"><FileCode2 size={12} /><span>函数引用 · {focus.functionName} · {focus.target.file}:{focus.target.line}</span>
-        <button type="button" aria-label="移除函数引用" onClick={() => setFocus(null)}><X size={12} /></button></div>
-        : attach && attachable && <div className="chat-attachment"><FileCode2 size={12} />{selectedPath}<button type="button" aria-label="移除引用文件" onClick={() => setAttach(false)}><X size={12} /></button></div>}
-      <div className="chat-compose-actions"><button type="button" title={attachable ? `引用 ${selectedPath}` : "先在源码栏打开一个模型候选文件"} disabled={!attachable} onClick={() => { setFocus(null); setAttach(value => !value); }}><Plus size={13} />引用当前文件</button><button type="button" className="chat-scope" onClick={onAccess}>范围：{eligible.length} 个模型候选文件</button>
-        {chat.canRunCrap && <button type="button" className="crap-tool-button" title="运行本地 CRAP 工具（/crap）" disabled={!!chat.working || chat.running || chat.loading} onClick={openCrap}><Gauge size={13} />CRAP 报告</button>}
+      {attach && attachable && <div className="chat-attachment"><FileCode2 size={12} />{selectedPath}<button type="button" aria-label="移除引用文件" onClick={() => setAttach(false)}><X size={12} /></button></div>}
+      <div className="chat-compose-actions"><button type="button" title={attachable ? `引用 ${selectedPath}` : "先在源码栏打开一个模型候选文件"} disabled={!attachable} onClick={() => setAttach(value => !value)}><Plus size={13} />引用当前文件</button><button type="button" className="chat-scope" onClick={onAccess}>范围：{eligible.length} 个模型候选文件</button>
         {chat.running ? <button type="button" className="chat-send" disabled={!!chat.working} onClick={() => void chat.cancel()}><Square size={12} />停止</button> : <button type="submit" className="chat-send" disabled={!draft.trim() || !!chat.working || chat.loading}>{chat.working === "send" ? <LoaderCircle size={14} className="spin" /> : <ArrowUp size={15} />}发送</button>}
       </div></form><div className="chat-compose-note">{chat.settings?.consent ? "已允许本项目自动取材 · 只读讲解 · Shift + Enter 换行" : "首次发送前确认一次对话授权 · 只读讲解"}<button onClick={() => { void chat.refreshSettings(); setSettingsOpen(true); }}>授权与用量</button></div></div>
-    {crapOptions && <CrapToolDialog initial={crapOptions} busy={!!chat.working || chat.running || chat.loading} error={chat.error} onClose={() => setCrapOptions(null)} onRun={options => {
-      nearBottom.current = true;
-      void chat.runCrap(options).then(started => {
-        if (started) { setCrapOptions(null); if (isCrapRequest(draft)) setDraft(""); }
-      });
-    }} />}
     {settingsOpen && <div className="dialog-backdrop"><section className="dialog chat-settings-dialog" role="dialog" aria-modal="true" aria-label="项目对话设置"><div className="dialog-header"><h2>本项目的对话授权</h2><button className="icon-button" aria-label="关闭对话设置" onClick={() => setSettingsOpen(false)}><X size={18} /></button></div>
       <p>服务：DeepSeek · 模型：{chat.settings?.model || "读取中"}。仅使用当前项目，不调用其他项目的记忆。</p>
-      <p>开启后，发送普通问题会自动查找“模型候选”文件，连同当前问题和最多最近 3 轮有效对话的节选一起发送。每轮最多 4 个代码片段、12 KiB 源码。从 CRAP 报告发起讨论时，只发送所选函数的片段和当前问题。对话不会运行或修改代码。</p>
+      <p>开启后，Agent 可在本轮自行调用检索、源码读取、静态调用分析和 CRAP。每轮最多 5 次只读工具调用、12 个代码片段和 18 KiB 源码。模型可接收候选文件的必要证据及最多最近 3 轮有效对话的节选，CRAP 分数和覆盖率显示在本地报告里。</p>
       <p>DeepSeek 可能缓存或保留请求。对话保存在本机；关闭授权后停止后续发送，不能撤回已交给服务商的内容。访问范围或模型设置变化后需要重新开启。</p>
       <div className="chat-settings-summary"><span>{eligible.length} 个模型候选文件</span><button className="text-button" onClick={() => { setSettingsOpen(false); onAccess(); }}>查看或调整范围</button><span>{chat.settings?.key_configured ? "密钥已配置" : "尚未配置密钥"} · {chat.settings?.profile_enabled ? "模型已启用" : "模型未启用"}</span><button className="text-button" onClick={() => { setSettingsOpen(false); onModel(); }}>打开模型设置</button></div>
-      <p>本次服务剩余 {chat.settings?.budget.remaining_requests ?? "—"} / 60 次对话，Token 预算 {chat.settings?.budget.remaining_tokens.toLocaleString() ?? "—"}。失败也计入预留用量，不自动重试；重启服务后预算重新计数。这不是费用保证。</p>
+      <p>本次服务剩余 {chat.settings?.budget.remaining_requests ?? "—"} / 60 次模型请求，Token 预算 {chat.settings?.budget.remaining_tokens.toLocaleString() ?? "—"}。一轮对话可能包含多次请求，失败也计入预留用量。重启服务后预算重新计数。</p>
       {chat.error && <p role="alert" className="chat-failure">{chat.error}</p>}
       <div className="dialog-actions"><button className="button secondary" disabled={!chat.settings || !!chat.working} onClick={() => void chat.save(false).then(saved => { if (saved) setSettingsOpen(false); })}>关闭自动取材</button><button className="button primary" disabled={!chat.settings?.key_configured || !chat.settings?.profile_enabled || !eligible.length || !!chat.working} onClick={() => void chat.save(true).then(saved => { if (saved) setSettingsOpen(false); })}>允许本项目自动取材与对话</button></div>
     </section></div>}

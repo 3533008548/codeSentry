@@ -36,10 +36,11 @@ class Transport:
             live_guard()
         live_guard()
         context = json.loads(request["messages"][-1]["content"])["context"]
-        source = context["sources"][0]
-        result = {"answer": self.answer, "citations": [{"path": source["path"], "line": source["start_line"],
-                  "end_line": source["start_line"], "quote": "invented quote" if self.bad_quote else source["source"].splitlines()[0]}],
-                  "followups": ["继续解释下一步"]}
+        result = {"answer": self.answer, "citations": [], "followups": ["继续解释下一步"]}
+        if context["sources"]:
+            source = context["sources"][0]
+            result["citations"] = [{"path": source["path"], "line": source["start_line"], "end_line": source["start_line"],
+                                    "quote": "invented quote" if self.bad_quote else source["source"].splitlines()[0]}]
         response = {"choices": [{"finish_reason": "stop", "message": {"role": "assistant", "content": json.dumps(result, ensure_ascii=False)}}],
                     "usage": {"prompt_tokens": 100, "completion_tokens": 30, "total_tokens": 130}}
         response = self.transform(response, context)
@@ -515,10 +516,11 @@ def test_crap_tool_reports_local_evidence_without_adding_it_to_cloud_history(ben
     }}), encoding="utf-8")
     url = topic(client, base)
     assert not client.get(base + "/chat-settings").json()["consent"]
-    payload = {"coverage_path": "coverage.json", "expected_policy_version": 1, "reference": 10}
-    assert client.post(url + "/tools/crap", json=payload | {"expected_policy_version": 2}).status_code == 409
-    assert client.post(url + "/tools/crap", json=payload | {"command": "pytest"}).status_code == 422
-    assert client.post(url + "/tools/crap", json=payload).status_code == 202
+    assert client.post(url + "/tools/crap", json={}).status_code in {404, 405}
+    assert send(client, base, url, "生成CRAP报告").status_code == 409
+    assert not transport.calls
+    configure(client, base); authorize(client, base)
+    assert send(client, base, url, "生成CRAP报告").status_code == 202
     result = wait(client, url)
     turn = result["turns"][0]
     assert turn["status"] == "completed", turn["error"]
@@ -531,24 +533,112 @@ def test_crap_tool_reports_local_evidence_without_adding_it_to_cloud_history(ben
     assert "行为测试" in report["functions"][0]["suggestion"]
     assert any(row["function"] == "local_only_report_detail" and row["crap"] is None for row in report["functions"])
     assert "excluded_report_detail" not in json.dumps(result)
-    assert not transport.calls
-    assert client.get(base + "/chat-settings").json()["budget"]["remaining_requests"] == 60
-    assert client.put(url + f"/turns/{turn['id']}/feedback", json={"text": "仅本地报告"}).status_code == 404
+    assert len(transport.calls) == 1
+    assert [step["tool"] for step in turn["steps"]] == ["run_crap"]
+    assert client.get(base + "/chat-settings").json()["budget"]["remaining_requests"] == 59
+    next_request = json.loads(transport.calls[-1]["messages"][-1]["content"])
+    assert next_request["context"]["sources"] == []
+    assert next_request["tool_results"][0]["matches"][0] == {"path": "main.py", "line": 1, "end_line": 6}
+    assert "coverage.json" not in json.dumps(next_request) and "10.75" not in json.dumps(next_request)
 
-    configure(client, base); authorize(client, base)
     assert send(client, base, url, "解释项目入口").status_code == 202
     assert wait(client, url)["turns"][-1]["status"] == "completed"
-    assert len(transport.calls[0]["messages"]) == 2
     assert "local_only_report_detail" not in json.dumps(transport.calls)
     assert wait(client, url)["turns"][0]["tool"]["report"] == report
 
 
+def test_agent_uses_tool_results_to_follow_a_call_and_cite_new_evidence(bench):
+    client, _app, base, _root, transport, _data = bench
+    configure(client, base); authorize(client, base)
+    url = topic(client, base)
+
+    def next_step(response, context):
+        payload = json.loads(transport.calls[-1]["messages"][-1]["content"])
+        results = payload.get("tool_results", [])
+        if not results:
+            value = {"tool": "search_code", "arguments": {"query": "run main.py"}}
+        elif len(results) == 1:
+            assert any(item["path"] == "main.py" for item in results[0]["matches"])
+            value = {"tool": "trace_calls", "arguments": {"path": "main.py", "line": 3}}
+        elif len(results) == 2:
+            edge, = results[1]["matches"]
+            assert edge == {"path": "store.py", "line": 1, "end_line": 2, "relation": "callee", "call_line": 4}
+            value = {"tool": "read_source", "arguments": {"path": edge["path"], "start_line": 2, "end_line": 2}}
+        else:
+            match, = results[-1]["matches"]
+            source = next(row for row in context["sources"] if row["source_id"] == match["source_id"])
+            assert source["source"].splitlines() == ["    return value"]
+            value = {"answer": "save 返回原值，run 最终返回 hello。", "citations": [{"source_id": match["source_id"]}], "followups": []}
+        response["choices"][0]["message"]["content"] = json.dumps(value)
+        return response
+
+    transport.transform = next_step
+    assert send(client, base, url, "run 最终返回什么？").status_code == 202
+    turn = wait(client, url)["turns"][-1]
+    assert turn["status"] == "completed", turn["error"]
+    assert [item["tool"] for item in turn["steps"]] == ["search_code", "trace_calls", "read_source"]
+    assert turn["citations"][0]["path"] == "store.py" and turn["citations"][0]["line"] == 2
+    assert len(transport.calls) == 4
+
+
+def test_agent_continues_when_refactor_answer_has_only_crap_candidate_locations(bench):
+    client, _app, base, root, transport, _data = bench
+    (root / "test_main.py").write_text("from main import run\ndef test_run():\n    assert run() == 'hello'\n", encoding="utf-8")
+    configure(client, base); authorize(client, base)
+    url = topic(client, base)
+
+    def next_step(response, context):
+        payload = json.loads(transport.calls[-1]["messages"][-1]["content"])
+        if len(transport.calls) == 2:
+            source = context["sources"][0]
+            response["choices"][0]["message"]["content"] = json.dumps({"tool": "trace_calls", "arguments": {
+                "path": source["path"], "line": source["start_line"]}})
+        elif len(transport.calls) == 3:
+            assert any(item["path"] == "test_main.py" for item in payload["tool_results"][-1]["matches"])
+            response["choices"][0]["message"]["content"] = json.dumps({"tool": "search_code", "arguments": {"query": "test_run"}})
+        return response
+
+    transport.transform = next_step
+    assert send(client, base, url, "先检查复杂度、调用方和已有测试，再给出重构建议").status_code == 202
+    turn = wait(client, url)["turns"][-1]
+    assert turn["status"] == "completed", turn["error"]
+    assert [item["tool"] for item in turn["steps"]] == ["run_crap", "read_source", "trace_calls", "search_code"]
+    assert [item["trigger"] for item in turn["steps"]] == ["task", "task", "model", "model"]
+    assert turn["citations"][0]["path"] == "main.py" and len(transport.calls) == 4
+    assert turn["coverage"]["scanned_files"] >= turn["coverage"]["selected_files"] >= 2
+
+
+@pytest.mark.parametrize("path", ["local.py", "unsafe.py", "../main.py"])
+def test_agent_read_rejects_unavailable_sources_and_bounds_repeated_requests(bench, path):
+    from codesentry.conversation.tools import MAX_TOOL_STEPS
+
+    client, _app, base, _root, transport, _data = bench
+    configure(client, base); authorize(client, base)
+    url = topic(client, base)
+
+    def repeat(response, _context):
+        response["choices"][0]["message"]["content"] = json.dumps({"tool": "read_source",
+            "arguments": {"path": path, "start_line": 1, "end_line": 2}})
+        return response
+
+    transport.transform = repeat
+    assert send(client, base, url, "查看源码证据").status_code == 202
+    turn = wait(client, url)["turns"][-1]
+    assert turn["status"] == "failed" and "工具步数上限" in turn["error"]
+    assert len(transport.calls) == MAX_TOOL_STEPS + 1
+    payload = json.loads(transport.calls[-1]["messages"][-1]["content"])
+    assert payload["tool_results"][0] == {"tool": "read_source", "status": "unavailable", "matches": []}
+    assert all(item["status"] == "already_called" for item in payload["tool_results"][1:])
+    assert "LOCAL_ONLY_NEVER_SEND" not in json.dumps(transport.calls)
+    assert "sk-this-is-a-fake-sensitive-key" not in json.dumps(transport.calls)
+
+
 def test_cancelled_crap_tool_cannot_publish_a_late_report(bench, monkeypatch):
-    from codesentry.review import crap
+    from codesentry.conversation import tools
 
     client, app, base, root, transport, data = bench
     started, release = threading.Event(), threading.Event()
-    original = crap.scan_crap
+    original = tools.scan_crap
 
     def slow_scan(*args, **kwargs):
         result = original(*args, **kwargs)
@@ -556,22 +646,39 @@ def test_cancelled_crap_tool_cannot_publish_a_late_report(bench, monkeypatch):
         release.wait(4)
         return result
 
-    monkeypatch.setattr(crap, "scan_crap", slow_scan)
+    monkeypatch.setattr(tools, "scan_crap", slow_scan)
+    configure(client, base); authorize(client, base)
     url = topic(client, base)
-    assert client.post(url + "/tools/crap", json={"expected_policy_version": 1}).status_code == 202
+    request_crap(transport)
+    assert send(client, base, url, CRAP_CANDIDATE_REQUEST).status_code == 202
     try:
         assert started.wait(4)
         assert client.post(url + "/cancel").status_code == 200
     finally:
         release.set()
     turn = wait(client, url)["turns"][0]
-    assert turn["status"] == "cancelled" and "report" not in turn["tool"]
-    assert not transport.calls
+    assert turn["status"] == "cancelled" and "tool" not in turn
+    assert len(transport.calls) == 1
 
 
-def crap_target_for(client, url, function):
-    assert client.post(url + "/tools/crap", json={"expected_policy_version": 1}).status_code == 202
+CRAP_CANDIDATE_REQUEST = "找一处适合拆分的 Python 函数。"
+
+
+def request_crap(transport):
+    def tool_then_answer(response, _context):
+        payload = json.loads(transport.calls[-1]["messages"][-1]["content"])
+        if payload["question"] == CRAP_CANDIDATE_REQUEST and not payload.get("tool_results"):
+            response["choices"][0]["message"]["content"] = json.dumps({"tool": "run_crap", "arguments": {}})
+        return response
+
+    transport.transform = tool_then_answer
+
+
+def crap_target_for(client, base, url, transport, function):
+    request_crap(transport)
+    assert send(client, base, url, CRAP_CANDIDATE_REQUEST).status_code == 202
     turn = wait(client, url)["turns"][-1]
+    assert turn["status"] == "completed", turn["error"]
     row = next(row for row in turn["tool"]["report"]["functions"] if row["function"] == function)
     return {"turn_id": turn["id"], "file": row["file"], "line": row["line"]}, row
 
@@ -582,23 +689,24 @@ def test_crap_discussion_sends_only_the_bound_function_and_rejects_forged_or_sta
     chosen = "def chosen(value):\r\n    if value < 0:\r\n        return 0\r\n    return value\r\n"
     (root / "main.py").write_bytes((decoy + "# padding\r\n" * 125 + chosen + "\r\n" + decoy).encode())
     (root / "local.py").write_text("def only_local():\n    return 12\n", encoding="utf-8")
-    configure(client, base)
+    configure(client, base); authorize(client, base)
     url = topic(client, base)
-    target, row = crap_target_for(client, url, "chosen")
+    target, row = crap_target_for(client, base, url, transport, "chosen")
+    authorize(client, base, consent=False)
     assert send(client, base, url, crap_target=target).status_code == 409
     authorize(client, base)
     assert send(client, base, topic(client, base), crap_target=target).status_code == 409
     assert send(client, base, url, crap_target=target | {"line": target["line"] + 1}).status_code == 409
     assert send(client, base, url, crap_target=target | {"sha256": "forged"}).status_code == 422
-    local, _ = crap_target_for(client, url, "only_local")
+    local, _ = crap_target_for(client, base, url, transport, "only_local")
     assert send(client, base, url, crap_target=local).status_code == 409
-    assert not transport.calls
+    initial_calls = len(transport.calls)
 
     assert send(client, base, url, "如何改进这个函数", crap_target=target).status_code == 202
     turn = wait(client, url)["turns"][-1]
     assert turn["status"] == "completed", turn["error"]
     assert turn["crap_target"] == target
-    request = transport.calls[0]
+    request = transport.calls[initial_calls]
     assert len(request["messages"]) == 2
     payload = json.loads(request["messages"][-1]["content"])
     context = payload["context"]
@@ -615,14 +723,15 @@ def test_crap_discussion_sends_only_the_bound_function_and_rejects_forged_or_sta
     assert send(client, base, url, crap_target=target).status_code == 202
     stale = wait(client, url)["turns"][-1]
     assert stale["status"] == "failed" and "重新生成 CRAP" in stale["error"]
-    assert not stale["answer"] and len(transport.calls) == 1
+    assert not stale["answer"] and len(transport.calls) == initial_calls + 1
 
 
 def test_crap_discussion_checks_the_source_again_after_the_model_returns(bench):
     client, app, base, root, transport, data = bench
     configure(client, base); authorize(client, base)
     url = topic(client, base)
-    target, _ = crap_target_for(client, url, "run")
+    target, _ = crap_target_for(client, base, url, transport, "run")
+    transport.started.clear()
     transport.release.clear()
     try:
         assert send(client, base, url, crap_target=target).status_code == 202

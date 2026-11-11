@@ -78,8 +78,6 @@
 .chat-compose-actions { display: flex; align-items: center; gap: 10px; margin-top: 7px; min-height: 30px; }
 .chat-compose-actions button { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: #9eb1c1; padding: 0; }
 .chat-compose-actions { flex-wrap: wrap; }
-.chat-compose-actions .crap-tool-button { color: #a5d9ce; }
-.chat-compose-actions .crap-tool-button:disabled { color: #748796; }
 .crap-report-summary { display: flex; flex-wrap: wrap; gap: 8px; }
 .crap-report-summary > span { border: 1px solid #344451; border-radius: 5px; padding: 3px 8px; }
 .crap-report-summary strong { color: #b3dfd4; }
@@ -93,10 +91,7 @@
 .crap-table-wrap small { display: block; color: #97aabb; margin-top: 3px; }
 .crap-table-wrap .crap-source { display: inline-flex; align-items: flex-start; gap: 5px; padding: 0; text-align: left; }
 .crap-table-wrap .crap-source svg { flex: none; margin-top: 2px; }
-.crap-table-wrap .crap-discuss { display: block; margin-top: 5px; padding: 0; }
 .crap-over-reference { color: #f2ba86; font-weight: 600; }
-.crap-dialog form { display: grid; gap: 10px; }
-.crap-dialog label { display: grid; gap: 4px; }
 .chat-compose-actions .chat-send { margin-left: auto; border-radius: 5px; padding: 7px 12px; font-size: 12px; font-weight: 600; color: #10251e; background: #8dd7bf; }
 .chat-attachment { color: #a7d4ca; font-size: 11px; display: flex; align-items: center; gap: 7px; padding: 5px 0; }.chat-attachment button { margin-left: auto; padding: 0; display: flex; }
 .chat-attachment span { min-width: 0; overflow-wrap: anywhere; }

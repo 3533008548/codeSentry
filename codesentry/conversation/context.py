@@ -85,8 +85,9 @@ def terms(question):
     return words
 
 
-def select_context(access, data_dir, question, *, selected_path=None, check_text):
-    """No target imports, shells or model-directed tools. Report partial coverage."""
+def select_context(access, data_dir, question, *, selected_path=None, check_text, checkpoint=lambda: None,
+                   include_sources=True):
+    """Retrieve bounded, permission-checked source excerpts and report coverage."""
     listing = list_files(access.root, access=access, data_dir=data_dir)
     files = [item for item in listing["files"] if item["access_mode"] == "model_eligible"]
     if selected_path and selected_path not in {item["path"] for item in files}:
@@ -103,7 +104,8 @@ def select_context(access, data_dir, question, *, selected_path=None, check_text
 
     ranked = sorted(files, key=priority)
     candidates, scanned, skipped = [], 0, 0
-    for item in ranked[:64]:
+    for item in ranked[:64] if include_sources else ():
+        checkpoint()
         if item["size"] > MAX_FILE_BYTES or scanned + item["size"] > MAX_SCAN_BYTES:
             skipped += 1
             continue
